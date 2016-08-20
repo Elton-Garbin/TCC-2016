@@ -124,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
+    <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
+    <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -135,6 +138,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\ProductOwner\Views\web.config" />
+    <Content Include="Areas\ScrumMaster\Views\web.config" />
+    <Content Include="Areas\TeamMember\Views\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -144,6 +150,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\ProductOwner\Controllers\" />
+    <Folder Include="Areas\ProductOwner\Models\" />
+    <Folder Include="Areas\ProductOwner\Views\Shared\" />
+    <Folder Include="Areas\ScrumMaster\Controllers\" />
+    <Folder Include="Areas\ScrumMaster\Models\" />
+    <Folder Include="Areas\ScrumMaster\Views\Shared\" />
+    <Folder Include="Areas\TeamMember\Controllers\" />
+    <Folder Include="Areas\TeamMember\Models\" />
+    <Folder Include="Areas\TeamMember\Views\Shared\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
