@@ -16,7 +16,7 @@
     <RootNamespace>StartIdea.UI</RootNamespace>
     <AssemblyName>StartIdea.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -127,6 +127,11 @@
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
+    <Compile Include="Controllers\BurndownChartController.cs" />
+    <Compile Include="Controllers\BurnupChartController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductBacklogController.cs" />
+    <Compile Include="Controllers\SprintBacklogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -141,6 +146,13 @@
     <Content Include="Areas\ProductOwner\Views\web.config" />
     <Content Include="Areas\ScrumMaster\Views\web.config" />
     <Content Include="Areas\TeamMember\Views\web.config" />
+    <Content Include="Views\BurnupChart\Index.cshtml" />
+    <Content Include="Views\BurndownChart\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\ProductBacklog\Index.cshtml" />
+    <Content Include="Views\SprintBacklog\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -159,8 +171,7 @@
     <Folder Include="Areas\TeamMember\Controllers\" />
     <Folder Include="Areas\TeamMember\Models\" />
     <Folder Include="Areas\TeamMember\Views\Shared\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -177,7 +188,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50641/</IISUrl>
+          <IISUrl>http://localhost/StartIdea</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
