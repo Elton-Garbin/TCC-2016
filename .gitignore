@@ -252,3 +252,4 @@ paket-files/
 *.sln.iml
 /StartIdea/MVCTest
 /StartIdea/WebApplication2
+/StartIdea/packages
