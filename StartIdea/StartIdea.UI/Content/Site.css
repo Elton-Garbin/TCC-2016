@@ -1,6 +1,5 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿﻿body {
+    
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,9 +15,217 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.profile {
+  margin: 0px;
 }
+
+.profile > div[class*="col-"]{
+  margin: 0px;
+  padding: 0px;
+}
+
+@media (min-width: 992px){
+  .profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #1486c2;
+    position: fixed;
+    height: 100%;
+  }
+}
+
+
+/* Profile sidebar */
+/*Costumização navbar*/
+.navbar-custom{
+  margin-bottom: 0px;
+}
+
+.menu-lateral{
+  width: 250px;
+  border-radius: 0px;
+}
+
+.navbar{
+  border-radius: 0px !important;
+}
+
+.navbar-inverse{
+  border: 0px !important;
+  background-color: #1486c2;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+    color: white !important;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{
+    background-color: #0b4873 !important;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret{
+    border-top-color: white !important;
+    border-bottom-color: white !important;
+}
+
+.menu-lateral > ul > li{
+  border-radius: 0px;
+}
+
+
+
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #1486c2;
+}
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-name:hover{
+  color: black;
+}
+
+.profile-usertitle-job {
+  text-transform: uppercase;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+  color: white;
+}
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+
+.profile-usermenu {
+  margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: black;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+/*FIm da Costumização do Navbar*/
+
+/*Tela de Login*/
+.body-login {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-login {
+  max-width: 330px;
+  padding: 5px 20px 20px 20px;
+  margin: 5% auto 0 auto;
+  -webkit-box-shadow: 4px 4px 17px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 4px 17px -2px rgba(0,0,0,0.75);
+  box-shadow: 4px 4px 17px -2px rgba(0,0,0,0.75);
+  border-radius: 5px;
+}
+.form-login .form-login-heading {
+  margin-bottom: 10px;
+}
+
+.form-login .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-login .form-control:focus {
+  z-index: 2;
+}
+.form-login input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-login input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-login .esqueci-senha{
+  margin-top: 10px;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;;
+}
+
+.btn-enviar-email{
+  margin-top: 5px;
+}
+
+.form-recuperar-senha{
+  margin-top: 5px;
+  display: none;
+}
+/*Fim da Tela de Login*/
