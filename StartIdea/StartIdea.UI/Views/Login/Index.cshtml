@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Login";
 }
 
 <!DOCTYPE html>
@@ -9,9 +9,31 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
 </head>
-<body>
-    <div>
-    
+<body class="body-login">
+    <div class="container form-login">
+        <form>
+            <h2 class="form-login-heading">Login</h2>
+            <label for="usuario" class="sr-only">Usuário</label>
+            <input type="text" id="usuario" class="form-control" placeholder="Usuário" required="" autofocus="">
+            <label for="senha" class="sr-only">Senha</label>
+            <input type="password" id="senha" class="form-control" placeholder="Senha" required="">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Mantenha-me conectado
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        </form>
+
+        <div class="esqueci-senha">
+            <a href="#" id="lnkEsqueciSenha">Esqueci minha senha</a>
+        </div>
+
+        <form id="form-recupera-senha" class="form-recuperar-senha">
+            <label for="emailRecuperaSenha" class="sr-only">Email</label>
+            <input type="email" id="emailRecuperaSenha" class="form-control" placeholder="Email" required="">
+            <button class="btn btn-lg btn-primary btn-block btn-enviar-email" type="submit">Enviar</button>
+        </form>
     </div>
 </body>
 </html>
