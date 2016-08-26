@@ -9,6 +9,7 @@
 
 </head>
 <body>
+    @{Html.RenderPartial("~/Views/Shared/_Header.cshtml");}
 
     @RenderBody()
 
@@ -16,17 +17,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-    <script>
-        $(function () {
-            $("#lnkEsqueciSenha").click(function (e) {
-                e.preventDefault();
-                $("#form-recupera-senha").animate({
-                    left: "+=50",
-                    height: "toggle"
-                }, 500);
-            });
-        })
-    </script>
+    @if (IsSectionDefined("CustomScript")) {
+        @RenderSection("CustomScript")
+    }
 </body>
 </html>

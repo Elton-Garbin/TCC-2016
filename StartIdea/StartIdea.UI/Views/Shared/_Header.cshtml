@@ -18,10 +18,10 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Backlog</a></li>
+                        <li>@Html.ActionLink("Backlog", "Index", "ProductBacklog")</li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Gráfico de BurnDown</a></li>
-                        <li><a href="#">Gráfico de BurnUp</a></li>
+                        <li>@Html.ActionLink("Gráfico de BurnDown", "Index", "BurndownChart")</li>
+                        <li>@Html.ActionLink("Gráfico de BurnUp", "Index", "BurnupChart")</li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -30,7 +30,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Backlog</a></li>
+                        <li>@Html.ActionLink("Backlog", "Index", "SprintBacklog")</li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Planejamento da Sprint</a></li>
                         <li><a href="#">Daily Scrum</a></li>
@@ -43,20 +43,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#">
-                        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Perfil</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Sair</a></li>
-                    </ul>
+                    @Html.ActionLink("Login", "Index", "Login")
                 </li>
             </ul>
         </div>

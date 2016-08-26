@@ -2,14 +2,21 @@
     ViewBag.Title = "Login";
 }
 
-<!DOCTYPE html>
+@section CustomScript{
+    <script>
+        $(function () {
+            $("#lnkEsqueciSenha").click(function (e) {
+                e.preventDefault();
+                $("#form-recupera-senha").animate({
+                    left: "+=50",
+                    height: "toggle"
+                }, 500);
+            });
+        })
+    </script>
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body class="body-login">
+<div>
     <div class="container form-login">
         <form>
             <h2 class="form-login-heading">Login</h2>
@@ -35,5 +42,4 @@
             <button class="btn btn-lg btn-primary btn-block btn-enviar-email" type="submit">Enviar</button>
         </form>
     </div>
-</body>
-</html>
+</div>
