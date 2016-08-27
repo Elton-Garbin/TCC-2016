@@ -229,3 +229,31 @@
   display: none;
 }
 /*Fim da Tela de Login*/
+
+
+/*Tela de Product Backlog*/
+.form-busca{
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: 0px;
+}
+
+.btn-busca{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.filtro-checkbox{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dono-produto{
+    margin-bottom: 25px;
+}
+
+/*FIm da tela de Product Backlog*/
+
+.both{
+    clear: both;
+}
