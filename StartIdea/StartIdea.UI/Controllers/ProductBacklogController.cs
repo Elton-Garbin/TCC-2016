@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
+using StartIdea.Model.Scrum.Artefatos;
+using System;
 
 namespace StartIdea.UI.Controllers
 {
@@ -27,9 +29,20 @@ namespace StartIdea.UI.Controllers
             int pageSize = 5;
             int pageNumber = (pagina ?? 1);
 
-            return Request.IsAjaxRequest()
-                ? (ActionResult)PartialView("ProductBacklogGrid", productBacklogVM.BackLogItem.ToPagedList(pageNumber, pageSize))
-                : View(productBacklogVM.BackLogItem.ToPagedList(pageNumber, pageSize));
+            return View(productBacklogVM.BackLogItem.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Detalhes(int id)
+        {
+            ProductBacklogItem item = new ProductBacklogItem();
+            item.Id = id;
+            item.UserStory = @"Teste da user asflj akjfhafkjhasfjkasfj asjfaj fajf hakfh ajkfh afkjhafkjahfkjahsfjkashf jakf jkashf jahf jkah fkja fjkahs fjashf kjasfkjasfk aksf akjs f7
+                               afasfaaslfkh afsjk asjf aksjf jaskf askjfh akjsf ajskf hakjshfjkhfjkahsf jaksf hajshfjahsfkajf, alhfsldhçsdghaldgkljdfhg kdj gakjhsjhskl sj jks gj gd";
+            item.Tamanho = "PP";
+            item.Prioridade = 1;
+            item.DataInclusao = new DateTime(2015, 10, 9);
+
+            return View(item);
         }
     }
 }

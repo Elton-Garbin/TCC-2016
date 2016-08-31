@@ -254,6 +254,12 @@
 
 /*FIm da tela de Product Backlog*/
 
+/*Detalhes backlog item*/
+.backlog-item-space{
+    margin-top: 25px;
+}
+/*Fim backlog item*/
+
 .both{
     clear: both;
 }
