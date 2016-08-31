@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StartIdea.Model.Scrum.Artefatos
+namespace StartIdea.Model.ScrumArtefatos
 {
     public class TarefaStatus
     {
@@ -17,5 +11,9 @@ namespace StartIdea.Model.Scrum.Artefatos
         public int TarefaId { get; set; }
         public int StatusId { get; set; }
         public int MembroTimeId { get; set; }
+
+        public virtual MembroTime MembroTime { get; set; }
+        public virtual Status Status { get; set; }
+        public virtual Tarefa Tarefa { get; set; }
     }
 }

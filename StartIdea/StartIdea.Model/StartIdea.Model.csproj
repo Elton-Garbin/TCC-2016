@@ -41,20 +41,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scrum\Artefatos\ProductBacklog.cs" />
-    <Compile Include="Scrum\Artefatos\ProductBacklogItem.cs" />
-    <Compile Include="Scrum\Artefatos\SprintBacklog.cs" />
-    <Compile Include="Scrum\Artefatos\Status.cs" />
-    <Compile Include="Scrum\Artefatos\Tarefa.cs" />
-    <Compile Include="Scrum\Artefatos\TarefaStatus.cs" />
-    <Compile Include="Scrum\Eventos\DailyScrum.cs" />
-    <Compile Include="Scrum\Eventos\RetrospectivaSprint.cs" />
-    <Compile Include="Scrum\Eventos\RevisaoSprint.cs" />
-    <Compile Include="Scrum\Eventos\Sprint.cs" />
-    <Compile Include="Scrum\Time\MembroTime.cs" />
-    <Compile Include="Scrum\Time\ProductOwner.cs" />
-    <Compile Include="Scrum\Time\ScrumMaster.cs" />
-    <Compile Include="Scrum\Time\Time.cs" />
+    <Compile Include="ScrumArtefatos\ProductBacklog.cs" />
+    <Compile Include="ScrumArtefatos\ProductBacklogItem.cs" />
+    <Compile Include="ScrumArtefatos\SprintBacklog.cs" />
+    <Compile Include="ScrumArtefatos\Status.cs" />
+    <Compile Include="ScrumArtefatos\Tarefa.cs" />
+    <Compile Include="ScrumArtefatos\TarefaStatus.cs" />
+    <Compile Include="ScrumEventos\DailyScrum.cs" />
+    <Compile Include="ScrumEventos\PlanejamentoSprint.cs" />
+    <Compile Include="ScrumEventos\RetrospectivaSprint.cs" />
+    <Compile Include="ScrumEventos\RevisaoSprint.cs" />
+    <Compile Include="ScrumEventos\Sprint.cs" />
+    <Compile Include="TimeScrum\MembroTime.cs" />
+    <Compile Include="TimeScrum\ProducOwner.cs" />
+    <Compile Include="TimeScrum\ScrumMaster.cs" />
+    <Compile Include="TimeScrum\Time.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
