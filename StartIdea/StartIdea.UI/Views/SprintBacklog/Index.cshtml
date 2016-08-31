@@ -1,1 +1,53 @@
-﻿
+﻿@model PagedList.IPagedList<StartIdea.Model.Scrum.Eventos.Sprint>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+<h1>Sprints</h1>
+
+@using (Html.BeginForm("Index", "SprintBacklog", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-6">
+            @Html.TextBox("contextoBusca", ViewBag.ContextoAtual as string, new { @class = "form-control", @placeholder = "Objetivo da Sprint" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("dataInicial", ViewBag.DataInicialAtual as string, new { @class = "form-control datepicker", @placeholder = "Data Inicio" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("dataFinal", ViewBag.DataFinalAtual as string, new { @class = "form-control datepicker", @placeholder = "Data Fim" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-block" />
+        </div>
+    </div>
+}
+<br />
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Objetivo</th>
+            <th class="text-center">Data Inicio</th>
+            <th class="text-center">Data Fim</th>
+            <th class="text-center">Detalhes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="70%">@Html.Label((item.Objetivo.Length > 130) ? item.Objetivo.Substring(0, 130) : item.Objetivo, new { @style = "font-weight: normal" })</td>
+                <td class="text-center" width="10%">@item.DataInicio.ToString("dd/MM/yyyy")</td>
+                <td class="text-center" width="10%">@item.DataFim.ToString("dd/MM/yyyy")</td>
+                <td class="text-center" width="10%">
+                    <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id })">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model, pagina => Url.Action("Index",
+        new { pagina, filtroAtual = ViewBag.FiltroAtual }))

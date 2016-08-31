@@ -1,0 +1,41 @@
+﻿@model StartIdea.Model.Scrum.Artefatos.ProductBacklogItem
+
+@{ViewBag.Title = "Detalhes - Backlog do Produto";}
+
+
+<h1>Backlog Item - Detalhes</h1>
+
+<div class="profile">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Prioridade: @Model.Prioridade</h3>
+        </div>
+        <div class="col-md-3">
+            <h3>Tamanho: @Model.Tamanho</h3>
+        </div>
+    </div>
+    <div class="row backlog-item-space">
+        <div class="col-md-12">
+            <label>Descricao</label>
+            <br />
+            <span>@Model.UserStory</span>
+        </div>
+    </div>
+</div>
+<div class="row backlog-item-space">
+    <div class="col-md-3">
+        <label>Data da Inclusão: @Model.DataInclusao.ToString("dd/MM/yyyy")</label>
+    </div>
+    <div class="col-md-3">
+        <label>Data da Alteração: @Html.LabelForModel((Model.DataAlteracao == DateTime.MinValue) ? string.Empty : Model.DataAlteracao.ToString("dd/MM/yyyy"))</label>
+    </div>
+    <div class="col-md-3">
+        <label>Data da Exclusao: @Html.LabelForModel((Model.DataExclusao == DateTime.MinValue) ? string.Empty : Model.DataExclusao.ToString("dd/MM/yyyy"))</label>
+    </div>
+</div>
+<div class="row backlog-item-space">
+    <div class="col-md-2">
+        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { @class = "btn btn-default btn-block" })
+    </div>
+</div>
+

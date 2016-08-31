@@ -1,1 +1,65 @@
-﻿
+﻿@model PagedList.IPagedList<StartIdea.Model.Scrum.Artefatos.ProductBacklogItem>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+<h1>Backlog do Produto</h1>
+<h4 class="dono-produto">Dono do Produto: Gabriel Fernandes</h4>
+
+@using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
+{
+    <div class="profile row">
+        <div class="col-md-10">
+            @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control form-busca", @placeholder = "Descrição" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-block btn-busca" />
+        </div>
+    </div>
+        <div class="filtro-checkbox">
+            <div class="col-md-4">
+                <label>
+                    <input type="checkbox" name="status" value="P" /> Pendente
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="checkbox" name="status" value="A" /> Em Processo
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="checkbox" name="status" value="C" /> Pronto
+                </label>
+            </div>
+            <div class="both"></div>
+        </div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Descrição</th>
+            <th class="text-center">Tamanho</th>
+            <th class="text-center">Prioridade</th>
+            <th class="text-center">Detalhes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="70%">@Html.Label((item.UserStory.Length > 130) ? item.UserStory.Substring(0, 130) : item.UserStory, new { @style = "font-weight: normal" })  </td>
+                <td class="text-center" width="10%">@item.Tamanho</td>
+                <td class="text-center" width="10%">@item.Prioridade</td>
+                <td class="text-center" width="10%">
+                    <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id })">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model, pagina => Url.Action("Index",
+        new { pagina, filtroAtual = ViewBag.FiltroAtual }))
