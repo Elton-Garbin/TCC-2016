@@ -9,18 +9,16 @@ namespace StartIdea.Model.ScrumEventos
     {
         public Sprint()
         {
-            DailyScrum = new HashSet<DailyScrum>();
-            PlanejamentoSprint = new HashSet<PlanejamentoSprint>();
-            RetrospectivaSprint = new HashSet<RetrospectivaSprint>();
-            RevisaoSprint = new HashSet<RevisaoSprint>();
-            SprintBacklog = new HashSet<SprintBacklog>();
+            DailiesScrum = new HashSet<DailyScrum>();
+            PlanejamentosSprint = new HashSet<PlanejamentoSprint>();
+            RetrospectivasSprint = new HashSet<RetrospectivaSprint>();
+            RevisoesSprint = new HashSet<RevisaoSprint>();
+            SprintBacklogs = new HashSet<SprintBacklog>();
         }
 
         public int Id { get; set; }
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
-        //[Required]
-        //[StringLength(50)]
         public string Objetivo { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime? DataCancelamento { get; set; }
@@ -28,10 +26,10 @@ namespace StartIdea.Model.ScrumEventos
 
         public virtual Time Time { get; set; }
 
-        public virtual ICollection<DailyScrum> DailyScrum { get; set; }
-        public virtual ICollection<PlanejamentoSprint> PlanejamentoSprint { get; set; }
-        public virtual ICollection<RetrospectivaSprint> RetrospectivaSprint { get; set; }
-        public virtual ICollection<RevisaoSprint> RevisaoSprint { get; set; }
-        public virtual ICollection<SprintBacklog> SprintBacklog { get; set; }
+        public virtual ICollection<DailyScrum> DailiesScrum { get; set; }
+        public virtual ICollection<PlanejamentoSprint> PlanejamentosSprint { get; set; }
+        public virtual ICollection<RetrospectivaSprint> RetrospectivasSprint { get; set; }
+        public virtual ICollection<RevisaoSprint> RevisoesSprint { get; set; }
+        public virtual ICollection<SprintBacklog> SprintBacklogs { get; set; }
     }
 }

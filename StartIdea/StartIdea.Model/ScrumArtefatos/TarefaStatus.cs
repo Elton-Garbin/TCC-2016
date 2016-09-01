@@ -1,3 +1,5 @@
+using StartIdea.Model.TimeScrum;
+
 namespace StartIdea.Model.ScrumArtefatos
 {
     public class TarefaStatus

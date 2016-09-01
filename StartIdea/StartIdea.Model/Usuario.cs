@@ -7,25 +7,19 @@ namespace StartIdea.Model
     {
         public Usuario()
         {
-            MembroTime = new HashSet<MembroTime>();
-            ProductOwner = new HashSet<ProductOwner>();
-            ScrumMaster = new HashSet<ScrumMaster>();
+            MembrosTime = new HashSet<MembroTime>();
+            ProductOwners = new HashSet<ProductOwner>();
+            ScrumMasters = new HashSet<ScrumMaster>();
         }
 
         public int Id { get; set; }
-        //[Required]
-        //[StringLength(20)]
         public string UserName { get; set; }
-        //[Required]
-        //[StringLength(100)]
         public string Email { get; set; }
-        //[Required]
-        public byte[] Senha { get; set; }
-        //[StringLength(100)]
+        public string Senha { get; set; }
         public string Nome { get; set; }
 
-        public virtual ICollection<MembroTime> MembroTime { get; set; }
-        public virtual ICollection<ProductOwner> ProductOwner { get; set; }
-        public virtual ICollection<ScrumMaster> ScrumMaster { get; set; }
+        public virtual ICollection<MembroTime> MembrosTime { get; set; }
+        public virtual ICollection<ProductOwner> ProductOwners { get; set; }
+        public virtual ICollection<ScrumMaster> ScrumMasters { get; set; }
     }
 }

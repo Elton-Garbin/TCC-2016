@@ -1,3 +1,4 @@
+using StartIdea.Model.ScrumEventos;
 using System.Collections.Generic;
 
 namespace StartIdea.Model.ScrumArtefatos
@@ -6,7 +7,7 @@ namespace StartIdea.Model.ScrumArtefatos
     {
         public SprintBacklog()
         {
-            Tarefa = new HashSet<Tarefa>();
+            Tarefas = new HashSet<Tarefa>();
         }
 
         public int Id { get; set; }
@@ -16,6 +17,6 @@ namespace StartIdea.Model.ScrumArtefatos
         public virtual Sprint Sprint { get; set; }
         public virtual ProductBacklogItem ProductBacklogItem { get; set; }
 
-        public virtual ICollection<Tarefa> Tarefa { get; set; }
+        public virtual ICollection<Tarefa> Tarefas { get; set; }
     }
 }

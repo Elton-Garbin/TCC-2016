@@ -7,12 +7,10 @@ namespace StartIdea.Model.TimeScrum
     {
         public MembroTime()
         {
-            TarefaStatus = new HashSet<TarefaStatus>();
+            TarefasStatus = new HashSet<TarefaStatus>();
         }
 
         public int Id { get; set; }
-        //[Required]
-        //[StringLength(20)]
         public string Funcao { get; set; }
         public int TimeId { get; set; }
         public int UsuarioId { get; set; }
@@ -20,6 +18,6 @@ namespace StartIdea.Model.TimeScrum
         public virtual Time Time { get; set; }
         public virtual Usuario Usuario { get; set; }
 
-        public virtual ICollection<TarefaStatus> TarefaStatus { get; set; }
+        public virtual ICollection<TarefaStatus> TarefasStatus { get; set; }
     }
 }

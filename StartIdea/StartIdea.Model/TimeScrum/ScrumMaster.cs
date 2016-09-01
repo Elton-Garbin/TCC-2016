@@ -6,7 +6,7 @@ namespace StartIdea.Model.TimeScrum
     {
         public ScrumMaster()
         {
-            Time = new HashSet<Time>();
+            Times = new HashSet<Time>();
         }
 
         public int Id { get; set; }
@@ -14,6 +14,6 @@ namespace StartIdea.Model.TimeScrum
 
         public virtual Usuario Usuario { get; set; }
 
-        public virtual ICollection<Time> Time { get; set; }
+        public virtual ICollection<Time> Times { get; set; }
     }
 }

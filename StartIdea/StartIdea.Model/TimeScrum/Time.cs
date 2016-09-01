@@ -7,19 +7,17 @@ namespace StartIdea.Model.TimeScrum
     {
         public Time()
         {
-            MembroTime = new HashSet<MembroTime>();
-            Sprint = new HashSet<Sprint>();
+            MembrosTime = new HashSet<MembroTime>();
+            Sprints = new HashSet<Sprint>();
         }
 
         public int Id { get; set; }
-        //[Required]
-        //[StringLength(50)]
         public string Nome { get; set; }
         public int ScrumMasterId { get; set; }
 
         public virtual ScrumMaster ScrumMaster { get; set; }
 
-        public virtual ICollection<MembroTime> MembroTime { get; set; }
-        public virtual ICollection<Sprint> Sprint { get; set; }
+        public virtual ICollection<MembroTime> MembrosTime { get; set; }
+        public virtual ICollection<Sprint> Sprints { get; set; }
     }
 }
