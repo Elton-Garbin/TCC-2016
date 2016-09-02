@@ -49,18 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelMapping\ScrumArtefatos\ProductBacklogItemMap.cs" />
-    <Compile Include="ModelMapping\ScrumArtefatos\ProductBacklogMap.cs" />
-    <Compile Include="ModelMapping\ScrumArtefatos\StatusMap.cs" />
-    <Compile Include="ModelMapping\ScrumArtefatos\TarefaMap.cs" />
-    <Compile Include="ModelMapping\ScrumEventos\DailyScrumMap.cs" />
-    <Compile Include="ModelMapping\ScrumEventos\PlanejamentoSprintMap.cs" />
-    <Compile Include="ModelMapping\ScrumEventos\RetrospectivaSprintMap.cs" />
-    <Compile Include="ModelMapping\ScrumEventos\RevisaoSprintMap.cs" />
-    <Compile Include="ModelMapping\ScrumEventos\SprintMap.cs" />
-    <Compile Include="ModelMapping\TimeScrum\MembroTimeMap.cs" />
-    <Compile Include="ModelMapping\TimeScrum\TimeMap.cs" />
-    <Compile Include="ModelMapping\UsuarioMap.cs" />
+    <Compile Include="Mapping\ScrumArtefatos\ProductBacklogItemMap.cs" />
+    <Compile Include="Mapping\ScrumArtefatos\ProductBacklogMap.cs" />
+    <Compile Include="Mapping\ScrumArtefatos\StatusMap.cs" />
+    <Compile Include="Mapping\ScrumArtefatos\TarefaMap.cs" />
+    <Compile Include="Mapping\ScrumEventos\DailyScrumMap.cs" />
+    <Compile Include="Mapping\ScrumEventos\PlanejamentoSprintMap.cs" />
+    <Compile Include="Mapping\ScrumEventos\RetrospectivaSprintMap.cs" />
+    <Compile Include="Mapping\ScrumEventos\RevisaoSprintMap.cs" />
+    <Compile Include="Mapping\ScrumEventos\SprintMap.cs" />
+    <Compile Include="Mapping\TimeScrum\MembroTimeMap.cs" />
+    <Compile Include="Mapping\TimeScrum\TimeMap.cs" />
+    <Compile Include="Mapping\UsuarioMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartIdeaContext.cs" />
   </ItemGroup>

@@ -1,7 +1,7 @@
-using StartIdea.DataAccess.ModelMapping;
-using StartIdea.DataAccess.ModelMapping.ScrumArtefatos;
-using StartIdea.DataAccess.ModelMapping.ScrumEventos;
-using StartIdea.DataAccess.ModelMapping.TimeScrum;
+using StartIdea.DataAccess.Mapping;
+using StartIdea.DataAccess.Mapping.ScrumArtefatos;
+using StartIdea.DataAccess.Mapping.ScrumEventos;
+using StartIdea.DataAccess.Mapping.TimeScrum;
 using StartIdea.Model;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.Model.ScrumEventos;
