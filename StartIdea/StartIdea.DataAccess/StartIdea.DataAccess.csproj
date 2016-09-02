@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Mapping\ScrumArtefatos\ProductBacklogItemMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\ProductBacklogMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\StatusMap.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Mapping\TimeScrum\TimeMap.cs" />
     <Compile Include="Mapping\UsuarioMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Repository.cs" />
     <Compile Include="StartIdeaContext.cs" />
   </ItemGroup>
   <ItemGroup>

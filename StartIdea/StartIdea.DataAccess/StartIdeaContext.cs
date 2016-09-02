@@ -14,7 +14,7 @@ namespace StartIdea.DataAccess
     public partial class StartIdeaContext : DbContext
     {
         public StartIdeaContext()
-            : base("name=StartIdeaContext")
+            : base("name=StartIdeaDBConnectionString")
         {
             Configuration.LazyLoadingEnabled   = false;
             Configuration.ProxyCreationEnabled = false;
