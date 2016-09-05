@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E5DDEB89-ECF6-4D4F-ABEC-8F0966E1A27F}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{482313FF-2971-4F61-8D83-9447709AE528}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StartIdea.DataAccess</RootNamespace>
-    <AssemblyName>StartIdea.DataAccess</AssemblyName>
+    <RootNamespace>StartIdea.Console</RootNamespace>
+    <AssemblyName>StartIdea.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -38,6 +41,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,31 +56,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapping\ScrumArtefatos\InteracaoProductBacklogItemMap.cs" />
-    <Compile Include="Mapping\ScrumArtefatos\ProductBacklogItemMap.cs" />
-    <Compile Include="Mapping\ScrumArtefatos\ProductBacklogMap.cs" />
-    <Compile Include="Mapping\ScrumArtefatos\StatusMap.cs" />
-    <Compile Include="Mapping\ScrumArtefatos\TarefaMap.cs" />
-    <Compile Include="Mapping\ScrumEventos\ReuniaoMap.cs" />
-    <Compile Include="Mapping\ScrumEventos\SprintMap.cs" />
-    <Compile Include="Mapping\TimeScrum\MembroTimeMap.cs" />
-    <Compile Include="Mapping\TimeScrum\TimeMap.cs" />
-    <Compile Include="Mapping\UsuarioMap.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Base\IRepository.cs" />
-    <Compile Include="Repositories\Base\Repository.cs" />
-    <Compile Include="StartIdeaDBContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StartIdea.DataAccess\StartIdea.DataAccess.csproj">
+      <Project>{E8CD2DE3-9924-4621-8391-5F203105B7DE}</Project>
+      <Name>StartIdea.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StartIdea.Model\StartIdea.Model.csproj">
-      <Project>{f64bb58c-e200-43ff-8bf9-450cfdace761}</Project>
+      <Project>{90765DF6-4E08-4F84-BD6B-0C157D874E67}</Project>
       <Name>StartIdea.Model</Name>
     </ProjectReference>
   </ItemGroup>

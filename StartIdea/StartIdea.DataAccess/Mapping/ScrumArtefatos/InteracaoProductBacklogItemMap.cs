@@ -3,12 +3,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace StartIdea.DataAccess.Mapping.ScrumArtefatos
 {
-    public class TarefaMap : EntityTypeConfiguration<Tarefa>
+    public class InteracaoProductBacklogItemMap : EntityTypeConfiguration<InteracaoProductBacklogItem>
     {
-        public TarefaMap()
+        public InteracaoProductBacklogItemMap()
         {
             Property(x => x.Descricao)
-                .HasMaxLength(250)
                 .IsRequired();
         }
     }

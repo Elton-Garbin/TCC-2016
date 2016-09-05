@@ -41,19 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScrumArtefatos\InteracaoProductBacklogItem.cs" />
     <Compile Include="ScrumArtefatos\ProductBacklog.cs" />
     <Compile Include="ScrumArtefatos\ProductBacklogItem.cs" />
     <Compile Include="ScrumArtefatos\SprintBacklog.cs" />
     <Compile Include="ScrumArtefatos\Status.cs" />
+    <Compile Include="ScrumArtefatos\StatusTarefa.cs" />
     <Compile Include="ScrumArtefatos\Tarefa.cs" />
-    <Compile Include="ScrumArtefatos\TarefaStatus.cs" />
-    <Compile Include="ScrumEventos\DailyScrum.cs" />
-    <Compile Include="ScrumEventos\PlanejamentoSprint.cs" />
-    <Compile Include="ScrumEventos\RetrospectivaSprint.cs" />
-    <Compile Include="ScrumEventos\RevisaoSprint.cs" />
+    <Compile Include="ScrumEventos\Reuniao.cs" />
     <Compile Include="ScrumEventos\Sprint.cs" />
     <Compile Include="TimeScrum\MembroTime.cs" />
-    <Compile Include="TimeScrum\ProducOwner.cs" />
+    <Compile Include="TimeScrum\ProductOwner.cs" />
     <Compile Include="TimeScrum\ScrumMaster.cs" />
     <Compile Include="TimeScrum\Time.cs" />
     <Compile Include="Usuario.cs" />

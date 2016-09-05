@@ -1,4 +1,4 @@
-using StartIdea.Model.TimeScrum;
+﻿using StartIdea.Model.TimeScrum;
 using System.Collections.Generic;
 
 namespace StartIdea.Model.ScrumArtefatos

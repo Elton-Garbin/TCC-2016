@@ -1,4 +1,5 @@
-using StartIdea.Model.ScrumEventos;
+﻿using StartIdea.Model.ScrumEventos;
+using System;
 using System.Collections.Generic;
 
 namespace StartIdea.Model.ScrumArtefatos

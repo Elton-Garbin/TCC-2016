@@ -1,9 +1,9 @@
-﻿using StartIdea.UI.ViewModels;
+﻿using PagedList;
+using StartIdea.Model.ScrumArtefatos;
+using StartIdea.UI.ViewModels;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using PagedList;
-using StartIdea.Model.Scrum.Artefatos;
-using System;
 
 namespace StartIdea.UI.Controllers
 {
@@ -38,7 +38,6 @@ namespace StartIdea.UI.Controllers
             item.Id = id;
             item.UserStory = @"Teste da user asflj akjfhafkjhasfjkasfj asjfaj fajf hakfh ajkfh afkjhafkjahfkjahsfjkashf jakf jkashf jahf jkah fkja fjkahs fjashf kjasfkjasfk aksf akjs f7
                                afasfaaslfkh afsjk asjf aksjf jaskf askjfh akjsf ajskf hakjshfjkhfjkahsf jaksf hajshfjahsfkajf, alhfsldhçsdghaldgkljdfhg kdj gakjhsjhskl sj jks gj gd";
-            item.Tamanho = "PP";
             item.Prioridade = 1;
             item.DataInclusao = new DateTime(2015, 10, 9);
 

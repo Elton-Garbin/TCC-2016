@@ -1,4 +1,4 @@
-using StartIdea.Model.ScrumEventos;
+﻿using StartIdea.Model.ScrumEventos;
 using System.Collections.Generic;
 
 namespace StartIdea.Model.TimeScrum

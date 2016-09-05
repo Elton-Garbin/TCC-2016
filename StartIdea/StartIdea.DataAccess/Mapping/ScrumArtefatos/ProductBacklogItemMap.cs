@@ -1,4 +1,4 @@
-using StartIdea.Model.ScrumArtefatos;
+﻿using StartIdea.Model.ScrumArtefatos;
 using System.Data.Entity.ModelConfiguration;
 
 namespace StartIdea.DataAccess.Mapping.ScrumArtefatos
@@ -8,12 +8,8 @@ namespace StartIdea.DataAccess.Mapping.ScrumArtefatos
         public ProductBacklogItemMap()
         {
             Property(x => x.UserStory)
-                .HasMaxLength(50)
+                .HasMaxLength(150)
                 .IsRequired();
-
-            Property(x => x.Tamanho)
-                .HasMaxLength(1)
-                .IsFixedLength();
         }
     }
 }

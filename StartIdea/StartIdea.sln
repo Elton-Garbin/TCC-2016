@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.Model", "StartIdea.Model\StartIdea.Model.csproj", "{F64BB58C-E200-43FF-8BF9-450CFDACE761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.UI", "StartIdea.UI\StartIdea.UI.csproj", "{3D436AA7-2FA5-4A40-AC81-6DBCC8BF1C11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.DataAccess", "StartIdea.DataAccess\StartIdea.DataAccess.csproj", "{E5DDEB89-ECF6-4D4F-ABEC-8F0966E1A27F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.Console", "StartIdea.Console\StartIdea.Console.csproj", "{482313FF-2971-4F61-8D83-9447709AE528}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E5DDEB89-ECF6-4D4F-ABEC-8F0966E1A27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5DDEB89-ECF6-4D4F-ABEC-8F0966E1A27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5DDEB89-ECF6-4D4F-ABEC-8F0966E1A27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{482313FF-2971-4F61-8D83-9447709AE528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{482313FF-2971-4F61-8D83-9447709AE528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{482313FF-2971-4F61-8D83-9447709AE528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{482313FF-2971-4F61-8D83-9447709AE528}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

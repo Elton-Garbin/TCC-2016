@@ -3,11 +3,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace StartIdea.DataAccess.Mapping.ScrumEventos
 {
-    public class SprintMap : EntityTypeConfiguration<Sprint>
+    public class ReuniaoMap : EntityTypeConfiguration<Reuniao>
     {
-        public SprintMap()
+        public ReuniaoMap()
         {
-            Property(x => x.Objetivo)
+            Property(x => x.Local)
                 .HasMaxLength(50)
                 .IsRequired();
         }

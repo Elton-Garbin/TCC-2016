@@ -1,4 +1,4 @@
-using StartIdea.Model.ScrumArtefatos;
+﻿using StartIdea.Model.ScrumArtefatos;
 using System.Data.Entity.ModelConfiguration;
 
 namespace StartIdea.DataAccess.Mapping.ScrumArtefatos

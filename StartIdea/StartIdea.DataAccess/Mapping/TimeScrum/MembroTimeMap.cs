@@ -1,4 +1,4 @@
-using StartIdea.Model.TimeScrum;
+﻿using StartIdea.Model.TimeScrum;
 using System.Data.Entity.ModelConfiguration;
 
 namespace StartIdea.DataAccess.Mapping.TimeScrum

@@ -1,4 +1,4 @@
-using StartIdea.Model.TimeScrum;
+﻿using StartIdea.Model.TimeScrum;
 using System.Collections.Generic;
 
 namespace StartIdea.Model
@@ -7,9 +7,9 @@ namespace StartIdea.Model
     {
         public Usuario()
         {
-            MembrosTime = new HashSet<MembroTime>();
             ProductOwners = new HashSet<ProductOwner>();
             ScrumMasters = new HashSet<ScrumMaster>();
+            MembrosTime = new HashSet<MembroTime>();
         }
 
         public int Id { get; set; }
@@ -18,8 +18,8 @@ namespace StartIdea.Model
         public string Senha { get; set; }
         public string Nome { get; set; }
 
-        public virtual ICollection<MembroTime> MembrosTime { get; set; }
         public virtual ICollection<ProductOwner> ProductOwners { get; set; }
         public virtual ICollection<ScrumMaster> ScrumMasters { get; set; }
+        public virtual ICollection<MembroTime> MembrosTime { get; set; }
     }
 }

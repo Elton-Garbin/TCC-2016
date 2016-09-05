@@ -1,4 +1,4 @@
-using StartIdea.Model.ScrumArtefatos;
+﻿using StartIdea.Model.ScrumArtefatos;
 using System.Collections.Generic;
 
 namespace StartIdea.Model.TimeScrum
@@ -7,7 +7,9 @@ namespace StartIdea.Model.TimeScrum
     {
         public MembroTime()
         {
-            TarefasStatus = new HashSet<TarefaStatus>();
+            InteracoesProductBacklogItem = new HashSet<InteracaoProductBacklogItem>();
+            Tarefas = new HashSet<Tarefa>();
+            //TarefasStatus = new HashSet<TarefaStatus>();
         }
 
         public int Id { get; set; }
@@ -18,6 +20,8 @@ namespace StartIdea.Model.TimeScrum
         public virtual Time Time { get; set; }
         public virtual Usuario Usuario { get; set; }
 
-        public virtual ICollection<TarefaStatus> TarefasStatus { get; set; }
+        public virtual ICollection<InteracaoProductBacklogItem> InteracoesProductBacklogItem { get; set; }
+        public virtual ICollection<Tarefa> Tarefas { get; set; }
+        //public virtual ICollection<TarefaStatus> TarefasStatus { get; set; }
     }
 }
