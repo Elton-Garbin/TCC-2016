@@ -9,7 +9,7 @@ namespace StartIdea.Model.TimeScrum
         {
             InteracoesProductBacklogItem = new HashSet<InteracaoProductBacklogItem>();
             Tarefas = new HashSet<Tarefa>();
-            //TarefasStatus = new HashSet<TarefaStatus>();
+            StatusTarefas = new HashSet<StatusTarefa>();
         }
 
         public int Id { get; set; }
@@ -22,6 +22,6 @@ namespace StartIdea.Model.TimeScrum
 
         public virtual ICollection<InteracaoProductBacklogItem> InteracoesProductBacklogItem { get; set; }
         public virtual ICollection<Tarefa> Tarefas { get; set; }
-        //public virtual ICollection<TarefaStatus> TarefasStatus { get; set; }
+        public virtual ICollection<StatusTarefa> StatusTarefas { get; set; }
     }
 }
