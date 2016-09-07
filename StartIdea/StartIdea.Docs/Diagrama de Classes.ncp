@@ -1,0 +1,461 @@
+<Project>
+  <Name>StartIdea</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>StartIdea.Model.dll</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Usuario</Name>
+        <Access>Public</Access>
+        <Location left="85" top="971" />
+        <Size width="318" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String UserName { get; set; }</Member>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String Senha { get; set; }</Member>
+        <Member type="Property">public String Nome { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;ProductOwner&gt; ProductOwners { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;ScrumMaster&gt; ScrumMasters { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;MembroTime&gt; MembrosTime { get; set; }</Member>
+        <Member type="Constructor">public Usuario()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MembroTime</Name>
+        <Access>Public</Access>
+        <Location left="432" top="1251" />
+        <Size width="463" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Funcao { get; set; }</Member>
+        <Member type="Property">public Int32 TimeId { get; set; }</Member>
+        <Member type="Property">public Int32 UsuarioId { get; set; }</Member>
+        <Member type="Property">public virtual Time Time { get; set; }</Member>
+        <Member type="Property">public virtual Usuario Usuario { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;InteracaoProductBacklogItem&gt; InteracoesProductBacklogItem { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;Tarefa&gt; Tarefas { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;StatusTarefa&gt; StatusTarefas { get; set; }</Member>
+        <Member type="Constructor">public MembroTime()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductOwner</Name>
+        <Access>Public</Access>
+        <Location left="85" top="1235" />
+        <Size width="329" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public Int32 UsuarioId { get; set; }</Member>
+        <Member type="Property">public virtual Usuario Usuario { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;ProductBacklog&gt; ProductsBacklog { get; set; }</Member>
+        <Member type="Constructor">public ProductOwner()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ScrumMaster</Name>
+        <Access>Public</Access>
+        <Location left="885" top="458" />
+        <Size width="225" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public Int32 UsuarioId { get; set; }</Member>
+        <Member type="Property">public virtual Usuario Usuario { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;Time&gt; Times { get; set; }</Member>
+        <Member type="Constructor">public ScrumMaster()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Time</Name>
+        <Access>Public</Access>
+        <Location left="658" top="1017" />
+        <Size width="302" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Nome { get; set; }</Member>
+        <Member type="Property">public Int32 ScrumMasterId { get; set; }</Member>
+        <Member type="Property">public virtual ScrumMaster ScrumMaster { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;MembroTime&gt; MembrosTime { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;Sprint&gt; Sprints { get; set; }</Member>
+        <Member type="Constructor">public Time()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Reuniao</Name>
+        <Access>Public</Access>
+        <Location left="419" top="983" />
+        <Size width="225" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public TipoReuniao TipoReuniao { get; set; }</Member>
+        <Member type="Property">public String Local { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicio { get; set; }</Member>
+        <Member type="Property">public DateTime DataFim { get; set; }</Member>
+        <Member type="Property">public String Observacao { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public virtual Sprint Sprint { get; set; }</Member>
+        <Member type="Constructor">public Reuniao()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Sprint</Name>
+        <Access>Public</Access>
+        <Location left="789" top="737" />
+        <Size width="308" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicio { get; set; }</Member>
+        <Member type="Property">public DateTime DataFim { get; set; }</Member>
+        <Member type="Property">public String Objetivo { get; set; }</Member>
+        <Member type="Property">public DateTime DataCadastro { get; set; }</Member>
+        <Member type="Property">public DateTime? DataCancelamento { get; set; }</Member>
+        <Member type="Property">public Int32 TimeId { get; set; }</Member>
+        <Member type="Property">public virtual Time Time { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;Reuniao&gt; Reunioes { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;SprintBacklog&gt; SprintsBacklog { get; set; }</Member>
+        <Member type="Constructor">public Sprint()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>InteracaoProductBacklogItem</Name>
+        <Access>Public</Access>
+        <Location left="476" top="737" />
+        <Size width="297" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public TipoInteracao TipoInteracao { get; set; }</Member>
+        <Member type="Property">public String Descricao { get; set; }</Member>
+        <Member type="Property">public DateTime DataInteracao { get; set; }</Member>
+        <Member type="Property">public Int32 ProductBacklogItemId { get; set; }</Member>
+        <Member type="Property">public Int32? MembroTimeId { get; set; }</Member>
+        <Member type="Property">public virtual ProductBacklogItem ProductBacklogItem { get; set; }</Member>
+        <Member type="Property">public virtual MembroTime MembroTime { get; set; }</Member>
+        <Member type="Constructor">public InteracaoProductBacklogItem()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklog</Name>
+        <Access>Public</Access>
+        <Location left="85" top="737" />
+        <Size width="376" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Descricao { get; set; }</Member>
+        <Member type="Property">public Int32 ProductOwnerId { get; set; }</Member>
+        <Member type="Property">public virtual ProductOwner ProductOwner { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;ProductBacklogItem&gt; ProductBacklogItems { get; set; }</Member>
+        <Member type="Constructor">public ProductBacklog()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogItem</Name>
+        <Access>Public</Access>
+        <Location left="404" top="458" />
+        <Size width="464" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String UserStory { get; set; }</Member>
+        <Member type="Property">public StoryPoint StoryPoint { get; set; }</Member>
+        <Member type="Property">public Int16 Prioridade { get; set; }</Member>
+        <Member type="Property">public DateTime DataInclusao { get; set; }</Member>
+        <Member type="Property">public DateTime? DataExclusao { get; set; }</Member>
+        <Member type="Property">public Int32 ProductBacklogId { get; set; }</Member>
+        <Member type="Property">public virtual ProductBacklog ProductBacklog { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;InteracaoProductBacklogItem&gt; InteracoesProductBacklogItem { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;SprintBacklog&gt; SprintsBacklog { get; set; }</Member>
+        <Member type="Constructor">public ProductBacklogItem()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintBacklog</Name>
+        <Access>Public</Access>
+        <Location left="87" top="458" />
+        <Size width="300" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public Int32 ProductBacklogItemId { get; set; }</Member>
+        <Member type="Property">public virtual Sprint Sprint { get; set; }</Member>
+        <Member type="Property">public virtual ProductBacklogItem ProductBacklogItem { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;Tarefa&gt; Tarefas { get; set; }</Member>
+        <Member type="Constructor">public SprintBacklog()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Status</Name>
+        <Access>Public</Access>
+        <Location left="650" top="212" />
+        <Size width="303" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Descricao { get; set; }</Member>
+        <Member type="Property">public Classificacao Classificacao { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;StatusTarefa&gt; StatusTarefas { get; set; }</Member>
+        <Member type="Constructor">public Status()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>StatusTarefa</Name>
+        <Access>Public</Access>
+        <Location left="404" top="212" />
+        <Size width="228" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public DateTime DataInclusao { get; set; }</Member>
+        <Member type="Property">public Int32 TarefaId { get; set; }</Member>
+        <Member type="Property">public Int32 StatusId { get; set; }</Member>
+        <Member type="Property">public Int32 MembroTimeId { get; set; }</Member>
+        <Member type="Property">public virtual Tarefa Tarefa { get; set; }</Member>
+        <Member type="Property">public virtual Status Status { get; set; }</Member>
+        <Member type="Property">public virtual MembroTime MembroTime { get; set; }</Member>
+        <Member type="Constructor">public StatusTarefa()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tarefa</Name>
+        <Access>Public</Access>
+        <Location left="87" top="212" />
+        <Size width="300" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Descricao { get; set; }</Member>
+        <Member type="Property">public DateTime DataInclusao { get; set; }</Member>
+        <Member type="Property">public Int32 SprintBacklogId { get; set; }</Member>
+        <Member type="Property">public Int32 MembroTimeId { get; set; }</Member>
+        <Member type="Property">public virtual SprintBacklog SprintBacklog { get; set; }</Member>
+        <Member type="Property">public virtual MembroTime MembroTime { get; set; }</Member>
+        <Member type="Property">public virtual ICollection&lt;StatusTarefa&gt; StatusTarefas { get; set; }</Member>
+        <Member type="Constructor">public Tarefa()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>TipoReuniao</Name>
+        <Access>Public</Access>
+        <Location left="619" top="32" />
+        <Size width="162" height="129" />
+        <Collapsed>False</Collapsed>
+        <Value>Planejamento = 1</Value>
+        <Value>Diaria = 2</Value>
+        <Value>Revisao = 3</Value>
+        <Value>Retrospectiva = 4</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>TipoInteracao</Name>
+        <Access>Public</Access>
+        <Location left="440" top="32" />
+        <Size width="162" height="95" />
+        <Collapsed>False</Collapsed>
+        <Value>StoryPoint = 1</Value>
+        <Value>Mensagem = 2</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>StoryPoint</Name>
+        <Access>Public</Access>
+        <Location left="263" top="32" />
+        <Size width="162" height="163" />
+        <Collapsed>False</Collapsed>
+        <Value>N = 0</Value>
+        <Value>PP = 1</Value>
+        <Value>P = 3</Value>
+        <Value>M = 5</Value>
+        <Value>G = 8</Value>
+        <Value>GG = 13</Value>
+      </Entity>
+      <Entity type="Enum">
+        <Name>Classificacao</Name>
+        <Access>Public</Access>
+        <Location left="87" top="32" />
+        <Size width="162" height="112" />
+        <Collapsed>False</Collapsed>
+        <Value>Ready = 1</Value>
+        <Value>InProgress = 2</Value>
+        <Value>Done = 3</Value>
+      </Entity>
+      <Entity type="Comment">
+        <Text>StartIdea.Model</Text>
+        <Location left="982" top="32" />
+        <Size width="105" height="50" />
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>StartIdea.DataAccess.dll</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IRepository&lt;T&gt;</Name>
+        <Access>Internal</Access>
+        <Location left="37" top="330" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">IEnumerable GetAll()</Member>
+        <Member type="Method">T GetById(Object id)</Member>
+        <Member type="Method">IEnumerable FindBy(Expression&lt;Func&lt;T, Boolean&gt;&gt; predicate)</Member>
+        <Member type="Method">Void Add(T entity)</Member>
+        <Member type="Method">Void Update(T entity)</Member>
+        <Member type="Method">Void Delete(T entity)</Member>
+        <Member type="Method">Void Save()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>StartIdeaDBContext</Name>
+        <Access>Public</Access>
+        <Location left="223" top="64" />
+        <Size width="162" height="349" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public DbSet&lt;Usuario&gt; Usuarios { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;ProductOwner&gt; ProductOwners { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;ScrumMaster&gt; ScrumMasters { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;Time&gt; Times { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;MembroTime&gt; MembrosTime { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;Sprint&gt; Sprints { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;Reuniao&gt; Reunioes { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;ProductBacklog&gt; ProductsBacklog { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;ProductBacklogItem&gt; ProductBacklogItens { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;InteracaoProductBacklogItem&gt; InteracoesProductBacklogItem { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;SprintBacklog&gt; SprintsBacklog { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;Tarefa&gt; Tarefas { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;Status&gt; AllStatus { get; set; }</Member>
+        <Member type="Property">public DbSet&lt;StatusTarefa&gt; StatusTarefas { get; set; }</Member>
+        <Member type="Constructor">public StartIdeaDBContext()</Member>
+        <Member type="Method">protected virtual Void OnModelCreating(DbModelBuilder modelBuilder)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Repository&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="37" top="64" />
+        <Size width="162" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public Repository()</Member>
+        <Member type="Method">public Void Add(T entity)</Member>
+        <Member type="Method">public Void Delete(T entity)</Member>
+        <Member type="Method">public Void Dispose()</Member>
+        <Member type="Method">public IEnumerable FindBy(Expression&lt;Func&lt;T, Boolean&gt;&gt; predicate)</Member>
+        <Member type="Method">public IEnumerable GetAll()</Member>
+        <Member type="Method">public T GetById(Object id)</Member>
+        <Member type="Method">public Void Save()</Member>
+        <Member type="Method">public Void Update(T entity)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Configuration</Name>
+        <Access>Internal</Access>
+        <Location left="787" top="179" />
+        <Size width="162" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Configuration()</Member>
+        <Member type="Method">protected virtual Void Seed(StartIdeaDBContext context)</Member>
+        <Modifier>Sealed</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UsuarioMap</Name>
+        <Access>Public</Access>
+        <Location left="601" top="179" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public UsuarioMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MembroTimeMap</Name>
+        <Access>Public</Access>
+        <Location left="414" top="178" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public MembroTimeMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TimeMap</Name>
+        <Access>Public</Access>
+        <Location left="601" top="292" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public TimeMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ReuniaoMap</Name>
+        <Access>Public</Access>
+        <Location left="414" top="292" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public ReuniaoMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintMap</Name>
+        <Access>Public</Access>
+        <Location left="967" top="64" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public SprintMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>InteracaoProductBacklogItemMap</Name>
+        <Access>Public</Access>
+        <Location left="787" top="64" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public InteracaoProductBacklogItemMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogItemMap</Name>
+        <Access>Public</Access>
+        <Location left="601" top="64" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public ProductBacklogItemMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogMap</Name>
+        <Access>Public</Access>
+        <Location left="414" top="64" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public ProductBacklogMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>StatusMap</Name>
+        <Access>Public</Access>
+        <Location left="967" top="179" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public StatusMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TarefaMap</Name>
+        <Access>Public</Access>
+        <Location left="787" top="306" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public TarefaMap()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>StartIdea.DataAccess</Text>
+        <Location left="967" top="474" />
+        <Size width="160" height="75" />
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="2" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>_dbContext</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>

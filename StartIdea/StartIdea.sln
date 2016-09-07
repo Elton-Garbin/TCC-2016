@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.Model", "StartIdea.Model\StartIdea.Model.csproj", "{F64BB58C-E200-43FF-8BF9-450CFDACE761}"
 EndProject
@@ -10,6 +10,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.DataAccess", "StartIdea.DataAccess\StartIdea.DataAccess.csproj", "{E5DDEB89-ECF6-4D4F-ABEC-8F0966E1A27F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.Console", "StartIdea.Console\StartIdea.Console.csproj", "{482313FF-2971-4F61-8D83-9447709AE528}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StartIdea.Docs", "StartIdea.Docs", "{E0DE64D0-77B6-494E-8B55-4CA98D68F900}"
+	ProjectSection(SolutionItems) = preProject
+		StartIdea.Docs\Diagrama de Classes.ncp = StartIdea.Docs\Diagrama de Classes.ncp
+		StartIdea.Docs\Dicionário de Dados.xlsx = StartIdea.Docs\Dicionário de Dados.xlsx
+		StartIdea.Docs\TCC - Apresentação.pptx = StartIdea.Docs\TCC - Apresentação.pptx
+		StartIdea.Docs\TCC - Documental.docx = StartIdea.Docs\TCC - Documental.docx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
