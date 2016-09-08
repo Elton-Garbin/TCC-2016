@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScrumArtefatos\InteracaoProductBacklogItem.cs" />
+    <Compile Include="ScrumArtefatos\HistoricoEstimativa.cs" />
     <Compile Include="ScrumArtefatos\ProductBacklog.cs" />
     <Compile Include="ScrumArtefatos\SprintBacklog.cs" />
     <Compile Include="ScrumArtefatos\Status.cs" />

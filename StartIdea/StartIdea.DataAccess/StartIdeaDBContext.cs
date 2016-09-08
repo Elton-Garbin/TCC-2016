@@ -39,7 +39,7 @@ namespace StartIdea.DataAccess
 
         #region ScrumArtefatos
         public DbSet<ProductBacklog> ProductBacklogs { get; set; }
-        public DbSet<InteracaoProductBacklogItem> InteracoesProductBacklogItem { get; set; }
+        public DbSet<HistoricoEstimativa> HistoricoEstimativas { get; set; }
         public DbSet<SprintBacklog> SprintsBacklog { get; set; }
         public DbSet<Tarefa> Tarefas { get; set; }
         public DbSet<Status> AllStatus { get; set; }
@@ -66,7 +66,6 @@ namespace StartIdea.DataAccess
 
             #region ScrumArtefatos
             modelBuilder.Configurations.Add(new ProductBacklogMap());
-            modelBuilder.Configurations.Add(new InteracaoProductBacklogItemMap());
             modelBuilder.Configurations.Add(new TarefaMap());
             modelBuilder.Configurations.Add(new StatusMap());
             #endregion

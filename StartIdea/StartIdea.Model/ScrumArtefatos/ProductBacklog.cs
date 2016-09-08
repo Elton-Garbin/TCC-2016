@@ -18,7 +18,7 @@ namespace StartIdea.Model.ScrumArtefatos
     {
         public ProductBacklog()
         {
-            InteracoesProductBacklogItem = new HashSet<InteracaoProductBacklogItem>();
+            HistoricoEstimativas = new HashSet<HistoricoEstimativa>();
             SprintsBacklog = new HashSet<SprintBacklog>();
 
             DataInclusao = DateTime.Now;
@@ -35,7 +35,7 @@ namespace StartIdea.Model.ScrumArtefatos
 
         public virtual ProductOwner ProductOwner { get; set; }
 
-        public virtual ICollection<InteracaoProductBacklogItem> InteracoesProductBacklogItem { get; set; }
+        public virtual ICollection<HistoricoEstimativa> HistoricoEstimativas { get; set; }
         public virtual ICollection<SprintBacklog> SprintsBacklog { get; set; }
     }
 }

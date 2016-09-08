@@ -96,24 +96,22 @@ namespace StartIdea.DataAccess.Migrations
                 }
             );
 
-            context.InteracoesProductBacklogItem.AddOrUpdate(x => x.Id,
-                new InteracaoProductBacklogItem()
+            context.HistoricoEstimativas.AddOrUpdate(x => x.Id,
+                new HistoricoEstimativa()
                 {
                     Id = 1,
-                    DataInteracao = new DateTime(2016, 6, 1, 9, 10, 00),
-                    Descricao = "Alteração de Estimativa de 0 para 3",
+                    DataInclusao = new DateTime(2016, 6, 1, 9, 10, 00),
                     MembroTimeId = 1,
-                    ProductBacklogItemId = 1,
-                    TipoInteracao = TipoInteracao.StoryPoint
+                    ProductBacklogId = 1,
+                    StoryPoint = StoryPoint.P
                 },
-                new InteracaoProductBacklogItem()
+                new HistoricoEstimativa()
                 {
                     Id = 1,
-                    DataInteracao = new DateTime(2016, 6, 1, 9, 35, 00),
-                    Descricao = "Alteração de Estimativa de 0 para 1",
+                    DataInclusao = new DateTime(2016, 6, 1, 9, 35, 00),
                     MembroTimeId = 2,
-                    ProductBacklogItemId = 3,
-                    TipoInteracao = TipoInteracao.StoryPoint
+                    ProductBacklogId = 3,
+                    StoryPoint = StoryPoint.PP
                 }
             );
             #endregion
@@ -197,8 +195,8 @@ namespace StartIdea.DataAccess.Migrations
             );
 
             context.SprintsBacklog.AddOrUpdate(x => x.Id,
-                new SprintBacklog() { Id = 1, ProductBacklogItemId = 1, SprintId = 1 },
-                new SprintBacklog() { Id = 2, ProductBacklogItemId = 3, SprintId = 1 }
+                new SprintBacklog() { Id = 1, ProductBacklogId = 1, SprintId = 1 },
+                new SprintBacklog() { Id = 2, ProductBacklogId = 3, SprintId = 1 }
             );
             #endregion
 
