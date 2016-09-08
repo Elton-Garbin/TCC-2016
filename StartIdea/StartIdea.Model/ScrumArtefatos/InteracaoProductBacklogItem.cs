@@ -23,7 +23,7 @@ namespace StartIdea.Model.ScrumArtefatos
         public int ProductBacklogItemId { get; set; }
         public int? MembroTimeId { get; set; }
 
-        public virtual ProductBacklogItem ProductBacklogItem { get; set; }
+        public virtual ProductBacklog ProductBacklog { get; set; }
         public virtual MembroTime MembroTime { get; set; }
     }
 }

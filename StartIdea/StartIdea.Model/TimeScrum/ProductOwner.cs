@@ -7,7 +7,7 @@ namespace StartIdea.Model.TimeScrum
     {
         public ProductOwner()
         {
-            ProductsBacklog = new HashSet<ProductBacklog>();
+            ProductBacklogs = new HashSet<ProductBacklog>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace StartIdea.Model.TimeScrum
 
         public virtual Usuario Usuario { get; set; }
 
-        public virtual ICollection<ProductBacklog> ProductsBacklog { get; set; }
+        public virtual ICollection<ProductBacklog> ProductBacklogs { get; set; }
     }
 }

@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapping\ScrumArtefatos\InteracaoProductBacklogItemMap.cs" />
-    <Compile Include="Mapping\ScrumArtefatos\ProductBacklogItemMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\ProductBacklogMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\StatusMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\TarefaMap.cs" />

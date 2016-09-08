@@ -7,8 +7,9 @@ namespace StartIdea.DataAccess.Mapping.ScrumArtefatos
     {
         public ProductBacklogMap()
         {
-            Property(x => x.Descricao)
-                .HasMaxLength(150);
+            Property(x => x.UserStory)
+                .HasMaxLength(150)
+                .IsRequired();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult Detalhes(int id)
         {
-            ProductBacklogItem item = new ProductBacklogItem();
+            ProductBacklog item = new ProductBacklog();
             item.Id = id;
             item.UserStory = @"Teste da user asflj akjfhafkjhasfjkasfj asjfaj fajf hakfh ajkfh afkjhafkjahfkjahsfjkashf jakf jkashf jahf jkah fkja fjkahs fjashf kjasfkjasfk aksf akjs f7
                                afasfaaslfkh afsjk asjf aksjf jaskf askjfh akjsf ajskf hakjshfjkhfjkahsf jaksf hajshfjahsfkajf, alhfsldhçsdghaldgkljdfhg kdj gakjhsjhskl sj jks gj gd";

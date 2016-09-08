@@ -43,7 +43,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScrumArtefatos\InteracaoProductBacklogItem.cs" />
     <Compile Include="ScrumArtefatos\ProductBacklog.cs" />
-    <Compile Include="ScrumArtefatos\ProductBacklogItem.cs" />
     <Compile Include="ScrumArtefatos\SprintBacklog.cs" />
     <Compile Include="ScrumArtefatos\Status.cs" />
     <Compile Include="ScrumArtefatos\StatusTarefa.cs" />

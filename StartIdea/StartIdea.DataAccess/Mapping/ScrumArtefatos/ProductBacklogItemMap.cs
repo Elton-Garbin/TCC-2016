@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace StartIdea.DataAccess.Mapping.ScrumArtefatos
 {
-    public class ProductBacklogItemMap : EntityTypeConfiguration<ProductBacklogItem>
+    public class ProductBacklogItemMap : EntityTypeConfiguration<ProductBacklog>
     {
         public ProductBacklogItemMap()
         {
