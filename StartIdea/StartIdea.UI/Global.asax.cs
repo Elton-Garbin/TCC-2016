@@ -11,6 +11,7 @@ namespace StartIdea.UI
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            InjectionDependency.Configurar();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
