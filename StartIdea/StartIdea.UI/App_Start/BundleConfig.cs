@@ -26,7 +26,6 @@ namespace StartIdea.UI
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/jquery-ui.min.css",
                       "~/Content/site.css"));
         }
     }
