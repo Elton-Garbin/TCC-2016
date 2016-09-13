@@ -30,7 +30,6 @@ namespace StartIdea.Model.ScrumArtefatos
         public StoryPoint StoryPoint { get; set; }
         public short Prioridade { get; set; }
         public DateTime DataInclusao { get; set; }
-        public DateTime? DataExclusao { get; set; }
         public int ProductOwnerId { get; set; }
 
         public virtual ProductOwner ProductOwner { get; set; }

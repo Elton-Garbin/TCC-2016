@@ -79,14 +79,6 @@ namespace StartIdea.DataAccess.Migrations
                 },
                 new ProductBacklog()
                 {
-                    Id = 2,
-                    UserStory = "Eu como um consorciado preciso recuperar minha senha para conseguir acessar novamente o web atendimento.",
-                    DataInclusao = new DateTime(2016, 6, 1, 9, 45, 00),
-                    DataExclusao = new DateTime(2016, 6, 1, 10, 45, 00),
-                    ProductOwnerId = 1
-                },
-                new ProductBacklog()
-                {
                     Id = 3,
                     UserStory = "Eu como um consorciado desejo sair da minha área restrita, ou seja realizar o logout.",
                     DataInclusao = new DateTime(2016, 6, 1, 9, 30, 00),
