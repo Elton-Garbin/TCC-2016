@@ -3,16 +3,19 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
-<h1>Backlog do Produto</h1>
-<h4 class="dono-produto">Dono do Produto: Gabriel Fernandes</h4>
+<div class="page-header">
+    <h1>Backlog do Produto</h1>
+</div>
 
 @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
 {
     <div class="profile row">
         <div class="col-md-10">
-            @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control form-busca", @placeholder = "Descrição" })
+            <label>Descrição</label>
+            @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control form-busca" })
         </div>
         <div class="col-md-2">
+            <label>&nbsp;</label>
             <input type="submit" value="Buscar" class="btn btn-block btn-busca" />
         </div>
     </div>
@@ -49,8 +52,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td width="70%">@Html.Label((item.UserStory.Length > 130) ? item.UserStory.Substring(0, 130) : item.UserStory, new { @style = "font-weight: normal" })  </td>
-                <td class="text-center" width="10%">@item.Tamanho</td>
+                <td width="70%">@item.UserStory</td>
+                <td class="text-center" width="10%">@item.StoryPoint</td>
                 <td class="text-center" width="10%">@item.Prioridade</td>
                 <td class="text-center" width="10%">
                     <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id })">

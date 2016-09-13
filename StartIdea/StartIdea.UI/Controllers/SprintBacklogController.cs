@@ -26,7 +26,7 @@ namespace StartIdea.UI.Controllers
             else
                 contextoBusca = filtroAtual;
 
-            ViewBag.ContextoAtual    = contextoBusca;
+            ViewBag.FiltroAtual    = contextoBusca;
             ViewBag.DataInicialAtual = dataInicial;
             ViewBag.DataFinalAtual   = dataFinal;
 
