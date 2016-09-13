@@ -2,15 +2,16 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-
-<h1>Sprints</h1>
+<div class="page-header">
+    <h1>Sprints</h1>
+</div>
 
 @using (Html.BeginForm("Index", "SprintBacklog", FormMethod.Get))
 {
     <div class="row">
         <div class="col-md-6">
             <label>Objetivo</label>
-            @Html.TextBox("contextoBusca", ViewBag.ContextoAtual as string, new { @class = "form-control" })
+            @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control" })
         </div>
         <div class="col-md-2">
             <label>Data Inicio</label>
@@ -21,6 +22,7 @@
             @Html.TextBox("dataFinal", ViewBag.DataFinalAtual as string, new { @class = "form-control", @type = "date" })
         </div>
         <div class="col-md-2">
+            <label>&nbsp;</label>
             <input type="submit" value="Buscar" class="btn btn-block" />
         </div>
     </div>
@@ -53,4 +55,4 @@
     </tbody>
 </table>
 @Html.PagedListPager(Model, pagina => Url.Action("Index",
-        new { pagina, filtroAtual = ViewBag.FiltroAtual }))
+        new { pagina, filtroAtual = ViewBag.FiltroAtual, dataInicial = ViewBag.DataInicialAtual, dataFinal = ViewBag.DataFinalAtual }))

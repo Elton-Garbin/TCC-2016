@@ -1,36 +1,33 @@
-﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklogItem
+﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklog
 
 @{ViewBag.Title = "Detalhes - Backlog do Produto";}
 
+<div class="page-header">
+    <h1>Backlog Item - Detalhes<small> - Responsável: @Model.ProductOwner.Usuario.Nome</small></h1>
+</div>
 
-<h1>Backlog Item - Detalhes</h1>
 
 <div class="profile">
     <div class="row">
-        <div class="col-md-3">
-            <h3>Prioridade: @Model.Prioridade</h3>
+        <div class="col-md-4">
+            <span><b>Data da Inclusão:</b> @Model.DataInclusao.ToString("dd/MM/yyyy")</span>
         </div>
-        <div class="col-md-3">
-            <h3>Tamanho: @Model.Tamanho</h3>
+        <div class="col-md-4">
+            <span><b>Prioridade:</b> @Model.Prioridade</span>
+        </div>
+        <div class="col-md-4">
+            <span><b>Tamanho:</b> @Model.StoryPoint</span>
+            <button class="btn-link" data-toggle="modal" data-target=".bs-example-modal-sm">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
         </div>
     </div>
     <div class="row backlog-item-space">
         <div class="col-md-12">
-            <label>Descricao</label>
+            <label>Descrição</label>
             <br />
             <span>@Model.UserStory</span>
         </div>
-    </div>
-</div>
-<div class="row backlog-item-space">
-    <div class="col-md-3">
-        <label>Data da Inclusão: @Model.DataInclusao.ToString("dd/MM/yyyy")</label>
-    </div>
-    <div class="col-md-3">
-        <label>Data da Alteração: @Html.LabelForModel((Model.DataAlteracao == DateTime.MinValue) ? string.Empty : Model.DataAlteracao.ToString("dd/MM/yyyy"))</label>
-    </div>
-    <div class="col-md-3">
-        <label>Data da Exclusao: @Html.LabelForModel((Model.DataExclusao == DateTime.MinValue) ? string.Empty : Model.DataExclusao.ToString("dd/MM/yyyy"))</label>
     </div>
 </div>
 <div class="row backlog-item-space">
@@ -39,3 +36,37 @@
     </div>
 </div>
 
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Histórico de Estimativas</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Função</th>
+                            <th>Estimativa</th>
+                            <th>Data Estimativa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.HistoricoEstimativas)
+                        {
+                            <tr>
+                                <td>@item.MembroTime.Usuario.Nome</td>
+                                <td>@item.MembroTime.Funcao</td>
+                                <td>@item.StoryPoint</td>
+                                <td>@item.DataInclusao</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

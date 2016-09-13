@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.ViewModels;
 using System;
@@ -9,10 +10,16 @@ namespace StartIdea.UI.Controllers
 {
     public class ProductBacklogController : Controller
     {
+        private StartIdeaDBContext dbContext;
+
+        public ProductBacklogController(StartIdeaDBContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
+
         public ActionResult Index(string contextoBusca, string filtroAtual, int? pagina)
         {
             var productBacklogVM = new ProductBacklogVM();
-            productBacklogVM.PreencheBackLogItem();
 
             if (contextoBusca != null)
                 pagina = 1;
@@ -23,7 +30,16 @@ namespace StartIdea.UI.Controllers
 
             if (!string.IsNullOrEmpty(contextoBusca))
             {
-                productBacklogVM.BackLogItem = productBacklogVM.BackLogItem.Where(bkl => bkl.UserStory.ToUpper().Contains(contextoBusca.ToUpper()));
+                productBacklogVM.BackLogItem = dbContext.ProductBacklogs
+                                                        .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
+                                                        .ToList()
+                                                        .OrderBy(backlog => backlog.Prioridade);
+            }
+            else
+            {
+                productBacklogVM.BackLogItem = dbContext.ProductBacklogs
+                                                        .ToList()
+                                                        .OrderBy(backlog => backlog.Prioridade);
             }
 
             int pageSize = 5;
@@ -34,14 +50,16 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult Detalhes(int id)
         {
-            ProductBacklog item = new ProductBacklog();
-            item.Id = id;
-            item.UserStory = @"Teste da user asflj akjfhafkjhasfjkasfj asjfaj fajf hakfh ajkfh afkjhafkjahfkjahsfjkashf jakf jkashf jahf jkah fkja fjkahs fjashf kjasfkjasfk aksf akjs f7
-                               afasfaaslfkh afsjk asjf aksjf jaskf askjfh akjsf ajskf hakjshfjkhfjkahsf jaksf hajshfjahsfkajf, alhfsldhçsdghaldgkljdfhg kdj gakjhsjhskl sj jks gj gd";
-            item.Prioridade = 1;
-            item.DataInclusao = new DateTime(2015, 10, 9);
+            //ProductBacklog backlog = dbContext.ProductBacklogs.Find(id);
 
-            return View(item);
+            ProductBacklog backlog = dbContext.ProductBacklogs
+                                              .Include("ProductOwner.Usuario")
+                                              .Include("HistoricoEstimativas.MembroTime.Usuario")
+                                              .Where(x => x.Id == id)
+                                              .FirstOrDefault();
+
+
+            return View(backlog);
         }
     }
 }
