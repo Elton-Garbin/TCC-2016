@@ -10,7 +10,12 @@ namespace StartIdea.UI.Controllers
 {
     public class SprintBacklogController : Controller
     {
-        private StartIdeaDBContext db = new StartIdeaDBContext();
+        private StartIdeaDBContext dbContext;
+
+        public SprintBacklogController(StartIdeaDBContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
 
         public ViewResult Index(string contextoBusca, string filtroAtual, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
         {
@@ -26,12 +31,16 @@ namespace StartIdea.UI.Controllers
             ViewBag.DataFinalAtual   = dataFinal;
 
             if (!string.IsNullOrEmpty(contextoBusca))
-                sprintBacklogVM.Sprints = db.Sprints.Where(sprint => sprint.Objetivo.ToUpper().Contains(contextoBusca.ToUpper())).ToList();
+                sprintBacklogVM.Sprints = dbContext.Sprints.Where(sprint => sprint.Objetivo.ToUpper().Contains(contextoBusca.ToUpper())).ToList();
             else
-                sprintBacklogVM.Sprints = db.Sprints.ToList();
+                sprintBacklogVM.Sprints = dbContext.Sprints.ToList();
 
             if (dataInicial != null)
                 sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataInicio.Date >= ((DateTime)dataInicial).Date).ToList();
+
+            if (dataFinal != null)
+                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataFim.Date <= ((DateTime)dataFinal).Date).ToList();
+
 
             int pageSize = 5;
             int pageNumber = (pagina ?? 1);
