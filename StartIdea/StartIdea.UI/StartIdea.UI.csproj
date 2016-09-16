@@ -217,6 +217,7 @@
     <Compile Include="App_Start\InjectionDependency.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
@@ -262,6 +263,11 @@
     <Content Include="Areas\TeamMember\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\ProductOwner\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Create.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Edit.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -274,7 +280,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -283,7 +291,9 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -297,9 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\ProductOwner\Controllers\" />
     <Folder Include="Areas\ProductOwner\Models\" />
-    <Folder Include="Areas\ProductOwner\Views\Shared\" />
     <Folder Include="Areas\ScrumMaster\Controllers\" />
     <Folder Include="Areas\ScrumMaster\Models\" />
     <Folder Include="Areas\ScrumMaster\Views\Shared\" />

@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapping\ScrumArtefatos\ProductBacklogMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\StatusMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\TarefaMap.cs" />
     <Compile Include="Mapping\ScrumEventos\ReuniaoMap.cs" />

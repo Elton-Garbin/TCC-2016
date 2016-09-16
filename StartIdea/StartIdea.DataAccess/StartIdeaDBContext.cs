@@ -65,7 +65,6 @@ namespace StartIdea.DataAccess
             #endregion
 
             #region ScrumArtefatos
-            modelBuilder.Configurations.Add(new ProductBacklogMap());
             modelBuilder.Configurations.Add(new TarefaMap());
             modelBuilder.Configurations.Add(new StatusMap());
             #endregion
