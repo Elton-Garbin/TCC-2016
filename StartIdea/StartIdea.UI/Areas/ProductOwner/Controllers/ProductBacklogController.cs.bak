@@ -1,12 +1,9 @@
-﻿using PagedList;
-using StartIdea.DataAccess;
+﻿using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
-using StartIdea.UI.Areas.ProductOwner.ViewModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace StartIdea.UI.Areas.ProductOwner.Controllers
 {
@@ -14,38 +11,9 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 
-        public ActionResult Index(string contextoBusca, string filtroAtual, int? pagina)
+        public ActionResult Index()
         {
-            var productBacklogVM = new ProductBacklogVM();
-
-            if (contextoBusca != null)
-                pagina = 1;
-            else
-                contextoBusca = filtroAtual;
-
-            ViewBag.Pagina      = pagina;
-            ViewBag.FiltroAtual = contextoBusca;
-
-            int pageSize = 5;
-            int pageNumber = (pagina ?? 1);
-
-            if (!string.IsNullOrEmpty(contextoBusca))
-            {
-                productBacklogVM.productBacklogs = dbContext.ProductBacklogs
-                                                   .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
-                                                   .ToList()
-                                                   .OrderBy(backlog => backlog.Prioridade)
-                                                   .ToPagedList(pageNumber, pageSize);
-            }
-            else
-            {
-                productBacklogVM.productBacklogs = dbContext.ProductBacklogs
-                                                   .ToList()
-                                                   .OrderBy(backlog => backlog.Prioridade)
-                                                   .ToPagedList(pageNumber, pageSize);
-            }
-
-            return View(productBacklogVM);
+            return View(dbContext.ProductBacklogs.ToList());
         }
 
         public ActionResult Create()
@@ -55,7 +23,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog, string filtroAtual, int? paginaAtual)
+        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog)
         {
             if (ModelState.IsValid)
             {
@@ -64,19 +32,12 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 dbContext.ProductBacklogs.Add(productBacklog);
                 dbContext.SaveChanges();
 
-                return RedirectToAction("Index", "ProductBacklog", new
-                {
-                    filtroAtual = filtroAtual,
-                    pagina = paginaAtual
-                });
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", "ProductBacklog", new {
-                filtroAtual = filtroAtual,
-                pagina = paginaAtual
-            });
+            return View(productBacklog);
         }
-        
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,7 +47,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             if (productBacklog == null)
                 return HttpNotFound();
 
-            return View("Index", productBacklog);
+            return View(productBacklog);
         }
 
         [HttpPost]
