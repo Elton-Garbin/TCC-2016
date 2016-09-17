@@ -28,7 +28,7 @@ namespace StartIdea.Model.ScrumArtefatos
         }
 
         public int Id { get; set; }
-        [DisplayName("User Story"), Required, StringLength(150)]
+        [DisplayName("User Story"), Required, StringLength(150), DataType(DataType.MultilineText)]
         public string UserStory { get; set; }
         [DisplayName("Story Point")]
         public StoryPoint StoryPoint { get; set; }

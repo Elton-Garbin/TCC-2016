@@ -1,0 +1,62 @@
+﻿@model IEnumerable<StartIdea.Model.ScrumArtefatos.ProductBacklog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section CustomScript{
+    <script type="text/javascript">
+        $(".edit").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("ProductBacklog/Edit/" + id, function () {
+                $("#modal").modal();
+            })
+        });
+    </script>
+}
+<div class="modal" id="modal"></div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductOwner.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserStory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StoryPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prioridade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInclusao)
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserStory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoryPoint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prioridade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInclusao)
+            </td>
+            <td>
+                <button class="btn btn-primary edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit"></i></button>
+            </td>
+        </tr>
+    }
+</table>

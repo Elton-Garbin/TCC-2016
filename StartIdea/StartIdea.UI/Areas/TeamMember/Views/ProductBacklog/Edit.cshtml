@@ -1,0 +1,56 @@
+﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklog
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Avaliação Backlog do Produto</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            @Html.LabelFor(model => model.UserStory)
+                            <p class="form-control-static">@Html.DisplayFor(model => model.UserStory)</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-9 form-group">
+                            @Html.Label("Dono do Produto")
+                            <p class="form-control-static">@Html.DisplayFor(model => model.ProductOwner.Usuario.Nome)</p>
+                        </div>
+                        <div class="col-xs-5 col-sm-3 form-group">
+                            @Html.LabelFor(model => model.Prioridade)
+                            <p class="form-control-static">@Html.DisplayFor(model => model.Prioridade)</p>
+                        </div>
+                        <div class="col-xs-7 col-sm-3 form-group">
+                            @Html.LabelFor(model => model.DataInclusao)
+                            <p class="form-control-static">@Html.DisplayFor(model => model.DataInclusao)</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 form-group">
+                            @Html.LabelFor(model => model.StoryPoint)
+                            @Html.EnumDropDownListFor(model => model.StoryPoint, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        }
+    </div>
+</div>
