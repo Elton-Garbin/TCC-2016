@@ -5,16 +5,6 @@
     ViewBag.Title = "Index";
 }
 
-@section CustomScript {
-    <script type="text/javascript">
-        var displayCreate = "@Model.DisplayCreate";
-
-        if (displayCreate) {
-            $("#popup-create").modal('show');
-        }
-    </script>
-}
-
 @Html.Partial("_Create", Model.productBacklogCreate)
 
 <div class="page-header">
