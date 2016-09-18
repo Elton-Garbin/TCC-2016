@@ -15,33 +15,35 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         public ActionResult Index(string contextoBusca, string filtroAtual, int? pagina)
         {
-            var productBacklogVM = new ProductBacklogVM();
-
             if (contextoBusca != null)
                 pagina = 1;
             else
                 contextoBusca = filtroAtual;
 
-            ViewBag.Pagina      = pagina;
+            ViewBag.Pagina = pagina;
             ViewBag.FiltroAtual = contextoBusca;
 
             int pageSize = 5;
             int pageNumber = (pagina ?? 1);
 
+            var query = from pb in dbContext.ProductBacklogs
+                        where !(from sb in dbContext.SprintBacklogs
+                                select sb.ProductBacklogId)
+                                .Contains(pb.Id)
+                        orderby pb.Prioridade
+                        select pb;
+
+            var productBacklogVM = new ProductBacklogVM();
             if (!string.IsNullOrEmpty(contextoBusca))
             {
-                productBacklogVM.productBacklogs = dbContext.ProductBacklogs
-                                                   .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
-                                                   .ToList()
-                                                   .OrderBy(backlog => backlog.Prioridade)
-                                                   .ToPagedList(pageNumber, pageSize);
+                productBacklogVM.productBacklogs = query.Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
+                                                        .ToList()
+                                                        .ToPagedList(pageNumber, pageSize);
             }
             else
             {
-                productBacklogVM.productBacklogs = dbContext.ProductBacklogs
-                                                   .ToList()
-                                                   .OrderBy(backlog => backlog.Prioridade)
-                                                   .ToPagedList(pageNumber, pageSize);
+                productBacklogVM.productBacklogs = query.ToList()
+                                                        .ToPagedList(pageNumber, pageSize);
             }
 
             return View(productBacklogVM);
@@ -70,12 +72,13 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 });
             }
 
-            return RedirectToAction("Index", "ProductBacklog", new {
+            return RedirectToAction("Index", "ProductBacklog", new
+            {
                 filtroAtual = filtroAtual,
                 pagina = paginaAtual
             });
         }
-        
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
