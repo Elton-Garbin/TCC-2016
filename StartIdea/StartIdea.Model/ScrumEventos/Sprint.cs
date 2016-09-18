@@ -10,7 +10,7 @@ namespace StartIdea.Model.ScrumEventos
         public Sprint()
         {
             Reunioes = new HashSet<Reuniao>();
-            SprintsBacklog = new HashSet<SprintBacklog>();
+            SprintBacklogs = new HashSet<SprintBacklog>();
 
             #region Default Values
             DataInicio   = DateTime.Now;
@@ -30,6 +30,6 @@ namespace StartIdea.Model.ScrumEventos
         public virtual Time Time { get; set; }
 
         public virtual ICollection<Reuniao> Reunioes { get; set; }
-        public virtual ICollection<SprintBacklog> SprintsBacklog { get; set; }
+        public virtual ICollection<SprintBacklog> SprintBacklogs { get; set; }
     }
 }

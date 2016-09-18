@@ -186,7 +186,7 @@ namespace StartIdea.DataAccess.Migrations
                 }
             );
 
-            context.SprintsBacklog.AddOrUpdate(x => x.Id,
+            context.SprintBacklogs.AddOrUpdate(x => x.Id,
                 new SprintBacklog() { Id = 1, ProductBacklogId = 1, SprintId = 1 },
                 new SprintBacklog() { Id = 2, ProductBacklogId = 3, SprintId = 1 }
             );

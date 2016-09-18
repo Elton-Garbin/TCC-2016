@@ -40,7 +40,7 @@ namespace StartIdea.DataAccess
         #region ScrumArtefatos
         public DbSet<ProductBacklog> ProductBacklogs { get; set; }
         public DbSet<HistoricoEstimativa> HistoricoEstimativas { get; set; }
-        public DbSet<SprintBacklog> SprintsBacklog { get; set; }
+        public DbSet<SprintBacklog> SprintBacklogs { get; set; }
         public DbSet<Tarefa> Tarefas { get; set; }
         public DbSet<Status> AllStatus { get; set; }
         public DbSet<StatusTarefa> StatusTarefas { get; set; }
