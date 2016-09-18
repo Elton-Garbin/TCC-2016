@@ -1,15 +1,10 @@
 ﻿using PagedList;
 using StartIdea.Model.ScrumArtefatos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace StartIdea.UI.Areas.ProductOwner.ViewModel
+namespace StartIdea.UI.Areas.ProductOwner.ViewModels
 {
     public class ProductBacklogVM : ProductBacklog
     {
-
         public IPagedList<ProductBacklog> productBacklogs { get; set; }
         public ProductBacklog productBacklogEdit { get; set; }
         public ProductBacklog productBacklogCreate { get; set; }

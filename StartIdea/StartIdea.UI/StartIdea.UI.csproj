@@ -219,7 +219,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
-    <Compile Include="Areas\ProductOwner\ViewModel\ProductBacklogVM.cs" />
+    <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
     <Compile Include="Areas\TeamMember\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
@@ -268,7 +268,6 @@
     </Content>
     <Content Include="Areas\ProductOwner\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Create.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\Edit.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\Index.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Shared\_MenuLateral.cshtml" />
@@ -316,8 +315,6 @@
     <Content Include="Views\ProductBacklog\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Areas\ProductOwner\ViewModels\" />
     <Folder Include="Areas\ScrumMaster\Controllers\" />
     <Folder Include="Areas\ScrumMaster\ViewModels\" />
     <Folder Include="Areas\ScrumMaster\Views\Shared\" />

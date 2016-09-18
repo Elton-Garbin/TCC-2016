@@ -1,6 +1,5 @@
-﻿@model StartIdea.UI.Areas.ProductOwner.ViewModel.ProductBacklogVM
+﻿@model StartIdea.UI.Areas.ProductOwner.ViewModels.ProductBacklogVM
 @using PagedList.Mvc;
-@using StartIdea.Model.ScrumArtefatos
 
 @{
     ViewBag.Title = "Index";
@@ -8,106 +7,102 @@
 
 @section CustomScript {
     <script type="text/javascript">
-
         var displayCreate = "@Model.DisplayCreate";
 
-        if(displayCreate){
+        if (displayCreate) {
             $("#popup-create").modal('show');
         }
-        
     </script>
 }
 
-<div class="modal" id="modal"></div>
+@Html.Partial("_Create", Model.productBacklogCreate)
 
 <div class="page-header">
     <h1>Backlog do Produto <small>Cadastro</small></h1>
 </div>
-
-@{Html.RenderPartial("~/Areas/ProductOwner/Views/ProductBacklog/_Create.cshtml", Model.productBacklogCreate);}
-
-
-@using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
+@using (Html.BeginForm())
 {
-    <div class="profile row">
-        <div class="col-md-10">
+    <div class="row">
+        <div class="col-xs-12">
             <label>Descrição</label>
-            @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control form-busca" })
+            <div class="input-group">
+                @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control" })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Buscar</button>
+                </span>
+            </div>
         </div>
-        <div class="col-md-2">
-            <label>&nbsp;</label>
-            <input type="submit" value="Buscar" class="btn btn-block btn-busca" />
-        </div>
-    </div>
-    <div class="filtro-checkbox">
-        <div class="col-md-4">
-            <label>
-                <input type="checkbox" name="status" value="P" /> Pendente
-            </label>
-        </div>
-        <div class="col-md-4">
-            <label>
-                <input type="checkbox" name="status" value="A" /> Em Processo
-            </label>
-        </div>
-        <div class="col-md-4">
-            <label>
-                <input type="checkbox" name="status" value="C" /> Pronto
-            </label>
-        </div>
-        <div class="both"></div>
     </div>
 }
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductOwner.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserStory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StoryPoint)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prioridade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataInclusao)
-        </th>
-        <th>
-            <button class="btn btn-success create" data-toggle="modal" data-target="#popup-create"><i class="glyphicon glyphicon-plus"></i></button>
-        </th>
-    </tr>
-
-    @foreach (var item in Model.productBacklogs)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserStory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StoryPoint)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prioridade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInclusao)
-            </td>
-            <td>
-                <button class="btn btn-primary edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit"></i></button>
-                <a class="btn btn-danger" href="@Url.Action("Delete", "ProductBacklog", new { Id = (item.Id) })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
-            </td>
-        </tr>
-    }
-</table>
-
-@Html.PagedListPager(Model.productBacklogs, pagina => Url.Action("Index",
-        new { pagina, filtroAtual = ViewBag.FiltroAtual }))
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.ProductOwner.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserStory)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.StoryPoint)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Prioridade)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.DataInclusao)
+                        </th>
+                        <th colspan="2">
+                            <button class="btn btn-success btn-xs btn-block create" data-toggle="modal" data-target="#popup-create">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.productBacklogs)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserStory)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.StoryPoint)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Prioridade)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs btn-block edit" data-id="@item.Id">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-xs btn-block" href="@Url.Action("Delete", "ProductBacklog", new { Id = (item.Id) })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            @Html.PagedListPager(Model.productBacklogs, pagina => Url.Action("Index", new { pagina, filtroAtual = ViewBag.FiltroAtual }))
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

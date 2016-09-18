@@ -1,12 +1,11 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
-using StartIdea.UI.Areas.ProductOwner.ViewModel;
+using StartIdea.UI.Areas.ProductOwner.ViewModels;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace StartIdea.UI.Areas.ProductOwner.Controllers
 {
