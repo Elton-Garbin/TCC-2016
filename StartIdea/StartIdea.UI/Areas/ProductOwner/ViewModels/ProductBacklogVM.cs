@@ -5,10 +5,9 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
 {
     public class ProductBacklogVM : ProductBacklog
     {
-        public IPagedList<ProductBacklog> productBacklogs { get; set; }
-        public ProductBacklog productBacklogEdit { get; set; }
-        public ProductBacklog productBacklogCreate { get; set; }
+        public IPagedList<ProductBacklog> ProductBacklogList { get; set; }
+        public ProductBacklog ProductBacklogEdit { get; set; }
+        public ProductBacklog ProductBacklogCreate { get; set; }
         public string DisplayEdit { get; set; }
-        public string DisplayCreate { get; set; }
     }
 }

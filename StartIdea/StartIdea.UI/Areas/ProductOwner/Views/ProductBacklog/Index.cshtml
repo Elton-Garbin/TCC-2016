@@ -7,19 +7,27 @@
 
 @section CustomScript {
     <script type="text/javascript">
-        var displayCreate = "@Model.DisplayCreate";
-
-        if (displayCreate) {
-            $("#popup-create").modal('show');
+        var displayEdit = "@Model.DisplayEdit";
+        if (displayEdit) {
+            $("#popup-edit").modal('show');
         }
+
+        $(".edit").click(function () {
+            var id = $(this).attr("data-id");
+            var url = "@Url.Action("Index", new { pagina = ViewBag.Pagina, filtroAtual = ViewBag.FiltroAtual, id = 0 })";
+
+            window.location.href = url.replace("/0", "/" + id);
+        });
     </script>
 }
 
-@Html.Partial("_Create", Model.productBacklogCreate)
+@Html.Partial("_Create", Model.ProductBacklogCreate)
+@Html.Partial("_Edit", Model.ProductBacklogEdit)
 
 <div class="page-header">
     <h1>Backlog do Produto <small>Cadastro</small></h1>
 </div>
+
 @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
 {
     <div class="row">
@@ -57,14 +65,14 @@
                             @Html.DisplayNameFor(model => model.DataInclusao)
                         </th>
                         <th colspan="2">
-                            <button class="btn btn-success btn-xs btn-block create" data-toggle="modal" data-target="#popup-create">
+                            <button class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#popup-create">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.productBacklogs)
+                    @foreach (var item in Model.ProductBacklogList)
                     {
                         <tr>
                             <td class="text-center">
@@ -98,7 +106,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="6">
-                            @Html.PagedListPager(Model.productBacklogs, pagina => Url.Action("Index", new { pagina, filtroAtual = ViewBag.FiltroAtual }))
+                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", new { pagina, filtroAtual = ViewBag.FiltroAtual }))
                         </td>
                     </tr>
                 </tfoot>

@@ -279,7 +279,7 @@
     </Content>
     <Content Include="Areas\ProductOwner\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Edit.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Edit.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\Index.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Create.cshtml" />
