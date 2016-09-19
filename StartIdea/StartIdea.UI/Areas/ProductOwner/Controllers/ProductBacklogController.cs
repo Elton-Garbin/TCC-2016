@@ -2,6 +2,7 @@
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.Areas.ProductOwner.ViewModels;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -114,6 +115,13 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(id);
             if (productBacklog == null)
                 return HttpNotFound();
+
+            IEnumerable<HistoricoEstimativa> historico = dbContext.HistoricoEstimativas.Where(x => x.ProductBacklogId == productBacklog.Id).ToList();
+
+            foreach (HistoricoEstimativa item in historico)
+            {
+                dbContext.HistoricoEstimativas.Remove(item);
+            }
 
             dbContext.ProductBacklogs.Remove(productBacklog);
             dbContext.SaveChanges();
