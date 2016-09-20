@@ -96,11 +96,14 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao,ProductOwnerId")] ProductBacklog productBacklog)
+        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao,ProductOwnerId")] ProductBacklog productBacklog, short prioridadeAntes)
         {
             if (ModelState.IsValid)
             {
-                ReordenarPrioridades(productBacklog.Id, productBacklog.Prioridade);
+                if (prioridadeAntes != productBacklog.Prioridade)
+                {
+                    ReordenarPrioridades(productBacklog.Id, productBacklog.Prioridade);
+                }
 
                 dbContext.Entry(productBacklog).State = EntityState.Modified;
                 dbContext.SaveChanges();
@@ -142,18 +145,21 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
             for (int i = 0; i < query.ToList().Count; i++)
             {
-                var itemAtual = query.ToArray()[i];
-                itemAtual.Prioridade++;
+                var item = query.ToArray()[i];
 
-                if ((i + 1) <= (query.ToList().Count - 1))
+                if (item.Prioridade != Prioridade)
                 {
-                    var itemSeguinte = query.ToArray()[i + 1];
+                    var prioridadeAnterior = Prioridade;
 
-                    if (itemAtual.Prioridade < itemSeguinte.Prioridade)
+                    if (i > 0)
+                        prioridadeAnterior = query.ToArray()[i - 1].Prioridade;
+
+                    if (prioridadeAnterior < item.Prioridade)
                         break;
                 }
 
-                dbContext.Entry(itemAtual).State = EntityState.Modified;
+                item.Prioridade++;
+                dbContext.Entry(item).State = EntityState.Modified;
             }
         }
 
