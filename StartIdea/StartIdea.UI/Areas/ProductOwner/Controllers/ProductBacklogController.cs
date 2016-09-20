@@ -75,6 +75,39 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             {
                 productBacklog.ProductOwnerId = 1; // Remover
 
+                var queryVerificacao = from bk in dbContext.ProductBacklogs
+                                       where bk.Prioridade == productBacklog.Prioridade &&
+                                       !(from sb in dbContext.SprintBacklogs
+                                         select sb.ProductBacklogId).Contains(bk.Id)
+                                         orderby bk.Prioridade
+                                       select bk;
+
+                if (queryVerificacao.ToList().Count > 0)
+                {
+                    var backlogsUpdate = from bk in dbContext.ProductBacklogs
+                                         where bk.Prioridade >= productBacklog.Prioridade &&
+                                         !(from sb in dbContext.SprintBacklogs
+                                           select sb.ProductBacklogId).Contains(bk.Id)
+                                           orderby bk.Prioridade
+                                         select bk;
+
+                    for (int i = 0; i < backlogsUpdate.ToList().Count; i++)
+                    {
+                        var item = backlogsUpdate.ToList()[i];
+                        item.Prioridade++;
+
+                        dbContext.Entry(item).State = EntityState.Modified;
+
+                        if (i + 1 <= backlogsUpdate.ToList().Count)
+                        {
+                            if (backlogsUpdate.ToList()[i + 1].Prioridade != item.Prioridade)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 dbContext.ProductBacklogs.Add(productBacklog);
                 dbContext.SaveChanges();
 
@@ -98,6 +131,38 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
         {
             if (ModelState.IsValid)
             {
+                var queryVerificacao = from bk in dbContext.ProductBacklogs
+                                       where bk.Prioridade == productBacklog.Prioridade &&
+                                       bk.Id != productBacklog.Id &&
+                                       !(from sb in dbContext.SprintBacklogs
+                                         select sb.ProductBacklogId).Contains(bk.Id)
+                                       select bk;
+
+                if (queryVerificacao.ToList().Count > 0)
+                {
+                    var backlogsUpdate = from bk in dbContext.ProductBacklogs
+                                         where bk.Prioridade >= productBacklog.Prioridade &&
+                                         bk.Id != productBacklog.Id &&
+                                         !(from sb in dbContext.SprintBacklogs
+                                           select sb.ProductBacklogId).Contains(bk.Id)
+                                         select bk;
+
+
+                    for (int i = 0; i < backlogsUpdate.ToList().Count; i++)
+                    {
+                        var item = backlogsUpdate.ToList()[i];
+                        item.Prioridade++;
+
+                        dbContext.Entry(item).State = EntityState.Modified;
+
+                        if (backlogsUpdate.ToList()[i + 1].Prioridade != item.Prioridade)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+
                 dbContext.Entry(productBacklog).State = EntityState.Modified;
                 dbContext.SaveChanges();
 
