@@ -26,7 +26,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             ViewBag.Pagina = pagina;
             ViewBag.FiltroAtual = contextoBusca;
 
-            int pageSize = 5;
+            int pageSize = 7;
             int pageNumber = (pagina ?? 1);
 
             var query = from pb in dbContext.ProductBacklogs
@@ -75,38 +75,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             {
                 productBacklog.ProductOwnerId = 1; // Remover
 
-                var queryVerificacao = from bk in dbContext.ProductBacklogs
-                                       where bk.Prioridade == productBacklog.Prioridade &&
-                                       !(from sb in dbContext.SprintBacklogs
-                                         select sb.ProductBacklogId).Contains(bk.Id)
-                                         orderby bk.Prioridade
-                                       select bk;
-
-                if (queryVerificacao.ToList().Count > 0)
-                {
-                    var backlogsUpdate = from bk in dbContext.ProductBacklogs
-                                         where bk.Prioridade >= productBacklog.Prioridade &&
-                                         !(from sb in dbContext.SprintBacklogs
-                                           select sb.ProductBacklogId).Contains(bk.Id)
-                                           orderby bk.Prioridade
-                                         select bk;
-
-                    for (int i = 0; i < backlogsUpdate.ToList().Count; i++)
-                    {
-                        var item = backlogsUpdate.ToList()[i];
-                        item.Prioridade++;
-
-                        dbContext.Entry(item).State = EntityState.Modified;
-
-                        if (i + 1 <= backlogsUpdate.ToList().Count)
-                        {
-                            if (backlogsUpdate.ToList()[i + 1].Prioridade != item.Prioridade)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
+                ReordenarPrioridades(0, productBacklog.Prioridade);
 
                 dbContext.ProductBacklogs.Add(productBacklog);
                 dbContext.SaveChanges();
@@ -131,37 +100,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
         {
             if (ModelState.IsValid)
             {
-                var queryVerificacao = from bk in dbContext.ProductBacklogs
-                                       where bk.Prioridade == productBacklog.Prioridade &&
-                                       bk.Id != productBacklog.Id &&
-                                       !(from sb in dbContext.SprintBacklogs
-                                         select sb.ProductBacklogId).Contains(bk.Id)
-                                       select bk;
-
-                if (queryVerificacao.ToList().Count > 0)
-                {
-                    var backlogsUpdate = from bk in dbContext.ProductBacklogs
-                                         where bk.Prioridade >= productBacklog.Prioridade &&
-                                         bk.Id != productBacklog.Id &&
-                                         !(from sb in dbContext.SprintBacklogs
-                                           select sb.ProductBacklogId).Contains(bk.Id)
-                                         select bk;
-
-
-                    for (int i = 0; i < backlogsUpdate.ToList().Count; i++)
-                    {
-                        var item = backlogsUpdate.ToList()[i];
-                        item.Prioridade++;
-
-                        dbContext.Entry(item).State = EntityState.Modified;
-
-                        if (backlogsUpdate.ToList()[i + 1].Prioridade != item.Prioridade)
-                        {
-                            break;
-                        }
-                    }
-                }
-
+                ReordenarPrioridades(productBacklog.Id, productBacklog.Prioridade);
 
                 dbContext.Entry(productBacklog).State = EntityState.Modified;
                 dbContext.SaveChanges();
@@ -188,6 +127,34 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             dbContext.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        private void ReordenarPrioridades(int ProductBacklogIdAtual, short Prioridade)
+        {
+            var query = from pb in dbContext.ProductBacklogs
+                        where pb.Id != ProductBacklogIdAtual
+                           && pb.Prioridade >= Prioridade
+                           && !(from sb in dbContext.SprintBacklogs
+                                select sb.ProductBacklogId)
+                                .Contains(pb.Id)
+                        orderby pb.Prioridade
+                        select pb;
+
+            for (int i = 0; i < query.ToList().Count; i++)
+            {
+                var itemAtual = query.ToArray()[i];
+                itemAtual.Prioridade++;
+
+                if ((i + 1) <= (query.ToList().Count - 1))
+                {
+                    var itemSeguinte = query.ToArray()[i + 1];
+
+                    if (itemAtual.Prioridade < itemSeguinte.Prioridade)
+                        break;
+                }
+
+                dbContext.Entry(itemAtual).State = EntityState.Modified;
+            }
         }
 
         protected override void Dispose(bool disposing)
