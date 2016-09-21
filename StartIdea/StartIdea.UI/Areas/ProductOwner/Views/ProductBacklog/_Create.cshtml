@@ -1,12 +1,13 @@
 ﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklog
+
 <div class="modal fade" tabindex="-1" role="dialog" id="popup-create">
     <div class="modal-dialog">
         <div class="modal-content">
             @using (Html.BeginForm("Create", "ProductBacklog"))
             {
                 @Html.AntiForgeryToken()
-                <input type="hidden" name="filtroAtual" value="@ViewBag.FiltroAtual" />
-                <input type="hidden" name="paginaAtual" value="@ViewBag.Pagina" />
+                <input type="hidden" name="filtro" value="@ViewBag.Filtro" />
+                <input type="hidden" name="pagina" value="@ViewBag.Pagina" />
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

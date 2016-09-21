@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-6">
             <label>Objetivo</label>
-            @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control" })
+            @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
         </div>
         <div class="col-md-2">
             <label>Data Inicio</label>
@@ -55,4 +55,4 @@
     </tbody>
 </table>
 @Html.PagedListPager(Model, pagina => Url.Action("Index",
-        new { pagina, filtroAtual = ViewBag.FiltroAtual, dataInicial = ViewBag.DataInicialAtual, dataFinal = ViewBag.DataFinalAtual }))
+        new { pagina, filtro = ViewBag.Filtro, dataInicial = ViewBag.DataInicialAtual, dataFinal = ViewBag.DataFinalAtual }))

@@ -17,16 +17,16 @@ namespace StartIdea.UI.Controllers
             dbContext = _dbContext;
         }
 
-        public ViewResult Index(string contextoBusca, string filtroAtual, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
+        public ViewResult Index(string contextoBusca, string filtro, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
         {
             var sprintBacklogVM = new SprintBacklogVM();
 
             if (contextoBusca != null)
                 pagina = 1;
             else
-                contextoBusca = filtroAtual;
+                contextoBusca = filtro;
 
-            ViewBag.FiltroAtual    = contextoBusca;
+            ViewBag.Filtro           = contextoBusca;
             ViewBag.DataInicialAtual = dataInicial;
             ViewBag.DataFinalAtual   = dataFinal;
 

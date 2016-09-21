@@ -14,17 +14,17 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 
         public ActionResult Index(string contextoBusca, 
-                                  string filtroAtual, 
+                                  string filtro, 
                                   int? pagina,
                                   int? id)
         {
             if (contextoBusca != null)
                 pagina = 1;
             else
-                contextoBusca = filtroAtual;
+                contextoBusca = filtro;
 
             ViewBag.Pagina = pagina;
-            ViewBag.FiltroAtual = contextoBusca;
+            ViewBag.Filtro = contextoBusca;
 
             int pageSize = 7;
             int pageNumber = (pagina ?? 1);
@@ -69,7 +69,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog, string filtroAtual, int? paginaAtual)
+        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog, string filtro, int? pagina)
         {
             if (ModelState.IsValid)
             {
@@ -79,39 +79,35 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
                 dbContext.ProductBacklogs.Add(productBacklog);
                 dbContext.SaveChanges();
-
-                return RedirectToAction("Index", "ProductBacklog", new
-                {
-                    filtroAtual = filtroAtual,
-                    pagina = paginaAtual
-                });
             }
 
             return RedirectToAction("Index", "ProductBacklog", new
             {
-                filtroAtual = filtroAtual,
-                pagina = paginaAtual
+                filtro = filtro,
+                pagina = pagina
             });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao")] ProductBacklog productBacklog, short prioridadeAntes)
+        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao")] ProductBacklog productBacklog, string filtro, int? pagina, short prioridadeAtual)
         {
             if (ModelState.IsValid)
             {
                 productBacklog.ProductOwnerId = 1; // Remover
 
-                if (prioridadeAntes != productBacklog.Prioridade)
+                if (prioridadeAtual != productBacklog.Prioridade)
                     ReordenarPrioridades(productBacklog.Id, productBacklog.Prioridade);
 
                 dbContext.Entry(productBacklog).State = EntityState.Modified;
                 dbContext.SaveChanges();
-
-                return RedirectToAction("Index");
             }
 
-            return View(productBacklog);
+            return RedirectToAction("Index", "ProductBacklog", new
+            {
+                filtro = filtro,
+                pagina = pagina
+            });
         }
 
         public ActionResult Delete(int? id)

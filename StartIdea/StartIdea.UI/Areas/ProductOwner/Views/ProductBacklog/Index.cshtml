@@ -5,7 +5,7 @@
     ViewBag.Title = "Index";
 }
 
-@section CustomScript {
+@section CustomScript{
     <script type="text/javascript">
         var displayEdit = "@Model.DisplayEdit";
         if (displayEdit) {
@@ -14,7 +14,7 @@
 
         $(".edit").click(function () {
             var id = $(this).attr("data-id");
-            var url = "@Url.Action("Index", new { pagina = ViewBag.Pagina, filtroAtual = ViewBag.FiltroAtual, id = 0 })";
+            var url = "@Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 })";
 
             window.location.href = url.replace("/0", "/" + id);
         });
@@ -34,7 +34,7 @@
         <div class="col-xs-12">
             <label>Descrição</label>
             <div class="input-group">
-                @Html.TextBox("contextoBusca", ViewBag.FiltroAtual as string, new { @class = "form-control" })
+                @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">Buscar</button>
                 </span>
@@ -106,7 +106,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="7">
-                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", new { pagina, filtroAtual = ViewBag.FiltroAtual }))
+                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", new { pagina, filtro = ViewBag.Filtro }))
                         </td>
                     </tr>
                 </tfoot>

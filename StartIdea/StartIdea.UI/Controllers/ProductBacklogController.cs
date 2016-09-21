@@ -17,16 +17,16 @@ namespace StartIdea.UI.Controllers
             dbContext = _dbContext;
         }
 
-        public ActionResult Index(string contextoBusca, string filtroAtual, int? pagina)
+        public ActionResult Index(string contextoBusca, string filtro, int? pagina)
         {
             var productBacklogVM = new ProductBacklogVM();
 
             if (contextoBusca != null)
                 pagina = 1;
             else
-                contextoBusca = filtroAtual;
+                contextoBusca = filtro;
 
-            ViewBag.FiltroAtual = contextoBusca;
+            ViewBag.Filtro = contextoBusca;
 
             if (!string.IsNullOrEmpty(contextoBusca))
             {
