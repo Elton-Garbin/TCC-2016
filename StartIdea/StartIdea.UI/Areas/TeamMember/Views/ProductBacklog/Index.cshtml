@@ -1,4 +1,5 @@
-﻿@model IEnumerable<StartIdea.Model.ScrumArtefatos.ProductBacklog>
+﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.ProductBacklogVM
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -6,57 +7,101 @@
 
 @section CustomScript{
     <script type="text/javascript">
+        var displayEdit = "@Model.DisplayEdit";
+        if (displayEdit) {
+            $("#popup-edit").modal('show');
+        }
+
         $(".edit").click(function () {
             var id = $(this).attr("data-id");
-            $("#modal").load("ProductBacklog/Edit/" + id, function () {
-                $("#modal").modal();
-            })
+            var url = "@Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 })";
+
+            window.location.href = url.replace("/0", "/" + id);
         });
     </script>
 }
-<div class="modal" id="modal"></div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductOwner.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserStory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StoryPoint)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prioridade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataInclusao)
-        </th>
-        <th>
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserStory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StoryPoint)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prioridade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInclusao)
-            </td>
-            <td>
-                <button class="btn btn-primary edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit"></i></button>
-            </td>
-        </tr>
-    }
-</table>
+@Html.Partial("_Edit", Model.ProductBacklogEdit)
+
+<div class="page-header">
+    <h1>Backlog do Produto <small>Avaliação</small></h1>
+</div>
+
+@using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <label>Descrição</label>
+            <div class="input-group">
+                @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Buscar</button>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-md-1 text-center">
+                            @Html.DisplayNameFor(model => model.ProductOwner.Id)
+                        </th>
+                        <th class="col-sm-4 col-md-5">
+                            @Html.DisplayNameFor(model => model.UserStory)
+                        </th>
+                        <th class="col-sm-2 text-center">
+                            @Html.DisplayNameFor(model => model.StoryPoint)
+                        </th>
+                        <th class="col-sm-1 text-center">
+                            @Html.DisplayNameFor(model => model.Prioridade)
+                        </th>
+                        <th class="col-sm-2 text-center">
+                            @Html.DisplayNameFor(model => model.DataInclusao)
+                        </th>
+                        <th class="col-sm-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductBacklogList)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserStory)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.StoryPoint)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Prioridade)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs btn-block edit" data-id="@item.Id">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", new { pagina, filtro = ViewBag.Filtro }))
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

@@ -236,6 +236,7 @@
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
     <Compile Include="Areas\TeamMember\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
+    <Compile Include="Areas\TeamMember\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Controllers\BurndownChartController.cs" />
     <Compile Include="Controllers\BurnupChartController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -285,7 +286,7 @@
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Create.cshtml" />
     <Content Include="Areas\TeamMember\Views\_ViewStart.cshtml" />
     <Content Include="Areas\TeamMember\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\TeamMember\Views\ProductBacklog\Edit.cshtml" />
+    <Content Include="Areas\TeamMember\Views\ProductBacklog\_Edit.cshtml" />
     <Content Include="Areas\TeamMember\Views\ProductBacklog\Index.cshtml" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -352,7 +353,6 @@
     <Folder Include="Areas\ScrumMaster\Controllers\" />
     <Folder Include="Areas\ScrumMaster\ViewModels\" />
     <Folder Include="Areas\ScrumMaster\Views\Shared\" />
-    <Folder Include="Areas\TeamMember\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StartIdea.DataAccess\StartIdea.DataAccess.csproj">

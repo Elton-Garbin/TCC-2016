@@ -1,8 +1,9 @@
-﻿using StartIdea.DataAccess;
+﻿using PagedList;
+using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
+using StartIdea.UI.Areas.TeamMember.ViewModels;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.TeamMember.Controllers
@@ -11,27 +12,58 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 
-        public ActionResult Index()
+        public ActionResult Index(string contextoBusca, 
+                                  string filtro, 
+                                  int? pagina,
+                                  int? id)
         {
-            var productBacklogs = dbContext.ProductBacklogs;
-            return View(productBacklogs.ToList());
-        }
+            if (contextoBusca != null)
+                pagina = 1;
+            else
+                contextoBusca = filtro;
 
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ViewBag.Pagina = pagina;
+            ViewBag.Filtro = contextoBusca;
 
-            var productBacklog = dbContext.ProductBacklogs.Find(id);
-            if (productBacklog == null)
-                return HttpNotFound();
+            int pageSize = 7;
+            int pageNumber = (pagina ?? 1);
 
-            return View(productBacklog);
+            var query = from pb in dbContext.ProductBacklogs
+                        where !(from sb in dbContext.SprintBacklogs
+                                select sb.ProductBacklogId)
+                                .Contains(pb.Id)
+                        orderby pb.Prioridade
+                        select pb;
+
+            var productBacklogVM = new ProductBacklogVM();
+            if (!string.IsNullOrEmpty(contextoBusca))
+            {
+                productBacklogVM.ProductBacklogList = query.Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
+                                                           .ToList()
+                                                           .ToPagedList(pageNumber, pageSize);
+            }
+            else
+            {
+                productBacklogVM.ProductBacklogList = query.ToList()
+                                                           .ToPagedList(pageNumber, pageSize);
+            }
+
+            if (id != null)
+            {
+                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(id);
+                if (productBacklog == null)
+                    return HttpNotFound();
+
+                productBacklogVM.ProductBacklogEdit = productBacklog;
+                productBacklogVM.DisplayEdit = "Show";
+            }
+
+            return View(productBacklogVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StoryPoint")] ProductBacklog productBacklog)
+        public ActionResult Edit([Bind(Include = "Id,StoryPoint")] ProductBacklog productBacklog, string filtro, int? pagina)
         {
             var productBacklogAux = dbContext.ProductBacklogs.Find(productBacklog.Id);
             productBacklogAux.StoryPoint = productBacklog.StoryPoint;
@@ -39,7 +71,11 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             dbContext.Entry(productBacklogAux).State = EntityState.Modified;
             dbContext.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ProductBacklog", new
+            {
+                filtro = filtro,
+                pagina = pagina
+            });
         }
 
         protected override void Dispose(bool disposing)
