@@ -96,14 +96,14 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao,ProductOwnerId")] ProductBacklog productBacklog, short prioridadeAntes)
+        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao")] ProductBacklog productBacklog, short prioridadeAntes)
         {
             if (ModelState.IsValid)
             {
+                productBacklog.ProductOwnerId = 1; // Remover
+
                 if (prioridadeAntes != productBacklog.Prioridade)
-                {
                     ReordenarPrioridades(productBacklog.Id, productBacklog.Prioridade);
-                }
 
                 dbContext.Entry(productBacklog).State = EntityState.Modified;
                 dbContext.SaveChanges();
@@ -132,10 +132,10 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             return RedirectToAction("Index");
         }
 
-        private void ReordenarPrioridades(int ProductBacklogIdAtual, short Prioridade)
+        private void ReordenarPrioridades(int ProductBacklogId, short Prioridade)
         {
             var query = from pb in dbContext.ProductBacklogs
-                        where pb.Id != ProductBacklogIdAtual
+                        where pb.Id != ProductBacklogId
                            && pb.Prioridade >= Prioridade
                            && !(from sb in dbContext.SprintBacklogs
                                 select sb.ProductBacklogId)
