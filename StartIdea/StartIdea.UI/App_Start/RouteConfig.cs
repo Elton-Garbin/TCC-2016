@@ -16,7 +16,11 @@ namespace StartIdea.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "SprintBacklog", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "SprintBacklog", action = "Index", id = UrlParameter.Optional }, namespaces: new string[] {
+                    "StartIdea.UI.Controllers",
+                    "StartIdea.UI.Areas.TeamMember",
+                    "StartIdea.UI.Areas.ProductOwner"
+                }
             );
         }
     }

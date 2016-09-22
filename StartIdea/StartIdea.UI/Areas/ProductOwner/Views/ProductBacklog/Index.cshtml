@@ -14,7 +14,7 @@
 
         $(".edit").click(function () {
             var id = $(this).attr("data-id");
-            var url = "@Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 })";
+            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 }))";
 
             window.location.href = url.replace("/0", "/" + id);
         });
