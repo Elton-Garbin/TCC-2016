@@ -8,13 +8,23 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="container">
+    <div id="container-menu" class="row profile">
+        <div id="container-lateral">
+            @{Html.RenderPartial("~/Areas/TeamMember/Views/Shared/_MenuLateral.cshtml");}
+        </div>
+        <div id="container-topo" class="col-md-12">
+            @{Html.RenderPartial("~/Views/Shared/_Header.cshtml");}
+        </div>
+    </div>
+
+    <div id="conteudo-area" class="container">
         @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/customizados")
     @RenderSection("scripts", required: false)
     @if (IsSectionDefined("CustomScript"))
     {
