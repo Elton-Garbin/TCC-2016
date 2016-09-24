@@ -136,8 +136,8 @@ namespace StartIdea.DataAccess.Migrations
                     Id = 1,
                     Objetivo = "Criar processo de login",
                     DataCadastro = new DateTime(2016, 6, 2, 9, 30, 00),
-                    DataInicio = new DateTime(2016, 6, 6, 8, 00, 00),
-                    DataFim = new DateTime(2016, 7, 1, 18, 00, 00),
+                    DataInicial = new DateTime(2016, 6, 6, 8, 00, 00),
+                    DataFinal = new DateTime(2016, 7, 1, 18, 00, 00),
                     TimeId = 1
                 }
                 //new Sprint()
@@ -145,8 +145,8 @@ namespace StartIdea.DataAccess.Migrations
                 //    Id = 2,
                 //    Objetivo = "Criar processo de devolução de valores pagos",
                 //    DataCadastro = new DateTime(2016, 7, 4, 13, 45, 00),
-                //    DataInicio = new DateTime(2016, 8, 1, 8, 00, 00),
-                //    DataFim = new DateTime(2016, 9, 2, 18, 00, 00),
+                //    DataInicial = new DateTime(2016, 8, 1, 8, 00, 00),
+                //    DataFinal = new DateTime(2016, 9, 2, 18, 00, 00),
                 //    DataCancelamento = new DateTime(2016, 9, 1, 8, 30, 00),
                 //    TimeId = 1
                 //},
@@ -155,8 +155,8 @@ namespace StartIdea.DataAccess.Migrations
                 //    Id = 3,
                 //    Objetivo = "Criar processo para oferta de lance",
                 //    DataCadastro = new DateTime(2016, 9, 1, 9, 00, 00),
-                //    DataInicio = new DateTime(2016, 9, 5, 8, 00, 00),
-                //    DataFim = new DateTime(2016, 9, 30, 18, 00, 00),
+                //    DataInicial = new DateTime(2016, 9, 5, 8, 00, 00),
+                //    DataFinal = new DateTime(2016, 9, 30, 18, 00, 00),
                 //    TimeId = 1
                 //}
             );
@@ -168,8 +168,8 @@ namespace StartIdea.DataAccess.Migrations
                 {
                     Id = 1,
                     TipoReuniao = TipoReuniao.Planejamento,
-                    DataInicio = new DateTime(2016, 6, 3, 8, 30, 00),
-                    DataFim = new DateTime(2016, 6, 3, 12, 00, 00),
+                    DataInicial = new DateTime(2016, 6, 3, 8, 30, 00),
+                    DataFinal = new DateTime(2016, 6, 3, 12, 00, 00),
                     Local = "Sala Principal",
                     Observacao = "1ª parte da reunião de planejamento",
                     SprintId = 1
@@ -178,8 +178,8 @@ namespace StartIdea.DataAccess.Migrations
                 {
                     Id = 1,
                     TipoReuniao = TipoReuniao.Planejamento,
-                    DataInicio = new DateTime(2016, 6, 3, 13, 30, 00),
-                    DataFim = new DateTime(2016, 6, 3, 18, 00, 00),
+                    DataInicial = new DateTime(2016, 6, 3, 13, 30, 00),
+                    DataFinal = new DateTime(2016, 6, 3, 18, 00, 00),
                     Local = "Sala 2",
                     Observacao = "2ª parte da reunião de planejamento",
                     SprintId = 1
@@ -202,8 +202,8 @@ namespace StartIdea.DataAccess.Migrations
                 {
                     Id = i + 1,
                     TipoReuniao = TipoReuniao.Diaria,
-                    DataInicio = DataInicialSprint.AddDays(i),
-                    DataFim = DataInicialSprint.AddDays(i).AddMinutes(15),
+                    DataInicial = DataInicialSprint.AddDays(i),
+                    DataFinal = DataInicialSprint.AddDays(i).AddMinutes(15),
                     Local = "Sala Desenvolvimento",
                     Observacao = string.Format("Reunião diária de número {0} com os membros da equipe.", i + 1),
                     SprintId = 1
@@ -221,8 +221,8 @@ namespace StartIdea.DataAccess.Migrations
                 {
                     Id = 1,
                     TipoReuniao = TipoReuniao.Revisao,
-                    DataInicio = new DateTime(2016, 7, 4, 8, 30, 00),
-                    DataFim = new DateTime(2016, 7, 4, 12, 00, 00),
+                    DataInicial = new DateTime(2016, 7, 4, 8, 30, 00),
+                    DataFinal = new DateTime(2016, 7, 4, 12, 00, 00),
                     Local = "Sala Principal",
                     Observacao = "Todos os envolvidos e comprometidos no projeto estavam presentes.",
                     SprintId = 1
@@ -236,8 +236,8 @@ namespace StartIdea.DataAccess.Migrations
                 {
                     Id = 1,
                     TipoReuniao = TipoReuniao.Retrospectiva,
-                    DataInicio = new DateTime(2016, 7, 4, 13, 30, 00),
-                    DataFim = new DateTime(2016, 7, 4, 18, 00, 00),
+                    DataInicial = new DateTime(2016, 7, 4, 13, 30, 00),
+                    DataFinal = new DateTime(2016, 7, 4, 18, 00, 00),
                     Local = "Sala 2",
                     Observacao = "Para o próximo sprint verificar a possibilidade de comprar a licença do DevExpress para auxilio nos gráficos.",
                     SprintId = 1

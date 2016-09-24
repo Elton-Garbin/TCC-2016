@@ -889,6 +889,95 @@ var Microsoft;
     var ApplicationInsights;
     (function (ApplicationInsights) {
         "use strict";
+        var PerformanceAnalyzer = (function () {
+            function PerformanceAnalyzer(appInsights) {
+                this.enabled = false;
+                this.performanceSendInterval = 10000;
+                this.resourcesLogged = {};
+                this.appInsights = appInsights;
+                this.enabled = this.appInsights.config.isPerfAnalyzerEnabled;
+                this.resourceFilters = ["/v2/track", "/ai.0.js"];
+                this.Init();
+            }
+            PerformanceAnalyzer.prototype.Init = function () {
+                var _this = this;
+                if (!this.enabled || !this.IsPerformanceApiSupported()) {
+                    return;
+                }
+                this.intervalHandler = setInterval(function () {
+                    _this.SendPerfData();
+                    if (_this.resourceFilters.length === Object.keys(_this.resourcesLogged).length) {
+                        clearInterval(_this.intervalHandler);
+                    }
+                }, this.performanceSendInterval);
+            };
+            PerformanceAnalyzer.prototype.IsPerformanceApiSupported = function () {
+                return ("performance" in window && "getEntriesByType" in window.performance);
+            };
+            PerformanceAnalyzer.prototype.SendPerfData = function () {
+                if (!this.enabled || !this.IsPerformanceApiSupported()) {
+                    return;
+                }
+                var resources = window.performance.getEntriesByType("resource");
+                if (resources === undefined || resources.length <= 0) {
+                    return;
+                }
+                for (var i = 0; i < resources.length; i++) {
+                    var resource = resources[i];
+                    var name = resource.name;
+                    if (name && this.IsMatching(name) && !this.resourcesLogged[name]) {
+                        var properties = {
+                            "url": name
+                        };
+                        var measurements;
+                        if (resource.connectStart === 0 && resource.connectEnd === 0 &&
+                            resource.requestStart === 0 && resource.responseStart === 0) {
+                            measurements = {
+                                "duration": resource.duration,
+                                "startTime": resource.startTime,
+                                "responseEnd": resource.responseEnd
+                            };
+                        }
+                        else {
+                            measurements = {
+                                "duration": resource.duration,
+                                "startTime": resource.startTime,
+                                "redirectStart": resource.redirectStart,
+                                "redirectEnd": resource.redirectEnd,
+                                "domainLookupStart": resource.domainLookupStart,
+                                "domainLookupEnd": resource.domainLookupEnd,
+                                "connectStart": resource.connectStart,
+                                "secureConnectionStart": resource.secureConnectionStart || "0",
+                                "connectEnd": resource.connectEnd,
+                                "requestStart": resource.requestStart,
+                                "responseStart": resource.responseStart,
+                                "responseEnd": resource.responseEnd,
+                            };
+                        }
+                        this.appInsights.trackEvent("AI (Internal): PerfAnalyzer", properties, measurements);
+                        this.resourcesLogged[name] = true;
+                        break;
+                    }
+                }
+            };
+            PerformanceAnalyzer.prototype.IsMatching = function (name) {
+                for (var i = 0; i < this.resourceFilters.length; i++) {
+                    if (name.indexOf(this.resourceFilters[i]) !== -1) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+            return PerformanceAnalyzer;
+        })();
+        ApplicationInsights.PerformanceAnalyzer = PerformanceAnalyzer;
+    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
+})(Microsoft || (Microsoft = {}));
+var Microsoft;
+(function (Microsoft) {
+    var ApplicationInsights;
+    (function (ApplicationInsights) {
+        "use strict";
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
 /// <reference path="../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
@@ -1298,6 +1387,7 @@ var Microsoft;
             var Internal = (function () {
                 function Internal() {
                     this.sdkVersion = "javascript:" + ApplicationInsights.Version;
+                    this.agentVersion = ApplicationInsights.SnippetVersion ? "snippet:" + ApplicationInsights.SnippetVersion : undefined;
                 }
                 return Internal;
             })();
@@ -2074,6 +2164,25 @@ var Microsoft;
                 }
                 return null;
             };
+            Sender.prototype._isRetriable = function (statusCode) {
+                return statusCode == 408
+                    || statusCode == 429
+                    || statusCode == 500
+                    || statusCode == 503;
+            };
+            Sender.prototype._resendPayload = function (payload) {
+                if (!payload || payload.length === 0) {
+                    return;
+                }
+                this._buffer.clearSent(payload);
+                this._consecutiveErrors++;
+                for (var _i = 0; _i < payload.length; _i++) {
+                    var item = payload[_i];
+                    this._buffer.enqueue(item);
+                }
+                this._setRetryTime();
+                this._setupTimer();
+            };
             Sender.prototype._xhrSender = function (payload, isAsync) {
                 var _this = this;
                 var xhr = new XMLHttpRequest();
@@ -2100,12 +2209,19 @@ var Microsoft;
             Sender.prototype._xhrReadyStateChange = function (xhr, payload, countOfItemsInPayload) {
                 if (xhr.readyState === 4) {
                     if ((xhr.status < 200 || xhr.status >= 300) && xhr.status !== 0) {
-                        this._onError(payload, xhr.responseText || xhr.response || "");
+                        if (!this._config.isRetryDisabled() && this._isRetriable(xhr.status)) {
+                            this._resendPayload(payload);
+                            ApplicationInsights._InternalLogging.throwInternalNonUserActionable(ApplicationInsights.LoggingSeverity.WARNING, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.NONUSRACT_TransmissionFailed, ". " +
+                                "Response code " + xhr.status + ". Will retry to send " + payload.length + " items."));
+                        }
+                        else {
+                            this._onError(payload, xhr.responseText || xhr.response || "");
+                        }
                     }
                     else {
                         if (xhr.status === 206) {
                             var response = this._parseResponse(xhr.responseText || xhr.response);
-                            if (response && !this._config.disablePartialResponseHandler()) {
+                            if (response && !this._config.isRetryDisabled()) {
                                 this._onPartialSuccess(payload, response);
                             }
                             else {
@@ -2127,7 +2243,7 @@ var Microsoft;
                 else {
                     var results = this._parseResponse(xdr.responseText);
                     if (results && results.itemsReceived && results.itemsReceived > results.itemsAccepted
-                        && !this._config.disablePartialResponseHandler()) {
+                        && !this._config.isRetryDisabled()) {
                         this._onPartialSuccess(payload, results);
                     }
                     else {
@@ -2142,10 +2258,7 @@ var Microsoft;
                 for (var _i = 0; _i < errors.length; _i++) {
                     var error = errors[_i];
                     var extracted = payload.splice(error.index, 1)[0];
-                    if (error.statusCode == 408
-                        || error.statusCode == 429
-                        || error.statusCode == 500
-                        || error.statusCode == 503) {
+                    if (this._isRetriable(error.statusCode)) {
                         retry.push(extracted);
                     }
                     else {
@@ -2159,15 +2272,8 @@ var Microsoft;
                     this._onError(failed, ['partial success', results.itemsAccepted, 'of', results.itemsReceived].join(' '));
                 }
                 if (retry.length > 0) {
-                    for (var _a = 0; _a < retry.length; _a++) {
-                        var item = retry[_a];
-                        this._buffer.enqueue(item);
-                    }
-                    this._buffer.clearSent(retry);
-                    this._consecutiveErrors++;
-                    this._setRetryTime();
-                    this._setupTimer();
-                    ApplicationInsights._InternalLogging.throwInternalNonUserActionable(ApplicationInsights.LoggingSeverity.CRITICAL, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.NONUSRACT_TransmissionFailed, "Partial success. " +
+                    this._resendPayload(retry);
+                    ApplicationInsights._InternalLogging.throwInternalNonUserActionable(ApplicationInsights.LoggingSeverity.WARNING, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.NONUSRACT_TransmissionFailed, "Partial success. " +
                         "Delivered: " + payload.length + ", Failed: " + failed.length +
                         ". Will retry to send " + retry.length + " our of " + results.itemsReceived + " items"));
                 }
@@ -2276,10 +2382,6 @@ var Microsoft;
                     DataSanitizer.sanitizeKey = function (name) {
                         if (name) {
                             name = ApplicationInsights.Util.trim(name.toString());
-                            if (name.search(/[^0-9a-zA-Z-._()\/ ]/g) >= 0) {
-                                name = name.replace(/[^0-9a-zA-Z-._()\/ ]/g, "_");
-                                ApplicationInsights._InternalLogging.throwInternalUserActionable(ApplicationInsights.LoggingSeverity.WARNING, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.USRACT_IllegalCharsInName, "name contains illegal characters. Illegal characters have been replaced with '_'.", { newName: name }));
-                            }
                             if (name.length > DataSanitizer.MAX_NAME_LENGTH) {
                                 name = name.substring(0, DataSanitizer.MAX_NAME_LENGTH);
                                 ApplicationInsights._InternalLogging.throwInternalUserActionable(ApplicationInsights.LoggingSeverity.WARNING, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.USRACT_NameTooLong, "name is too long.  It has been truncated to " + DataSanitizer.MAX_NAME_LENGTH + " characters.", { name: name }));
@@ -3509,6 +3611,7 @@ var Microsoft;
 /// <reference path="../JavaScriptSDK.Interfaces/Contracts/Generated/SessionState.ts"/>
 /// <reference path="./Telemetry/PageViewManager.ts"/>
 /// <reference path="./Telemetry/PageVisitTimeManager.ts"/>
+/// <reference path="./Telemetry/PerformanceAnalyzer.ts"/>
 /// <reference path="./Telemetry/RemoteDependencyData.ts"/>
 /// <reference path="./ajax/ajax.ts"/>
 /// <reference path="./DataLossAnalyzer.ts"/>
@@ -3519,7 +3622,8 @@ var Microsoft;
     var ApplicationInsights;
     (function (ApplicationInsights) {
         "use strict";
-        ApplicationInsights.Version = "1.0.0";
+        ApplicationInsights.Version = "1.0.3";
+        ApplicationInsights.SnippetVersion;
         var AppInsights = (function () {
             function AppInsights(config) {
                 var _this = this;
@@ -3548,7 +3652,7 @@ var Microsoft;
                     sampleRate: function () { return _this.config.samplingPercentage; },
                     cookieDomain: function () { return _this.config.cookieDomain; },
                     enableSessionStorageBuffer: function () { return _this.config.enableSessionStorageBuffer; },
-                    disablePartialResponseHandler: function () { return _this.config.disablePartialResponseHandler; }
+                    isRetryDisabled: function () { return _this.config.isRetryDisabled; }
                 };
                 this.context = new ApplicationInsights.TelemetryContext(configGetters);
                 this._pageViewManager = new Microsoft.ApplicationInsights.Telemetry.PageViewManager(this, this.config.overridePageViewDuration);
@@ -3574,6 +3678,9 @@ var Microsoft;
                 this._pageVisitTimeManager = new ApplicationInsights.Telemetry.PageVisitTimeManager(function (pageName, pageUrl, pageVisitTime) { return _this.trackPageVisitTime(pageName, pageUrl, pageVisitTime); });
                 if (!this.config.disableAjaxTracking) {
                     new Microsoft.ApplicationInsights.AjaxMonitor(this);
+                }
+                if (this.config.isPerfAnalyzerEnabled) {
+                    this._performanceAnalyzer = new Microsoft.ApplicationInsights.PerformanceAnalyzer(this);
                 }
             }
             AppInsights.prototype.sendPageViewInternal = function (name, url, duration, properties, measurements) {
@@ -3919,15 +4026,18 @@ var Microsoft;
                 config.disableCorrelationHeaders = (config.disableCorrelationHeaders !== undefined && config.disableCorrelationHeaders !== null) ?
                     ApplicationInsights.Util.stringToBoolOrDefault(config.disableCorrelationHeaders) :
                     true;
+                config.isPerfAnalyzerEnabled = (config.isPerfAnalyzerEnabled !== undefined && config.isPerfAnalyzerEnabled !== null) ?
+                    ApplicationInsights.Util.stringToBoolOrDefault(config.isPerfAnalyzerEnabled) :
+                    false;
                 config.disableFlushOnBeforeUnload = (config.disableFlushOnBeforeUnload !== undefined && config.disableFlushOnBeforeUnload !== null) ?
                     ApplicationInsights.Util.stringToBoolOrDefault(config.disableFlushOnBeforeUnload) :
                     false;
                 config.enableSessionStorageBuffer = (config.enableSessionStorageBuffer !== undefined && config.enableSessionStorageBuffer !== null) ?
                     ApplicationInsights.Util.stringToBoolOrDefault(config.enableSessionStorageBuffer) :
                     true;
-                config.disablePartialResponseHandler = (config.disablePartialResponseHandler !== undefined && config.disablePartialResponseHandler !== null) ?
-                    ApplicationInsights.Util.stringToBoolOrDefault(config.disablePartialResponseHandler) :
-                    true;
+                config.isRetryDisabled = (config.isRetryDisabled !== undefined && config.isRetryDisabled !== null) ?
+                    ApplicationInsights.Util.stringToBoolOrDefault(config.isRetryDisabled) :
+                    false;
                 return config;
             };
             return Initialization;
@@ -3949,6 +4059,7 @@ var Microsoft;
                 }
                 else {
                     var snippet = window[aiName] || {};
+                    Microsoft.ApplicationInsights.SnippetVersion = snippet.version;
                     var init = new Microsoft.ApplicationInsights.Initialization(snippet);
                     var appInsightsLocal = init.loadAppInsights();
                     for (var field in appInsightsLocal) {

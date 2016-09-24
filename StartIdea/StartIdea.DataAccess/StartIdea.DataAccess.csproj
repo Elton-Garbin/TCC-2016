@@ -52,7 +52,6 @@
     <Compile Include="Mapping\ScrumArtefatos\StatusMap.cs" />
     <Compile Include="Mapping\ScrumArtefatos\TarefaMap.cs" />
     <Compile Include="Mapping\ScrumEventos\ReuniaoMap.cs" />
-    <Compile Include="Mapping\ScrumEventos\SprintMap.cs" />
     <Compile Include="Mapping\TimeScrum\MembroTimeMap.cs" />
     <Compile Include="Mapping\TimeScrum\TimeMap.cs" />
     <Compile Include="Mapping\UsuarioMap.cs" />

@@ -43,8 +43,8 @@
         {
             <tr>
                 <td width="70%">@Html.Label((item.Objetivo.Length > 130) ? item.Objetivo.Substring(0, 130) : item.Objetivo, new { @style = "font-weight: normal" })</td>
-                <td class="text-center" width="10%">@item.DataInicio.ToString("dd/MM/yyyy")</td>
-                <td class="text-center" width="10%">@item.DataFim.ToString("dd/MM/yyyy")</td>
+                <td class="text-center" width="10%">@item.DataInicial.ToString("dd/MM/yyyy")</td>
+                <td class="text-center" width="10%">@item.DataFinal.ToString("dd/MM/yyyy")</td>
                 <td class="text-center" width="10%">
                     <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id })">
                         <span class="glyphicon glyphicon-search"></span>

@@ -60,7 +60,6 @@ namespace StartIdea.DataAccess
             #endregion
 
             #region ScrumEventos
-            modelBuilder.Configurations.Add(new SprintMap());
             modelBuilder.Configurations.Add(new ReuniaoMap());
             #endregion
 

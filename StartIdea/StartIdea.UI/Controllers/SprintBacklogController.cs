@@ -36,10 +36,10 @@ namespace StartIdea.UI.Controllers
                 sprintBacklogVM.Sprints = dbContext.Sprints.ToList();
 
             if (dataInicial != null)
-                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataInicio.Date >= ((DateTime)dataInicial).Date).ToList();
+                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataInicial.Date >= ((DateTime)dataInicial).Date).ToList();
 
             if (dataFinal != null)
-                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataFim.Date <= ((DateTime)dataFinal).Date).ToList();
+                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataFinal.Date <= ((DateTime)dataFinal).Date).ToList();
 
 
             int pageSize = 5;

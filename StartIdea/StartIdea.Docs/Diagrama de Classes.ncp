@@ -244,8 +244,8 @@
         <Member type="Property">public Int32 Id { get; set; }</Member>
         <Member type="Property">public TipoReuniao TipoReuniao { get; set; }</Member>
         <Member type="Property">public String Local { get; set; }</Member>
-        <Member type="Property">public DateTime DataInicio { get; set; }</Member>
-        <Member type="Property">public DateTime DataFim { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicial { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinal { get; set; }</Member>
         <Member type="Property">public String Observacao { get; set; }</Member>
         <Member type="Property">public Int32 SprintId { get; set; }</Member>
         <Member type="Property">public virtual Sprint Sprint { get; set; }</Member>
@@ -259,8 +259,8 @@
         <Size width="312" height="264" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public Int32 Id { get; set; }</Member>
-        <Member type="Property">public DateTime DataInicio { get; set; }</Member>
-        <Member type="Property">public DateTime DataFim { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicial { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinal { get; set; }</Member>
         <Member type="Property">public String Objetivo { get; set; }</Member>
         <Member type="Property">public DateTime DataCadastro { get; set; }</Member>
         <Member type="Property">public DateTime? DataCancelamento { get; set; }</Member>

@@ -15,8 +15,8 @@ namespace StartIdea.Model.ScrumEventos
         public int Id { get; set; }
         public TipoReuniao TipoReuniao { get; set; }
         public string Local { get; set; }
-        public DateTime DataInicio { get; set; }
-        public DateTime DataFim { get; set; }
+        public DateTime DataInicial { get; set; }
+        public DateTime DataFinal { get; set; }
         public string Observacao { get; set; }
         public int SprintId { get; set; }
 
