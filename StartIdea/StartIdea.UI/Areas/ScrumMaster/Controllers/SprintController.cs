@@ -1,9 +1,7 @@
 ﻿using StartIdea.DataAccess;
 using StartIdea.Model.ScrumEventos;
 using StartIdea.UI.Areas.ScrumMaster.ViewModels;
-using System;
 using System.Data.Entity;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ScrumMaster.Controllers
@@ -14,21 +12,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         public ActionResult Index()
         {
-            var sprintVM = new SprintVM();
-            int IdTime = GetScrumMasterTeamId();
-
-            sprintVM.SprintAtual = dbContext.Sprints.SingleOrDefault(s => !s.DataCancelamento.HasValue
-                                                                     && s.TimeId == IdTime
-                                                                     && s.DataInicial <= DateTime.Now
-                                                                     && s.DataFinal >= DateTime.Now);
-
-            sprintVM.ProximaSprint = dbContext.Sprints.Where(s => !s.DataCancelamento.HasValue
-                                                             && s.TimeId == IdTime
-                                                             && s.DataInicial > DateTime.Now)
-                                                      .OrderByDescending(s => s.DataInicial)
-                                                      .FirstOrDefault() ?? new Sprint();
-
-            return View(sprintVM);
+            return View(new SprintVM());
         }
 
         [HttpPost]
@@ -39,24 +23,17 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             {
                 var sprint = new Sprint()
                 {
-                    Objetivo = sprintVM.ProximaSprint.Objetivo,
-                    DataInicial = sprintVM.ProximaSprint.DataInicial,
-                    DataFinal = sprintVM.ProximaSprint.DataFinal,
-                    TimeId = GetScrumMasterTeamId()
+                    Objetivo = sprintVM.Objetivo,
+                    DataInicial = sprintVM.DataInicial,
+                    DataFinal = sprintVM.DataFinal,
+                    TimeId = sprintVM.TimeId
                 };
 
                 dbContext.Sprints.Add(sprint);
                 dbContext.SaveChanges();
             }
 
-            return RedirectToAction("Index");
-        }
-
-        private int GetScrumMasterTeamId()
-        {
-            var time = dbContext.Times.Where(t => t.ScrumMasterId == 1).FirstOrDefault();
-
-            return time.Id;
+            return View("Index", sprintVM);
         }
 
         [HttpPost]
@@ -65,24 +42,23 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sprintAux = dbContext.Sprints.Find(sprintVM.ProximaSprint.Id);
-                sprintAux.Objetivo = sprintVM.ProximaSprint.Objetivo;
-                sprintAux.DataInicial = sprintVM.ProximaSprint.DataInicial;
-                sprintAux.DataFinal = sprintVM.ProximaSprint.DataFinal;
+                var sprintAux = dbContext.Sprints.Find(sprintVM.Id);
+                sprintAux.Objetivo = sprintVM.Objetivo;
+                sprintAux.DataInicial = sprintVM.DataInicial;
+                sprintAux.DataFinal = sprintVM.DataFinal;
 
                 dbContext.Entry(sprintAux).State = EntityState.Modified;
                 dbContext.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return View("Index", sprintVM);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 dbContext.Dispose();
-            }
+
             base.Dispose(disposing);
         }
     }

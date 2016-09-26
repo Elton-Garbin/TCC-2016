@@ -17,7 +17,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="alert alert-info" role="alert">
-                    <a href="#" class="alert-link">Clique aqui para ver mais detalhes!</a>
+                    <p>Objetivo: @Model.SprintAtual.Objetivo</p>
+                    <p>Duração: @Model.SprintAtual.DataInicial à @Model.SprintAtual.DataFinal</p>
+                    <p><a href="#" class="alert-link">Clique aqui para verificar o andamento!</a></p>
                 </div>
             </div>
         </div>
@@ -38,26 +40,26 @@
         </div>
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ProximaSprint.Id)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="row">
             <div class="col-xs-12 form-group">
-                @Html.LabelFor(model => model.ProximaSprint.Objetivo)
-                @Html.EditorFor(model => model.ProximaSprint.Objetivo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Objetivo ou Meta da Sprint" } })
-                @Html.ValidationMessageFor(model => model.ProximaSprint.Objetivo, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Objetivo)
+                @Html.EditorFor(model => model.Objetivo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Objetivo ou Meta da Sprint" } })
+                @Html.ValidationMessageFor(model => model.Objetivo, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.ProximaSprint.DataInicial)
-                @Html.EditorFor(model => model.ProximaSprint.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProximaSprint.DataInicial, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.DataInicial)
+                @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
             </div>
             <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.ProximaSprint.DataFinal)
-                @Html.EditorFor(model => model.ProximaSprint.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProximaSprint.DataFinal, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.DataFinal)
+                @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataFinal, "", new { @class = "text-danger" })
             </div>
         </div>
 
