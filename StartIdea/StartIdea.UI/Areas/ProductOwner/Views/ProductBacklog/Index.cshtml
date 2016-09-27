@@ -14,14 +14,20 @@
 
         $(".edit").click(function () {
             var id = $(this).attr("data-id");
-            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 }))";
+            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, filtroDataInicial = Model.filtroDataInicial, filtroDataFinal = Model.filtroDataFinal, id = 0 }))";
 
             window.location.href = url.replace("/0", "/" + id);
+        });
+
+        $("#popup-edit").on("hide.bs.modal", function () {
+            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, filtroDataInicial = Model.filtroDataInicial, filtroDataFinal = Model.filtroDataFinal, id = "" }))";
+
+            window.location.href = url;
         });
     </script>
 }
 
-@Html.Partial("_Create", Model.ProductBacklogCreate)
+@Html.Partial("_Create", Model.ProductBacklogCreateVM)
 @Html.Partial("_Edit", Model.ProductBacklogEdit)
 
 <div class="page-header">
@@ -31,14 +37,21 @@
 @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
 {
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-6">
             <label>Descrição</label>
-            <div class="input-group">
-                @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">Buscar</button>
-                </span>
-            </div>
+            @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <label>Data Inicial Inclusão</label>
+            @Html.TextBox("filtroDataInicial", Model.filtroDataInicial, new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="col-md-2">
+            <label>Data Final Inclusão</label>
+            @Html.TextBox("filtroDataFinal", Model.filtroDataFinal, new { @class = "form-control", @type = "date" })
+        </div>
+        <div class="col-md-2">
+            <label>&nbsp;</label>
+            <button class="btn btn-default btn-block" type="submit">Buscar</button>
         </div>
     </div>
 }
@@ -106,7 +119,8 @@
                 <tfoot>
                     <tr>
                         <td colspan="7">
-                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", new { pagina, filtro = ViewBag.Filtro }))
+                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", 
+                                new { pagina, filtro = ViewBag.Filtro, filtroDataInicial = ViewBag.FiltroDataInicial, filtroDataFinal = ViewBag.FiltroDataFinal }))
                         </td>
                     </tr>
                 </tfoot>

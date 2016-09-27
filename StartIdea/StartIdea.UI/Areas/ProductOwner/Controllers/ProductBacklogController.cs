@@ -2,6 +2,8 @@
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.Areas.ProductOwner.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -15,6 +17,8 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         public ActionResult Index(string contextoBusca, 
                                   string filtro, 
+                                  DateTime? filtroDataInicial,
+                                  DateTime? filtroDataFinal,
                                   int? pagina,
                                   int? id)
         {
@@ -26,9 +30,6 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             ViewBag.Pagina = pagina;
             ViewBag.Filtro = contextoBusca;
 
-            int pageSize = 7;
-            int pageNumber = (pagina ?? 1);
-
             var query = from pb in dbContext.ProductBacklogs
                         where !(from sb in dbContext.SprintBacklogs
                                 select sb.ProductBacklogId)
@@ -37,17 +38,36 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                         select pb;
 
             var productBacklogVM = new ProductBacklogVM();
+            List<ProductBacklog> listBacklogs = null;
             if (!string.IsNullOrEmpty(contextoBusca))
             {
-                productBacklogVM.ProductBacklogList = query.Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
-                                                           .ToList()
-                                                           .ToPagedList(pageNumber, pageSize);
+                listBacklogs = query.Where(productBacklog => productBacklog.UserStory
+                                                                           .ToUpper()
+                                                                           .Contains(contextoBusca.ToUpper()))
+                                                                           .ToList();
             }
             else
+                listBacklogs = query.ToList();
+
+            if (filtroDataInicial != null)
             {
-                productBacklogVM.ProductBacklogList = query.ToList()
-                                                           .ToPagedList(pageNumber, pageSize);
+                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date >= ((DateTime)filtroDataInicial).Date).ToList();
             }
+
+            if (filtroDataFinal != null)
+            {
+                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= ((DateTime)filtroDataFinal).Date).ToList();
+            }
+
+            productBacklogVM.filtroDataInicial = filtroDataInicial;
+            productBacklogVM.filtroDataFinal = filtroDataFinal;
+
+            productBacklogVM.ProductBacklogCreateVM = new ProductBacklogCreateVM();
+            productBacklogVM.ProductBacklogCreateVM.filtroDataInicial = filtroDataInicial;
+            productBacklogVM.ProductBacklogCreateVM.filtroDataFinal = filtroDataFinal;
+
+            ViewBag.FiltroDataInicial = filtroDataInicial;
+            ViewBag.FiltroDataFinal = filtroDataFinal;
 
             if (id != null)
             {
@@ -59,6 +79,11 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 productBacklogVM.DisplayEdit = "Show";
             }
 
+            int pageSize = 7;
+            int pageNumber = (pagina ?? 1);
+
+            productBacklogVM.ProductBacklogList = listBacklogs.ToPagedList(pageNumber, pageSize);
+
             return View(productBacklogVM);
         }
 
@@ -69,28 +94,30 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog, string filtro, int? pagina)
+        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog, string filtro, int? pagina, DateTime? filtroDataInicial, DateTime? filtroDataFinal)
         {
             if (ModelState.IsValid)
             {
                 productBacklog.ProductOwnerId = 1; // Remover
-
+                
                 ReordenarPrioridades(0, productBacklog.Prioridade);
-
+                
                 dbContext.ProductBacklogs.Add(productBacklog);
                 dbContext.SaveChanges();
             }
 
             return RedirectToAction("Index", "ProductBacklog", new
             {
-                filtro = filtro,
-                pagina = pagina
+                filtro            = filtro,
+                pagina            = pagina,
+                filtroDataInicial = filtroDataInicial,
+                filtroDataFinal   = filtroDataFinal
             });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao")] ProductBacklog productBacklog, string filtro, int? pagina, short prioridadeAtual)
+        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao")] ProductBacklog productBacklog, string filtro, int? pagina, short prioridadeAtual, DateTime? filtroDataInicial, DateTime? filtroDataFinal)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +133,9 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             return RedirectToAction("Index", "ProductBacklog", new
             {
                 filtro = filtro,
-                pagina = pagina
+                pagina = pagina,
+                filtroDataInicial = filtroDataInicial,
+                filtroDataFinal = filtroDataFinal
             });
         }
 
