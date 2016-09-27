@@ -42,6 +42,7 @@ namespace StartIdea.Model.ScrumEventos
 
         public DateTime? DataCancelamento { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string MotivoCancelamento { get; set; }
 
         public int TimeId { get; set; }

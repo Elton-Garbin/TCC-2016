@@ -31,6 +31,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
                 dbContext.Sprints.Add(sprint);
                 dbContext.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
             return View("Index", sprintVM);

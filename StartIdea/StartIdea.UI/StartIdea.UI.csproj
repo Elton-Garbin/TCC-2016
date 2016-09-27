@@ -231,9 +231,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
+    <Compile Include="Areas\ProductOwner\Controllers\SprintController.cs" />
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogCreateVM.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogVM.cs" />
+    <Compile Include="Areas\ProductOwner\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\SprintController.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintVM.cs" />
@@ -306,6 +308,7 @@
     <Content Include="Areas\ScrumMaster\Views\_ViewStart.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\Sprint\Index.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\Sprint\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.min.js" />

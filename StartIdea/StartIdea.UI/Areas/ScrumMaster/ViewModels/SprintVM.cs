@@ -68,13 +68,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
                 }
             }
 
-            if (DataInicial < DateTime.Now)
-            {
-                yield return
-                    new ValidationResult(errorMessage: "Data Inicial deve ser maior do que a data atual.",
-                                       memberNames: new[] { "DataInicial" });
-            }
-
             if (DataFinal <= DataInicial)
             {
                 yield return
@@ -90,10 +83,10 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 
         private void GetSprintAtual()
         {
-            SprintAtual = dbContext.Sprints.SingleOrDefault(s => !s.DataCancelamento.HasValue
-                                                               && s.TimeId == TimeId
-                                                               && s.DataInicial <= DateTime.Now
-                                                               && s.DataFinal >= DateTime.Now);
+            SprintAtual = dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                              && s.TimeId == TimeId
+                                                              && s.DataInicial <= DateTime.Now
+                                                              && s.DataFinal >= DateTime.Now);
         }
 
         private void GetProximaSprint()
