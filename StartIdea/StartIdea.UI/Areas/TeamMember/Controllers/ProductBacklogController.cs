@@ -2,6 +2,7 @@
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.Areas.TeamMember.ViewModels;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -67,6 +68,14 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         {
             var productBacklogAux = dbContext.ProductBacklogs.Find(productBacklog.Id);
             productBacklogAux.StoryPoint = productBacklog.StoryPoint;
+
+            productBacklogAux.HistoricoEstimativas.Add(new HistoricoEstimativa()
+            {
+                DataInclusao = DateTime.Now,
+                ProductBacklogId = productBacklog.Id,
+                StoryPoint = productBacklog.StoryPoint,
+                MembroTimeId = 1 //Alterar para passar o membro do time
+            });
 
             dbContext.Entry(productBacklogAux).State = EntityState.Modified;
             dbContext.SaveChanges();

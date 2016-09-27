@@ -232,6 +232,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
+    <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogCreateVM.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\SprintController.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
