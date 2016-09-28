@@ -1,4 +1,4 @@
-﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklog
+﻿@model StartIdea.UI.Areas.ProductOwner.ViewModels.ProductBacklogVM
 
 <div class="modal fade" tabindex="-1" role="dialog" id="popup-edit">
     <div class="modal-dialog">
@@ -6,11 +6,12 @@
             @using (Html.BeginForm("Edit", "ProductBacklog"))
             {
                 @Html.AntiForgeryToken()
-                <input type="hidden" name="filtro" value="@ViewBag.Filtro" />
-                <input type="hidden" name="pagina" value="@ViewBag.Pagina" />
-                <input type="hidden" name="prioridadeAtual" value="@Model.Prioridade" />
-                <input type="hidden" name="filtroDataInicial" value="@ViewBag.FiltroDataInicial" />
-                <input type="hidden" name="filtroDataFinal" value="@ViewBag.FiltroDataFinal" />
+                @Html.HiddenFor(model => model.FiltroUserStory)
+                @Html.HiddenFor(model => model.FiltroDataInicial)
+                @Html.HiddenFor(model => model.FiltroDataFinal)
+                @Html.HiddenFor(model => model.PaginaGrid)
+                @Html.HiddenFor(model => model.DisplayEdit)
+                @Html.Hidden("prioridadeAtual", Model.Prioridade)
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -21,8 +22,6 @@
                     <div class="container-fluid">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.Id)
-                        @Html.HiddenFor(model => model.StoryPoint)
-                        @Html.HiddenFor(model => model.DataInclusao)
 
                         <div class="row">
                             <div class="col-xs-12 form-group">
@@ -43,7 +42,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             }

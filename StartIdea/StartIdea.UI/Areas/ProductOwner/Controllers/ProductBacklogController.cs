@@ -15,128 +15,84 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 
-        public ActionResult Index(string contextoBusca, 
-                                  string filtro, 
-                                  DateTime? filtroDataInicial,
-                                  DateTime? filtroDataFinal,
-                                  int? pagina,
-                                  int? id)
+        public ActionResult Index(string FiltroUserStory,
+                                  DateTime? FiltroDataInicial,
+                                  DateTime? FiltroDataFinal,
+                                  int? PaginaGrid,
+                                  int? IdEdit,
+                                  string DisplayCreate)
         {
-            if (contextoBusca != null)
-                pagina = 1;
-            else
-                contextoBusca = filtro;
-
-            ViewBag.Pagina = pagina;
-            ViewBag.Filtro = contextoBusca;
-
-            var query = from pb in dbContext.ProductBacklogs
-                        where !(from sb in dbContext.SprintBacklogs
-                                select sb.ProductBacklogId)
-                                .Contains(pb.Id)
-                        orderby pb.Prioridade
-                        select pb;
-
             var productBacklogVM = new ProductBacklogVM();
-            List<ProductBacklog> listBacklogs = null;
-            if (!string.IsNullOrEmpty(contextoBusca))
+            productBacklogVM.PaginaGrid = (PaginaGrid ?? 1);
+            productBacklogVM.FiltroUserStory = FiltroUserStory;
+            productBacklogVM.FiltroDataInicial = FiltroDataInicial;
+            productBacklogVM.FiltroDataFinal = FiltroDataFinal;
+            productBacklogVM.DisplayCreate = DisplayCreate;
+
+            if ((IdEdit ?? 0) > 0)
             {
-                listBacklogs = query.Where(productBacklog => productBacklog.UserStory
-                                                                           .ToUpper()
-                                                                           .Contains(contextoBusca.ToUpper()))
-                                                                           .ToList();
-            }
-            else
-                listBacklogs = query.ToList();
-
-            if (filtroDataInicial != null)
-            {
-                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date >= ((DateTime)filtroDataInicial).Date).ToList();
-            }
-
-            if (filtroDataFinal != null)
-            {
-                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= ((DateTime)filtroDataFinal).Date).ToList();
-            }
-
-            productBacklogVM.filtroDataInicial = filtroDataInicial;
-            productBacklogVM.filtroDataFinal = filtroDataFinal;
-
-            productBacklogVM.ProductBacklogCreateVM = new ProductBacklogCreateVM();
-            productBacklogVM.ProductBacklogCreateVM.filtroDataInicial = filtroDataInicial;
-            productBacklogVM.ProductBacklogCreateVM.filtroDataFinal = filtroDataFinal;
-
-            ViewBag.FiltroDataInicial = filtroDataInicial;
-            ViewBag.FiltroDataFinal = filtroDataFinal;
-
-            if (id != null)
-            {
-                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(id);
+                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(IdEdit);
                 if (productBacklog == null)
                     return HttpNotFound();
 
-                productBacklogVM.ProductBacklogEdit = productBacklog;
-                productBacklogVM.DisplayEdit = "Show";
+                productBacklogVM.Id = productBacklog.Id;
+                productBacklogVM.UserStory = productBacklog.UserStory;
+                productBacklogVM.Prioridade = productBacklog.Prioridade;
+                productBacklogVM.DisplayEdit = "show";
             }
 
-            int pageSize = 7;
-            int pageNumber = (pagina ?? 1);
-
-            productBacklogVM.ProductBacklogList = listBacklogs.ToPagedList(pageNumber, pageSize);
+            productBacklogVM.ProductBacklogList = GetGridDataSource(productBacklogVM); 
 
             return View(productBacklogVM);
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserStory,Prioridade")] ProductBacklog productBacklog, string filtro, int? pagina, DateTime? filtroDataInicial, DateTime? filtroDataFinal)
+        public ActionResult Create(ProductBacklogVM productBacklogVM)
         {
             if (ModelState.IsValid)
             {
-                productBacklog.ProductOwnerId = 1; // Remover
-                
-                ReordenarPrioridades(0, productBacklog.Prioridade);
-                
+                ReordenarPrioridades(0, productBacklogVM.Prioridade);
+
+                ProductBacklog productBacklog = new ProductBacklog()
+                {
+                    UserStory = productBacklogVM.UserStory,
+                    Prioridade = productBacklogVM.Prioridade,
+                    ProductOwnerId = 1 // Remover
+                };
+
                 dbContext.ProductBacklogs.Add(productBacklog);
                 dbContext.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", "ProductBacklog", new
-            {
-                filtro            = filtro,
-                pagina            = pagina,
-                filtroDataInicial = filtroDataInicial,
-                filtroDataFinal   = filtroDataFinal
-            });
+            return View("Index", productBacklogVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserStory,StoryPoint,Prioridade,DataInclusao")] ProductBacklog productBacklog, string filtro, int? pagina, short prioridadeAtual, DateTime? filtroDataInicial, DateTime? filtroDataFinal)
+        public ActionResult Edit(ProductBacklogVM productBacklogVM, short prioridadeAtual)
         {
             if (ModelState.IsValid)
             {
-                productBacklog.ProductOwnerId = 1; // Remover
+                if (prioridadeAtual != productBacklogVM.Prioridade)
+                    ReordenarPrioridades(productBacklogVM.Id, productBacklogVM.Prioridade);
 
-                if (prioridadeAtual != productBacklog.Prioridade)
-                    ReordenarPrioridades(productBacklog.Id, productBacklog.Prioridade);
+                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(productBacklogVM.Id);
+                productBacklog.ProductOwnerId = 1; // Remover
+                productBacklog.UserStory = productBacklogVM.UserStory;
+                productBacklog.Prioridade = productBacklogVM.Prioridade;
 
                 dbContext.Entry(productBacklog).State = EntityState.Modified;
                 dbContext.SaveChanges();
+
+                productBacklogVM.DisplayEdit = string.Empty;
             }
 
-            return RedirectToAction("Index", "ProductBacklog", new
-            {
-                filtro = filtro,
-                pagina = pagina,
-                filtroDataInicial = filtroDataInicial,
-                filtroDataFinal = filtroDataFinal
-            });
+            productBacklogVM.ProductBacklogList = GetGridDataSource(productBacklogVM);
+
+            return View("Index", productBacklogVM);
         }
 
         public ActionResult Delete(int? id)
@@ -155,6 +111,29 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             dbContext.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        private IPagedList<ProductBacklog> GetGridDataSource(ProductBacklogVM productBacklogVM)
+        {
+            IEnumerable<ProductBacklog> listBacklogs = from pb in dbContext.ProductBacklogs
+                                                       where !(from sb in dbContext.SprintBacklogs
+                                                               select sb.ProductBacklogId)
+                                                               .Contains(pb.Id)
+                                                       orderby pb.Prioridade
+                                                       select pb;
+
+            if (!string.IsNullOrEmpty(productBacklogVM.FiltroUserStory))
+            {
+                listBacklogs = listBacklogs.Where(productBacklog => productBacklog.UserStory
+                                                                                  .ToUpper()
+                                                                                  .Contains(productBacklogVM.FiltroUserStory.ToUpper()));
+            }
+            if (productBacklogVM.FiltroDataInicial != null)
+                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date >= Convert.ToDateTime(productBacklogVM.FiltroDataInicial).Date);
+            if (productBacklogVM.FiltroDataFinal != null)
+                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= Convert.ToDateTime(productBacklogVM.FiltroDataFinal).Date);
+
+            return listBacklogs.ToList().ToPagedList(Convert.ToInt32(productBacklogVM.PaginaGrid), 7);
         }
 
         private void ReordenarPrioridades(int ProductBacklogId, short Prioridade)

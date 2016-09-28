@@ -22,18 +22,14 @@ namespace StartIdea.UI
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/moment.min.js",
-                      "~/Scripts/moment-with-locales.min.js",
-                      "~/Scripts/bootstrap-datetimepicker.min.js"));
+                      "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/customizados").Include(
-                        "~/Scripts/masterScript.js"));
+                        "~/Scripts/menuLateral.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/site.css",
-                      "~/Content/bootstrap-datetimepicker.min.css"));
+                      "~/Content/site.css"));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model StartIdea.UI.Areas.ProductOwner.ViewModels.ProductBacklogCreateVM
+﻿@model StartIdea.UI.Areas.ProductOwner.ViewModels.ProductBacklogVM
 
 <div class="modal fade" tabindex="-1" role="dialog" id="popup-create">
     <div class="modal-dialog">
@@ -6,10 +6,11 @@
             @using (Html.BeginForm("Create", "ProductBacklog"))
             {
                 @Html.AntiForgeryToken()
-                <input type="hidden" name="filtro" value="@ViewBag.Filtro" />
-                <input type="hidden" name="pagina" value="@ViewBag.Pagina" />
-                <input type="hidden" name="filtroDataInicial" value="@Model.filtroDataInicial" />
-                <input type="hidden" name="filtroDataFinal" value="@Model.filtroDataFinal" />
+                @Html.HiddenFor(model => model.FiltroUserStory)
+                @Html.HiddenFor(model => model.FiltroDataInicial)
+                @Html.HiddenFor(model => model.FiltroDataFinal)
+                @Html.HiddenFor(model => model.PaginaGrid)
+                @Html.HiddenFor(model => model.DisplayCreate)
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -37,7 +38,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Criar</button>
                 </div>
             }

@@ -7,28 +7,33 @@
 
 @section CustomScript{
     <script type="text/javascript">
+        var displayCreate = "@Model.DisplayCreate";
         var displayEdit = "@Model.DisplayEdit";
+
         if (displayEdit) {
             $("#popup-edit").modal('show');
         }
+        if (displayCreate) {
+            $("#popup-create").modal('show');
+        }
 
         $(".edit").click(function () {
-            var id = $(this).attr("data-id");
-            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, filtroDataInicial = Model.filtroDataInicial, filtroDataFinal = Model.filtroDataFinal, id = 0 }))";
+            var Id = $(this).attr("data-id");
+            var url = "@Html.Raw(Url.Action("Index", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal, PaginaGrid = Model.PaginaGrid, IdEdit = 0 }))";
 
-            window.location.href = url.replace("/0", "/" + id);
+            window.location.href = url.replace("IdEdit=0", "IdEdit=" + Id);
         });
 
-        $("#popup-edit").on("hide.bs.modal", function () {
-            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, filtroDataInicial = Model.filtroDataInicial, filtroDataFinal = Model.filtroDataFinal, id = "" }))";
+        $(".create").click(function () {
+            var url = "@Html.Raw(Url.Action("Index", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal, PaginaGrid = Model.PaginaGrid, DisplayCreate = "show" }))";
 
             window.location.href = url;
         });
     </script>
 }
 
-@Html.Partial("_Create", Model.ProductBacklogCreateVM)
-@Html.Partial("_Edit", Model.ProductBacklogEdit)
+@Html.Partial("_Create", Model)
+@Html.Partial("_Edit", Model)
 
 <div class="page-header">
     <h1>Backlog do Produto <small>Cadastro</small></h1>
@@ -38,16 +43,16 @@
 {
     <div class="row">
         <div class="col-md-6">
-            <label>Descrição</label>
-            @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
+            <label>User Story</label>
+            @Html.EditorFor(model => model.FiltroUserStory, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         <div class="col-md-2">
-            <label>Data Inicial Inclusão</label>
-            @Html.TextBox("filtroDataInicial", Model.filtroDataInicial, new { @class = "form-control", @type = "date" })
+            <label>Data Inclusão (Inicial)</label>
+            @Html.EditorFor(model => model.FiltroDataInicial, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         <div class="col-md-2">
-            <label>Data Final Inclusão</label>
-            @Html.TextBox("filtroDataFinal", Model.filtroDataFinal, new { @class = "form-control", @type = "date" })
+            <label>Data Inclusão (Final)</label>
+            @Html.EditorFor(model => model.FiltroDataFinal, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         <div class="col-md-2">
             <label>&nbsp;</label>
@@ -62,23 +67,13 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th class="col-sm-2 col-md-1 text-center">
-                            @Html.DisplayNameFor(model => model.ProductOwner.Id)
-                        </th>
-                        <th class="col-sm-4 col-md-5">
-                            @Html.DisplayNameFor(model => model.UserStory)
-                        </th>
-                        <th class="col-sm-2 text-center">
-                            @Html.DisplayNameFor(model => model.StoryPoint)
-                        </th>
-                        <th class="col-sm-1 text-center">
-                            @Html.DisplayNameFor(model => model.Prioridade)
-                        </th>
-                        <th class="col-sm-2 text-center">
-                            @Html.DisplayNameFor(model => model.DataInclusao)
-                        </th>
+                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                        <th class="col-sm-4 col-md-5">User Story</th>
+                        <th class="col-sm-2 text-center">Story Point</th>
+                        <th class="col-sm-1 text-center">Prioridade</th>
+                        <th class="col-sm-2 text-center">Data Inclusão</th>
                         <th class="col-sm-1" colspan="2">
-                            <button class="btn btn-success btn-xs btn-block" data-toggle="modal" data-target="#popup-create">
+                            <button class="btn btn-success btn-xs btn-block create">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>
                         </th>
@@ -119,8 +114,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="7">
-                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", 
-                                new { pagina, filtro = ViewBag.Filtro, filtroDataInicial = ViewBag.FiltroDataInicial, filtroDataFinal = ViewBag.FiltroDataFinal }))
+                            @Html.PagedListPager(Model.ProductBacklogList, PaginaGrid => Url.Action("Index", new { FiltroUserStory = Model.UserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = ViewBag.FiltroDataFinal, PaginaGrid }))
                         </td>
                     </tr>
                 </tfoot>

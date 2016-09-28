@@ -233,7 +233,6 @@
     <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\SprintController.cs" />
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
-    <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogCreateVM.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\SprintController.cs" />
