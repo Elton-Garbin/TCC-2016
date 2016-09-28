@@ -4,28 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-@if (Model.SprintAtual != null)
-{
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="page-header">
-                    <h3>Sprint Atual</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert alert-info" role="alert">
-                    <p>Objetivo: @Model.SprintAtual.Objetivo</p>
-                    <p>Duração: @Model.SprintAtual.DataInicial à @Model.SprintAtual.DataFinal</p>
-                    <p><a href="#" class="alert-link">Clique aqui para verificar o andamento!</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
 <div class="container-fluid">
     @using (Html.BeginForm(Model.ActionForm, "Sprint", FormMethod.Post))
     {
@@ -53,12 +31,23 @@
         <div class="row">
             <div class="col-xs-6 form-group">
                 @Html.LabelFor(model => model.DataInicial)
-                @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="input-group date datetimepicker">
+                    @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                
                 @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
             </div>
             <div class="col-xs-6 form-group">
                 @Html.LabelFor(model => model.DataFinal)
-                @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="input-group date datetimepicker">
+                    @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 @Html.ValidationMessageFor(model => model.DataFinal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,3 +56,25 @@
         <button type="submit" class="btn btn-primary">@Model.SubmitValue</button>
     }
 </div>
+
+@if (Model.SprintAtual != null)
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-header">
+                    <h3>Sprint Atual</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-info" role="alert">
+                    <p>Objetivo: @Model.SprintAtual.Objetivo</p>
+                    <p>Duração: @Model.SprintAtual.DataInicial à @Model.SprintAtual.DataFinal</p>
+                    <p><a href="#" class="alert-link">Clique aqui para verificar o andamento!</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
