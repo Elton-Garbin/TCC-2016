@@ -309,6 +309,7 @@
     <Content Include="Areas\ScrumMaster\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\Sprint\Index.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Sprint\Index.cshtml" />
+    <Content Include="Areas\ScrumMaster\Views\Shared\_MenuLateral.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.min.js" />
