@@ -9,5 +9,9 @@
         if ($("#menu-lateral").css("display") == "block") {
             $("#menu-lateral").animate({ width: 'toggle' }, 350);
         }
-    })
+    });
+
+    $('.datetimepicker').datetimepicker({
+        locale: 'pt-br'
+    });
 })
