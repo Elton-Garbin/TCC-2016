@@ -48,11 +48,22 @@
         </div>
         <div class="col-md-2">
             <label>Data Inclusão (Inicial)</label>
-            @Html.EditorFor(model => model.FiltroDataInicial, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group date datepicker">
+                @Html.EditorFor(model => model.FiltroDataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
         </div>
         <div class="col-md-2">
             <label>Data Inclusão (Final)</label>
-            @Html.EditorFor(model => model.FiltroDataFinal, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group date datepicker">
+                @Html.EditorFor(model => model.FiltroDataFinal, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            
         </div>
         <div class="col-md-2">
             <label>&nbsp;</label>

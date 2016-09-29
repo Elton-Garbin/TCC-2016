@@ -11,7 +11,12 @@
         }
     });
 
-    $('.datetimepicker').datetimepicker({
+    $(".datetimepicker").datetimepicker({
         locale: 'pt-br'
     });
+
+    $(".datepicker").datetimepicker({
+        format: 'DD/MM/YYYY',
+        locale: 'pt-br'
+    })
 })
