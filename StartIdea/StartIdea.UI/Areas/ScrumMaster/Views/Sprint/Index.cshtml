@@ -37,7 +37,7 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-
+                
                 @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
             </div>
             <div class="col-xs-6 form-group">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <button type="reset" class="btn btn-default">Cancelar</button>
+        @Html.ActionLink("Cancelar", "Index", "ScrumMaster", new { @class = "btn btn-default" })
         <button type="submit" class="btn btn-primary">@Model.SubmitValue</button>
     }
 </div>
