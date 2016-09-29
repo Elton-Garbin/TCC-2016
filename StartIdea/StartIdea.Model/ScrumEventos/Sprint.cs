@@ -26,12 +26,13 @@ namespace StartIdea.Model.ScrumEventos
 
         [DisplayName("Data Inicial")]
         [Required(ErrorMessage = "Campo Data Inicial obrigatório.")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Inicial inválido.")]
+        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Inicial inválido."), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
         public DateTime DataInicial { get; set; }
 
         [DisplayName("Data Final")]
         [Required(ErrorMessage = "Campo Data Final obrigatório.")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Final inválido.")]
+        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Final inválido."), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataFinal { get; set; }
 
         [Required(ErrorMessage = "Campo Objetivo obrigatório.")]
