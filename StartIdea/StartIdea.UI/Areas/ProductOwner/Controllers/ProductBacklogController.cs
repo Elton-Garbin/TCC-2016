@@ -128,9 +128,9 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                                                                                   .ToUpper()
                                                                                   .Contains(productBacklogVM.FiltroUserStory.ToUpper()));
             }
-            if (productBacklogVM.FiltroDataInicial != string.Empty)
+            if (!string.IsNullOrEmpty(productBacklogVM.FiltroDataInicial))
                 listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date >= Convert.ToDateTime(productBacklogVM.FiltroDataInicial).Date);
-            if (productBacklogVM.FiltroDataFinal != string.Empty)
+            if (!string.IsNullOrEmpty(productBacklogVM.FiltroDataFinal))
                 listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= Convert.ToDateTime(productBacklogVM.FiltroDataFinal).Date);
 
             return listBacklogs.ToList().ToPagedList(Convert.ToInt32(productBacklogVM.PaginaGrid), 7);
