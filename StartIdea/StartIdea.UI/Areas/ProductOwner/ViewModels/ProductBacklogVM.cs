@@ -17,10 +17,12 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
         #region Filter
         public IPagedList<ProductBacklog> ProductBacklogList { get; set; }
         public string FiltroUserStory { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? FiltroDataInicial { get; set; }
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? FiltroDataFinal { get; set; }
+        [DataType(DataType.Text)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string FiltroDataInicial { get; set; }
+        [DataType(DataType.Text)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string FiltroDataFinal { get; set; }
         public int? PaginaGrid { get; set; }
         public string DisplayCreate { get; set; }
         public string DisplayEdit { get; set; }

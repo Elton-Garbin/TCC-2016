@@ -25,8 +25,8 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             var productBacklogVM = new ProductBacklogVM();
             productBacklogVM.PaginaGrid = (PaginaGrid ?? 1);
             productBacklogVM.FiltroUserStory = FiltroUserStory;
-            productBacklogVM.FiltroDataInicial = FiltroDataInicial;
-            productBacklogVM.FiltroDataFinal = FiltroDataFinal;
+            productBacklogVM.FiltroDataInicial = Convert.ToString(FiltroDataInicial);
+            productBacklogVM.FiltroDataFinal = Convert.ToString(FiltroDataFinal);
             productBacklogVM.DisplayCreate = DisplayCreate;
 
             if ((IdEdit ?? 0) > 0)
@@ -128,9 +128,9 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                                                                                   .ToUpper()
                                                                                   .Contains(productBacklogVM.FiltroUserStory.ToUpper()));
             }
-            if (productBacklogVM.FiltroDataInicial != null)
+            if (productBacklogVM.FiltroDataInicial != string.Empty)
                 listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date >= Convert.ToDateTime(productBacklogVM.FiltroDataInicial).Date);
-            if (productBacklogVM.FiltroDataFinal != null)
+            if (productBacklogVM.FiltroDataFinal != string.Empty)
                 listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= Convert.ToDateTime(productBacklogVM.FiltroDataFinal).Date);
 
             return listBacklogs.ToList().ToPagedList(Convert.ToInt32(productBacklogVM.PaginaGrid), 7);
