@@ -51,11 +51,19 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
 
             if (id != null)
             {
-                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(id);
+                ProductBacklog productBacklog = dbContext.ProductBacklogs
+                                                         .Include("ProductOwner.Usuario")
+                                                         .SingleOrDefault(x => x.Id == id);
                 if (productBacklog == null)
                     return HttpNotFound();
 
-                productBacklogVM.ProductBacklogEdit = productBacklog;
+
+                productBacklogVM.Id           = productBacklog.Id;
+                productBacklogVM.UserStory    = productBacklog.UserStory;
+                productBacklogVM.Prioridade   = productBacklog.Prioridade;
+                productBacklogVM.ProductOwner = productBacklog.ProductOwner;
+                productBacklogVM.DataInclusao = productBacklog.DataInclusao;
+                productBacklogVM.StoryPoint   = productBacklog.StoryPoint;
                 productBacklogVM.DisplayEdit = "Show";
             }
 
@@ -64,7 +72,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StoryPoint")] ProductBacklog productBacklog, string filtro, int? pagina)
+        public ActionResult Edit([Bind(Include = "Id,StoryPoint")] ProductBacklogVM productBacklog, string filtro, int? pagina)
         {
             var productBacklogAux = dbContext.ProductBacklogs.Find(productBacklog.Id);
             productBacklogAux.StoryPoint = productBacklog.StoryPoint;
