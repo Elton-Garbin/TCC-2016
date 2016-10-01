@@ -29,6 +29,11 @@
 
             window.location.href = url;
         });
+
+        $("#popup-edit, #popup-create").on("hide.bs.modal", function () {
+            window.location.href = "@Html.Raw(Url.Action("Index", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal, PaginaGrid = Model.PaginaGrid, IdEdit = "" }))"
+        });
+
     </script>
 }
 

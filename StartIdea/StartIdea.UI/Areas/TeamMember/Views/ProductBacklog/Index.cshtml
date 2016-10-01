@@ -14,14 +14,18 @@
 
         $(".edit").click(function () {
             var id = $(this).attr("data-id");
-            var url = "@Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 })";
+            var url = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = 0 }))";
 
             window.location.href = url.replace("/0", "/" + id);
+        });
+
+        $("#popup-edit").on("hide.bs.modal", function (e) {
+            window.location.href = "@Html.Raw(Url.Action("Index", new { pagina = ViewBag.Pagina, filtro = ViewBag.Filtro, id = "" }))";
         });
     </script>
 }
 
-@Html.Partial("_Edit", Model.ProductBacklogEdit)
+@Html.Partial("_Edit", Model)
 
 <div class="page-header">
     <h1>Backlog do Produto <small>Avaliação</small></h1>
@@ -49,7 +53,7 @@
                 <thead>
                     <tr>
                         <th class="col-sm-2 col-md-1 text-center">
-                            @Html.DisplayNameFor(model => model.ProductOwner.Id)
+                            @Html.DisplayNameFor(model => model.Id)
                         </th>
                         <th class="col-sm-4 col-md-5">
                             @Html.DisplayNameFor(model => model.UserStory)

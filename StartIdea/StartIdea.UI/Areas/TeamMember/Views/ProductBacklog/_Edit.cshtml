@@ -1,4 +1,4 @@
-﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklog
+﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.ProductBacklogVM
 
 <div class="modal fade" tabindex="-1" role="dialog" id="popup-edit">
     <div class="modal-dialog">
@@ -22,22 +22,22 @@
                         <div class="row">
                             <div class="col-xs-12 form-group">
                                 @Html.LabelFor(model => model.UserStory)
-                                <p class="form-control-static">@Html.DisplayFor(model => model.UserStory)</p>
+                                <p>@Html.DisplayFor(model => model.UserStory)</p>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-9 form-group">
                                 @Html.Label("Dono do Produto")
-                                <p class="form-control-static">@Html.DisplayFor(model => model.ProductOwner.Usuario.Nome)</p>
+                                <p>@Html.DisplayFor(model => model.ProductOwner.Usuario.Nome)</p>
                             </div>
                             <div class="col-xs-5 col-sm-3 form-group">
                                 @Html.LabelFor(model => model.Prioridade)
-                                <p class="form-control-static">@Html.DisplayFor(model => model.Prioridade)</p>
+                                <p>@Html.DisplayFor(model => model.Prioridade)</p>
                             </div>
-                            <div class="col-xs-7 col-sm-3 form-group">
+                            <div class="col-xs-7 col-sm-4 form-group">
                                 @Html.LabelFor(model => model.DataInclusao)
-                                <p class="form-control-static">@Html.DisplayFor(model => model.DataInclusao)</p>
+                                <p>@Html.DisplayFor(model => model.DataInclusao)</p>
                             </div>
                             <div class="col-xs-12 col-sm-3 form-group">
                                 @Html.LabelFor(model => model.StoryPoint)
