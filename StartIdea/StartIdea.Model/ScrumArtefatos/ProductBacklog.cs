@@ -43,7 +43,7 @@ namespace StartIdea.Model.ScrumArtefatos
         public StoryPoint StoryPoint { get; set; }
 
         [Required(ErrorMessage = "Campo Prioridade obrigatório.")]
-        [Range(1, 9999, ErrorMessage = "Campo Prioridade deve ser maior do que zero.")]
+        [Range(0, 9999, ErrorMessage = "Campo Prioridade deve ser maior do que zero.")]
         public short Prioridade { get; set; }
 
         [DisplayName("Data Inclusão")]

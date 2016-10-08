@@ -1,0 +1,172 @@
+﻿@model StartIdea.UI.Areas.ScrumMaster.ViewModels.SprintBacklogVM
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section CustomScript{
+    <script type="text/javascript">
+        var displayMotivoCancelamento = "@Model.DisplayMotivoCancelamento";
+        if (displayMotivoCancelamento) {
+            $("#popup-motivo-cancelamento").modal('show');
+        }
+
+        $(".add").click(function () {
+            var id = $(this).attr("data-id");
+            var url = "@Html.Raw(Url.Action("Adicionar", new { id = 0, paginaProductBacklog = Model.paginaProductBacklog, paginaSprintBacklog = Model.paginaSprintBacklog }))";
+
+            window.location.href = url.replace("/0", "/" + id);
+        });
+
+        $(".remove").click(function () {
+            var id = $(this).attr("data-id");
+            var url = "@Html.Raw(Url.Action("Index", new { id = 0, paginaProductBacklog = Model.paginaProductBacklog, paginaSprintBacklog = Model.paginaSprintBacklog }))";
+
+            window.location.href = url.replace("/0", "/" + id);
+        });
+    </script>
+}
+
+@Html.Partial("_MotivoCancelamento", Model)
+
+
+<div class="page-header">
+    <h1>Backlog do Produto</h1>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-md-1 text-center">
+                            @Html.DisplayNameFor(model => model.ProductBacklog.FirstOrDefault().Id)
+                        </th>
+                        <th class="col-sm-4 col-md-5">
+                            @Html.DisplayNameFor(model => model.ProductBacklog.FirstOrDefault().UserStory)
+                        </th>
+                        <th class="col-sm-2 text-center">
+                            @Html.DisplayNameFor(model => model.ProductBacklog.FirstOrDefault().StoryPoint)
+                        </th>
+                        <th class="col-sm-1 text-center">
+                            @Html.DisplayNameFor(model => model.ProductBacklog.FirstOrDefault().Prioridade)
+                        </th>
+                        <th class="col-sm-2 text-center">
+                            @Html.DisplayNameFor(model => model.ProductBacklog.FirstOrDefault().DataInclusao)
+                        </th>
+                        <th class="col-sm-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductBacklog)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserStory)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.StoryPoint)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Prioridade)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-xs btn-block add" data-id="@item.Id">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            @Html.PagedListPager(Model.ProductBacklog, paginaProductBacklog => Url.Action("Index", new { paginaProductBacklog, paginaSprintBacklog = Model.paginaSprintBacklog }))
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="page-header">
+    <h1>Backlog da Sprint</h1>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-md-1 text-center">
+                            @Html.DisplayNameFor(model => model.SprintBacklog.FirstOrDefault().Id)
+                        </th>
+                        <th class="col-sm-4 col-md-5">
+                            @Html.DisplayNameFor(model => model.SprintBacklog.FirstOrDefault().UserStory)
+                        </th>
+                        <th class="col-sm-2 text-center">
+                            @Html.DisplayNameFor(model => model.SprintBacklog.FirstOrDefault().StoryPoint)
+                        </th>
+                        <th class="col-sm-1 text-center">
+                            @Html.DisplayNameFor(model => model.SprintBacklog.FirstOrDefault().Prioridade)
+                        </th>
+                        <th class="col-sm-2 text-center">
+                            @Html.DisplayNameFor(model => model.SprintBacklog.FirstOrDefault().DataInclusao)
+                        </th>
+                        <th class="col-sm-1">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SprintBacklog)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserStory)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.StoryPoint)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Prioridade)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-xs btn-block remove" data-id="@item.Id">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            @Html.PagedListPager(Model.SprintBacklog, paginaSprintBacklog => Url.Action("Index", new { paginaSprintBacklog, paginaProductBacklog = Model.paginaProductBacklog }))
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
