@@ -107,7 +107,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             foreach (var item in dbContext.HistoricoEstimativas.Where(x => x.ProductBacklogId == productBacklog.Id).ToList())
                 dbContext.HistoricoEstimativas.Remove(item);
 
-            dbContext.ProductBacklogs.Remove(productBacklog);
+            dbContext.Entry(productBacklog).State = EntityState.Modified;
             dbContext.SaveChanges();
 
             return RedirectToAction("Index");

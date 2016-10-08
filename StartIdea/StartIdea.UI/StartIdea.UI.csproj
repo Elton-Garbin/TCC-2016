@@ -237,8 +237,10 @@
     <Compile Include="Areas\ProductOwner\ProductOwnerAreaRegistration.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\SprintVM.cs" />
+    <Compile Include="Areas\ScrumMaster\Controllers\SprintBacklogController.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\SprintController.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
+    <Compile Include="Areas\ScrumMaster\ViewModels\SprintBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\TeamMember\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
@@ -312,6 +314,8 @@
     <Content Include="Areas\ScrumMaster\Views\Sprint\Index.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Sprint\Index.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\Shared\_MenuLateral.cshtml" />
+    <Content Include="Areas\ScrumMaster\Views\SprintBacklog\Index.cshtml" />
+    <Content Include="Areas\ScrumMaster\Views\SprintBacklog\_MotivoCancelamento.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.min.js" />
