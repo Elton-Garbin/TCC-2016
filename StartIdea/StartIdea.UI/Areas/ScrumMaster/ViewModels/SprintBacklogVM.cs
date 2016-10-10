@@ -2,6 +2,8 @@
 using StartIdea.Model.ScrumArtefatos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +19,9 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 
         public string DisplayMotivoCancelamento { get; set; }
         public int Id { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [DisplayName("Motivo Cancelamento")]
         public string MotivoCancelamento { get; set; }
     }
 }

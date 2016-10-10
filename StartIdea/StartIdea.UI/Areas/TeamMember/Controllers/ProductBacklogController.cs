@@ -32,7 +32,8 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             var query = from pb in dbContext.ProductBacklogs
                         where !(from sb in dbContext.SprintBacklogs
                                 select sb.ProductBacklogId)
-                                .Contains(pb.Id)
+                                .Contains(pb.Id) &&
+                        pb.Prioridade > 0
                         orderby pb.Prioridade
                         select pb;
 
