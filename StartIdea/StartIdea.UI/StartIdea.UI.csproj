@@ -243,8 +243,10 @@
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\TeamMember\Controllers\ProductBacklogController.cs" />
+    <Compile Include="Areas\TeamMember\Controllers\TarefaController.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
     <Compile Include="Areas\TeamMember\ViewModels\ProductBacklogVM.cs" />
+    <Compile Include="Areas\TeamMember\ViewModels\TarefaVM.cs" />
     <Compile Include="Controllers\BurndownChartController.cs" />
     <Compile Include="Controllers\BurnupChartController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -316,6 +318,8 @@
     <Content Include="Areas\ScrumMaster\Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\Index.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\_MotivoCancelamento.cshtml" />
+    <Content Include="Areas\TeamMember\Views\Tarefa\Index.cshtml" />
+    <Content Include="Areas\TeamMember\Views\Tarefa\_Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.min.js" />
