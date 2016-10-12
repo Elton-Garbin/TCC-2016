@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ScrumMaster.Models
 {
-    [Authorize(Roles = "ScrumMaster")]
+    [CustomAuthorize(Roles = "ScrumMaster")]
     public abstract class AppController : Controller
     {
         public AppUser CurrentUser

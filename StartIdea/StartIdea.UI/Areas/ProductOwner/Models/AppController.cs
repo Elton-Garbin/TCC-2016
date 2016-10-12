@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ProductOwner.Models
 {
-    [Authorize(Roles = "ProductOwner")]
+    [CustomAuthorize(Roles = "ProductOwner")]
     public abstract class AppController : Controller
     {
         public AppUser CurrentUser

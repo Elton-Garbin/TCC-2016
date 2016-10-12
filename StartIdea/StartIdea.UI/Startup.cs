@@ -2,7 +2,7 @@
 using Owin;
 using StartIdea.UI;
 
-[assembly: OwinStartupAttribute(typeof(Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 namespace StartIdea.UI
 {
     public partial class Startup

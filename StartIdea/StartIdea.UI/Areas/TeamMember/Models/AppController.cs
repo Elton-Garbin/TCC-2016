@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.TeamMember.Models
 {
-    [Authorize(Roles = "TeamMember")]
+    [CustomAuthorize(Roles = "TeamMember")]
     public abstract class AppController : Controller
     {
         public AppUser CurrentUser
