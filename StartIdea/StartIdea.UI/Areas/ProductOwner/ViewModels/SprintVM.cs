@@ -10,8 +10,9 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
     public class SprintVM : IDisposable
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
+        public int TimeId { get; set; }
 
-        public SprintVM()
+        public SprintVM(int timeId)
         {
             Sprint sprint = GetSprintAtual();
             Id = sprint.Id;
@@ -40,7 +41,7 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
         public Sprint GetSprintAtual()
         {
             return dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
-                                                       && s.TimeId == 1 // Remover
+                                                       && s.TimeId == TimeId
                                                        && s.DataInicial <= DateTime.Now
                                                        && s.DataFinal >= DateTime.Now) ?? new Sprint();
         }

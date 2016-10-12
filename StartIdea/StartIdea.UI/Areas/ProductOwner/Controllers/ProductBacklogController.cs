@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
+using StartIdea.UI.Areas.ProductOwner.Models;
 using StartIdea.UI.Areas.ProductOwner.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ProductOwner.Controllers
 {
-    public class ProductBacklogController : Controller
+    public class ProductBacklogController : AppController
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 
@@ -58,7 +59,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 {
                     UserStory = productBacklogVM.UserStory,
                     Prioridade = productBacklogVM.Prioridade,
-                    ProductOwnerId = 1 // Remover
+                    ProductOwnerId = CurrentUser.PerfilId
                 };
 
                 dbContext.ProductBacklogs.Add(productBacklog);
@@ -80,7 +81,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                     ReordenarPrioridades(productBacklogVM.Id, productBacklogVM.Prioridade);
 
                 ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(productBacklogVM.Id);
-                productBacklog.ProductOwnerId = 1; // Remover
+                productBacklog.ProductOwnerId = CurrentUser.PerfilId;
                 productBacklog.UserStory = productBacklogVM.UserStory;
                 productBacklog.Prioridade = productBacklogVM.Prioridade;
 
@@ -107,7 +108,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             foreach (var item in dbContext.HistoricoEstimativas.Where(x => x.ProductBacklogId == productBacklog.Id).ToList())
                 dbContext.HistoricoEstimativas.Remove(item);
 
-            dbContext.Entry(productBacklog).State = EntityState.Modified;
+            dbContext.ProductBacklogs.Remove(productBacklog);
             dbContext.SaveChanges();
 
             return RedirectToAction("Index");

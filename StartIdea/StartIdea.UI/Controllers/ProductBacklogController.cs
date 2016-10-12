@@ -2,7 +2,6 @@
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.ViewModels;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -50,8 +49,6 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult Detalhes(int id)
         {
-            //ProductBacklog backlog = dbContext.ProductBacklogs.Find(id);
-
             ProductBacklog backlog = dbContext.ProductBacklogs
                                               .Include("ProductOwner.Usuario")
                                               .Include("HistoricoEstimativas.MembroTime.Usuario")

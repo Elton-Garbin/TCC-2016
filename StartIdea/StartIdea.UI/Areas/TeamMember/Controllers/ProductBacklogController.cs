@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
+using StartIdea.UI.Areas.TeamMember.Models;
 using StartIdea.UI.Areas.TeamMember.ViewModels;
 using System;
 using System.Data.Entity;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.TeamMember.Controllers
 {
-    public class ProductBacklogController : Controller
+    public class ProductBacklogController : AppController
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 

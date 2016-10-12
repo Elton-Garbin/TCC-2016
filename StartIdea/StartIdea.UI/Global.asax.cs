@@ -1,5 +1,7 @@
 ﻿using StartIdea.UI.App_Start;
 using System;
+using System.Security.Claims;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,8 +15,10 @@ namespace StartIdea.UI
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            InjectionDependency.Configurar();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            InjectionDependency.Configurar();
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Email;
 
             ModelBinders.Binders.Add(typeof(DateTime?), new NullDateTimeBinder());
             ModelBinders.Binders.Add(typeof(DateTime), new DateTimeBinder());

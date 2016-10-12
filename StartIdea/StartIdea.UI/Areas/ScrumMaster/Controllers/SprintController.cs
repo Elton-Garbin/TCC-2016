@@ -1,12 +1,13 @@
 ﻿using StartIdea.DataAccess;
 using StartIdea.Model.ScrumEventos;
+using StartIdea.UI.Areas.ScrumMaster.Models;
 using StartIdea.UI.Areas.ScrumMaster.ViewModels;
 using System.Data.Entity;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 {
-    public class SprintController : Controller
+    public class SprintController : AppController
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 

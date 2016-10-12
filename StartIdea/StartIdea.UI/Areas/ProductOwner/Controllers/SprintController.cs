@@ -1,5 +1,6 @@
 ﻿using StartIdea.DataAccess;
 using StartIdea.Model.ScrumEventos;
+using StartIdea.UI.Areas.ProductOwner.Models;
 using StartIdea.UI.Areas.ProductOwner.ViewModels;
 using System;
 using System.Data.Entity;
@@ -7,13 +8,13 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ProductOwner.Controllers
 {
-    public class SprintController : Controller
+    public class SprintController : AppController
     {
         private StartIdeaDBContext dbContext = new StartIdeaDBContext();
 
         public ActionResult Index()
         {
-            return View(new SprintVM());
+            return View(new SprintVM(CurrentUser.TimeId));
         }
 
         [HttpPost]

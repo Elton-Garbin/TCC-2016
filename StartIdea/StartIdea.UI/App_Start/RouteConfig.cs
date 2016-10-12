@@ -12,7 +12,7 @@ namespace StartIdea.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }, namespaces: new string[] {
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }, namespaces: new string[] {
                     "StartIdea.UI.Controllers",
                     "StartIdea.UI.Areas.TeamMember",
                     "StartIdea.UI.Areas.ProductOwner"

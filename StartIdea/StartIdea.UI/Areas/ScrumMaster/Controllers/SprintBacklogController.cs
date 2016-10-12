@@ -2,17 +2,16 @@
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.Model.ScrumEventos;
+using StartIdea.UI.Areas.ScrumMaster.Models;
 using StartIdea.UI.Areas.ScrumMaster.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 {
-    public class SprintBacklogController : Controller
+    public class SprintBacklogController : AppController
     {
         private StartIdeaDBContext _dbContext;
 
@@ -118,7 +117,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         public Sprint GetSprintAtual()
         {
             return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
-                                                     && s.TimeId == 1 // Remover
+                                                     && s.TimeId == CurrentUser.TimeId
                                                      && s.DataInicial <= DateTime.Now
                                                      && s.DataFinal >= DateTime.Now) ?? new Sprint();
         }

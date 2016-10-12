@@ -17,10 +17,8 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
         #region Filter
         public IPagedList<ProductBacklog> ProductBacklogList { get; set; }
         public string FiltroUserStory { get; set; }
-        [DataType(DataType.Text)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string FiltroDataInicial { get; set; }
-        [DataType(DataType.Text)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string FiltroDataFinal { get; set; }
         public int? PaginaGrid { get; set; }
@@ -37,7 +35,7 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
         public string UserStory { get; set; }
 
         [Required(ErrorMessage = "Campo Prioridade obrigatório.")]
-        [Range(0, 9999, ErrorMessage = "Campo Prioridade deve ser maior do que zero.")]
+        [Range(1, 9999, ErrorMessage = "Campo Prioridade deve ser maior do que zero.")]
         public short Prioridade { get; set; }
         #endregion
     }
