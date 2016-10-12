@@ -30,7 +30,7 @@
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "E-mail" } })
                 @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha" } })
             </div>
-            <div class="col-xs-12 form-group">
+            <div class="col-xs-12">
                 @Html.CheckBoxFor(model => model.PermanecerConectado, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.LabelFor(model => model.PermanecerConectado)
             </div>
