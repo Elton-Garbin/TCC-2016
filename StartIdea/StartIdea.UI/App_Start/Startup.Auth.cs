@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using System;
 
 namespace StartIdea.UI
 {
@@ -13,7 +14,10 @@ namespace StartIdea.UI
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
-                LogoutPath = new PathString("/Account/Logout")
+                LogoutPath = new PathString("/Account/Logout"),
+                CookieSecure = CookieSecureOption.SameAsRequest,
+                SlidingExpiration = true,
+                ExpireTimeSpan = TimeSpan.FromMinutes(30)
             });
         }
     }

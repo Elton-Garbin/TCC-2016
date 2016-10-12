@@ -21,7 +21,7 @@ namespace StartIdea.UI.Models
             Role = GetRole();
         }
 
-        public void SignIn(bool isPersistent = false)
+        public void SignIn(bool RememberBrowser)
         {
             var identity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.NameIdentifier, _Usuario.Id.ToString()),
@@ -35,8 +35,7 @@ namespace StartIdea.UI.Models
             _AuthenticationManager.SignIn(new AuthenticationProperties
             {
                 AllowRefresh = true,
-                IsPersistent = isPersistent,
-                ExpiresUtc = DateTime.UtcNow.AddDays(7)
+                IsPersistent = RememberBrowser
             }, identity);
         }
 

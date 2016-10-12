@@ -42,7 +42,7 @@ namespace StartIdea.UI.Controllers
             if (usuario != null)
             {
                 AppAuth app = new AppAuth(AuthenticationManager, usuario);
-                app.SignIn();
+                app.SignIn(vm.PermanecerConectado);
 
                 if (app.Role.Equals("ProductOwner"))
                     return RedirectToAction("Index", "ProductBacklog", new { area = "ProductOwner" });
