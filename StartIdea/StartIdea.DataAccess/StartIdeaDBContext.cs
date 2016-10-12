@@ -1,7 +1,4 @@
 ﻿using StartIdea.DataAccess.Mapping;
-using StartIdea.DataAccess.Mapping.ScrumArtefatos;
-using StartIdea.DataAccess.Mapping.ScrumEventos;
-using StartIdea.DataAccess.Mapping.TimeScrum;
 using StartIdea.DataAccess.Migrations;
 using StartIdea.Model;
 using StartIdea.Model.ScrumArtefatos;
@@ -53,20 +50,6 @@ namespace StartIdea.DataAccess
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             modelBuilder.Configurations.Add(new UsuarioMap());
-
-            #region TimeScrum
-            modelBuilder.Configurations.Add(new TimeMap());
-            modelBuilder.Configurations.Add(new MembroTimeMap());
-            #endregion
-
-            #region ScrumEventos
-            modelBuilder.Configurations.Add(new ReuniaoMap());
-            #endregion
-
-            #region ScrumArtefatos
-            modelBuilder.Configurations.Add(new TarefaMap());
-            modelBuilder.Configurations.Add(new StatusMap());
-            #endregion
         }
     }
 }

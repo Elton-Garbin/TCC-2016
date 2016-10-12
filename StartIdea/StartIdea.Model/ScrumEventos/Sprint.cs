@@ -13,15 +13,12 @@ namespace StartIdea.Model.ScrumEventos
         {
             Reunioes = new HashSet<Reuniao>();
             SprintBacklogs = new HashSet<SprintBacklog>();
-
-            #region Default Values
             DataInicial = DateTime.Now;
             DataFinal = DateTime.Now.AddDays(30);
             DataCadastro = DateTime.Now;
-            #endregion
         }
 
-        #region Campos
+        #region Fields
         public int Id { get; set; }
 
         [DisplayName("Data Inicial")]
@@ -49,9 +46,13 @@ namespace StartIdea.Model.ScrumEventos
         public int TimeId { get; set; }
         #endregion
 
+        #region References
         public virtual Time Time { get; set; }
+        #endregion
 
+        #region Collections
         public virtual ICollection<Reuniao> Reunioes { get; set; }
         public virtual ICollection<SprintBacklog> SprintBacklogs { get; set; }
+        #endregion
     }
 }

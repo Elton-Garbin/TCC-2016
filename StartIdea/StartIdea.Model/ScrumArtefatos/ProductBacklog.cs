@@ -22,15 +22,12 @@ namespace StartIdea.Model.ScrumArtefatos
         {
             HistoricoEstimativas = new HashSet<HistoricoEstimativa>();
             SprintBacklogs = new HashSet<SprintBacklog>();
-
-            #region Default Values
             DataInclusao = DateTime.Now;
             StoryPoint = StoryPoint.N;
             Prioridade = 1;
-            #endregion
         }
 
-        #region Campos
+        #region Fields
         public int Id { get; set; }
 
         [DisplayName("User Story")]
@@ -53,9 +50,13 @@ namespace StartIdea.Model.ScrumArtefatos
         public int ProductOwnerId { get; set; }
         #endregion
 
+        #region References
         public virtual ProductOwner ProductOwner { get; set; }
+        #endregion
 
+        #region Collections
         public virtual ICollection<HistoricoEstimativa> HistoricoEstimativas { get; set; }
         public virtual ICollection<SprintBacklog> SprintBacklogs { get; set; }
+        #endregion
     }
 }

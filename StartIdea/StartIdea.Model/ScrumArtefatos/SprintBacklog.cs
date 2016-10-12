@@ -12,18 +12,24 @@ namespace StartIdea.Model.ScrumArtefatos
             Tarefas = new HashSet<Tarefa>();
         }
 
+        #region Fields
         public int Id { get; set; }
-        public int SprintId { get; set; }
-        public int ProductBacklogId { get; set; }
-
         public DateTime? DataCancelamento { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string MotivoCancelamento { get; set; }
 
+        public int SprintId { get; set; }
+        public int ProductBacklogId { get; set; }
+        #endregion
+
+        #region References
         public virtual Sprint Sprint { get; set; }
         public virtual ProductBacklog ProductBacklog { get; set; }
+        #endregion
 
+        #region Collections
         public virtual ICollection<Tarefa> Tarefas { get; set; }
+        #endregion
     }
 }

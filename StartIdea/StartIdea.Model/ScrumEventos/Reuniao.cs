@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.Model.ScrumEventos
 {
@@ -12,14 +13,21 @@ namespace StartIdea.Model.ScrumEventos
 
     public class Reuniao
     {
+        #region Fields
         public int Id { get; set; }
         public TipoReuniao TipoReuniao { get; set; }
+
+        [Required, MaxLength(50)]
         public string Local { get; set; }
+
         public DateTime DataInicial { get; set; }
         public DateTime DataFinal { get; set; }
         public string Observacao { get; set; }
         public int SprintId { get; set; }
+        #endregion
 
+        #region References
         public virtual Sprint Sprint { get; set; }
+        #endregion
     }
 }
