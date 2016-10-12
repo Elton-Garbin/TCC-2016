@@ -1,0 +1,45 @@
+﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.TarefaVM
+
+<div class="modal fade" tabindex="-1" role="dialog" id="popup-create">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "Tarefa"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.FiltroDescricao)
+                @Html.HiddenFor(model => model.PaginaGrid)
+                @Html.HiddenFor(model => model.DisplayCreate)
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Nova Tarefa</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-xs-12 form-group">
+                                @Html.LabelFor(model => model.Descricao)
+                                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 form-group">
+                                @Html.LabelFor(model => model.sprintBacklogs)
+                                @Html.DropDownListFor(model => model.SprintBacklogIdInsert, new SelectList(Model.sprintBacklogs, "Id", "ProductBacklog.UserStory"), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SprintBacklogIdInsert, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Criar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

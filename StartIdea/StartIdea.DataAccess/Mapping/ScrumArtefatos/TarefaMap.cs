@@ -8,7 +8,6 @@ namespace StartIdea.DataAccess.Mapping.ScrumArtefatos
         public TarefaMap()
         {
             Property(x => x.Descricao)
-                .HasMaxLength(250)
                 .IsRequired();
         }
     }
