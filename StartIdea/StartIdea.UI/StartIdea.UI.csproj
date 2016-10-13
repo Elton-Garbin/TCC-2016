@@ -331,7 +331,6 @@
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\_MotivoCancelamento.cshtml" />
     <Content Include="Areas\TeamMember\Views\Tarefa\Index.cshtml" />
     <Content Include="Areas\TeamMember\Views\Tarefa\_Create.cshtml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.js" />
     <Content Include="Scripts\ai.1.0.3-build05630.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -347,9 +346,6 @@
     <Content Include="Scripts\globalize\plural.js" />
     <Content Include="Scripts\globalize\relative-time.js" />
     <Content Include="Scripts\globalize\unit.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
