@@ -50,11 +50,11 @@
                 <li>
                     @if (Request.IsAuthenticated)
                     {
-                        @Html.ActionLink("Sair", "Logout", "Account", new { area = "" }, new { })
+                        @Html.ActionLink("Sair", "Logout", "Authentication", new { area = "" }, new { })
                     }
                     else
                     {
-                        @Html.ActionLink("Entrar", "Login", "Account")
+                        @Html.ActionLink("Entrar", "Login", "Authentication")
                     }
                 </li>
             </ul>

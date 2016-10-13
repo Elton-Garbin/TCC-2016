@@ -250,7 +250,7 @@
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
     <Compile Include="Areas\TeamMember\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\TeamMember\ViewModels\TarefaVM.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BurndownChartController.cs" />
     <Compile Include="Controllers\BurnupChartController.cs" />
     <Compile Include="Controllers\ProductBacklogController.cs" />
@@ -395,14 +395,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\BurnupChart\Index.cshtml" />
     <Content Include="Views\BurndownChart\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\ProductBacklog\Index.cshtml" />
     <Content Include="Views\SprintBacklog\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\ProductBacklog\Detalhes.cshtml" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Authentication\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

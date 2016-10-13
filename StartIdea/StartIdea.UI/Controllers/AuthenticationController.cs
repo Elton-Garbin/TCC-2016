@@ -13,11 +13,11 @@ using System;
 namespace StartIdea.UI.Controllers
 {
     [AllowAnonymous]
-    public class AccountController : Controller
+    public class AuthenticationController : Controller
     {
         private StartIdeaDBContext dbContext;
 
-        public AccountController(StartIdeaDBContext _dbContext)
+        public AuthenticationController(StartIdeaDBContext _dbContext)
         {
             dbContext = _dbContext;
         }
@@ -79,7 +79,7 @@ namespace StartIdea.UI.Controllers
             {
                 var token = Guid.NewGuid();
 
-                string link = "<a href='" + Url.Action("ResetPassword", "Account", new { token = token }, "http") + "'>Trocar Senha</a>";
+                string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { token = token }, "http") + "'>Trocar Senha</a>";
                 string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
                                               <p>Você iniciou o processo de recuperação de senha no dia <b>{1}</b>.</p>
                                               <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>", 

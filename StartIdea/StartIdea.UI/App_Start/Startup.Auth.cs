@@ -13,8 +13,8 @@ namespace StartIdea.UI
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-                LogoutPath = new PathString("/Account/Logout"),
+                LoginPath = new PathString("/Authentication/Login"),
+                LogoutPath = new PathString("/Authentication/Logout"),
                 CookieSecure = CookieSecureOption.SameAsRequest,
                 SlidingExpiration = true,
                 ExpireTimeSpan = TimeSpan.FromMinutes(30)
