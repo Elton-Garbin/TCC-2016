@@ -1,5 +1,7 @@
 ﻿using StartIdea.Model.TimeScrum;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.Model
 {
@@ -10,14 +12,27 @@ namespace StartIdea.Model
             ProductOwners = new HashSet<ProductOwner>();
             ScrumMasters = new HashSet<ScrumMaster>();
             MembrosTime = new HashSet<MembroTime>();
+            DataInclusao = DateTime.Now;
+            IsActive = true;
+            IsAdmin = false;
         }
 
         #region Fields
         public int Id { get; set; }
-        public string UserName { get; set; }
+
+        [Required, MaxLength(256)]
         public string Email { get; set; }
+
+        [Required]
         public string Senha { get; set; }
-        public string Nome { get; set; }
+
+        [Required, MaxLength(256)]
+        public string UserName { get; set; }
+
+        public DateTime DataInclusao { get; set; }
+        public bool IsActive { get; set; }
+        public Guid? TokenActivation { get; set; }
+        public bool IsAdmin { get; set; }
         #endregion
 
         #region Collections

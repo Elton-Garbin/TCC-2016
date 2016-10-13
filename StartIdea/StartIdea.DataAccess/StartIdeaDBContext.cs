@@ -1,10 +1,11 @@
-﻿using StartIdea.DataAccess.Mapping;
-using StartIdea.DataAccess.Migrations;
+﻿using StartIdea.DataAccess.Migrations;
 using StartIdea.Model;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.Model.ScrumEventos;
 using StartIdea.Model.TimeScrum;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace StartIdea.DataAccess
@@ -14,7 +15,7 @@ namespace StartIdea.DataAccess
         public StartIdeaDBContext()
             : base("StartIdeaDB")
         {
-            Configuration.LazyLoadingEnabled   = false;
+            Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<StartIdeaDBContext, Configuration>("StartIdeaDB"));
@@ -49,7 +50,13 @@ namespace StartIdea.DataAccess
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            modelBuilder.Configurations.Add(new UsuarioMap());
+            modelBuilder.Entity<Usuario>()
+                .Property(p => p.Email)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("UK_Usuario_Email") { IsUnique = true }));
+
+            modelBuilder.Entity<Usuario>()
+                .Property(p => p.UserName)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("UK_Usuario_UserName") { IsUnique = true }));
         }
     }
 }

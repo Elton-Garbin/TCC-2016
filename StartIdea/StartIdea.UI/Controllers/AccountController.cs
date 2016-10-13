@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Security.Claims;
+using System;
 
 namespace StartIdea.UI.Controllers
 {
@@ -59,6 +60,41 @@ namespace StartIdea.UI.Controllers
 
             ModelState.AddModelError("", "E-mail ou Senha inválido.");
             return View();
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            return View(new ForgotPasswordVM());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(ForgotPasswordVM vm)
+        {
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            var usuario = dbContext.Usuarios.SingleOrDefault(u => u.Email == vm.Email);
+            if (usuario != null)
+            {
+                var token = Guid.NewGuid();
+
+                string link = "<a href='" + Url.Action("ResetPassword", "Account", new { token = token }, "http") + "'>Trocar Senha</a>";
+                string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
+                                              <p>Você iniciou o processo de recuperação de senha no dia <b>{1}</b>.</p>
+                                              <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>", 
+                                              usuario.UserName, DateTime.Now.ToShortDateString(), link);
+
+                EmailService.EnviarEmail("Recuperação de Senha (StartIdea)", body, usuario.Email);
+
+                usuario.TokenActivation = token;
+                dbContext.Entry(usuario).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
+
+            vm.CssClassMessage = "text-success";
+            ModelState.AddModelError("", "Verifique o link enviado no e-mail informado!");
+            return View(vm);
         }
 
         public ActionResult Logout()

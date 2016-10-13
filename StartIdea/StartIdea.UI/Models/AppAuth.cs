@@ -25,7 +25,7 @@ namespace StartIdea.UI.Models
         {
             var identity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.NameIdentifier, _Usuario.Id.ToString()),
-                new Claim(ClaimTypes.Name, _Usuario.Nome),
+                new Claim(ClaimTypes.Name, _Usuario.UserName),
                 new Claim(ClaimTypes.Email, _Usuario.Email),
                 new Claim("PerfilId", GetPerfilId()),
                 new Claim("TimeId", "1"),

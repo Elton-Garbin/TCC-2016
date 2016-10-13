@@ -24,40 +24,35 @@ namespace StartIdea.DataAccess.Migrations
                     Id = 1,
                     Email = "eltongarbin@gmail.com",
                     Senha = "1234",
-                    UserName = "EltonGarbin",
-                    Nome = "Elton Diego Garbin do Nascimento"
+                    UserName = "EltonGarbin"
                 },
                 new Usuario()
                 {
                     Id = 2,
                     Email = "gabriel.silva@newconsoftware.com.br",
                     Senha = "1234",
-                    UserName = "GabrielXFD",
-                    Nome = "Gabriel Fernandez da Silva"
+                    UserName = "GabrielXFD"
                 },
                 new Usuario()
                 {
                     Id = 3,
                     Email = "arieldalton@gmail.com",
                     Senha = "1234",
-                    UserName = "ArielDalton",
-                    Nome = "Ariel Dalton Garbin do Nascimento"
+                    UserName = "ArielDalton"
                 },
                 new Usuario()
                 {
                     Id = 4,
                     Email = "rafael.pessotti@newconsoftware.com.br",
                     Senha = "1234",
-                    UserName = "Pessotti",
-                    Nome = "Rafael Pessotti Magdaleno"
+                    UserName = "Pessotti"
                 },
                 new Usuario()
                 {
                     Id = 5,
                     Email = "jose.silva@gmail.com",
                     Senha = "1234",
-                    UserName = "J.Silva",
-                    Nome = "José da Silva Santos"
+                    UserName = "J.Silva"
                 }
             );
             #endregion
