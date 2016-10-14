@@ -31,7 +31,7 @@ namespace StartIdea.UI.Controllers
                                              .Select(c => c.Value).SingleOrDefault();
 
                 return RedirectToAction("RedirectLoggedUser", new { role = Role });
-            }            
+            }
 
             return View();
         }
@@ -47,8 +47,9 @@ namespace StartIdea.UI.Controllers
                 .Include(po => po.ProductOwners)
                 .Include(sm => sm.ScrumMasters)
                 .Include(mt => mt.MembrosTime)
-                .SingleOrDefault(u => u.Email == vm.Email 
-                                   && u.Senha == vm.Senha);
+                .SingleOrDefault(u => u.Email == vm.Email
+                                   && u.Senha == vm.Senha
+                                   && u.IsActive);
 
             if (usuario != null)
             {
@@ -82,7 +83,7 @@ namespace StartIdea.UI.Controllers
                 string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { token = token }, "http") + "'>Trocar Senha</a>";
                 string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
                                               <p>Você iniciou o processo de recuperação de senha no dia <b>{1}</b>.</p>
-                                              <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>", 
+                                              <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
                                               usuario.UserName, DateTime.Now.ToShortDateString(), link);
 
                 EmailService.EnviarEmail("Recuperação de Senha (StartIdea)", body, usuario.Email);
@@ -95,6 +96,54 @@ namespace StartIdea.UI.Controllers
             vm.CssClassMessage = "text-success";
             ModelState.AddModelError("", "Verifique o link enviado no e-mail informado!");
             return View(vm);
+        }
+
+        public ActionResult ResetPassword(string token)
+        {
+            if (token == null)
+                return View("Error");
+
+            var usuario = dbContext.Usuarios.SingleOrDefault(u => u.TokenActivation.ToString() == token
+                                                               && u.IsActive);
+
+            if (usuario == null)
+                return View("Error");
+
+            var vm = new ResetPasswordVM()
+            {
+                Email = usuario.Email,
+                TokenActivation = token
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordVM vm)
+        {
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            var usuario = dbContext.Usuarios
+                .Include(po => po.ProductOwners)
+                .Include(sm => sm.ScrumMasters)
+                .Include(mt => mt.MembrosTime)
+                .SingleOrDefault(u => u.TokenActivation.ToString() == vm.TokenActivation
+                                   && u.IsActive);
+
+            if (usuario == null)
+                return View("Error");
+
+            usuario.Senha = vm.Senha;
+            usuario.TokenActivation = new Guid?();
+            dbContext.Entry(usuario).State = EntityState.Modified;
+            dbContext.SaveChanges();
+
+            AppAuth app = new AppAuth(AuthenticationManager, usuario);
+            app.SignIn();
+
+            return RedirectToAction("RedirectLoggedUser", new { role = app.Role });
         }
 
         public ActionResult Logout()

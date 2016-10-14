@@ -21,7 +21,7 @@ namespace StartIdea.UI.Models
             Role = GetRole();
         }
 
-        public void SignIn(bool RememberBrowser)
+        public void SignIn(bool RememberBrowser = false)
         {
             var identity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.NameIdentifier, _Usuario.Id.ToString()),
