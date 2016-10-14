@@ -84,7 +84,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 DataInclusao = DateTime.Now,
                 ProductBacklogId = productBacklog.Id,
                 StoryPoint = productBacklog.StoryPoint,
-                MembroTimeId = 1 //Alterar para passar o membro do time
+                MembroTimeId = CurrentUser.TimeId
             });
 
             dbContext.Entry(productBacklogAux).State = EntityState.Modified;

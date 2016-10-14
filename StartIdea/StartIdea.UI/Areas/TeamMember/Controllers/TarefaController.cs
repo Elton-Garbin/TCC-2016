@@ -73,7 +73,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 {
                     Descricao = tarefaVM.Descricao,
                     SprintBacklogId = tarefaVM.SprintBacklogIdInsert,
-                    MembroTimeId = 1 //Remover
+                    MembroTimeId = CurrentUser.TimeId
                 };
 
                 _dbContext.Tarefas.Add(tarefa);
