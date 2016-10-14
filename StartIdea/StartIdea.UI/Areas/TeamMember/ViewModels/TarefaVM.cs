@@ -15,14 +15,17 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
         public string FiltroDescricao { get; set; }
         public int PaginaGrid { get; set; }
         public string DisplayCreate { get; set; }
+        public string DisplayEdit { get; set; }
 
         [DisplayName("Backlog da Sprint")]
         public IEnumerable<SprintBacklog> sprintBacklogs { get; set; }
 
         [DisplayName("Descrição")]
+        [Required(ErrorMessage = "Campo Descrição obrigatório.")]
         [DataType(DataType.MultilineText)]
         public string Descricao { get; set; }
-
-        public int SprintBacklogIdInsert { get; set; }
+        
+        public int TarefaIdEdit { get; set; }
+        public int SprintBacklogId { get; set; }
     }
 }

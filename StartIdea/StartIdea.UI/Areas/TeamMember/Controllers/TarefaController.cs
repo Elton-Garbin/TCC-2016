@@ -5,6 +5,7 @@ using StartIdea.UI.Areas.TeamMember.Models;
 using StartIdea.UI.Areas.TeamMember.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,13 +22,16 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         }
 
         public ActionResult Index(string FiltroDescricao,
+                                  string DisplayEdit,
                                   string DisplayCreate,
-                                  int? PaginaGrid)
+                                  int? PaginaGrid,
+                                  int? IdEdit)
         {
             var tarefaVM = new TarefaVM();
             tarefaVM.FiltroDescricao = FiltroDescricao;
             tarefaVM.PaginaGrid = (PaginaGrid ?? 1);
             tarefaVM.DisplayCreate = DisplayCreate;
+            tarefaVM.DisplayEdit = DisplayEdit;
 
             var sprintsBacklogs = from sb in _dbContext.SprintBacklogs.Include("ProductBacklog")
                                   where !sb.DataCancelamento.HasValue
@@ -57,6 +61,18 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             if (!string.IsNullOrEmpty(FiltroDescricao))
                 tarefas = tarefas.Where(t => t.Descricao.Contains(FiltroDescricao));
 
+            if ((IdEdit ?? 0) > 0)
+            {
+                Tarefa tarefa = _dbContext.Tarefas.Find(IdEdit);
+                if (tarefa == null)
+                    return HttpNotFound();
+
+                tarefaVM.TarefaIdEdit    = tarefa.Id;
+                tarefaVM.Descricao       = tarefa.Descricao;
+                tarefaVM.SprintBacklogId = tarefa.SprintBacklogId;
+                tarefaVM.DisplayEdit     = "Show";
+            }
+
             tarefaVM.TarefaList = tarefas.ToPagedList(tarefaVM.PaginaGrid, 5);
             tarefaVM.sprintBacklogs = sprintsBacklogs.ToList();
 
@@ -72,7 +88,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 Tarefa tarefa = new Tarefa()
                 {
                     Descricao = tarefaVM.Descricao,
-                    SprintBacklogId = tarefaVM.SprintBacklogIdInsert,
+                    SprintBacklogId = tarefaVM.SprintBacklogId,
                     MembroTimeId = CurrentUser.TimeId
                 };
 
@@ -83,6 +99,29 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             }
 
             return View("Index", tarefaVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(TarefaVM tarefaVM)
+        {
+            if (ModelState.IsValid)
+            {
+                Tarefa tarefa = _dbContext.Tarefas.Find(tarefaVM.TarefaIdEdit);
+                tarefa.Descricao       = tarefaVM.Descricao;
+                tarefa.SprintBacklogId = tarefaVM.SprintBacklogId;
+
+                _dbContext.Entry(tarefa).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+
+                return RedirectToAction("Index", new
+                {
+                    FiltroDescricao = tarefaVM.FiltroDescricao,
+                    PaginaGrid = tarefaVM.PaginaGrid
+                });
+            }
+
+            return RedirectToAction("Index", tarefaVM);
         }
     }
 }
