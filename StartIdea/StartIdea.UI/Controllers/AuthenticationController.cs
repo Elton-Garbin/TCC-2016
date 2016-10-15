@@ -48,15 +48,17 @@ namespace StartIdea.UI.Controllers
                 .Include(sm => sm.ScrumMasters)
                 .Include(mt => mt.MembrosTime)
                 .SingleOrDefault(u => u.Email == vm.Email
-                                   && u.Senha == vm.Senha
                                    && u.IsActive);
 
             if (usuario != null)
             {
-                AppAuth app = new AppAuth(AuthenticationManager, usuario);
-                app.SignIn(vm.PermanecerConectado);
+                if (Utils.Decrypt(usuario.Senha).Equals(vm.Senha))
+                {
+                    AppAuth app = new AppAuth(AuthenticationManager, usuario);
+                    app.SignIn(vm.PermanecerConectado);
 
-                return RedirectToAction("RedirectLoggedUser", new { role = app.Role });
+                    return RedirectToAction("RedirectLoggedUser", new { role = app.Role });
+                }
             }
 
             ModelState.AddModelError("", "E-mail ou Senha inválido.");
@@ -135,7 +137,7 @@ namespace StartIdea.UI.Controllers
             if (usuario == null)
                 return View("Error");
 
-            usuario.Senha = vm.Senha;
+            usuario.Senha = Utils.Encrypt(vm.Senha);
             usuario.TokenActivation = new Guid?();
             dbContext.Entry(usuario).State = EntityState.Modified;
             dbContext.SaveChanges();

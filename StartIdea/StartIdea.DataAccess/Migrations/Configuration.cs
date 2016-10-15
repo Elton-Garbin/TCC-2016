@@ -23,35 +23,35 @@ namespace StartIdea.DataAccess.Migrations
                 {
                     Id = 1,
                     Email = "eltongarbin@gmail.com",
-                    Senha = "1234",
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
                     UserName = "EltonGarbin"
                 },
                 new Usuario()
                 {
                     Id = 2,
                     Email = "gabriel.silva@newconsoftware.com.br",
-                    Senha = "1234",
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
                     UserName = "GabrielXFD"
                 },
                 new Usuario()
                 {
                     Id = 3,
                     Email = "arieldalton@gmail.com",
-                    Senha = "1234",
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
                     UserName = "ArielDalton"
                 },
                 new Usuario()
                 {
                     Id = 4,
                     Email = "rafael.pessotti@newconsoftware.com.br",
-                    Senha = "1234",
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
                     UserName = "Pessotti"
                 },
                 new Usuario()
                 {
                     Id = 5,
                     Email = "jose.silva@gmail.com",
-                    Senha = "1234",
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
                     UserName = "J.Silva"
                 }
             );
@@ -135,25 +135,6 @@ namespace StartIdea.DataAccess.Migrations
                     DataFinal = new DateTime(2016, 7, 1, 18, 00, 00),
                     TimeId = 1
                 }
-                //new Sprint()
-                //{
-                //    Id = 2,
-                //    Objetivo = "Criar processo de devolução de valores pagos",
-                //    DataCadastro = new DateTime(2016, 7, 4, 13, 45, 00),
-                //    DataInicial = new DateTime(2016, 8, 1, 8, 00, 00),
-                //    DataFinal = new DateTime(2016, 9, 2, 18, 00, 00),
-                //    DataCancelamento = new DateTime(2016, 9, 1, 8, 30, 00),
-                //    TimeId = 1
-                //},
-                //new Sprint()
-                //{
-                //    Id = 3,
-                //    Objetivo = "Criar processo para oferta de lance",
-                //    DataCadastro = new DateTime(2016, 9, 1, 9, 00, 00),
-                //    DataInicial = new DateTime(2016, 9, 5, 8, 00, 00),
-                //    DataFinal = new DateTime(2016, 9, 30, 18, 00, 00),
-                //    TimeId = 1
-                //}
             );
             #endregion
 

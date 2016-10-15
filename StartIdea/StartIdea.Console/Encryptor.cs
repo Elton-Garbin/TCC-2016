@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace StartIdea.UI.Models
+namespace StartIdea.Console
 {
-    public static class Utils
+    internal static class Encryptor
     {
-        public static bool IsEmpty<T>(this IEnumerable<T> list)
-        {
-            if (list is ICollection<T>)
-                return ((ICollection<T>)list).Count == 0;
-
-            return !list.Any();
-        }
-
         internal static string Decrypt(string cipherText)
         {
             Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(_Pwd, _Salt);
