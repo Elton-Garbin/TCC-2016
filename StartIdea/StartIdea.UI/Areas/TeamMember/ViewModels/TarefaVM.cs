@@ -21,8 +21,8 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
         public IEnumerable<SprintBacklog> sprintBacklogs { get; set; }
 
         [DisplayName("Descrição")]
-        [Required(ErrorMessage = "Campo Descrição obrigatório.")]
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Campo Descrição obrigatório.")]
         public string Descricao { get; set; }
         
         public int TarefaIdEdit { get; set; }
