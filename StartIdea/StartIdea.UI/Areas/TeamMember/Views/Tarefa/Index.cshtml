@@ -89,6 +89,11 @@
                                     <i class="glyphicon glyphicon-edit"></i>
                                 </button>
                             </td>
+                            <td>
+                                <a class="btn btn-danger btn-xs btn-block" href="@Url.Action("Delete", "Tarefa", new { id = (item.Id) })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>

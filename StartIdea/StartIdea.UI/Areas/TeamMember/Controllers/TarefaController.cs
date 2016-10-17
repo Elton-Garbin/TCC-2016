@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -43,7 +44,6 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                                   orderby sb.ProductBacklog.Prioridade
                                   select sb;
 
-
             var tarefas = from t in _dbContext.Tarefas
                           join sb in _dbContext.SprintBacklogs
                           on t.SprintBacklogId equals sb.Id
@@ -54,6 +54,8 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                                  && sprint.DataInicial <= DateTime.Now
                                  && sprint.DataFinal >= DateTime.Now
                                  select sprint.Id).Contains(sb.SprintId)
+                          && !(from st in _dbContext.StatusTarefas
+                               select st.TarefaId).Contains(t.Id)
                           && !sb.DataCancelamento.HasValue
                           orderby pb.Prioridade
                           select t;
@@ -122,6 +124,21 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             }
 
             return RedirectToAction("Index", tarefaVM);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Tarefa tarefa = _dbContext.Tarefas.Find(id);
+            if (tarefa == null)
+                return HttpNotFound();
+
+            _dbContext.Tarefas.Remove(tarefa);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
