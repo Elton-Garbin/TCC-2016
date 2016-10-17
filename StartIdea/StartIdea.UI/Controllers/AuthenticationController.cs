@@ -3,12 +3,12 @@ using Microsoft.Owin.Security;
 using StartIdea.DataAccess;
 using StartIdea.UI.Models;
 using StartIdea.UI.ViewModels;
+using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
-using System.Security.Claims;
-using System;
 
 namespace StartIdea.UI.Controllers
 {
@@ -103,13 +103,13 @@ namespace StartIdea.UI.Controllers
         public ActionResult ResetPassword(string token)
         {
             if (token == null)
-                return View("Error");
+                return RedirectToAction("Login");
 
             var usuario = dbContext.Usuarios.SingleOrDefault(u => u.TokenActivation.ToString() == token
                                                                && u.IsActive);
 
             if (usuario == null)
-                return View("Error");
+                return RedirectToAction("Login");
 
             var vm = new ResetPasswordVM()
             {
@@ -135,7 +135,7 @@ namespace StartIdea.UI.Controllers
                                    && u.IsActive);
 
             if (usuario == null)
-                return View("Error");
+                return RedirectToAction("Login");
 
             usuario.Senha = Utils.Encrypt(vm.Senha);
             usuario.TokenActivation = new Guid?();
