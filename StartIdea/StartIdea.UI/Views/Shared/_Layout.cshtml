@@ -6,9 +6,7 @@
     <link rel="shortcut icon" type="image/png" href="@Url.Content("~/favicon.ico")" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/PagedList")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     @Html.Partial("_Header")
@@ -17,8 +15,8 @@
         @RenderBody()
     </div>
 
-
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @if (IsSectionDefined("CustomScript")) {
