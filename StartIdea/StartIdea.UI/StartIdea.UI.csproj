@@ -237,6 +237,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\FuncaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Models\AppController.cs" />
     <Compile Include="Areas\Admin\ViewModels\UsuarioVM.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\TeamMember\Controllers\ProductBacklogController.cs" />
+    <Compile Include="Areas\TeamMember\Controllers\StatusTarefaController.cs" />
     <Compile Include="Areas\TeamMember\Controllers\TarefaController.cs" />
     <Compile Include="Areas\TeamMember\Models\AppController.cs" />
     <Compile Include="Areas\TeamMember\TeamMemberAreaRegistration.cs" />
@@ -263,6 +265,7 @@
     <Compile Include="Controllers\BurnupChartController.cs" />
     <Compile Include="Controllers\ProductBacklogController.cs" />
     <Compile Include="Controllers\SprintBacklogController.cs" />
+    <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -279,6 +282,7 @@
     <Compile Include="ViewModels\ProductBacklogVM.cs" />
     <Compile Include="ViewModels\ResetPasswordVM.cs" />
     <Compile Include="ViewModels\SprintBacklogVM.cs" />
+    <Compile Include="ViewModels\PerfilVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="403.aspx" />
@@ -368,6 +372,8 @@
     <Content Include="Areas\Admin\Views\Usuario\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\_Create.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\_Edit.cshtml" />
+    <Content Include="Areas\TeamMember\Views\StatusTarefa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Funcao\Index.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -421,6 +427,7 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\Authentication\ForgotPassword.cshtml" />
     <Content Include="Views\Authentication\ResetPassword.cshtml" />
+    <Content Include="Views\Perfil\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
