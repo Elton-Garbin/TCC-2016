@@ -4,11 +4,9 @@ using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.Areas.TeamMember.Models;
 using StartIdea.UI.Areas.TeamMember.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.TeamMember.Controllers
