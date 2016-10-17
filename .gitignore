@@ -250,6 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-/StartIdea/MVCTest
-/StartIdea/WebApplication2
 /StartIdea/packages
+/StartIdea/StartIdea.UI/App_Data
