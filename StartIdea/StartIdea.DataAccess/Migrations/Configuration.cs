@@ -24,35 +24,49 @@ namespace StartIdea.DataAccess.Migrations
                     Id = 1,
                     Email = "eltongarbin@gmail.com",
                     Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
-                    UserName = "EltonGarbin"
+                    UserName = "EltonGarbin",
+                    CPF = "89599549422"
                 },
                 new Usuario()
                 {
                     Id = 2,
                     Email = "gabriel.silva@newconsoftware.com.br",
                     Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
-                    UserName = "GabrielXFD"
+                    UserName = "GabrielXFD",
+                    CPF = "47303494588"
                 },
                 new Usuario()
                 {
                     Id = 3,
                     Email = "arieldalton@gmail.com",
                     Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
-                    UserName = "ArielDalton"
+                    UserName = "ArielDalton",
+                    CPF = "06015440210"
                 },
                 new Usuario()
                 {
                     Id = 4,
                     Email = "rafael.pessotti@newconsoftware.com.br",
                     Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
-                    UserName = "Pessotti"
+                    UserName = "Pessotti",
+                    CPF = "89754838356"
                 },
                 new Usuario()
                 {
                     Id = 5,
                     Email = "jose.silva@gmail.com",
                     Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
-                    UserName = "J.Silva"
+                    UserName = "J.Silva",
+                    CPF = "81917045875"
+                },
+                new Usuario()
+                {
+                    Id = 6,
+                    Email = "juninho.afram@gmail.com",
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
+                    UserName = "JAfram",
+                    CPF = "42089011602",
+                    IsAdmin = true
                 }
             );
             #endregion

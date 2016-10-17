@@ -236,6 +236,10 @@
     <Compile Include="App_Start\NullDateTimeBinder.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Admin\Models\AppController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UsuarioVM.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\SprintController.cs" />
     <Compile Include="Areas\ProductOwner\Models\AppController.cs" />
@@ -358,6 +362,12 @@
     <Content Include="Scripts\globalize\relative-time.js" />
     <Content Include="Scripts\globalize\unit.js" />
     <Content Include="Areas\TeamMember\Views\Tarefa\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\_Edit.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

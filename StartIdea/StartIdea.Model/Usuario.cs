@@ -29,6 +29,9 @@ namespace StartIdea.Model
         [Required, MaxLength(256)]
         public string UserName { get; set; }
 
+        [Required, StringLength(11, MinimumLength = 11)]
+        public string CPF { get; set; }
+
         public DateTime DataInclusao { get; set; }
         public bool IsActive { get; set; }
         public Guid? TokenActivation { get; set; }

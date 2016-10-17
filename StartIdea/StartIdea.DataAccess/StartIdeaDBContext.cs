@@ -57,6 +57,10 @@ namespace StartIdea.DataAccess
             modelBuilder.Entity<Usuario>()
                 .Property(p => p.UserName)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("UK_Usuario_UserName") { IsUnique = true }));
+
+            modelBuilder.Entity<Usuario>()
+                .Property(p => p.CPF)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("UK_Usuario_CPF") { IsUnique = true }));
         }
     }
 }

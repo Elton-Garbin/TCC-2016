@@ -161,7 +161,9 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult RedirectLoggedUser(string role)
         {
-            if (role.Equals("ProductOwner"))
+            if (role.Equals("Admin"))
+                return RedirectToAction("Index", "Usuario", new { area = "Admin" });
+            else if (role.Equals("ProductOwner"))
                 return RedirectToAction("Index", "ProductBacklog", new { area = "ProductOwner" });
             else if (role.Equals("ScrumMaster"))
                 return RedirectToAction("Index", "Sprint", new { area = "ScrumMaster" });

@@ -55,10 +55,12 @@ namespace StartIdea.UI.Models
 
             return "0";
         }
-        
+
         private string GetRole()
         {
-            if (!Utils.IsEmpty(_Usuario.ProductOwners))
+            if (_Usuario.IsAdmin)
+                return "Admin";
+            else if (!Utils.IsEmpty(_Usuario.ProductOwners))
                 return "ProductOwner";
             else if (!Utils.IsEmpty(_Usuario.ScrumMasters))
                 return "ScrumMaster";

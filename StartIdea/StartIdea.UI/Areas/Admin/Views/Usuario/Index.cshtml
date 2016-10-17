@@ -1,0 +1,102 @@
+﻿@model StartIdea.UI.Areas.Admin.ViewModels.UsuarioVM
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section CustomScript{
+    <script type="text/javascript">
+        var displayCreate = "@Model.DisplayCreate";
+        var displayEdit = "@Model.DisplayEdit";
+
+        if (displayEdit) {
+            $("#popup-edit").modal('show');
+        }
+        if (displayCreate) {
+            $("#popup-create").modal('show');
+        }
+
+        $(".edit").click(function () {
+            var Id = $(this).attr("data-id");
+            var url = "@Html.Raw(Url.Action("Index", new { PaginaGrid = Model.PaginaGrid, IdEdit = 0 }))";
+
+            window.location.href = url.replace("IdEdit=0", "IdEdit=" + Id);
+        });
+
+        $(".create").click(function () {
+            var url = "@Html.Raw(Url.Action("Index", new { PaginaGrid = Model.PaginaGrid, DisplayCreate = "show" }))";
+
+            window.location.href = url;
+        });
+
+        $("#popup-edit, #popup-create").on("hide.bs.modal", function () {
+            window.location.href = "@Html.Raw(Url.Action("Index", new { PaginaGrid = Model.PaginaGrid, IdEdit = "" }))"
+        });
+
+    </script>
+}
+
+@Html.Partial("_Create", Model)
+@Html.Partial("_Edit", Model)
+
+<div class="page-header">
+    <h1>Usuário <small>Cadastro</small></h1>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                        <th class="col-sm-4 col-md-5">E-mail</th>
+                        <th class="col-sm-2 text-center">CPF</th>
+                        <th class="col-sm-1 text-center">Ativo?</th>
+                        <th class="col-sm-2 text-center">Data Inclusão</th>
+                        <th class="col-sm-1" colspan="2">
+                            <button class="btn btn-success btn-xs btn-block create">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.UsuarioList)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.CPF)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs btn-block edit" data-id="@item.Id">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            @Html.PagedListPager(Model.UsuarioList, PaginaGrid => Url.Action("Index", new { PaginaGrid }))
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
