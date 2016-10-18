@@ -274,6 +274,7 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\AppViewPage.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Models\CustomValidationCPFAttribute.cs" />
     <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -358,6 +359,7 @@
     <Content Include="Scripts\cldr\event.js" />
     <Content Include="Scripts\cldr\supplemental.js" />
     <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\CustomValidation.js" />
     <Content Include="Scripts\globalize.js" />
     <Content Include="Scripts\globalize\currency.js" />
     <Content Include="Scripts\globalize\date.js" />

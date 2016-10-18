@@ -59,7 +59,8 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     CPF = usuarioVM.CPF,
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
-                    IsActive = usuarioVM.IsActive
+                    IsActive = usuarioVM.IsActive,
+                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M="
                 };
 
                 _dbContext.Usuarios.Add(usuario);
