@@ -1,6 +1,6 @@
 ﻿using PagedList;
 using StartIdea.Model;
-using StartIdea.UI.Models;
+using StartIdea.UI.Areas.Admin.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,7 +27,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Informe o CPF"), StringLength(11, MinimumLength = 11)]
-        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
+        [CustomCPF(ErrorMessage = "CPF inválido")]
         public string CPF { get; set; }
 
         [DisplayName("Ativo")]
