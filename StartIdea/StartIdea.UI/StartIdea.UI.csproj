@@ -275,7 +275,7 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\AppViewPage.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
-    <Compile Include="Areas\Admin\Models\CustomCPFAttribute.cs" />
+    <Compile Include="Models\CustomValidationCPFAttribute.cs" />
     <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
