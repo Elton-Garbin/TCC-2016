@@ -137,6 +137,12 @@ namespace StartIdea.UI.Controllers
             if (usuario == null)
                 return RedirectToAction("Login");
 
+            if (Utils.Decrypt(usuario.Senha) == vm.Senha)
+            {
+                ModelState.AddModelError("", "Nova senha não pode ser igual a senha anterior.");
+                return View(vm);
+            }
+
             usuario.Senha = Utils.Encrypt(vm.Senha);
             usuario.TokenActivation = new Guid?();
             dbContext.Entry(usuario).State = EntityState.Modified;

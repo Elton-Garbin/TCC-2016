@@ -3,11 +3,11 @@ using StartIdea.DataAccess;
 using StartIdea.Model;
 using StartIdea.UI.Areas.Admin.Models;
 using StartIdea.UI.Areas.Admin.ViewModels;
-using System;
-using System.Web.Mvc;
-using System.Linq;
-using System.Data.Entity;
 using StartIdea.UI.Models;
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.Admin.Controllers
 {
@@ -63,7 +63,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
                     IsActive = usuarioVM.IsActive,
-                    Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
+                    Senha = Utils.Decrypt("@bc123ASD"),
                     TokenActivation = token
                 };
 
