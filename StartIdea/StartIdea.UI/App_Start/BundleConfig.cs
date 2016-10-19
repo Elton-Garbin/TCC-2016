@@ -8,10 +8,10 @@ namespace StartIdea.UI
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery-ui.min.js"));
+                "~/Scripts/jquery-ui.min.js",
+                "~/Scripts/globalize.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval")
-                .Include("~/Scripts/globalize.js")
                 .Include("~/Scripts/globalize/*.js")
                 .Include("~/Scripts/jquery.validate-vsdoc.js")
                 .Include("~/Scripts/jquery.validate.js")
