@@ -51,8 +51,6 @@
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Base\IRepository.cs" />
-    <Compile Include="Repositories\Base\Repository.cs" />
     <Compile Include="StartIdeaDBContext.cs" />
   </ItemGroup>
   <ItemGroup>
