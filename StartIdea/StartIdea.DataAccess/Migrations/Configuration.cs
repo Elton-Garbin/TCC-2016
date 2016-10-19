@@ -161,7 +161,7 @@ namespace StartIdea.DataAccess.Migrations
                     DataInicial = new DateTime(2016, 6, 3, 8, 30, 00),
                     DataFinal = new DateTime(2016, 6, 3, 12, 00, 00),
                     Local = "Sala Principal",
-                    Observacao = "1ª parte da reunião de planejamento",
+                    Ata = "1ª parte da reunião de planejamento",
                     SprintId = 1
                 },
                 new Reuniao()
@@ -171,7 +171,7 @@ namespace StartIdea.DataAccess.Migrations
                     DataInicial = new DateTime(2016, 6, 3, 13, 30, 00),
                     DataFinal = new DateTime(2016, 6, 3, 18, 00, 00),
                     Local = "Sala 2",
-                    Observacao = "2ª parte da reunião de planejamento",
+                    Ata = "2ª parte da reunião de planejamento",
                     SprintId = 1
                 }
             );
@@ -195,7 +195,7 @@ namespace StartIdea.DataAccess.Migrations
                     DataInicial = DataInicialSprint.AddDays(i),
                     DataFinal = DataInicialSprint.AddDays(i).AddMinutes(15),
                     Local = "Sala Desenvolvimento",
-                    Observacao = string.Format("Reunião diária de número {0} com os membros da equipe.", i + 1),
+                    Ata = string.Format("Reunião diária de número {0} com os membros da equipe.", i + 1),
                     SprintId = 1
                 };
 
@@ -214,7 +214,7 @@ namespace StartIdea.DataAccess.Migrations
                     DataInicial = new DateTime(2016, 7, 4, 8, 30, 00),
                     DataFinal = new DateTime(2016, 7, 4, 12, 00, 00),
                     Local = "Sala Principal",
-                    Observacao = "Todos os envolvidos e comprometidos no projeto estavam presentes.",
+                    Ata = "Todos os envolvidos e comprometidos no projeto estavam presentes.",
                     SprintId = 1
                 }
             );
@@ -229,7 +229,7 @@ namespace StartIdea.DataAccess.Migrations
                     DataInicial = new DateTime(2016, 7, 4, 13, 30, 00),
                     DataFinal = new DateTime(2016, 7, 4, 18, 00, 00),
                     Local = "Sala 2",
-                    Observacao = "Para o próximo sprint verificar a possibilidade de comprar a licença do DevExpress para auxilio nos gráficos.",
+                    Ata = "Para o próximo sprint verificar a possibilidade de comprar a licença do DevExpress para auxilio nos gráficos.",
                     SprintId = 1
                 }
             );

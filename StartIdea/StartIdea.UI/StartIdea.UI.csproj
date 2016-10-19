@@ -252,6 +252,7 @@
     <Compile Include="Areas\ScrumMaster\Controllers\SprintController.cs" />
     <Compile Include="Areas\ScrumMaster\Models\AppController.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
+    <Compile Include="Areas\ScrumMaster\ViewModels\ReuniaoVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\TeamMember\Controllers\ProductBacklogController.cs" />
@@ -274,7 +275,7 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\AppViewPage.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
-    <Compile Include="Models\CustomValidationCPFAttribute.cs" />
+    <Compile Include="Areas\Admin\Models\CustomCPFAttribute.cs" />
     <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -377,6 +378,8 @@
     <Content Include="Areas\Admin\Views\Usuario\_Edit.cshtml" />
     <Content Include="Areas\TeamMember\Views\StatusTarefa\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Funcao\Index.cshtml" />
+    <Content Include="Areas\ScrumMaster\Views\DailyScrum\Create.cshtml" />
+    <Content Include="Areas\ScrumMaster\Views\DailyScrum\Edit.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Index.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

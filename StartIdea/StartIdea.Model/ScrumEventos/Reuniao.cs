@@ -22,7 +22,10 @@ namespace StartIdea.Model.ScrumEventos
 
         public DateTime DataInicial { get; set; }
         public DateTime DataFinal { get; set; }
-        public string Observacao { get; set; }
+
+        [Required]
+        public string Ata { get; set; }
+
         public int SprintId { get; set; }
         #endregion
 
