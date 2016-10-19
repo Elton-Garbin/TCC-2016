@@ -13,8 +13,6 @@
 
     var div = $("#menu-lateral"); // seleciona a div específica
     $("body").on("click", function (e) {
-        console.log(e.target);
-        console.log($("#btn-menu-lateral"));
         if (div.has(e.target).length || e.target == div[0] || e.target == $("#btn-menu-lateral")[0])
             return;
 
