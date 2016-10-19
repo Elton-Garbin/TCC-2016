@@ -1,33 +1,26 @@
-﻿using System;
+﻿using PagedList;
+using StartIdea.Model.ScrumEventos;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 {
-    public class ReuniaoVM
+    public class DailyScrumVM
     {
-        public ReuniaoVM()
+        public DailyScrumVM()
         {
             DataInicial = DateTime.Now;
-            DataFinal = DateTime.Now;
+            DataFinal = DateTime.Now.AddMinutes(15);
         }
 
         #region Properties
-        public string ActionForm { get; private set; }
-        public string SubmitValue { get; private set; }
+        #region Filter
+        public IPagedList<Reuniao> ReuniaoList { get; set; }
+        public int PaginaGrid { get; set; }
+        #endregion
 
-        private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set
-            {
-                _Id = value;
-
-                SubmitValue = (_Id > 0) ? "Editar" : "Cadastrar";
-                ActionForm = (_Id > 0) ? "Edit" : "Create";
-            }
-        }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo Local obrigatório.")]
         [StringLength(50, ErrorMessage = "Campo Local deve ter no máximo 50 caracteres.")]
@@ -38,7 +31,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
         public DateTime DataInicial { get; set; }
 
         [DisplayName("Data Final")]
-        [Required(ErrorMessage = "Campo Data Final obrigatório.")]
         public DateTime DataFinal { get; set; }
 
         [Required(ErrorMessage = "Campo Ata obrigatório.")]

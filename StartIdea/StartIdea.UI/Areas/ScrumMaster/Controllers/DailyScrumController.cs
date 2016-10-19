@@ -22,37 +22,36 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         public ActionResult Index(int? PaginaGrid)
         {
-            var reuniaoVM = new ReuniaoVM()
+            var dailyScrumVM = new DailyScrumVM()
             {
                 PaginaGrid = (PaginaGrid ?? 1)
             };
 
-            reuniaoVM.ReuniaoList = GetGridDataSource(reuniaoVM.PaginaGrid);
+            dailyScrumVM.ReuniaoList = GetGridDataSource(dailyScrumVM.PaginaGrid);
 
-            return View(reuniaoVM);
+            return View(dailyScrumVM);
         }
 
         public ActionResult Create()
         {
-            ViewBag.SprintId = new SelectList(_dbContext.Sprints, "Id", "Objetivo");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "ReuniaoList,PaginaGrid,Id,DataFinal,SprintId")] ReuniaoVM reuniaoVM)
+        public ActionResult Create([Bind(Exclude = "ReuniaoList,PaginaGrid,Id,DataFinal,SprintId")] DailyScrumVM dailyScrumVM)
         {
             if (ModelState.IsValid)
             {
-                int SprintAtualId = GetSprintAtual().Id;
+                int SprintAtualId = GetSprintId();
 
                 var reuniao = new Reuniao()
                 {
                     TipoReuniao = TipoReuniao.Diaria,
-                    Local = reuniaoVM.Local,
-                    Ata = reuniaoVM.Ata,
-                    DataInicial = reuniaoVM.DataInicial,
-                    DataFinal = reuniaoVM.DataInicial.AddMinutes(15),
+                    Local = dailyScrumVM.Local,
+                    Ata = dailyScrumVM.Ata,
+                    DataInicial = dailyScrumVM.DataInicial,
+                    DataFinal = dailyScrumVM.DataInicial.AddMinutes(15),
                     SprintId = SprintAtualId
                 };
 
@@ -62,7 +61,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(reuniaoVM);
+            return View(dailyScrumVM);
         }
 
         public ActionResult Edit(int? id)
@@ -74,7 +73,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             if (reuniao == null)
                 return HttpNotFound();
 
-            var reuniaoVM = new ReuniaoVM()
+            var dailyScrumVM = new DailyScrumVM()
             {
                 Id = reuniao.Id,
                 Ata = reuniao.Ata,
@@ -83,20 +82,20 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 Local = reuniao.Local
             };
 
-            return View(reuniaoVM);
+            return View(dailyScrumVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Exclude = "ReuniaoList,PaginaGrid,DataFinal,SprintId")] ReuniaoVM reuniaoVM)
+        public ActionResult Edit([Bind(Exclude = "ReuniaoList,PaginaGrid,DataFinal,SprintId")] DailyScrumVM dailyScrumVM)
         {
             if (ModelState.IsValid)
             {
-                Reuniao reuniao = _dbContext.Reunioes.Find(reuniaoVM.Id);
-                reuniao.Local = reuniaoVM.Local;
-                reuniao.Ata = reuniaoVM.Ata;
-                reuniao.DataInicial = reuniaoVM.DataInicial;
-                reuniao.DataFinal = reuniaoVM.DataInicial.AddMinutes(15);
+                Reuniao reuniao = _dbContext.Reunioes.Find(dailyScrumVM.Id);
+                reuniao.Local = dailyScrumVM.Local;
+                reuniao.Ata = dailyScrumVM.Ata;
+                reuniao.DataInicial = dailyScrumVM.DataInicial;
+                reuniao.DataFinal = dailyScrumVM.DataInicial.AddMinutes(15);
 
                 _dbContext.Entry(reuniao).State = EntityState.Modified;
                 _dbContext.SaveChanges();
@@ -104,7 +103,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(reuniaoVM);
+            return View(dailyScrumVM);
         }
 
         public ActionResult Delete(int? id)
@@ -124,7 +123,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         private IPagedList<Reuniao> GetGridDataSource(int PaginaGrid)
         {
-            int SprintAtualId = GetSprintAtual().Id;
+            int SprintAtualId = GetSprintId();
 
             var query = from r in _dbContext.Reunioes
                         where r.TipoReuniao == TipoReuniao.Diaria
@@ -134,12 +133,14 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             return query.ToList().ToPagedList(PaginaGrid, 7);
         }
 
-        private Sprint GetSprintAtual()
+        private int GetSprintId()
         {
-            return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
-                                                        && s.TimeId == CurrentUser.TimeId
-                                                        && s.DataInicial <= DateTime.Now
-                                                        && s.DataFinal >= DateTime.Now) ?? new Sprint();
+            var sprint = _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                              && s.TimeId == CurrentUser.TimeId
+                                                              && s.DataInicial <= DateTime.Now
+                                                              && s.DataFinal >= DateTime.Now) ?? new Sprint();
+
+            return sprint.Id;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model StartIdea.UI.Areas.ScrumMaster.ViewModels.ReuniaoVM
+﻿@model StartIdea.UI.Areas.ScrumMaster.ViewModels.DailyScrumVM
 @using PagedList.Mvc;
 
 @{
@@ -10,7 +10,7 @@
 </div>
 
 <div class="container-fluid">
-    @if (Model.Id == 0)
+    @if (Model.SprintId == 0)
     {
         <div class="row">
             <div class="col-xs-12">

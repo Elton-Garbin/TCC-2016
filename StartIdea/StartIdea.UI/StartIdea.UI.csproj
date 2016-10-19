@@ -248,10 +248,12 @@
     <Compile Include="Areas\ProductOwner\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\ProductOwner\ViewModels\SprintVM.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\DailyScrumController.cs" />
+    <Compile Include="Areas\ScrumMaster\Controllers\ReuniaoPlanejamentoController.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\SprintBacklogController.cs" />
     <Compile Include="Areas\ScrumMaster\Controllers\SprintController.cs" />
     <Compile Include="Areas\ScrumMaster\Models\AppController.cs" />
     <Compile Include="Areas\ScrumMaster\ScrumMasterAreaRegistration.cs" />
+    <Compile Include="Areas\ScrumMaster\ViewModels\DailyScrumVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\ReuniaoVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintBacklogVM.cs" />
     <Compile Include="Areas\ScrumMaster\ViewModels\SprintVM.cs" />
@@ -381,6 +383,7 @@
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Create.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Edit.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Index.cshtml" />
+    <Content Include="Areas\ScrumMaster\Views\ReuniaoPlanejamento\Index.cshtml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
