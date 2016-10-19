@@ -1,0 +1,74 @@
+﻿@model StartIdea.UI.Areas.ScrumMaster.ViewModels.ReuniaoVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header">
+    <h1>Cadastro da Reunião de Retrospectiva</h1>
+</div>
+
+<div class="container-fluid">
+    @if (Model.SprintId == 0)
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-info" role="alert">
+                    <p>Não há sprint em andamento.</p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm(Model.ActionForm, "ReuniaoRetrospectiva", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.SprintId)
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @Html.LabelFor(model => model.Local)
+                    @Html.EditorFor(model => model.Local, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Local, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.DataInicial)
+                    <div class="input-group date datetimepicker">
+                        @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.DataFinal)
+                    <div class="input-group date datetimepicker">
+                        @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.DataFinal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @Html.LabelFor(model => model.Ata)
+                    @Html.EditorFor(model => model.Ata, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ata, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.ActionLink("Cancelar", "Index", "ReuniaoRetrospectiva", new { @class = "btn btn-default" })
+            <button type="submit" class="btn btn-primary">@Model.SubmitValue</button>
+        }
+    }
+</div>
