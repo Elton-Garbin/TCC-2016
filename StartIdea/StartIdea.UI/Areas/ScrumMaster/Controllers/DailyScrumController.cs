@@ -40,18 +40,29 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TipoReuniao,Local,DataInicial,DataFinal,Observacao,SprintId")] Reuniao reuniao)
+        public ActionResult Create([Bind(Exclude = "ReuniaoList,PaginaGrid,Id,DataFinal,SprintId")] ReuniaoVM reuniaoVM)
         {
             if (ModelState.IsValid)
             {
+                int SprintAtualId = GetSprintAtual().Id;
+
+                var reuniao = new Reuniao()
+                {
+                    TipoReuniao = TipoReuniao.Diaria,
+                    Local = reuniaoVM.Local,
+                    Ata = reuniaoVM.Ata,
+                    DataInicial = reuniaoVM.DataInicial,
+                    DataFinal = reuniaoVM.DataInicial.AddMinutes(15),
+                    SprintId = SprintAtualId
+                };
+
                 _dbContext.Reunioes.Add(reuniao);
                 _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SprintId = new SelectList(_dbContext.Sprints, "Id", "Objetivo", reuniao.SprintId);
-            return View(reuniao);
+            return View(reuniaoVM);
         }
 
         public ActionResult Edit(int? id)
@@ -63,24 +74,37 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             if (reuniao == null)
                 return HttpNotFound();
 
-            ViewBag.SprintId = new SelectList(_dbContext.Sprints, "Id", "Objetivo", reuniao.SprintId);
-            return View(reuniao);
+            var reuniaoVM = new ReuniaoVM()
+            {
+                Id = reuniao.Id,
+                Ata = reuniao.Ata,
+                DataFinal = reuniao.DataFinal,
+                DataInicial = reuniao.DataInicial,
+                Local = reuniao.Local
+            };
+
+            return View(reuniaoVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TipoReuniao,Local,DataInicial,DataFinal,Observacao,SprintId")] Reuniao reuniao)
+        public ActionResult Edit([Bind(Exclude = "ReuniaoList,PaginaGrid,DataFinal,SprintId")] ReuniaoVM reuniaoVM)
         {
             if (ModelState.IsValid)
             {
+                Reuniao reuniao = _dbContext.Reunioes.Find(reuniaoVM.Id);
+                reuniao.Local = reuniaoVM.Local;
+                reuniao.Ata = reuniaoVM.Ata;
+                reuniao.DataInicial = reuniaoVM.DataInicial;
+                reuniao.DataFinal = reuniaoVM.DataInicial.AddMinutes(15);
+
                 _dbContext.Entry(reuniao).State = EntityState.Modified;
                 _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SprintId = new SelectList(_dbContext.Sprints, "Id", "Objetivo", reuniao.SprintId);
-            return View(reuniao);
+            return View(reuniaoVM);
         }
 
         public ActionResult Delete(int? id)
@@ -100,16 +124,22 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         private IPagedList<Reuniao> GetGridDataSource(int PaginaGrid)
         {
+            int SprintAtualId = GetSprintAtual().Id;
+
             var query = from r in _dbContext.Reunioes
                         where r.TipoReuniao == TipoReuniao.Diaria
-                           && (from s in _dbContext.Sprints
-                               where !s.DataCancelamento.HasValue
-                                   && s.DataInicial <= DateTime.Now
-                                   && s.DataFinal >= DateTime.Now
-                               select s.Id).Contains(r.SprintId)
+                           && r.SprintId == SprintAtualId
                         select r;
 
             return query.ToList().ToPagedList(PaginaGrid, 7);
+        }
+
+        private Sprint GetSprintAtual()
+        {
+            return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                        && s.TimeId == CurrentUser.TimeId
+                                                        && s.DataInicial <= DateTime.Now
+                                                        && s.DataFinal >= DateTime.Now) ?? new Sprint();
         }
     }
 }

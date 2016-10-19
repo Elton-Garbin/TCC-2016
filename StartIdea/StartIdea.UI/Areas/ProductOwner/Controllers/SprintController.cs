@@ -19,7 +19,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Exclude = "Id,DataInicial,DataFinal,Objetivo,DataCadastro,DataCancelamento")] SprintVM sprintVM)
+        public ActionResult Edit([Bind(Include = "DataCancelamento,MotivoCancelamento")] SprintVM sprintVM)
         {
             if (ModelState.IsValid)
             {
