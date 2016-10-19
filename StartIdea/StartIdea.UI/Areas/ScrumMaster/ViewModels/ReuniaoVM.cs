@@ -35,10 +35,12 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 
         [DisplayName("Data Inicial")]
         [Required(ErrorMessage = "Campo Data Inicial obrigatório.")]
+        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Inicial inválido.")]
         public DateTime DataInicial { get; set; }
 
         [DisplayName("Data Final")]
         [Required(ErrorMessage = "Campo Data Final obrigatório.")]
+        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Final inválido.")]
         public DateTime DataFinal { get; set; }
 
         [Required(ErrorMessage = "Campo Ata obrigatório.")]

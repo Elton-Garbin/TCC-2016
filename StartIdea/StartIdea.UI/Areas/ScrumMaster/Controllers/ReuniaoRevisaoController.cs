@@ -9,11 +9,11 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 {
-    public class ReuniaoPlanejamentoController : AppController
+    public class ReuniaoRevisaoController : AppController
     {
         private StartIdeaDBContext _dbContext;
 
-        public ReuniaoPlanejamentoController(StartIdeaDBContext dbContext)
+        public ReuniaoRevisaoController(StartIdeaDBContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -21,7 +21,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         public ActionResult Index()
         {
             int SprintAtualId = GetSprintId();
-            Reuniao reuniao = _dbContext.Reunioes.FirstOrDefault(r => r.TipoReuniao == TipoReuniao.Planejamento
+            Reuniao reuniao = _dbContext.Reunioes.FirstOrDefault(r => r.TipoReuniao == TipoReuniao.Revisao
                                                                    && r.SprintId == SprintAtualId) ?? new Reuniao();
 
             return View(new ReuniaoVM()
@@ -43,7 +43,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             {
                 var reuniao = new Reuniao()
                 {
-                    TipoReuniao = TipoReuniao.Planejamento,
+                    TipoReuniao = TipoReuniao.Revisao,
                     Local = reuniaoVM.Local,
                     Ata = reuniaoVM.Ata,
                     DataInicial = reuniaoVM.DataInicial,
