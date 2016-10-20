@@ -35,6 +35,8 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                                                    select st.TarefaId).Contains(tarefa.Id)
                                               select tarefa;
 
+
+
             return View(statusTarefaVM);
         }
     }
