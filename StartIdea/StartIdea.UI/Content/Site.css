@@ -278,3 +278,16 @@
 .both {
     clear: both;
 }
+
+.panel-body-status-tarefa {
+    padding: 0 15px !important;
+}
+
+.ul-tarefas {
+    padding: 10px 0 10px 0;
+    margin: 0;
+}
+
+.well-tarefa {
+    margin-bottom: 10px;    
+}

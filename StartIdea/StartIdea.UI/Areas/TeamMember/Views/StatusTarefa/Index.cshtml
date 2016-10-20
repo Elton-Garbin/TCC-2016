@@ -1,7 +1,30 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.StatusTarefaVM
+<div class="row">
+    <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">Pendente</div>
+            <div class="panel-body panel-body-status-tarefa">
+                <ul id="pendente" class="droptrue list-unstyled ul-tarefas">
+                    @foreach (var tarefa in Model.TarefasPendentes)
+                    {
+                        <li class="ui-state-default well well-sm well-tarefa">@tarefa.Descricao</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<h2>Index</h2>
-
+    @foreach (var status in Model.StatusProcesso)
+    {
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">@status.Descricao</div>
+                <div class="panel-body panel-body-status-tarefa">
+                    <ul id="@status.Id" class="droptrue list-unstyled ul-tarefas">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<br style="clear:both">

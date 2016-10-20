@@ -8,12 +8,14 @@ namespace StartIdea.UI
         public static void RegisterBundles(BundleCollection bundles)
         {
             var jquery = new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js",
-                                                                      "~/Scripts/jquery-ui.min.js");
+                                                                      "~/Scripts/jquery-ui-{version}.js");
 
             jquery.Orderer = new AsIsBundleOrderer();
             bundles.Add(jquery);
 
             var jqueryval = new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate-vsdoc.js",
+                                                                            "~/Scripts/cldr.js",
+                                                                            "~/Scripts/cldr/*.js",
                                                                             "~/Scripts/jquery.validate.js",
                                                                             "~/Scripts/jquery.validate.unobtrusive.js",
                                                                             "~/Scripts/globalize.js",
