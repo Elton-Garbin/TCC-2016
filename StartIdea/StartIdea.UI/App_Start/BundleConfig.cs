@@ -1,4 +1,5 @@
-﻿using System.Web.Optimization;
+﻿using System.Collections.Generic;
+using System.Web.Optimization;
 
 namespace StartIdea.UI
 {
@@ -6,27 +7,33 @@ namespace StartIdea.UI
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery-ui.min.js",
-                "~/Scripts/globalize.js"));
+            var jquery = new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js",
+                                                                      "~/Scripts/jquery-ui-{version}.js");
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval")
-                .Include("~/Scripts/globalize/*.js")
-                .Include("~/Scripts/jquery.validate-vsdoc.js")
-                .Include("~/Scripts/jquery.validate.js")
-                .Include("~/Scripts/jquery.validate.unobtrusive.js")
-                .Include("~/Scripts/jquery.validate.globalize.js"));
+            jquery.Orderer = new AsIsBundleOrderer();
+            bundles.Add(jquery);
+
+            var jqueryval = new ScriptBundle("~/bundles/jqueryval").Include("~/Scripts/jquery.validate-vsdoc.js",
+                                                                            "~/Scripts/cldr.js",
+                                                                            "~/Scripts/cldr/*.js",
+                                                                            "~/Scripts/jquery.validate.js",
+                                                                            "~/Scripts/jquery.validate.unobtrusive.js",
+                                                                            "~/Scripts/globalize.js",
+                                                                            "~/Scripts/jquery.validate.globalize.js",
+                                                                            "~/Scripts/globalize/*.js");
+            jqueryval.Orderer = new AsIsBundleOrderer();
+            bundles.Add(jqueryval);
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.min.js",
-                "~/Scripts/respond.min.js",
-                "~/Scripts/moment.min.js",
-                "~/Scripts/moment-with-locales.min.js",
-                "~/Scripts/bootstrap-datetimepicker.min.js"));
+            var bootstrap = new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.min.js",
+                                                                            "~/Scripts/respond.min.js",
+                                                                            "~/Scripts/moment.min.js",
+                                                                            "~/Scripts/moment-with-locales.min.js",
+                                                                            "~/Scripts/bootstrap-datetimepicker.min.js");
+            bootstrap.Orderer = new AsIsBundleOrderer();
+            bundles.Add(bootstrap);
 
             bundles.Add(new ScriptBundle("~/bundles/customizados").Include(
                 "~/Scripts/masterScript.js"));
@@ -38,4 +45,13 @@ namespace StartIdea.UI
                 "~/Content/PagedList.css"));
         }
     }
+
+    public class AsIsBundleOrderer : IBundleOrderer
+    {
+        public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+        {
+            return files;
+        }
+    }
+
 }

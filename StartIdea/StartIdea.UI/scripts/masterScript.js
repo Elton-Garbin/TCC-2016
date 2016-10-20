@@ -28,5 +28,11 @@
     $(".datepicker").datetimepicker({
         format: 'DD/MM/YYYY',
         locale: 'pt-br'
-    })
+    });
+
+    $("ul.droptrue").sortable({
+        connectWith: "ul"
+    });
+
+    $("#sortable1, #sortable2, #sortable3").disableSelection();
 })
