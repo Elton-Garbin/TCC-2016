@@ -92,7 +92,15 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                     MembroTimeId = CurrentUser.TimeId
                 };
 
+                StatusTarefa statusTarefa = new StatusTarefa()
+                {
+                    StatusId = _dbContext.AllStatus.FirstOrDefault(status => status.Classificacao == 0).Id,
+                    Tarefa = tarefa,
+                    MembroTimeId = CurrentUser.TimeId,
+                };
+
                 _dbContext.Tarefas.Add(tarefa);
+                _dbContext.StatusTarefas.Add(statusTarefa);
                 _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");

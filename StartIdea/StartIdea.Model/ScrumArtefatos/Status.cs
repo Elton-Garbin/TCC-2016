@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace StartIdea.Model.ScrumArtefatos {     public enum Classificacao     {         Ready = 1,         InProgress = 2,         Done = 3     }      public class Status     {         public Status()         {             StatusTarefas = new HashSet<StatusTarefa>();         }
+namespace StartIdea.Model.ScrumArtefatos {     public enum Classificacao     {         Pending = 0,         Ready = 1,         InProgress = 2,         Done = 3     }      public class Status     {         public Status()         {             StatusTarefas = new HashSet<StatusTarefa>();         }
 
         #region Fields
         public int Id { get; set; }
