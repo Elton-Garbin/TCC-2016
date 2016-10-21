@@ -123,9 +123,10 @@ namespace StartIdea.DataAccess.Migrations
             );
 
             context.AllStatus.AddOrUpdate(x => x.Id,
-                new Status() { Id = 1, Classificacao = Classificacao.Ready, Descricao = "À fazer" },
-                new Status() { Id = 2, Classificacao = Classificacao.InProgress, Descricao = "Fazendo" },
-                new Status() { Id = 3, Classificacao = Classificacao.Done, Descricao = "Feito" }
+                new Status() { Id = 1, Classificacao = Classificacao.Available, Descricao = "Disponível" },
+                new Status() { Id = 2, Classificacao = Classificacao.Ready, Descricao = "À fazer" },
+                new Status() { Id = 3, Classificacao = Classificacao.InProgress, Descricao = "Fazendo" },
+                new Status() { Id = 4, Classificacao = Classificacao.Done, Descricao = "Feito" }
             );
 
             context.Times.AddOrUpdate(x => x.Id,
