@@ -10,5 +10,6 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
     {
         public IEnumerable<Status> StatusProcesso { get; set; }
         public IEnumerable<Tarefa> TarefasPendentes { get; set; }
+        public IEnumerable<Tarefa> TarefasProcesso { get; set; }
     }
 }
