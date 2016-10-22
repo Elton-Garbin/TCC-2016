@@ -1,26 +1,44 @@
 ﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.StatusTarefaVM
-<div class="row">
-    <div class="col-md-3 col-sm-4 col-xs-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading text-center">Pendente</div>
-            <div class="panel-body panel-body-status-tarefa">
-                <ul id="pendente" class="droptrue list-unstyled ul-tarefas">
-                    @foreach (var tarefa in Model.TarefasPendentes)
-                    {
-                        <li class="ui-state-default well well-sm well-tarefa">@tarefa.Descricao</li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
+@section CustomScript{
+    <script type="text/javascript">
+        $(".droptrue").sortable({
+            receive: function (event, ui) {
+                var idTarefa = ui.item[0].attributes["data-id"].value;
+                var idStatus = ui.item[0].parentNode.attributes["data-id"].value;
 
+                $.ajax({
+                    url: '@Html.Raw(Url.Action("AlteraStatus", "StatusTarefa"))',
+                    type: 'POST',
+                    data: JSON.stringify({ 'IdStatus': idStatus, 'IdTarefa': idTarefa }),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        console.log(result);
+                        if (!result.sucesso) {
+                            alert(result.mensagem)
+                            $(".droptrue").sortable("cancel");
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}
+<div class="row">
     @foreach (var status in Model.StatusProcesso)
     {
         <div class="col-md-3 col-sm-4 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading text-center">@status.Descricao</div>
                 <div class="panel-body panel-body-status-tarefa">
-                    <ul id="@status.Id" class="droptrue list-unstyled ul-tarefas">
+                    <ul class="droptrue list-unstyled ul-tarefas" data-id="@status.Id">
+                        @foreach (var tarefa in Model.Tarefas)
+                        {
+                            if (tarefa.StatusTarefas.Count > 0 &&
+                                status.Classificacao == tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().Status.Classificacao)
+                            {
+                                <li class="ui-state-default well well-sm well-tarefa" data-id="@tarefa.Id">@tarefa.Descricao</li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>

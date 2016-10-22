@@ -9,6 +9,6 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
     public class StatusTarefaVM
     {
         public IEnumerable<Status> StatusProcesso { get; set; }
-        public IEnumerable<Tarefa> TarefasPendentes { get; set; }
+        public IEnumerable<Tarefa> Tarefas { get; set; }
     }
 }
