@@ -1,4 +1,5 @@
 ﻿using StartIdea.Model.ScrumArtefatos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,6 +12,8 @@ namespace StartIdea.Model.TimeScrum
             HistoricoEstimativas = new HashSet<HistoricoEstimativa>();
             Tarefas = new HashSet<Tarefa>();
             StatusTarefas = new HashSet<StatusTarefa>();
+            IsActive = true;
+            DataManutencao = DateTime.Now;
         }
 
         #region Fields
@@ -18,6 +21,9 @@ namespace StartIdea.Model.TimeScrum
 
         [Required, MaxLength(20)]
         public string Funcao { get; set; }
+
+        public bool IsActive { get; set; }
+        public DateTime DataManutencao { get; set; }
 
         public int TimeId { get; set; }
         public int UsuarioId { get; set; }

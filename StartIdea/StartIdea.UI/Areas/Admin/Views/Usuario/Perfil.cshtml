@@ -1,0 +1,75 @@
+﻿@using StartIdea.UI.Areas.Admin.ViewModels
+@model PerfilVM
+
+@{
+    ViewBag.Title = "Perfil";
+}
+
+@section CustomScript{
+    <script type="text/javascript">
+        $(function () {
+            $("input[name=Papel]").click(function () {
+                if ($('input:radio[name=Papel]:checked').val() != "TimeDesenvolvimento") {
+                    $(".descricao").hide("slow");
+                } else {
+                    $(".descricao").show("slow");
+                }
+            });
+        })
+    </script>
+}
+
+<div class="page-header">
+    <h1>Cadastro do Perfil</h1>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.UsuarioId)
+    @Html.HiddenFor(model => model.ProductOwner)
+    @Html.HiddenFor(model => model.ScrumMaster)
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 form-group">
+            <label class="radio-inline">
+                @Html.RadioButtonFor(model => model.Papel, TimeScrum.TimeDesenvolvimento) Membro do Time
+            </label>
+            <label class="radio-inline">
+                @Html.RadioButtonFor(model => model.Papel, TimeScrum.ProductOwner) Product Owner
+            </label>
+            <label class="radio-inline">
+                @Html.RadioButtonFor(model => model.Papel, TimeScrum.ScrumMaster) Scrum Master
+            </label>
+        </div>
+    </div>
+
+    <div class="row descricao">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 form-group">
+            @Html.LabelFor(model => model.Descricao)
+            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p><strong>Atualmente</strong></p>
+                <p>Product Owner: @Model.ProductOwner</p>
+                <p>Scrum Master: @Model.ScrumMaster</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 form-group">
+            @Html.ActionLink("Voltar", "Edit", "Usuario", new { id = Model.UsuarioId }, new { @class = "btn btn-default btn-block" })
+        </div>
+        <div class="col-xs-12 col-sm-offset-8 col-sm-2 form-group">
+            <button type="submit" class="btn btn-primary btn-block">@Model.SubmitValue</button>
+        </div>
+    </div>
+}

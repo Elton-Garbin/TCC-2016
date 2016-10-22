@@ -33,6 +33,7 @@ namespace StartIdea.Model
         public string CPF { get; set; }
 
         public DateTime DataInclusao { get; set; }
+        public DateTime? DataAlteracao { get; set; }
         public bool IsActive { get; set; }
         public Guid? TokenActivation { get; set; }
         public bool IsAdmin { get; set; }

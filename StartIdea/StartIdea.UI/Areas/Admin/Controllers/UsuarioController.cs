@@ -104,6 +104,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 usuario.CPF = usuarioVM.CPF;
                 usuario.Email = usuarioVM.Email;
                 usuario.UserName = usuarioVM.UserName;
+                usuario.DataAlteracao = DateTime.Now;
 
                 bool enviaEmail = false;
                 if (!usuario.IsActive && usuario.IsActive != usuarioVM.IsActive)
@@ -134,9 +135,63 @@ namespace StartIdea.UI.Areas.Admin.Controllers
             return View(usuarioVM);
         }
 
+        public ActionResult Perfil(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var perfilVM = new PerfilVM((int)id)
+            {
+                ProductOwner = GetProductOwner(),
+                ScrumMaster = GetScrumMaster()
+            };
+
+            return View(perfilVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Perfil(PerfilVM perfilVM)
+        {
+            if (!ModelState.IsValid)
+                return View("Perfil", perfilVM);
+
+            if (perfilVM.Papel.Equals(TimeScrum.TimeDesenvolvimento) && string.IsNullOrEmpty(perfilVM.Descricao))
+            {
+                ModelState.AddModelError("Descricao", "Campo Função obrigatório.");
+                return View("Perfil", perfilVM);
+            }
+
+            return View("Perfil", perfilVM);
+        }
+
         private IPagedList<Usuario> GetGridDataSource(UsuarioVM usuarioVM)
         {
             return _dbContext.Usuarios.OrderBy(u => u.IsActive).ToPagedList(Convert.ToInt32(usuarioVM.PaginaGrid), 7);
+        }
+
+        private string GetProductOwner()
+        {
+            var productOwner = _dbContext.ProductOwners.Include(p => p.Usuario)
+                .Where(p => p.IsActive)
+                .FirstOrDefault();
+
+            if (productOwner == null)
+                return string.Empty;
+
+            return productOwner.Usuario.UserName;
+        }
+
+        private string GetScrumMaster()
+        {
+            var scrumMaster = _dbContext.ScrumMasters.Include(s => s.Usuario)
+                .Where(s => s.IsActive)
+                .FirstOrDefault();
+
+            if (scrumMaster == null)
+                return string.Empty;
+
+            return scrumMaster.Usuario.UserName;
         }
     }
 }

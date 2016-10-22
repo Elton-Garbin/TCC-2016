@@ -239,6 +239,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Models\AppController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\PerfilVM.cs" />
     <Compile Include="Areas\Admin\ViewModels\UsuarioVM.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\ProductBacklogController.cs" />
     <Compile Include="Areas\ProductOwner\Controllers\SprintController.cs" />
@@ -430,6 +431,7 @@
     <Content Include="Areas\ScrumMaster\Views\ReuniaoRetrospectiva\Index.cshtml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\Usuario\Perfil.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
