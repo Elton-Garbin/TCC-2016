@@ -18,7 +18,7 @@ namespace StartIdea.DataAccess
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
 
-            Database.SetInitializer<StartIdeaDBContext>(new CreateDatabaseIfNotExists<StartIdeaDBContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<StartIdeaDBContext, Configuration>("StartIdeaDB"));
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
