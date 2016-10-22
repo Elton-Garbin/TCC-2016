@@ -250,5 +250,7 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-/StartIdea/packages
-/StartIdea/StartIdea.UI/App_Data
+
+# StartIdea.UI Project
+StartIdea/packages/*
+StartIdea/StartIdea.UI/App_Data/*
