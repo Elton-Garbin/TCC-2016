@@ -237,7 +237,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\FuncaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Models\AppController.cs" />
     <Compile Include="Areas\Admin\ViewModels\UsuarioVM.cs" />
@@ -420,10 +419,9 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Usuario\_Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Usuario\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Edit.cshtml" />
     <Content Include="Areas\TeamMember\Views\StatusTarefa\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Funcao\Index.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Create.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Edit.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\DailyScrum\Index.cshtml" />

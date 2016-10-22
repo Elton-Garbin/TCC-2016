@@ -5,41 +5,6 @@
     ViewBag.Title = "Index";
 }
 
-@section CustomScript{
-    <script type="text/javascript">
-        var displayCreate = "@Model.DisplayCreate";
-        var displayEdit = "@Model.DisplayEdit";
-
-        if (displayEdit) {
-            $("#popup-edit").modal('show');
-        }
-        if (displayCreate) {
-            $("#popup-create").modal('show');
-        }
-
-        $(".edit").click(function () {
-            var Id = $(this).attr("data-id");
-            var url = "@Html.Raw(Url.Action("Index", new { PaginaGrid = Model.PaginaGrid, IdEdit = 0 }))";
-
-            window.location.href = url.replace("IdEdit=0", "IdEdit=" + Id);
-        });
-
-        $(".create").click(function () {
-            var url = "@Html.Raw(Url.Action("Index", new { PaginaGrid = Model.PaginaGrid, DisplayCreate = "show" }))";
-
-            window.location.href = url;
-        });
-
-        $("#popup-edit, #popup-create").on("hide.bs.modal", function () {
-            window.location.href = "@Html.Raw(Url.Action("Index", new { PaginaGrid = Model.PaginaGrid, IdEdit = "" }))"
-        });
-
-    </script>
-}
-
-@Html.Partial("_Create", Model)
-@Html.Partial("_Edit", Model)
-
 <div class="page-header">
     <h1>Usuário <small>Cadastro</small></h1>
 </div>
@@ -56,9 +21,9 @@
                         <th class="col-sm-1 text-center">Ativo?</th>
                         <th class="col-sm-2 text-center">Data Inclusão</th>
                         <th class="col-sm-1" colspan="2">
-                            <button class="btn btn-success btn-xs btn-block create">
+                            <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
                                 <i class="glyphicon glyphicon-plus"></i>
-                            </button>
+                            </a>
                         </th>
                     </tr>
                 </thead>
@@ -82,9 +47,9 @@
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-xs btn-block edit" data-id="@item.Id">
+                                <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">
                                     <i class="glyphicon glyphicon-edit"></i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     }

@@ -7,6 +7,7 @@ using StartIdea.UI.Models;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.Admin.Controllers
@@ -20,33 +21,21 @@ namespace StartIdea.UI.Areas.Admin.Controllers
             _dbContext = dbContext;
         }
 
-        public ActionResult Index(int? PaginaGrid,
-                                  int? IdEdit,
-                                  string DisplayCreate)
+        public ActionResult Index(int? PaginaGrid)
         {
             var usuarioVM = new UsuarioVM()
             {
-                PaginaGrid = (PaginaGrid ?? 1),
-                DisplayCreate = DisplayCreate
+                PaginaGrid = (PaginaGrid ?? 1)
             };
-
-            if ((IdEdit ?? 0) > 0)
-            {
-                var usuario = _dbContext.Usuarios.Find(IdEdit);
-                if (usuario == null)
-                    return HttpNotFound();
-
-                usuarioVM.Id = usuario.Id;
-                usuarioVM.Email = usuario.Email;
-                usuarioVM.UserName = usuario.UserName;
-                usuarioVM.CPF = usuario.CPF;
-                usuarioVM.IsActive = usuario.IsActive;
-                usuarioVM.DisplayEdit = "show";
-            }
 
             usuarioVM.UsuarioList = GetGridDataSource(usuarioVM);
 
             return View(usuarioVM);
+        }
+
+        public ActionResult Create()
+        {
+            return View(new UsuarioVM());
         }
 
         [HttpPost]
@@ -55,7 +44,6 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var token = Guid.NewGuid();
                 var usuario = new Usuario()
                 {
@@ -68,7 +56,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 };
 
                 _dbContext.Usuarios.Add(usuario);
-                _dbContext.SaveChanges();                
+                _dbContext.SaveChanges();
 
                 string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { area = "", token = token }, "http") + "'>Trocar Senha</a>";
                 string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
@@ -81,7 +69,28 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Index", usuarioVM);
+            return View(usuarioVM);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Usuario usuario = _dbContext.Usuarios.Find(id);
+            if (usuario == null)
+                return HttpNotFound();
+
+            var usuarioVM = new UsuarioVM()
+            {
+                Id = usuario.Id,
+                Email = usuario.Email,
+                UserName = usuario.UserName,
+                CPF = usuario.CPF,
+                IsActive = usuario.IsActive
+            };
+
+            return View(usuarioVM);
         }
 
         [HttpPost]
@@ -112,19 +121,17 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 {
                     string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { area = "", token = token }, "http") + "'>Trocar Senha</a>";
                     string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
-                                              <p>Você foi reativado no dia <b>{1}</b>.</p>
-                                              <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
+                                                  <p>Você foi reativado no dia <b>{1}</b>.</p>
+                                                  <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
                                                   usuario.UserName, DateTime.Now.ToShortDateString(), link);
 
                     EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
                 }
 
-                usuarioVM.DisplayEdit = string.Empty;
+                return RedirectToAction("Index");
             }
 
-            usuarioVM.UsuarioList = GetGridDataSource(usuarioVM);
-
-            return View("Index", usuarioVM);
+            return View(usuarioVM);
         }
 
         private IPagedList<Usuario> GetGridDataSource(UsuarioVM usuarioVM)
