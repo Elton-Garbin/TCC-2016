@@ -52,8 +52,12 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                                  && sprint.DataInicial <= DateTime.Now
                                  && sprint.DataFinal >= DateTime.Now
                                  select sprint.Id).Contains(sb.SprintId)
-                          && !(from st in _dbContext.StatusTarefas
-                               select st.TarefaId).Contains(t.Id)
+                          && (from st in _dbContext.StatusTarefas
+                              join status in _dbContext.AllStatus
+                              on st.StatusId equals status.Id
+                              where st.TarefaId == t.Id
+                              orderby st.DataInclusao descending
+                              select status.Classificacao).Take(1).Contains(Classificacao.Available)
                           && !sb.DataCancelamento.HasValue
                           orderby pb.Prioridade
                           select t;
@@ -89,10 +93,17 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 {
                     Descricao = tarefaVM.Descricao,
                     SprintBacklogId = tarefaVM.SprintBacklogId,
-                    MembroTimeId = CurrentUser.TimeId
+                    MembroTimeId = CurrentUser.PerfilId
                 };
 
-                _dbContext.Tarefas.Add(tarefa);
+                StatusTarefa statusTarefa = new StatusTarefa()
+                {
+                    MembroTimeId = CurrentUser.PerfilId,
+                    Tarefa = tarefa,
+                    StatusId = _dbContext.AllStatus.Where(s => s.Classificacao == Classificacao.Available).SingleOrDefault().Id
+                };
+
+                _dbContext.StatusTarefas.Add(statusTarefa);
                 _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");
