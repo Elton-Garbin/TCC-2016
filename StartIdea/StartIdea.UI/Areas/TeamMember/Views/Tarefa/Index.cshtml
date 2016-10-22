@@ -79,7 +79,15 @@
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Descricao)
+                                @if (item.Descricao.Length > 150)
+                                {
+                                    var descricao = item.Descricao.Substring(0, 150) + "...";
+                                    @Html.DisplayFor(modelItem => descricao)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                }
                             </td>
                             <td class="text-center">
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
