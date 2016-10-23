@@ -13,9 +13,8 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
 
     public class PerfilVM
     {
-        public PerfilVM(int usuarioId)
+        public PerfilVM()
         {
-            UsuarioId = usuarioId;
             Papel = TimeScrum.TimeDesenvolvimento;
             Id = 0;
         }
@@ -23,7 +22,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         public string ProductOwner { get; set; }
         public string ScrumMaster { get; set; }
         public string SubmitValue { get; private set; }
-        public int UsuarioId { get; private set; }
+        public int UsuarioId { get; set; }
 
         private int _Id;
         public int Id

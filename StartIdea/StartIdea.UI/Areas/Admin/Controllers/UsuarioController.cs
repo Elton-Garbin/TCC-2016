@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
 using StartIdea.Model;
+using StartIdea.Model.TimeScrum;
 using StartIdea.UI.Areas.Admin.Models;
 using StartIdea.UI.Areas.Admin.ViewModels;
 using StartIdea.UI.Models;
@@ -51,7 +52,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
                     IsActive = usuarioVM.IsActive,
-                    Senha = Utils.Encrypt("@bc123ASD"),
+                    Senha = Utils.Decrypt("@bc123ASD"),
                     TokenActivation = token
                 };
 
@@ -129,7 +130,10 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new
+                {
+                    id = usuario.Id
+                });
             }
 
             return View(usuarioVM);
@@ -140,8 +144,9 @@ namespace StartIdea.UI.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var perfilVM = new PerfilVM((int)id)
+            var perfilVM = new PerfilVM()
             {
+                UsuarioId = (int)id,
                 ProductOwner = GetProductOwner(),
                 ScrumMaster = GetScrumMaster()
             };
@@ -162,7 +167,80 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 return View("Perfil", perfilVM);
             }
 
-            return View("Perfil", perfilVM);
+            InativarTodosPerfis(perfilVM.UsuarioId);
+
+            switch (perfilVM.Papel)
+            {
+                case TimeScrum.TimeDesenvolvimento:
+                    var membroTime = _dbContext.MembrosTime.Include(m => m.Usuario)
+                                               .Where(m => m.Usuario.Id == perfilVM.UsuarioId)
+                                               .FirstOrDefault() ?? new MembroTime();
+
+                    if (membroTime.Id == 0)
+                    {
+                        membroTime.UsuarioId = perfilVM.UsuarioId;
+                        membroTime.Funcao = perfilVM.Descricao;
+
+                        _dbContext.MembrosTime.Add(membroTime);
+                    }
+                    else
+                    {
+                        membroTime.IsActive = true;
+                        membroTime.DataManutencao = DateTime.Now;
+                        membroTime.Funcao = perfilVM.Descricao;
+
+                        _dbContext.Entry(membroTime).State = EntityState.Modified;
+                    }
+                    break;
+                case TimeScrum.ProductOwner:
+                    InativarProductOwner();
+
+                    var productOwner = _dbContext.ProductOwners.Include(m => m.Usuario)
+                                                 .Where(m => m.Usuario.Id == perfilVM.UsuarioId)
+                                                 .FirstOrDefault() ?? new Model.TimeScrum.ProductOwner();
+
+                    if (productOwner.Id == 0)
+                    {
+                        productOwner.UsuarioId = perfilVM.UsuarioId;
+
+                        _dbContext.ProductOwners.Add(productOwner);
+                    }
+                    else
+                    {
+                        productOwner.IsActive = true;
+                        productOwner.DataManutencao = DateTime.Now;
+
+                        _dbContext.Entry(productOwner).State = EntityState.Modified;
+                    }
+                    break;
+                case TimeScrum.ScrumMaster:
+                    InativarScrumMaster();
+
+                    var scrumMaster = _dbContext.ScrumMasters.Include(m => m.Usuario)
+                                                .Where(m => m.Usuario.Id == perfilVM.UsuarioId)
+                                                .FirstOrDefault() ?? new Model.TimeScrum.ScrumMaster();
+
+                    if (scrumMaster.Id == 0)
+                    {
+                        scrumMaster.UsuarioId = perfilVM.UsuarioId;
+
+                        _dbContext.ScrumMasters.Add(scrumMaster);
+                    }
+                    else
+                    {
+                        scrumMaster.IsActive = true;
+                        scrumMaster.DataManutencao = DateTime.Now;
+
+                        _dbContext.Entry(scrumMaster).State = EntityState.Modified;
+                    }
+                    break;
+            }
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Edit", new
+            {
+                id = perfilVM.UsuarioId
+            });
         }
 
         private IPagedList<Usuario> GetGridDataSource(UsuarioVM usuarioVM)
@@ -173,11 +251,11 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         private string GetProductOwner()
         {
             var productOwner = _dbContext.ProductOwners.Include(p => p.Usuario)
-                .Where(p => p.IsActive)
-                .FirstOrDefault();
+                                         .Where(p => p.IsActive)
+                                         .FirstOrDefault();
 
             if (productOwner == null)
-                return string.Empty;
+                return "Nenhum";
 
             return productOwner.Usuario.UserName;
         }
@@ -185,13 +263,102 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         private string GetScrumMaster()
         {
             var scrumMaster = _dbContext.ScrumMasters.Include(s => s.Usuario)
-                .Where(s => s.IsActive)
-                .FirstOrDefault();
+                                        .Where(s => s.IsActive)
+                                        .FirstOrDefault();
 
             if (scrumMaster == null)
-                return string.Empty;
+                return "Nenhum";
 
             return scrumMaster.Usuario.UserName;
+        }
+
+        private void InativarScrumMaster()
+        {
+            var scrumMaster = _dbContext.ScrumMasters
+                                        .Where(s => s.IsActive)
+                                        .FirstOrDefault();
+
+            if (scrumMaster != null)
+            {
+                scrumMaster.IsActive = false;
+                scrumMaster.DataManutencao = DateTime.Now;
+
+                _dbContext.Entry(scrumMaster).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+            }
+        }
+
+        private void InativarProductOwner()
+        {
+            var productOwner = _dbContext.ProductOwners
+                                         .Where(s => s.IsActive)
+                                         .FirstOrDefault();
+
+            if (productOwner != null)
+            {
+                productOwner.IsActive = false;
+                productOwner.DataManutencao = DateTime.Now;
+
+                _dbContext.Entry(productOwner).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+            }
+        }
+
+        private void InativarTodosPerfis(int UsuarioId)
+        {
+            #region TeamMember
+            var membroTime = _dbContext.MembrosTime.Include(m => m.Usuario)
+                                       .Where(m => m.Usuario.Id == UsuarioId)
+                                       .FirstOrDefault();
+
+            if (membroTime != null)
+            {
+                if (membroTime.IsActive)
+                {
+                    membroTime.IsActive = false;
+                    membroTime.DataManutencao = DateTime.Now;
+
+                    _dbContext.Entry(membroTime).State = EntityState.Modified;
+                    _dbContext.SaveChanges();
+                }
+            }
+            #endregion
+
+            #region ProductOwner
+            var productOwner = _dbContext.ProductOwners.Include(m => m.Usuario)
+                                         .Where(m => m.Usuario.Id == UsuarioId)
+                                         .FirstOrDefault();
+
+            if (productOwner != null)
+            {
+                if (productOwner.IsActive)
+                {
+                    productOwner.IsActive = false;
+                    productOwner.DataManutencao = DateTime.Now;
+
+                    _dbContext.Entry(productOwner).State = EntityState.Modified;
+                    _dbContext.SaveChanges();
+                }
+            }
+            #endregion
+
+            #region ScrumMaster
+            var scrumMaster = _dbContext.ScrumMasters.Include(m => m.Usuario)
+                                        .Where(m => m.Usuario.Id == UsuarioId)
+                                        .FirstOrDefault();
+
+            if (scrumMaster != null)
+            {
+                if (scrumMaster.IsActive)
+                {
+                    scrumMaster.IsActive = false;
+                    scrumMaster.DataManutencao = DateTime.Now;
+
+                    _dbContext.Entry(scrumMaster).State = EntityState.Modified;
+                    _dbContext.SaveChanges();
+                }
+            }
+            #endregion
         }
     }
 }
