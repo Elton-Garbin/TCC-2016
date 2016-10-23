@@ -2,9 +2,9 @@
 
 namespace StartIdea.UI.ViewModels
 {
-    public class PerfilVM
+    public class UsuarioVM
     {
-        public PerfilVM()
+        public UsuarioVM()
         {
             CssClassMessage = "text-danger";
         }

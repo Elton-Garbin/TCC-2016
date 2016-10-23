@@ -10,11 +10,11 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Controllers
 {
-    public class PerfilController : Controller
+    public class UsuarioController : Controller
     {
         private StartIdeaDBContext _dbContext;
 
-        public PerfilController(StartIdeaDBContext dbContext)
+        public UsuarioController(StartIdeaDBContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -26,7 +26,7 @@ namespace StartIdea.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(PerfilVM vm)
+        public ActionResult ChangePassword(UsuarioVM vm)
         {
             if (!ModelState.IsValid)
                 return View(vm);
