@@ -77,7 +77,9 @@ namespace StartIdea.UI.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
-            var usuario = dbContext.Usuarios.SingleOrDefault(u => u.Email == vm.Email);
+            var usuario = dbContext.Usuarios.SingleOrDefault(u => u.Email == vm.Email
+                                                               && u.IsActive);
+
             if (usuario != null)
             {
                 var token = Guid.NewGuid();
