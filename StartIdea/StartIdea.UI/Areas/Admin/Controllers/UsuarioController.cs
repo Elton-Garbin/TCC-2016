@@ -51,7 +51,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
                     IsActive = usuarioVM.IsActive,
-                    Senha = Utils.Decrypt("@bc123ASD"),
+                    Senha = Utils.Encrypt("@bc123ASD"),
                     TokenActivation = token
                 };
 

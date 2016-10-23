@@ -6,12 +6,16 @@
         
         var displayEdit = "@Model.DisplayEdit";
         var displayCreate = "@Model.DisplayCreate";
+        var displayMotivoCancelamento = "@Model.DisplayMotivoCancelamento";
 
         if (displayEdit) {
             $("#popup-edit").modal('show');
         }
         if (displayCreate) {
             $("#popup-create").modal('show');
+        }
+        if (displayMotivoCancelamento) {
+            $("#popup-cancel").modal('show');
         }
 
         $(".create").click(function () {
@@ -27,7 +31,14 @@
             window.location.href = url.replace("IdEdit=0", "IdEdit=" + Id);
         });
 
-        $("#popup-create, #popup-edit").on("hide.bs.modal", function () {
+        $(".cancel").click(function () {
+            var Id = $(this).attr("data-id");
+            var url = "@Html.Raw(Url.Action("Index", new { FiltroDescricao = Model.FiltroDescricao, PaginadGrid = Model.PaginaGrid, IdCancelamento = 0 }))";
+
+            window.location.href = url.replace("IdCancelamento=0", "IdCancelamento=" + Id);
+        });
+
+        $("#popup-create, #popup-edit, #popup-cancel").on("hide.bs.modal", function () {
             window.location.href = "@Html.Raw(Url.Action("Index", new { FiltroDescricao = Model.FiltroDescricao, PaginaGrid = Model.PaginaGrid }))"
         });
 
@@ -36,6 +47,7 @@
 
 @Html.Partial("_Create", Model)
 @Html.Partial("_Edit", Model)
+@Html.Partial("_Cancel", Model);
 
 <div class="page-header">
     <h1>Tarefas <small>Cadastro</small></h1>
@@ -98,9 +110,9 @@
                                 </button>
                             </td>
                             <td>
-                                <a class="btn btn-danger btn-xs btn-block" href="@Url.Action("Delete", "Tarefa", new { id = (item.Id) })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
+                                <button class="btn btn-danger btn-xs btn-block cancel" data-id="@item.Id">
                                     <i class="glyphicon glyphicon-trash"></i>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     }

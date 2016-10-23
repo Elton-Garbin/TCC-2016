@@ -45,6 +45,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                                            && st.MembroTimeId == CurrentUser.PerfilId
                                            && st.DataInclusao == _dbContext.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().DataInclusao
                                            select st.TarefaId).Contains(tarefa.Id))
+                                     && !tarefa.DataCancelamento.HasValue
                                      select tarefa;
 
             return View(statusTarefaVM);

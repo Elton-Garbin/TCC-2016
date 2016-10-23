@@ -16,6 +16,7 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
         public int PaginaGrid { get; set; }
         public string DisplayCreate { get; set; }
         public string DisplayEdit { get; set; }
+        public string DisplayMotivoCancelamento { get; set; }
 
         [DisplayName("Backlog da Sprint")]
         public IEnumerable<SprintBacklog> sprintBacklogs { get; set; }
@@ -26,6 +27,13 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
         public string Descricao { get; set; }
         
         public int TarefaIdEdit { get; set; }
+        public int? TarefaIdCancelamento { get; set; }
+
+        [DisplayName("Motivo do Cancelamento")]
+        [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Motivo do Cancelamento é obrigatório")]
+        public string MotivoCancelamento { get; set; }
+
         public int SprintBacklogId { get; set; }
     }
 }

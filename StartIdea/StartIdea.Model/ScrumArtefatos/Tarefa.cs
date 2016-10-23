@@ -27,6 +27,9 @@ namespace StartIdea.Model.ScrumArtefatos
         public int MembroTimeId { get; set; }
         #endregion
 
+        public DateTime? DataCancelamento { get; set; }
+        public string MotivoCancelamento { get; set; }
+
         #region References
         public virtual SprintBacklog SprintBacklog { get; set; }
         public virtual MembroTime MembroTime { get; set; }
