@@ -24,7 +24,8 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                                   string DisplayEdit,
                                   string DisplayCreate,
                                   int? PaginaGrid,
-                                  int? IdEdit)
+                                  int? IdEdit,
+                                  int? IdCancelamento)
         {
             var tarefaVM = new TarefaVM();
             tarefaVM.FiltroDescricao = FiltroDescricao;
@@ -59,6 +60,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                               orderby st.DataInclusao descending
                               select status.Classificacao).Take(1).Contains(Classificacao.Available)
                           && !sb.DataCancelamento.HasValue
+                          && !t.DataCancelamento.HasValue
                           orderby pb.Prioridade
                           select t;
 
@@ -75,6 +77,16 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 tarefaVM.Descricao       = tarefa.Descricao;
                 tarefaVM.SprintBacklogId = tarefa.SprintBacklogId;
                 tarefaVM.DisplayEdit     = "Show";
+            }
+
+            if((IdCancelamento ?? 0) > 0)
+            {
+                Tarefa tarefa = _dbContext.Tarefas.Find(IdCancelamento);
+                if (tarefa == null)
+                    return HttpNotFound();
+
+                tarefaVM.TarefaIdCancelamento = tarefa.Id;
+                tarefaVM.DisplayMotivoCancelamento = "Show";
             }
 
             tarefaVM.TarefaList = tarefas.ToPagedList(tarefaVM.PaginaGrid, 5);
@@ -135,16 +147,19 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             return RedirectToAction("Index", tarefaVM);
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult Cancel(TarefaVM tarefaVM)
         {
-            if (id == null)
+            if (tarefaVM.TarefaIdCancelamento == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Tarefa tarefa = _dbContext.Tarefas.Find(id);
+            Tarefa tarefa = _dbContext.Tarefas.Find(tarefaVM.TarefaIdCancelamento);
             if (tarefa == null)
                 return HttpNotFound();
 
-            _dbContext.Tarefas.Remove(tarefa);
+            tarefa.MotivoCancelamento = tarefaVM.MotivoCancelamento;
+            tarefa.DataCancelamento = DateTime.Now;
+
+            _dbContext.Entry(tarefa).State = EntityState.Modified;
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");

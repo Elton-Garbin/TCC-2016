@@ -11,7 +11,6 @@
                     data: JSON.stringify({ IdStatus: idStatus, IdTarefa: idTarefa }),
                     contentType: 'application/json',
                     success: function (result) {
-                        console.log(result);
                         if (!result.sucesso) {
                             alert(result.mensagem)
                             $(".droptrue").sortable("cancel");
