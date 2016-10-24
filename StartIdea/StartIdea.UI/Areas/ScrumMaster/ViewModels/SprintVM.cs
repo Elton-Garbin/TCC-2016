@@ -78,7 +78,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 
         private void GetScrumMasterTeamId()
         {
-            TimeId = dbContext.Times.Where(t => t.ScrumMasterId == 1).FirstOrDefault().Id; // Remover
+            TimeId = 1; // Remover
         }
 
         private void GetSprintAtual()

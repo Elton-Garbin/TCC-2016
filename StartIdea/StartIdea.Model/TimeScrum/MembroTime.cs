@@ -24,14 +24,13 @@ namespace StartIdea.Model.TimeScrum
 
         public bool IsActive { get; set; }
         public DateTime DataManutencao { get; set; }
-
-        public int TimeId { get; set; }
         public int UsuarioId { get; set; }
+        public int TimeId { get; set; }
         #endregion
 
         #region References
-        public virtual Time Time { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual Time Time { get; set; }
         #endregion
 
         #region Collections

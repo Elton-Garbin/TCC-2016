@@ -277,6 +277,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     if (scrumMaster.Id == 0)
                     {
                         scrumMaster.UsuarioId = perfilVM.UsuarioId;
+                        scrumMaster.TimeId = CurrentUser.TimeId;
 
                         _dbContext.ScrumMasters.Add(scrumMaster);
                     }

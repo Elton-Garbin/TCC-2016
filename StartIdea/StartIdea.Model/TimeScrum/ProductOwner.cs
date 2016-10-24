@@ -15,9 +15,9 @@ namespace StartIdea.Model.TimeScrum
 
         #region Fields
         public int Id { get; set; }
-        public int UsuarioId { get; set; }
         public bool IsActive { get; set; }
         public DateTime DataManutencao { get; set; }
+        public int UsuarioId { get; set; }
         #endregion
 
         #region References
