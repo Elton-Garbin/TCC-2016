@@ -1,10 +1,24 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>403 Forbidden</title>
-</head>
+﻿<link href="http://localhost/StartIdea/Content/bootstrap.css" rel="stylesheet" />
+
 <body>
-    <h1>403 Forbidden</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron text-center" style="margin-top: 7%;">
+                    <h1 style="color: red;">Acesso negado</h1>
+                    <br />
+                    <p>O acesso a página solicitada foi negado por falta de permissões</p>
+                    <br />
+                    <a href="#" class="btn btn-large btn-info" name="btnVoltar" onclick="goBack()">OK</a>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
+</script>

@@ -1,10 +1,23 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>404 Page Not Found</title>
-</head>
+﻿<link href="http://localhost/StartIdea/Content/bootstrap.css" rel="stylesheet" />
 <body>
-    <h1>404 Page Not Found</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron text-center" style="margin-top: 7%;">
+                    <h1 style="color: red;">Página não encontrada</h1>
+                    <br />
+                    <p>A página requisitada não existe</p>
+                    <br />
+                    <a href="#" class="btn btn-large btn-info" name="btnVoltar" onclick="goBack()">OK</a>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+
+<script type="text/javascript">
+    function goBack() {
+        window.history.back();
+    }
+</script>
