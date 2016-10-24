@@ -59,15 +59,21 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 _dbContext.Usuarios.Add(usuario);
                 _dbContext.SaveChanges();
 
-                string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { area = "", token = token }, "http") + "'>Trocar Senha</a>";
-                string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
+                if (usuarioVM.IsActive)
+                {
+                    string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { area = "", token = token }, "http") + "'>Trocar Senha</a>";
+                    string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
                                               <p>Você foi cadastrado no dia <b>{1}</b>.</p>
                                               <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
-                                              usuario.UserName, DateTime.Now.ToShortDateString(), link);
+                                                  usuario.UserName, DateTime.Now.ToShortDateString(), link);
 
-                EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
+                    EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
+                }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new
+                {
+                    id = usuario.Id
+                });
             }
 
             return View(usuarioVM);
@@ -113,6 +119,10 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     enviaEmail = true;
                     usuario.TokenActivation = token;
                 }
+                else if (!usuarioVM.IsActive)
+                {
+                    InativarTodosPerfis(usuario.Id);
+                }
 
                 usuario.IsActive = usuarioVM.IsActive;
 
@@ -130,10 +140,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
                 }
 
-                return RedirectToAction("Edit", new
-                {
-                    id = usuario.Id
-                });
+                return RedirectToAction("Index");
             }
 
             return View(usuarioVM);
@@ -144,11 +151,57 @@ namespace StartIdea.UI.Areas.Admin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            var _Id = 0;
+            var _Papel = TimeScrum.TimeDesenvolvimento;
+            var _Descricao = string.Empty;
+
+            #region Consultando Perfis do Usuário
+            var membroTime = _dbContext.MembrosTime.Include(m => m.Usuario)
+                                       .Where(m => m.Usuario.Id == id)
+                                       .FirstOrDefault();
+
+            if (membroTime != null)
+            {
+                _Descricao = membroTime.Funcao;
+                if (membroTime.IsActive)
+                    _Id = membroTime.Id;
+            }
+
+            var productOwner = _dbContext.ProductOwners.Include(m => m.Usuario)
+                                         .Where(m => m.Usuario.Id == id)
+                                         .FirstOrDefault();
+
+            if (productOwner != null)
+            {
+                if (productOwner.IsActive)
+                {
+                    _Papel = TimeScrum.ProductOwner;
+                    _Id = productOwner.Id;
+                }
+            }
+
+            var scrumMaster = _dbContext.ScrumMasters.Include(m => m.Usuario)
+                                        .Where(m => m.Usuario.Id == id)
+                                        .FirstOrDefault();
+
+            if (scrumMaster != null)
+            {
+                if (scrumMaster.IsActive)
+                {
+                    _Papel = TimeScrum.ScrumMaster;
+                    _Id = scrumMaster.Id;
+                }
+            }
+            #endregion
+
             var perfilVM = new PerfilVM()
             {
                 UsuarioId = (int)id,
                 ProductOwner = GetProductOwner(),
-                ScrumMaster = GetScrumMaster()
+                ScrumMaster = GetScrumMaster(),
+                Id = _Id,
+                Papel = _Papel,
+                Descricao = _Descricao
             };
 
             return View(perfilVM);
@@ -169,6 +222,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
 
             InativarTodosPerfis(perfilVM.UsuarioId);
 
+            #region Atualizando Perfil
             switch (perfilVM.Papel)
             {
                 case TimeScrum.TimeDesenvolvimento:
@@ -236,6 +290,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     break;
             }
             _dbContext.SaveChanges();
+            #endregion
 
             return RedirectToAction("Edit", new
             {
