@@ -9,12 +9,11 @@ namespace StartIdea.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(StartIdeaDBContext context)
         {
-            #region Usuarios
             context.Usuarios.AddOrUpdate(x => x.Id,
                 new Usuario()
                 {
@@ -26,9 +25,7 @@ namespace StartIdea.DataAccess.Migrations
                     IsAdmin = true
                 }
             );
-            #endregion
 
-            #region ScrumMaster
             context.AllStatus.AddOrUpdate(x => x.Id,
                 new Status() { Id = 1, Classificacao = Classificacao.Available, Descricao = "Disponível" },
                 new Status() { Id = 2, Classificacao = Classificacao.Ready, Descricao = "À fazer" },
@@ -39,7 +36,6 @@ namespace StartIdea.DataAccess.Migrations
             context.Times.AddOrUpdate(x => x.Id,
                 new Time() { Id = 1, Nome = "Time de Desenvolvimento" }
             );
-            #endregion
         }
     }
 }
