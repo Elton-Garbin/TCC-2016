@@ -21,7 +21,7 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(new UsuarioVM());
         }
 
         [HttpPost]

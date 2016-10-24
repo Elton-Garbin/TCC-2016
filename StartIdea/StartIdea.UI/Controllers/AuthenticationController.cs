@@ -22,6 +22,11 @@ namespace StartIdea.UI.Controllers
             dbContext = _dbContext;
         }
 
+        public ActionResult Index()
+        {
+            return RedirectToAction("Login");
+        }
+
         public ActionResult Login()
         {
             if (AuthenticationManager.User.Identity.IsAuthenticated)

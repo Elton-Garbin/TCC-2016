@@ -12,7 +12,6 @@
     @using (Html.BeginForm("ChangePassword"))
     {
         @Html.AntiForgeryToken()
-
         @Html.ValidationSummary(false, "", new { @class = Model.CssClassMessage })
 
         <div class="row">
