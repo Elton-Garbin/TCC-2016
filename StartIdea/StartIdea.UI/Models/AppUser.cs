@@ -15,7 +15,7 @@ namespace StartIdea.UI.Models
         {
             get { return Convert.ToInt32(FindFirst(ClaimTypes.NameIdentifier).Value); }
         }
-        public string Nome
+        public string UserName
         {
             get { return FindFirst(ClaimTypes.Name).Value; }
         }

@@ -234,7 +234,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     {
                         membroTime.UsuarioId = perfilVM.UsuarioId;
                         membroTime.Funcao = perfilVM.Descricao;
-                        membroTime.TimeId = _dbContext.Times.SingleOrDefault().Id;
+                        membroTime.TimeId = CurrentUser.TimeId;
 
                         _dbContext.MembrosTime.Add(membroTime);
                     }

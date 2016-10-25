@@ -4,34 +4,92 @@
     ViewBag.Title = "Index";
 }
 
+@section CustomScript{
+    <script type="text/javascript">
+        $('#browse').click(function () {
+            $('.filename').click();
+        });
+
+        $('#TrocarSenha').change(function () {
+            if (!$('#TrocarSenha').is(":checked")) {
+                $('#Senha, #NovaSenha, #ConfirmaNovaSenha').val('');
+            }
+
+            $('#Senha, #NovaSenha, #ConfirmaNovaSenha').prop('disabled', !$('#TrocarSenha').is(':checked'));
+        });
+
+        $('#TrocarSenha').change();
+    </script>
+}
+
 <div class="page-header">
-    <h1>Perfil <small>Troca de Senha</small></h1>
+    <h1>Dados do Usuário</h1>
 </div>
 
 <div class="container-fluid">
-    @using (Html.BeginForm("ChangePassword"))
+    @using (Html.BeginForm("Edit"))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(false, "", new { @class = Model.CssClassMessage })
+        @Html.ValidationSummary(true, "", new { @class = Model.CssClassMessage })
 
         <div class="row">
-            <div class="col-xs-12 form-group">
-                @Html.LabelFor(model => model.Senha)
-                @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+            <div class="col-xs-12 col-sm-offset-2 col-sm-3 col-md-2 form-group">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        @if (Model.Foto != null)
+                        {
+                            <img src="@String.Format("data:image/png;base64,{0}", Model.FotoBase64)" alt="Foto" class="img-circle img-responsive profile-picture" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content("~/Content/images/profile-img.jpg")" alt="Foto" class="img-circle img-responsive profile-picture" />
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <label>@CurrentUser.UserName</label>
+                        <input type="file" name="Foto" class="filename" id="fileUpload" accept=".png,.jpg,.jpeg" />
+                        <button id="browse" type="button" class="btn btn-default btn-block">Procurar...</button>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-12 form-group">
-                @Html.LabelFor(model => model.NovaSenha)
-                @Html.EditorFor(model => model.NovaSenha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NovaSenha, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-12 form-group">
-                @Html.LabelFor(model => model.ConfirmaNovaSenha)
-                @Html.EditorFor(model => model.ConfirmaNovaSenha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmaNovaSenha, "", new { @class = "text-danger" })
+
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @Html.CheckBoxFor(model => model.TrocarSenha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(model => model.TrocarSenha)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        @Html.LabelFor(model => model.Senha)
+                        @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <div class="row">
+                        @Html.LabelFor(model => model.NovaSenha)
+                        @Html.EditorFor(model => model.NovaSenha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NovaSenha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <div class="row">
+                        @Html.LabelFor(model => model.ConfirmaNovaSenha)
+                        @Html.EditorFor(model => model.ConfirmaNovaSenha, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmaNovaSenha, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-lg btn-primary btn-block">Alterar</button>
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-9 col-md-8 form-group">
+                <button type="submit" class="btn btn-primary btn-block">Alterar</button>
+            </div>
+        </div>
     }
 </div>

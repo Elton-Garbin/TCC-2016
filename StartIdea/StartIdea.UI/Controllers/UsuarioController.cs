@@ -26,7 +26,7 @@ namespace StartIdea.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(UsuarioVM vm)
+        public ActionResult Edit(UsuarioVM vm)
         {
             if (!ModelState.IsValid)
                 return View(vm);
@@ -44,7 +44,7 @@ namespace StartIdea.UI.Controllers
 
             vm.CssClassMessage = "text-success";
             ModelState.AddModelError("", "Senha alterada com sucesso.");
-            return View("Index", vm);
+            return View(vm);
         }
 
         private IAuthenticationManager AuthenticationManager

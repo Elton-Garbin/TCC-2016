@@ -8,8 +8,17 @@ namespace StartIdea.UI.ViewModels
         public UsuarioVM()
         {
             CssClassMessage = "text-danger";
+            TrocarSenha = false;
         }
 
+        public byte[] Foto { get; set; }
+
+        public string FotoBase64 { get; set; }
+
+        [DisplayName("Trocar Senha")]
+        public bool TrocarSenha { get; set; }
+
+        [Required(ErrorMessage = "Campo Senha obrigatório.")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 
@@ -19,7 +28,8 @@ namespace StartIdea.UI.ViewModels
         [DataType(DataType.Password)]
         public string NovaSenha { get; set; }
 
-        [Compare("NovaSenha", ErrorMessage = "Campo Confirmação da Nova Senha diferente do campo Nova Senha.")]
+        [Required(ErrorMessage = "Campo Confirmar Nova Senha obrigatório.")]
+        [Compare("NovaSenha", ErrorMessage = "Campo Confirmar Nova Senha diferente do campo Nova Senha.")]
         [DisplayName("Confirmar Nova Senha")]
         [DataType(DataType.Password)]
         public string ConfirmaNovaSenha { get; set; }
