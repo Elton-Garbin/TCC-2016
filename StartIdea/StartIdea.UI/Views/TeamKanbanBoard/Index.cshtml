@@ -1,0 +1,45 @@
+﻿@model StartIdea.UI.ViewModels.TeamKanbanBoardVM
+
+@section CustomScript{
+    <script type="text/javascript">
+        $('a[data-toggle="tooltip"]').tooltip({
+            animated: 'fade',
+            placement: 'bottom',
+            html: true
+        });
+    </script>
+}
+<div class="row">
+    @foreach (var status in Model.StatusProcesso)
+    {
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">@status.Descricao</div>
+                <div class="panel-body panel-body-status-tarefa">
+                    <ul class="droptrue list-unstyled ul-tarefas" data-id="@status.Id">
+                        @foreach (var tarefa in Model.Tarefas)
+                        {
+                            if (tarefa.StatusTarefas.Count > 0 &&
+                                status.Classificacao == tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().Status.Classificacao)
+                            {
+                                <li class="ui-state-default bs-callout bs-callout-info" data-id="@tarefa.Id">
+                                    <div class="row">
+                                        <div class="col-md-3 pull-right text-right">
+                                            <a data-toggle="tooltip" title="@tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.UserName">
+                                                <img src="@Url.Content("~/Content/images/profile-img.jpg")" class="img-circle" style="width: 20px;">
+                                            </a>
+                                            
+                                        </div>
+                                        <div class="col-md-9">
+                                            @(tarefa.Descricao.Length > 150 ? tarefa.Descricao.Substring(0, 150) + "..." : tarefa.Descricao)
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>

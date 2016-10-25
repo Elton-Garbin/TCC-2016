@@ -31,7 +31,6 @@ namespace StartIdea.UI.Areas.TeamMember.ViewModels
 
         [DisplayName("Motivo do Cancelamento")]
         [DataType(DataType.MultilineText)]
-        [Required(ErrorMessage = "Motivo do Cancelamento é obrigatório")]
         public string MotivoCancelamento { get; set; }
 
         public int SprintBacklogId { get; set; }

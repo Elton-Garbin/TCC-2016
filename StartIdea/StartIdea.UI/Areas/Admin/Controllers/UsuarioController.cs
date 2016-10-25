@@ -52,7 +52,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
                     IsActive = usuarioVM.IsActive,
-                    Senha = Utils.Decrypt("@bc123ASD"),
+                    Senha = Utils.Encrypt("@bc123ASD"),
                     TokenActivation = token
                 };
 
@@ -234,6 +234,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     {
                         membroTime.UsuarioId = perfilVM.UsuarioId;
                         membroTime.Funcao = perfilVM.Descricao;
+                        membroTime.TimeId = _dbContext.Times.SingleOrDefault().Id;
 
                         _dbContext.MembrosTime.Add(membroTime);
                     }
