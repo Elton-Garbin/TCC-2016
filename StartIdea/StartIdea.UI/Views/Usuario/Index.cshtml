@@ -6,19 +6,37 @@
 
 @section CustomScript{
     <script type="text/javascript">
-        $('#browse').click(function () {
-            $('.filename').click();
-        });
+        $(function () {
+            $('#browse').click(function () {
+                $('.filename').click();
+            });
 
-        $('#TrocarSenha').change(function () {
-            if (!$('#TrocarSenha').is(":checked")) {
-                $('#Senha, #NovaSenha, #ConfirmaNovaSenha').val('');
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.profile-picture').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
 
-            $('#Senha, #NovaSenha, #ConfirmaNovaSenha').prop('disabled', !$('#TrocarSenha').is(':checked'));
-        });
+            $('.filename').change(function () {
+                readURL(this);
+            });
 
-        $('#TrocarSenha').change();
+            $('#TrocarSenha').change(function () {
+                if (!$('#TrocarSenha').is(":checked")) {
+                    $('#Senha, #NovaSenha, #ConfirmaNovaSenha').val('');
+                }
+
+                $('#Senha, #NovaSenha, #ConfirmaNovaSenha').prop('disabled', !$('#TrocarSenha').is(':checked'));
+            });
+
+            $('#TrocarSenha').change();
+        });
     </script>
 }
 
@@ -34,7 +52,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-offset-2 col-sm-9 col-md-8 form-group">
                 @Html.ValidationSummary(true, "", new { @class = Model.CssClassMessage })
-                @Html.Hidden("Id", CurrentUser.Id)
+                @Html.HiddenFor(model => model.Id)
                 @Html.HiddenFor(model => model.ImageBase64)
             </div>
         </div>
@@ -43,7 +61,7 @@
             <div class="col-xs-12 col-sm-offset-2 col-sm-3 col-md-2 form-group">
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        @if (Model.ImageBase64 != null)
+                        @if (!string.IsNullOrEmpty(Model.ImageBase64))
                         {
                             <img src="@String.Format("data:image/png;base64,{0}", Model.ImageBase64)" alt="Foto" class="img-circle img-responsive profile-picture" />
                         }
@@ -95,7 +113,8 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-offset-2 col-sm-9 col-md-8 form-group">
-                <button type="submit" class="btn btn-primary btn-block">Alterar</button>
+                @Html.ActionLink("Cancelar", "Index", "Usuario", new { @class = "btn btn-default btn-block" })
+                <button type="submit" class="btn btn-primary btn-block">Editar</button>
             </div>
         </div>
     }

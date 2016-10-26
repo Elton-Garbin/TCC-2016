@@ -23,7 +23,21 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult Index()
         {
-            return View(new UsuarioVM());
+            var identity = (ClaimsIdentity)AuthenticationManager.User.Identity;
+            string Id = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                       .Select(c => c.Value).SingleOrDefault() ?? "0";
+
+            var usuario = _dbContext.Usuarios.Find(Convert.ToInt32(Id));
+            if (usuario == null)
+                return HttpNotFound();
+
+            var usuarioVM = new UsuarioVM()
+            {
+                Id = usuario.Id,
+                ImageBase64 = Convert.ToBase64String(usuario.Foto)
+            };
+
+            return View(usuarioVM);
         }
 
         [HttpPost]
