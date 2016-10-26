@@ -35,7 +35,10 @@
                             if (tarefa.StatusTarefas.Count > 0 &&
                                 status.Classificacao == tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().Status.Classificacao)
                             {
-                                <li class="ui-state-default bs-callout bs-callout-info" data-id="@tarefa.Id">@(tarefa.Descricao.Length > 150 ? tarefa.Descricao.Substring(0, 150) + "..." : tarefa.Descricao)</li>
+                                <li class="ui-state-default bs-callout bs-callout-info" data-id="@tarefa.Id">
+                                    <p><a href="#">#@tarefa.Id</a></p>
+                                    @(tarefa.Descricao.Length > 150 ? tarefa.Descricao.Substring(0, 150) + "..." : tarefa.Descricao)
+                                </li>
                             }
                         }
                     </ul>
