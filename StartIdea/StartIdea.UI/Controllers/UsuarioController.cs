@@ -31,11 +31,10 @@ namespace StartIdea.UI.Controllers
             if (usuario == null)
                 return HttpNotFound();
 
-            var usuarioVM = new UsuarioVM()
-            {
-                Id = usuario.Id,
-                ImageBase64 = Convert.ToBase64String(usuario.Foto)
-            };
+            var usuarioVM = new UsuarioVM();
+            usuarioVM.Id = usuario.Id;
+            if (usuario.Foto != null)
+                usuarioVM.ImageBase64 = Convert.ToBase64String(usuario.Foto);
 
             return View(usuarioVM);
         }
@@ -68,7 +67,12 @@ namespace StartIdea.UI.Controllers
 
             if (usuarioVM.TrocarSenha)
             {
-                if (Utils.Decrypt(usuario.Senha) == usuarioVM.Senha)
+                if (usuarioVM.Senha != Utils.Decrypt(usuario.Senha))
+                {
+                    ModelState.AddModelError("", "Senha atual inválida.");
+                    return View("Index", usuarioVM);
+                }
+                else if (usuarioVM.Senha == usuarioVM.NovaSenha)
                 {
                     ModelState.AddModelError("", "Nova senha não pode ser igual a senha anterior.");
                     return View("Index", usuarioVM);
