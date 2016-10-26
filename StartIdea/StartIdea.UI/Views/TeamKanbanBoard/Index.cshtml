@@ -26,11 +26,23 @@
                                     <div class="row">
                                         <div class="col-md-3 pull-right text-right">
                                             <a data-toggle="tooltip" title="@tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.UserName">
-                                                <img src="@Url.Content("~/Content/images/profile-img.jpg")" class="img-circle" style="width: 20px;">
+                                                @if (tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.Foto != null)
+                                                {
+                                                    <img src="@String.Format("data:image/png;jpg;base64,{0}", Convert.ToBase64String(tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.Foto))" alt="Foto" class="img-circle img-responsive profile-picture" style="width: 20px;" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="@Url.Content("~/Content/images/profile-img.png")" alt="Foto" class="img-circle img-responsive profile-picture" style="width: 20px;" />
+                                                }
                                             </a>
-                                            
                                         </div>
                                         <div class="col-md-9">
+                                            <p><a href="#">#@tarefa.Id</a></p>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
                                             @(tarefa.Descricao.Length > 150 ? tarefa.Descricao.Substring(0, 150) + "..." : tarefa.Descricao)
                                         </div>
                                     </div>
