@@ -1,8 +1,10 @@
 ﻿using Microsoft.Owin.Security;
 using StartIdea.DataAccess;
+using StartIdea.UI.Models;
 using StartIdea.UI.ViewModels;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -26,25 +28,50 @@ namespace StartIdea.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UsuarioVM vm)
+        public ActionResult Edit(UsuarioVM usuarioVM)
         {
             if (!ModelState.IsValid)
-                return View(vm);
+                return View("Index", usuarioVM);
 
-            var identity = (ClaimsIdentity)AuthenticationManager.User.Identity;
-            string Id = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
-                                       .Select(c => c.Value).SingleOrDefault() ?? "0";
+            var usuario = _dbContext.Usuarios.Find(usuarioVM.Id);
+            if (usuario == null)
+                return HttpNotFound();
 
-            var usuario = _dbContext.Usuarios.Find(Convert.ToInt32(Id));
-            usuario.Senha = vm.NovaSenha;
+            if (usuarioVM.ImageUpload != null && !(usuarioVM.ImageUpload.ContentType.Contains("image/png")))
+            {
+                ModelState.AddModelError("", "Apenas o formato *.png é suportado para a foto de perfil.");
+                return View("Index", usuarioVM);
+            }
+            else if (usuarioVM.ImageUpload != null)
+            {
+                using (var reader = new BinaryReader(usuarioVM.ImageUpload.InputStream))
+                {
+                    usuario.Foto = reader.ReadBytes(usuarioVM.ImageUpload.ContentLength);
+                }
+
+                usuarioVM.ImageBase64 = Convert.ToBase64String(usuario.Foto);
+            }
+
+            if (usuarioVM.TrocarSenha)
+            {
+                if (Utils.Decrypt(usuario.Senha) == usuarioVM.Senha)
+                {
+                    ModelState.AddModelError("", "Nova senha não pode ser igual a senha anterior.");
+                    return View("Index", usuarioVM);
+                }
+
+                usuario.Senha = Utils.Encrypt(usuarioVM.NovaSenha);
+
+                usuarioVM.CssClassMessage = "text-success";
+                ModelState.AddModelError("", "Senha alterada com sucesso.");
+            }
+
             usuario.TokenActivation = new Guid?();
 
             _dbContext.Entry(usuario).State = EntityState.Modified;
             _dbContext.SaveChanges();
 
-            vm.CssClassMessage = "text-success";
-            ModelState.AddModelError("", "Senha alterada com sucesso.");
-            return View(vm);
+            return View("Index", usuarioVM);
         }
 
         private IAuthenticationManager AuthenticationManager

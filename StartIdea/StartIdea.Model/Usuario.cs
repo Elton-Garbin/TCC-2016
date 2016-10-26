@@ -32,6 +32,7 @@ namespace StartIdea.Model
         [Required, StringLength(11, MinimumLength = 11)]
         public string CPF { get; set; }
 
+        public byte[] Foto { get; set; }
         public DateTime DataInclusao { get; set; }
         public DateTime? DataAlteracao { get; set; }
         public bool IsActive { get; set; }

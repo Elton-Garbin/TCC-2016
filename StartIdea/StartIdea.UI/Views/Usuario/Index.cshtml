@@ -27,29 +27,36 @@
 </div>
 
 <div class="container-fluid">
-    @using (Html.BeginForm("Edit"))
+    @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = Model.CssClassMessage })
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-2 col-sm-9 col-md-8 form-group">
+                @Html.ValidationSummary(true, "", new { @class = Model.CssClassMessage })
+                @Html.Hidden("Id", CurrentUser.Id)
+                @Html.HiddenFor(model => model.ImageBase64)
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-xs-12 col-sm-offset-2 col-sm-3 col-md-2 form-group">
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        @if (Model.Foto != null)
+                        @if (Model.ImageBase64 != null)
                         {
-                            <img src="@String.Format("data:image/png;base64,{0}", Model.FotoBase64)" alt="Foto" class="img-circle img-responsive profile-picture" />
+                            <img src="@String.Format("data:image/png;base64,{0}", Model.ImageBase64)" alt="Foto" class="img-circle img-responsive profile-picture" />
                         }
                         else
                         {
-                            <img src="@Url.Content("~/Content/images/profile-img.jpg")" alt="Foto" class="img-circle img-responsive profile-picture" />
+                            <img src="@Url.Content("~/Content/images/profile-img.png")" alt="Foto" class="img-circle img-responsive profile-picture" />
                         }
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 text-center">
                         <label>@CurrentUser.UserName</label>
-                        <input type="file" name="Foto" class="filename" id="fileUpload" accept=".png,.jpg,.jpeg" />
+                        @Html.TextBoxFor(model => model.ImageUpload, new { @type = "file", @accept = ".png", @class = "filename" })
                         <button id="browse" type="button" class="btn btn-default btn-block">Procurar...</button>
                     </div>
                 </div>
