@@ -50,7 +50,12 @@ namespace StartIdea.UI.Controllers
             if (usuario == null)
                 return HttpNotFound();
 
-            if (usuarioVM.ImageUpload != null)
+            if (usuarioVM.ImageUpload != null && !(usuarioVM.ImageUpload.ContentType.Contains("image/png")))
+            {
+                ModelState.AddModelError("", "Apenas o formato *.png é suportado para a foto de perfil.");
+                return View("Index", usuarioVM);
+            }
+            else if (usuarioVM.ImageUpload != null)
             {
                 using (var reader = new BinaryReader(usuarioVM.ImageUpload.InputStream))
                 {

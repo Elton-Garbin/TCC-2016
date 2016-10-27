@@ -28,7 +28,7 @@
                                             <a data-toggle="tooltip" title="@tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.UserName">
                                                 @if (tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.Foto != null)
                                                 {
-                                                    <img src="@String.Format("data:image/png;jpg;base64,{0}", Convert.ToBase64String(tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.Foto))" alt="Foto" class="img-circle img-responsive profile-picture" style="width: 20px;" />
+                                                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().MembroTime.Usuario.Foto))" alt="Foto" class="img-circle img-responsive profile-picture" style="width: 20px;" />
                                                 }
                                                 else
                                                 {
