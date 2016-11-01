@@ -270,7 +270,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BurndownChartController.cs" />
     <Compile Include="Controllers\ProductBacklogController.cs" />
-    <Compile Include="Controllers\SprintBacklogController.cs" />
+    <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamKanbanBoardController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -284,6 +284,8 @@
     <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\Facade\ChartDataset.cs" />
     <Compile Include="ViewModels\BurndownChartVM.cs" />
+    <Compile Include="ViewModels\DetalheProductBacklogVM.cs" />
+    <Compile Include="ViewModels\SprintVM.cs" />
     <Compile Include="ViewModels\TeamKanbanBoardVM.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -292,7 +294,6 @@
     <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="ViewModels\ProductBacklogVM.cs" />
     <Compile Include="ViewModels\ResetPasswordVM.cs" />
-    <Compile Include="ViewModels\SprintBacklogVM.cs" />
     <Compile Include="ViewModels\UsuarioVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -484,13 +485,13 @@
     <Content Include="Views\BurndownChart\Index.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\ProductBacklog\Index.cshtml" />
-    <Content Include="Views\SprintBacklog\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\ProductBacklog\Detalhes.cshtml" />
     <Content Include="Views\Authentication\ForgotPassword.cshtml" />
     <Content Include="Views\Authentication\ResetPassword.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\TeamKanbanBoard\Index.cshtml" />
+    <Content Include="Views\Sprint\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
