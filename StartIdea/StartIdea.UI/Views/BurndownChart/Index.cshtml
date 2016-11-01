@@ -1,1 +1,66 @@
-﻿
+﻿@model StartIdea.UI.ViewModels.BurndownChartVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <canvas id="burndownChart"></canvas>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/scripts/Chart.min.js"></script>
+}
+
+@section CustomScript {
+    <script>
+        var Labels = [];
+        var Datasets = @Html.Raw(Json.Encode(@Model.Datasets));
+
+        @foreach (var dia in Model.Labels)
+        {
+            @:Labels.push("@dia");
+        }
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: Labels,
+                datasets: Datasets
+            },
+            options: {
+                responsive: true,
+                hover: {
+                    mode: 'label'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Dias da Sprint'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Story Points'
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Gráfico de Burndown'
+                }
+            }
+        };
+
+        window.onload = function () {
+            var ctx = document.getElementById("burndownChart").getContext("2d");
+            window.myLine = new Chart(ctx, config);
+        };
+    </script>
+}

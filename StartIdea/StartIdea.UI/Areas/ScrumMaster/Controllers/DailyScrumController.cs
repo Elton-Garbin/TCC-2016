@@ -24,7 +24,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             var dailyScrumVM = new DailyScrumVM()
             {
-                PaginaGrid = (PaginaGrid ?? 1)
+                PaginaGrid = (PaginaGrid ?? 1),
+                SprintId = GetSprintId()
             };
 
             dailyScrumVM.ReuniaoList = GetGridDataSource(dailyScrumVM.PaginaGrid);

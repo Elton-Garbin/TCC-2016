@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.Model.ScrumArtefatos
 {
-    public enum StoryPoint
+    public enum StoryPoint : int
     {
         N = 0,
         PP = 1,

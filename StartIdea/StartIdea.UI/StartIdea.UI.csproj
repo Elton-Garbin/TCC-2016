@@ -269,7 +269,6 @@
     <Compile Include="Areas\TeamMember\ViewModels\TarefaVM.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BurndownChartController.cs" />
-    <Compile Include="Controllers\BurnupChartController.cs" />
     <Compile Include="Controllers\ProductBacklogController.cs" />
     <Compile Include="Controllers\SprintBacklogController.cs" />
     <Compile Include="Controllers\TeamKanbanBoardController.cs" />
@@ -283,6 +282,8 @@
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Models\CustomCPFAttribute.cs" />
     <Compile Include="Models\EmailService.cs" />
+    <Compile Include="Models\Facade\ChartDataset.cs" />
+    <Compile Include="ViewModels\BurndownChartVM.cs" />
     <Compile Include="ViewModels\TeamKanbanBoardVM.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -404,6 +405,7 @@
     <Content Include="Scripts\ai.1.0.4-build00190.js" />
     <Content Include="Scripts\ai.1.0.4-build00190.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr\event.js" />
     <Content Include="Scripts\cldr\supplemental.js" />
@@ -479,7 +481,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\BurnupChart\Index.cshtml" />
     <Content Include="Views\BurndownChart\Index.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\ProductBacklog\Index.cshtml" />
