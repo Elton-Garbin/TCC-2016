@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<StartIdea.Model.ScrumArtefatos.ProductBacklog>
+﻿@model StartIdea.UI.ViewModels.ProductBacklogVM
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -9,37 +9,26 @@
 
 @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
 {
-    <div class="profile row">
-        <div class="col-md-10">
+    @Html.HiddenFor(model => model.sprintId)
+    <div class="row">
+        <div class="col-md-8">
             <label>Descrição</label>
-            @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control form-busca" })
+            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="col-md-2">
+            <label>Tamanho</label>
+            @Html.EnumDropDownListFor(model => model.tamanhos, new { @class = "form-control" })
         </div>
         <div class="col-md-2">
             <label>&nbsp;</label>
-            <input type="submit" value="Buscar" class="btn btn-block btn-busca" />
+            <input type="submit" value="Buscar" class="btn btn-block" />
         </div>
     </div>
-        <div class="filtro-checkbox">
-            <div class="col-md-4">
-                <label>
-                    <input type="checkbox" name="status" value="P" /> Pendente
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="checkbox" name="status" value="A" /> Em Processo
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="checkbox" name="status" value="C" /> Pronto
-                </label>
-            </div>
-            <div class="both"></div>
-        </div>
 }
+<br />
 
-<table class="table table-bordered">
+
+<table class="table table-condensed table-hover">
     <thead>
         <tr>
             <th>Descrição</th>
@@ -49,14 +38,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.BackLogItem)
         {
             <tr>
                 <td width="70%">@item.UserStory</td>
                 <td class="text-center" width="10%">@item.StoryPoint</td>
                 <td class="text-center" width="10%">@item.Prioridade</td>
                 <td class="text-center" width="10%">
-                    <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id })">
+                    <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id, sprintId = Model.sprintId })">
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
                 </td>
@@ -64,5 +53,5 @@
         }
     </tbody>
 </table>
-@Html.PagedListPager(Model, pagina => Url.Action("Index",
-        new { pagina, filtro = ViewBag.Filtro }))
+@Html.PagedListPager(Model.BackLogItem, pagina => Url.Action("Index",
+        new { pagina, filtro = Model.Descricao, tamanhos = Model.tamanhos, sprintId = Model.sprintId }))

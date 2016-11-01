@@ -8,18 +8,19 @@ using System.Web.Mvc;
 
 namespace StartIdea.UI.Controllers
 {
-    public class SprintBacklogController : Controller
+    [AllowAnonymous]
+    public class SprintController : Controller
     {
         private StartIdeaDBContext dbContext;
 
-        public SprintBacklogController(StartIdeaDBContext _dbContext)
+        public SprintController(StartIdeaDBContext _dbContext)
         {
             dbContext = _dbContext;
         }
 
         public ViewResult Index(string contextoBusca, string filtro, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
         {
-            var sprintBacklogVM = new SprintBacklogVM();
+            var sprintBacklogVM = new SprintVM();
 
             if (contextoBusca != null)
                 pagina = 1;
