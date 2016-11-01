@@ -2,11 +2,13 @@
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Controllers
 {
+    [AllowAnonymous]
     public class ProductBacklogController : Controller
     {
         private StartIdeaDBContext dbContext;
@@ -16,47 +18,64 @@ namespace StartIdea.UI.Controllers
             dbContext = _dbContext;
         }
 
-        public ActionResult Index(string contextoBusca, string filtro, int? pagina)
+        public ActionResult Index(int? sprintId, string Descricao, StoryPoint? tamanhos, string filtro, int? pagina)
         {
             var productBacklogVM = new ProductBacklogVM();
 
-            if (contextoBusca != null)
+            if (Descricao != null)
                 pagina = 1;
             else
-                contextoBusca = filtro;
+                Descricao = filtro;
 
-            ViewBag.Filtro = contextoBusca;
-
-            if (!string.IsNullOrEmpty(contextoBusca))
-            {
-                productBacklogVM.BackLogItem = dbContext.ProductBacklogs
-                                                        .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(contextoBusca.ToUpper()))
-                                                        .ToList()
-                                                        .OrderBy(backlog => backlog.Prioridade);
-            }
-            else
-            {
-                productBacklogVM.BackLogItem = dbContext.ProductBacklogs
-                                                        .ToList()
-                                                        .OrderBy(backlog => backlog.Prioridade);
-            }
+            productBacklogVM.Descricao = Descricao;
+            productBacklogVM.tamanhos = tamanhos;
+            productBacklogVM.sprintId = sprintId;
 
             int pageSize = 5;
             int pageNumber = (pagina ?? 1);
+            IEnumerable<ProductBacklog> backlogItem = null;
 
-            return View(productBacklogVM.BackLogItem.ToPagedList(pageNumber, pageSize));
+            if (!string.IsNullOrEmpty(Descricao))
+            {
+                backlogItem = dbContext.ProductBacklogs.Include("SprintBacklogs")
+                                       .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(Descricao.ToUpper()))
+                                       .ToList()
+                                       .OrderBy(backlog => backlog.Prioridade);
+            }
+            else
+            {
+                backlogItem = dbContext.ProductBacklogs.Include("SprintBacklogs")
+                                       .ToList()
+                                       .OrderBy(backlog => backlog.Prioridade);
+            }
+
+            if (tamanhos != null)
+            {
+                backlogItem = backlogItem.Where(bi => bi.StoryPoint == tamanhos);
+            }
+
+            if(sprintId != null)
+            {
+                backlogItem = backlogItem.Where(bl => bl.SprintBacklogs.Count > 0 && bl.SprintBacklogs.FirstOrDefault().SprintId == sprintId);
+            }
+
+            productBacklogVM.BackLogItem = backlogItem.ToPagedList(pageNumber, pageSize);
+            return View(productBacklogVM);
         }
 
-        public ActionResult Detalhes(int id)
+        public ActionResult Detalhes(int id, int? sprintId)
         {
-            ProductBacklog backlog = dbContext.ProductBacklogs
-                                              .Include("ProductOwner.Usuario")
-                                              .Include("HistoricoEstimativas.MembroTime.Usuario")
-                                              .Where(x => x.Id == id)
-                                              .FirstOrDefault();
+            var detalheProductBacklogVM = new DetalheProductBacklogVM();
 
+            detalheProductBacklogVM.productBacklog = dbContext.ProductBacklogs
+                                                              .Include("ProductOwner.Usuario")
+                                                              .Include("HistoricoEstimativas.MembroTime.Usuario")
+                                                              .Where(x => x.Id == id)
+                                                              .FirstOrDefault();
 
-            return View(backlog);
+            detalheProductBacklogVM.sprintId = sprintId;
+
+            return View(detalheProductBacklogVM);
         }
     }
 }
