@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace StartIdea.UI.ViewModels
 {
-    public class SprintBacklogVM
+    public class SprintVM
     {
         public IEnumerable<Sprint> Sprints { get; set; }
     }

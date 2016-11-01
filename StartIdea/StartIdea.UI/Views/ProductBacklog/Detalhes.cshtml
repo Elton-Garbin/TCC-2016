@@ -1,23 +1,23 @@
-﻿@model StartIdea.Model.ScrumArtefatos.ProductBacklog
+﻿@model StartIdea.UI.ViewModels.DetalheProductBacklogVM
 
 @{ViewBag.Title = "Detalhes - Backlog do Produto";}
 
 <div class="page-header">
-    <h1>Backlog Item - Detalhes<small> - Responsável: @Model.ProductOwner.Usuario.UserName</small></h1>
+    <h1>Backlog Item - Detalhes<small> - Responsável: @Model.productBacklog.ProductOwner.Usuario.UserName</small></h1>
 </div>
 
 
 <div class="profile">
     <div class="row">
         <div class="col-md-4">
-            <span><b>Data da Inclusão:</b> @Model.DataInclusao.ToString("dd/MM/yyyy")</span>
+            <span><b>Data da Inclusão:</b> @Model.productBacklog.DataInclusao.ToString("dd/MM/yyyy")</span>
         </div>
         <div class="col-md-4">
-            <span><b>Prioridade:</b> @Model.Prioridade</span>
+            <span><b>Prioridade:</b> @Model.productBacklog.Prioridade</span>
         </div>
         <div class="col-md-4">
-            <span><b>Tamanho:</b> @Model.StoryPoint</span>
-            <button class="btn-link" data-toggle="modal" data-target=".bs-example-modal-sm">
+            <span><b>Tamanho:</b> @Model.productBacklog.StoryPoint</span>
+            <button class="btn-link" data-toggle="modal" data-target=".bs-example-modal-md">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
         </div>
@@ -26,26 +26,26 @@
         <div class="col-md-12">
             <label>Descrição</label>
             <br />
-            <span>@Model.UserStory</span>
+            <span>@Model.productBacklog.UserStory</span>
         </div>
     </div>
 </div>
 <div class="row backlog-item-space">
     <div class="col-md-2">
-        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { @class = "btn btn-default btn-block" })
+        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { sprintId = Model.sprintId },  new { @class = "btn btn-default btn-block" })
     </div>
 </div>
 
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Histórico de Estimativas</h4>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered">
+                <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
                             <th>Usuário</th>
@@ -55,10 +55,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.HistoricoEstimativas)
+                        @foreach (var item in Model.productBacklog.HistoricoEstimativas)
                         {
                             <tr>
-                                <td>@item.MembroTime.Usuario.Nome</td>
+                                <td>@item.MembroTime.Usuario.UserName</td>
                                 <td>@item.MembroTime.Funcao</td>
                                 <td>@item.StoryPoint</td>
                                 <td>@item.DataInclusao</td>
