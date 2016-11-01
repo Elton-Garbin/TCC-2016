@@ -10,7 +10,12 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 {
     public class SprintController : AppController
     {
-        private StartIdeaDBContext dbContext = new StartIdeaDBContext();
+        private StartIdeaDBContext _dbContext;
+
+        public SprintController(StartIdeaDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public ActionResult Index()
         {
@@ -27,21 +32,13 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 sprint.DataCancelamento = DateTime.Now;
                 sprint.MotivoCancelamento = sprintVM.MotivoCancelamento;
 
-                dbContext.Entry(sprint).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                _dbContext.Entry(sprint).State = EntityState.Modified;
+                _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
 
             return View("Index", sprintVM);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                dbContext.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

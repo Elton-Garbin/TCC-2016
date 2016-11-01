@@ -14,7 +14,12 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 {
     public class ProductBacklogController : AppController
     {
-        private StartIdeaDBContext dbContext = new StartIdeaDBContext();
+        private StartIdeaDBContext _dbContext;
+
+        public ProductBacklogController(StartIdeaDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public ActionResult Index(string FiltroUserStory,
                                   DateTime? FiltroDataInicial,
@@ -32,7 +37,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
             if ((IdEdit ?? 0) > 0)
             {
-                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(IdEdit);
+                ProductBacklog productBacklog = _dbContext.ProductBacklogs.Find(IdEdit);
                 if (productBacklog == null)
                     return HttpNotFound();
 
@@ -42,7 +47,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 productBacklogVM.DisplayEdit = "show";
             }
 
-            productBacklogVM.ProductBacklogList = GetGridDataSource(productBacklogVM); 
+            productBacklogVM.ProductBacklogList = GetGridDataSource(productBacklogVM);
 
             return View(productBacklogVM);
         }
@@ -62,8 +67,8 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                     ProductOwnerId = CurrentUser.PerfilId
                 };
 
-                dbContext.ProductBacklogs.Add(productBacklog);
-                dbContext.SaveChanges();
+                _dbContext.ProductBacklogs.Add(productBacklog);
+                _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -80,13 +85,13 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 if (prioridadeAtual != productBacklogVM.Prioridade)
                     ReordenarPrioridades(productBacklogVM.Id, productBacklogVM.Prioridade);
 
-                ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(productBacklogVM.Id);
+                ProductBacklog productBacklog = _dbContext.ProductBacklogs.Find(productBacklogVM.Id);
                 productBacklog.ProductOwnerId = CurrentUser.PerfilId;
                 productBacklog.UserStory = productBacklogVM.UserStory;
                 productBacklog.Prioridade = productBacklogVM.Prioridade;
 
-                dbContext.Entry(productBacklog).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                _dbContext.Entry(productBacklog).State = EntityState.Modified;
+                _dbContext.SaveChanges();
 
                 productBacklogVM.DisplayEdit = string.Empty;
             }
@@ -101,23 +106,23 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            ProductBacklog productBacklog = dbContext.ProductBacklogs.Find(id);
+            ProductBacklog productBacklog = _dbContext.ProductBacklogs.Find(id);
             if (productBacklog == null)
                 return HttpNotFound();
 
-            foreach (var item in dbContext.HistoricoEstimativas.Where(x => x.ProductBacklogId == productBacklog.Id).ToList())
-                dbContext.HistoricoEstimativas.Remove(item);
+            foreach (var item in _dbContext.HistoricoEstimativas.Where(x => x.ProductBacklogId == productBacklog.Id).ToList())
+                _dbContext.HistoricoEstimativas.Remove(item);
 
-            dbContext.ProductBacklogs.Remove(productBacklog);
-            dbContext.SaveChanges();
+            _dbContext.ProductBacklogs.Remove(productBacklog);
+            _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
         private IPagedList<ProductBacklog> GetGridDataSource(ProductBacklogVM productBacklogVM)
         {
-            IEnumerable<ProductBacklog> listBacklogs = from pb in dbContext.ProductBacklogs
-                                                       where !(from sb in dbContext.SprintBacklogs
+            IEnumerable<ProductBacklog> listBacklogs = from pb in _dbContext.ProductBacklogs
+                                                       where !(from sb in _dbContext.SprintBacklogs
                                                                select sb.ProductBacklogId)
                                                                .Contains(pb.Id)
                                                        orderby pb.Prioridade
@@ -139,10 +144,10 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         private void ReordenarPrioridades(int ProductBacklogId, short Prioridade)
         {
-            var query = from pb in dbContext.ProductBacklogs
+            var query = from pb in _dbContext.ProductBacklogs
                         where pb.Id != ProductBacklogId
                            && pb.Prioridade >= Prioridade
-                           && !(from sb in dbContext.SprintBacklogs
+                           && !(from sb in _dbContext.SprintBacklogs
                                 select sb.ProductBacklogId)
                                 .Contains(pb.Id)
                         orderby pb.Prioridade
@@ -164,16 +169,8 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 }
 
                 item.Prioridade++;
-                dbContext.Entry(item).State = EntityState.Modified;
+                _dbContext.Entry(item).State = EntityState.Modified;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                dbContext.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

@@ -20,7 +20,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: ScrumMaster/SprintBacklog
         public ActionResult Index(int? paginaProductBacklog,
                                   int? paginaSprintBacklog,
                                   int? id)
@@ -49,7 +48,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                                        select sb.ProductBacklogId).Contains(pb.Id)
                                 orderby pb.Prioridade
                                 select pb;
-                                      
+
             sprintBacklogVM.paginaProductBacklog = paginaProductBacklogNumber;
             sprintBacklogVM.ProductBacklog = backlogProduto.ToPagedList(paginaProductBacklogNumber, 5);
 
@@ -69,7 +68,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             int SprintAtual = GetSprintAtual().Id;
 
-            SprintBacklog sprintBacklog = new SprintBacklog() {
+            SprintBacklog sprintBacklog = new SprintBacklog()
+            {
                 ProductBacklogId = id,
                 SprintId = SprintAtual
             };
@@ -77,7 +77,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             _dbContext.SprintBacklogs.Add(sprintBacklog);
             _dbContext.SaveChanges();
 
-            return RedirectToAction("Index", new {
+            return RedirectToAction("Index", new
+            {
                 paginaProductBacklog = paginaProductBacklog,
                 paginaSprintBacklog = paginaSprintBacklog
             });
@@ -93,7 +94,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                                                                    .SingleOrDefault();
 
             sprintBacklog.MotivoCancelamento = sprintBacklogVM.MotivoCancelamento;
-            sprintBacklog.DataCancelamento   = DateTime.Now;
+            sprintBacklog.DataCancelamento = DateTime.Now;
 
             ProductBacklog productBacklogExcluir = _dbContext.ProductBacklogs.Find(sprintBacklogVM.Id);
 
@@ -108,7 +109,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             _dbContext.Entry(sprintBacklog).State = EntityState.Modified;
             _dbContext.SaveChanges();
 
-            return RedirectToAction("Index", new {
+            return RedirectToAction("Index", new
+            {
                 paginaProductBacklog = paginaProductBacklog,
                 paginaSprintBacklog = paginaSprintBacklog
             });

@@ -9,7 +9,12 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 {
     public class SprintController : AppController
     {
-        private StartIdeaDBContext dbContext = new StartIdeaDBContext();
+        private StartIdeaDBContext _dbContext;
+
+        public SprintController(StartIdeaDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public ActionResult Index()
         {
@@ -30,8 +35,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                     TimeId = sprintVM.TimeId
                 };
 
-                dbContext.Sprints.Add(sprint);
-                dbContext.SaveChanges();
+                _dbContext.Sprints.Add(sprint);
+                _dbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -45,24 +50,16 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sprintAux = dbContext.Sprints.Find(sprintVM.Id);
+                var sprintAux = _dbContext.Sprints.Find(sprintVM.Id);
                 sprintAux.Objetivo = sprintVM.Objetivo;
                 sprintAux.DataInicial = sprintVM.DataInicial;
                 sprintAux.DataFinal = sprintVM.DataFinal;
 
-                dbContext.Entry(sprintAux).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                _dbContext.Entry(sprintAux).State = EntityState.Modified;
+                _dbContext.SaveChanges();
             }
 
             return View("Index", sprintVM);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                dbContext.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

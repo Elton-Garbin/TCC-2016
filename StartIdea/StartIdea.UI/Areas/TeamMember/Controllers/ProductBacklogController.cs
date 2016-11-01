@@ -12,10 +12,15 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
 {
     public class ProductBacklogController : AppController
     {
-        private StartIdeaDBContext dbContext = new StartIdeaDBContext();
+        private StartIdeaDBContext _dbContext;
 
-        public ActionResult Index(string contextoBusca, 
-                                  string filtro, 
+        public ProductBacklogController(StartIdeaDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public ActionResult Index(string contextoBusca,
+                                  string filtro,
                                   int? pagina,
                                   int? id)
         {
@@ -30,8 +35,8 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             int pageSize = 7;
             int pageNumber = (pagina ?? 1);
 
-            var query = from pb in dbContext.ProductBacklogs
-                        where !(from sb in dbContext.SprintBacklogs
+            var query = from pb in _dbContext.ProductBacklogs
+                        where !(from sb in _dbContext.SprintBacklogs
                                 select sb.ProductBacklogId)
                                 .Contains(pb.Id) &&
                         pb.Prioridade > 0
@@ -53,19 +58,19 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
 
             if (id != null)
             {
-                ProductBacklog productBacklog = dbContext.ProductBacklogs
+                ProductBacklog productBacklog = _dbContext.ProductBacklogs
                                                          .Include("ProductOwner.Usuario")
                                                          .SingleOrDefault(x => x.Id == id);
                 if (productBacklog == null)
                     return HttpNotFound();
 
 
-                productBacklogVM.Id           = productBacklog.Id;
-                productBacklogVM.UserStory    = productBacklog.UserStory;
-                productBacklogVM.Prioridade   = productBacklog.Prioridade;
+                productBacklogVM.Id = productBacklog.Id;
+                productBacklogVM.UserStory = productBacklog.UserStory;
+                productBacklogVM.Prioridade = productBacklog.Prioridade;
                 productBacklogVM.ProductOwner = productBacklog.ProductOwner;
                 productBacklogVM.DataInclusao = productBacklog.DataInclusao;
-                productBacklogVM.StoryPoint   = productBacklog.StoryPoint;
+                productBacklogVM.StoryPoint = productBacklog.StoryPoint;
                 productBacklogVM.DisplayEdit = "Show";
             }
 
@@ -76,7 +81,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,StoryPoint")] ProductBacklogVM productBacklog, string filtro, int? pagina)
         {
-            var productBacklogAux = dbContext.ProductBacklogs.Find(productBacklog.Id);
+            var productBacklogAux = _dbContext.ProductBacklogs.Find(productBacklog.Id);
             productBacklogAux.StoryPoint = productBacklog.StoryPoint;
 
             productBacklogAux.HistoricoEstimativas.Add(new HistoricoEstimativa()
@@ -87,22 +92,14 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 MembroTimeId = CurrentUser.PerfilId
             });
 
-            dbContext.Entry(productBacklogAux).State = EntityState.Modified;
-            dbContext.SaveChanges();
+            _dbContext.Entry(productBacklogAux).State = EntityState.Modified;
+            _dbContext.SaveChanges();
 
             return RedirectToAction("Index", "ProductBacklog", new
             {
                 filtro = filtro,
                 pagina = pagina
             });
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                dbContext.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

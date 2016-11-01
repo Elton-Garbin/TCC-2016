@@ -15,11 +15,11 @@ namespace StartIdea.UI.Controllers
     [AllowAnonymous]
     public class AuthenticationController : Controller
     {
-        private StartIdeaDBContext dbContext;
+        private StartIdeaDBContext _dbContext;
 
-        public AuthenticationController(StartIdeaDBContext _dbContext)
+        public AuthenticationController(StartIdeaDBContext dbContext)
         {
-            dbContext = _dbContext;
+            _dbContext = dbContext;
         }
 
         public ActionResult Index()
@@ -48,7 +48,7 @@ namespace StartIdea.UI.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var usuario = dbContext.Usuarios
+            var usuario = _dbContext.Usuarios
                 .Include(po => po.ProductOwners)
                 .Include(sm => sm.ScrumMasters)
                 .Include(mt => mt.MembrosTime)
@@ -82,7 +82,7 @@ namespace StartIdea.UI.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
-            var usuario = dbContext.Usuarios.SingleOrDefault(u => u.Email == vm.Email
+            var usuario = _dbContext.Usuarios.SingleOrDefault(u => u.Email == vm.Email
                                                                && u.IsActive);
 
             if (usuario != null)
@@ -98,8 +98,8 @@ namespace StartIdea.UI.Controllers
                 EmailService.EnviarEmail("Recuperação de Senha (StartIdea)", body, usuario.Email);
 
                 usuario.TokenActivation = token;
-                dbContext.Entry(usuario).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                _dbContext.Entry(usuario).State = EntityState.Modified;
+                _dbContext.SaveChanges();
             }
 
             vm.CssClassMessage = "text-success";
@@ -112,7 +112,7 @@ namespace StartIdea.UI.Controllers
             if (token == null)
                 return RedirectToAction("Login");
 
-            var usuario = dbContext.Usuarios.SingleOrDefault(u => u.TokenActivation.ToString() == token
+            var usuario = _dbContext.Usuarios.SingleOrDefault(u => u.TokenActivation.ToString() == token
                                                                && u.IsActive);
 
             if (usuario == null)
@@ -134,7 +134,7 @@ namespace StartIdea.UI.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
-            var usuario = dbContext.Usuarios
+            var usuario = _dbContext.Usuarios
                 .Include(po => po.ProductOwners)
                 .Include(sm => sm.ScrumMasters)
                 .Include(mt => mt.MembrosTime)
@@ -152,8 +152,8 @@ namespace StartIdea.UI.Controllers
 
             usuario.Senha = Utils.Encrypt(vm.Senha);
             usuario.TokenActivation = new Guid?();
-            dbContext.Entry(usuario).State = EntityState.Modified;
-            dbContext.SaveChanges();
+            _dbContext.Entry(usuario).State = EntityState.Modified;
+            _dbContext.SaveChanges();
 
             AppAuth app = new AppAuth(AuthenticationManager, usuario);
             app.SignIn();

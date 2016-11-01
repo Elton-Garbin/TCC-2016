@@ -73,13 +73,13 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 if (tarefa == null)
                     return HttpNotFound();
 
-                tarefaVM.TarefaIdEdit    = tarefa.Id;
-                tarefaVM.Descricao       = tarefa.Descricao;
+                tarefaVM.TarefaIdEdit = tarefa.Id;
+                tarefaVM.Descricao = tarefa.Descricao;
                 tarefaVM.SprintBacklogId = tarefa.SprintBacklogId;
-                tarefaVM.DisplayEdit     = "Show";
+                tarefaVM.DisplayEdit = "Show";
             }
 
-            if((IdCancelamento ?? 0) > 0)
+            if ((IdCancelamento ?? 0) > 0)
             {
                 Tarefa tarefa = _dbContext.Tarefas.Find(IdCancelamento);
                 if (tarefa == null)
@@ -131,7 +131,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             if (ModelState.IsValid)
             {
                 Tarefa tarefa = _dbContext.Tarefas.Find(tarefaVM.TarefaIdEdit);
-                tarefa.Descricao       = tarefaVM.Descricao;
+                tarefa.Descricao = tarefaVM.Descricao;
                 tarefa.SprintBacklogId = tarefaVM.SprintBacklogId;
 
                 _dbContext.Entry(tarefa).State = EntityState.Modified;

@@ -2,9 +2,7 @@
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.UI.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Controllers
@@ -19,7 +17,6 @@ namespace StartIdea.UI.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: TeamKanbanBoard
         public ActionResult Index()
         {
             var teamKanbanBoardVM = new TeamKanbanBoardVM();

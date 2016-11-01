@@ -53,7 +53,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AlteraStatus (int IdStatus, int IdTarefa)
+        public ActionResult AlteraStatus(int IdStatus, int IdTarefa)
         {
             Status novoStatus = _dbContext.AllStatus.Find(IdStatus);
             Tarefa tarefa = _dbContext.Tarefas.Include("StatusTarefas.Status").Where(t => t.Id == IdTarefa).FirstOrDefault();

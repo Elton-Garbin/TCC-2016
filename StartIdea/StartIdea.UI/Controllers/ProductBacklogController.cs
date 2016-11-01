@@ -11,11 +11,11 @@ namespace StartIdea.UI.Controllers
     [AllowAnonymous]
     public class ProductBacklogController : Controller
     {
-        private StartIdeaDBContext dbContext;
+        private StartIdeaDBContext _dbContext;
 
-        public ProductBacklogController(StartIdeaDBContext _dbContext)
+        public ProductBacklogController(StartIdeaDBContext dbContext)
         {
-            dbContext = _dbContext;
+            _dbContext = dbContext;
         }
 
         public ActionResult Index(int? sprintId, string Descricao, StoryPoint? tamanhos, string filtro, int? pagina)
@@ -37,14 +37,14 @@ namespace StartIdea.UI.Controllers
 
             if (!string.IsNullOrEmpty(Descricao))
             {
-                backlogItem = dbContext.ProductBacklogs.Include("SprintBacklogs")
+                backlogItem = _dbContext.ProductBacklogs.Include("SprintBacklogs")
                                        .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(Descricao.ToUpper()))
                                        .ToList()
                                        .OrderBy(backlog => backlog.Prioridade);
             }
             else
             {
-                backlogItem = dbContext.ProductBacklogs.Include("SprintBacklogs")
+                backlogItem = _dbContext.ProductBacklogs.Include("SprintBacklogs")
                                        .ToList()
                                        .OrderBy(backlog => backlog.Prioridade);
             }
@@ -54,7 +54,7 @@ namespace StartIdea.UI.Controllers
                 backlogItem = backlogItem.Where(bi => bi.StoryPoint == tamanhos);
             }
 
-            if(sprintId != null)
+            if (sprintId != null)
             {
                 backlogItem = backlogItem.Where(bl => bl.SprintBacklogs.Count > 0 && bl.SprintBacklogs.FirstOrDefault().SprintId == sprintId);
             }
@@ -67,7 +67,7 @@ namespace StartIdea.UI.Controllers
         {
             var detalheProductBacklogVM = new DetalheProductBacklogVM();
 
-            detalheProductBacklogVM.productBacklog = dbContext.ProductBacklogs
+            detalheProductBacklogVM.productBacklog = _dbContext.ProductBacklogs
                                                               .Include("ProductOwner.Usuario")
                                                               .Include("HistoricoEstimativas.MembroTime.Usuario")
                                                               .Where(x => x.Id == id)
