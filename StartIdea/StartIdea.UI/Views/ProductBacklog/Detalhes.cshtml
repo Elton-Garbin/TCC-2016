@@ -1,41 +1,44 @@
 ﻿@model StartIdea.UI.ViewModels.DetalheProductBacklogVM
 
-@{ViewBag.Title = "Detalhes - Backlog do Produto";}
+@{
+    ViewBag.Title = "Detalhes - Backlog do Produto";
+}
 
-<div class="page-header">
-    <h1>Backlog Item - Detalhes<small> - Responsável: @Model.productBacklog.ProductOwner.Usuario.UserName</small></h1>
-</div>
-
-
-<div class="profile">
-    <div class="row">
-        <div class="col-md-4">
-            <span><b>Data da Inclusão:</b> @Model.productBacklog.DataInclusao.ToString("dd/MM/yyyy")</span>
-        </div>
-        <div class="col-md-4">
-            <span><b>Prioridade:</b> @Model.productBacklog.Prioridade</span>
-        </div>
-        <div class="col-md-4">
-            <span><b>Tamanho:</b> @Model.productBacklog.StoryPoint</span>
-            <button class="btn-link" data-toggle="modal" data-target=".bs-example-modal-md">
-                <span class="glyphicon glyphicon-search"></span>
-            </button>
-        </div>
-    </div>
-    <div class="row backlog-item-space">
-        <div class="col-md-12">
-            <label>Descrição</label>
-            <br />
-            <span>@Model.productBacklog.UserStory</span>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Backlog Item - Detalhes<small> - Responsável: @Model.productBacklog.ProductOwner.Usuario.UserName</small></h1>
         </div>
     </div>
 </div>
-<div class="row backlog-item-space">
+
+<div class="row">
+    <div class="col-md-4">
+        <span><b>Data da Inclusão:</b> @Model.productBacklog.DataInclusao.ToString("dd/MM/yyyy")</span>
+    </div>
+    <div class="col-md-4">
+        <span><b>Prioridade:</b> @Model.productBacklog.Prioridade</span>
+    </div>
+    <div class="col-md-4">
+        <span><b>Tamanho:</b> @Model.productBacklog.StoryPoint</span>
+        <button class="btn-link" data-toggle="modal" data-target=".bs-example-modal-md">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <label>Descrição</label>
+        <p>@Model.productBacklog.UserStory</p>
+    </div>
+</div>
+<br>
+<div class="row">
     <div class="col-md-2">
-        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { sprintId = Model.sprintId },  new { @class = "btn btn-default btn-block" })
+        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { sprintId = Model.sprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>
-
 
 <div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-md" role="document">

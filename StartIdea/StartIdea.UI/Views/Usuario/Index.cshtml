@@ -40,84 +40,89 @@
     </script>
 }
 
-<div class="page-header">
-    <h1>Dados do Usuário</h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Dados do Usuário</h1>
+        </div>
+    </div>
 </div>
 
-<div class="container-fluid">
-    @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-offset-2 col-sm-9 col-md-8 form-group">
-                @Html.ValidationSummary(true, "", new { @class = Model.CssClassMessage })
-                @Html.HiddenFor(model => model.Id)
-                @Html.HiddenFor(model => model.ImageBase64)
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-offset-2 col-sm-3 col-md-2 form-group">
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        @if (!string.IsNullOrEmpty(Model.ImageBase64))
-                        {
-                            <img src="@String.Format("data:image/png;base64,{0}", Model.ImageBase64)" alt="Foto" class="img-circle img-responsive profile-picture" />
-                        }
-                        else
-                        {
-                            <img src="@Url.Content("~/Content/images/profile-img.png")" alt="Foto" class="img-circle img-responsive profile-picture" />
-                        }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <label>@CurrentUser.UserName</label>
-                        @Html.TextBoxFor(model => model.ImageUpload, new { @type = "file", @accept = ".png", @class = "filename" })
-                        <button id="browse" type="button" class="btn btn-default btn-block">Procurar...</button>
-                    </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-9 col-md-8 form-group">
+                    @Html.ValidationSummary(true, "", new { @class = Model.CssClassMessage })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.ImageBase64)
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-6">
-                <div class="row">
-                    <div class="col-xs-12">
-                        @Html.CheckBoxFor(model => model.TrocarSenha, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.LabelFor(model => model.TrocarSenha)
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-3 col-md-2 form-group">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            @if (!string.IsNullOrEmpty(Model.ImageBase64))
+                            {
+                                <img src="@String.Format("data:image/png;base64,{0}", Model.ImageBase64)" alt="Foto" class="img-circle img-responsive profile-picture" />
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/Content/images/profile-img.png")" alt="Foto" class="img-circle img-responsive profile-picture" />
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <label>@CurrentUser.UserName</label>
+                            @Html.TextBoxFor(model => model.ImageUpload, new { @type = "file", @accept = ".png", @class = "filename" })
+                            <button id="browse" type="button" class="btn btn-default btn-block">Procurar...</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            @Html.CheckBoxFor(model => model.TrocarSenha, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.LabelFor(model => model.TrocarSenha)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            @Html.LabelFor(model => model.Senha)
+                            @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="col-xs-12 form-group">
-                        @Html.LabelFor(model => model.Senha)
-                        @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                        <div class="row">
+                            @Html.LabelFor(model => model.NovaSenha)
+                            @Html.EditorFor(model => model.NovaSenha, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NovaSenha, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 form-group">
-                    <div class="row">
-                        @Html.LabelFor(model => model.NovaSenha)
-                        @Html.EditorFor(model => model.NovaSenha, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.NovaSenha, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-xs-12 form-group">
-                    <div class="row">
-                        @Html.LabelFor(model => model.ConfirmaNovaSenha)
-                        @Html.EditorFor(model => model.ConfirmaNovaSenha, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ConfirmaNovaSenha, "", new { @class = "text-danger" })
+                    <div class="col-xs-12 form-group">
+                        <div class="row">
+                            @Html.LabelFor(model => model.ConfirmaNovaSenha)
+                            @Html.EditorFor(model => model.ConfirmaNovaSenha, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmaNovaSenha, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-offset-2 col-sm-4 form-group">
-                @Html.ActionLink("Cancelar", "Index", "Usuario", new { @class = "btn btn-default btn-block" })
+            <div class="row">
+                <div class="col-xs-12 col-sm-offset-2 col-sm-4 form-group">
+                    @Html.ActionLink("Cancelar", "Index", "Usuario", new { @class = "btn btn-default btn-block" })
+                </div>
+                <div class="col-xs-12 col-sm-offset-1 col-sm-4 col-md-offset-0 form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Editar</button>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-offset-1 col-sm-4 col-md-offset-0 form-group">
-                <button type="submit" class="btn btn-primary btn-block">Editar</button>
-            </div>
-        </div>
-    }
+        }
+    </div>
 </div>

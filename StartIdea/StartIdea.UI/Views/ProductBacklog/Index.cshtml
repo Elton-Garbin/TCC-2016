@@ -1,16 +1,20 @@
 ﻿@model StartIdea.UI.ViewModels.ProductBacklogVM
 @using PagedList.Mvc;
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-
-<div class="page-header">
-    <h1>Backlog do Produto</h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Backlog do Produto</h1>
+        </div>
+    </div>
 </div>
 
-@using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
-{
-    @Html.HiddenFor(model => model.sprintId)
-    <div class="row">
+<div class="row">
+    @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
+    {
+        @Html.HiddenFor(model => model.sprintId)
         <div class="col-md-8">
             <label>Descrição</label>
             @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
@@ -23,35 +27,44 @@
             <label>&nbsp;</label>
             <input type="submit" value="Buscar" class="btn btn-block" />
         </div>
+    }
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th class="text-center col-sm-1">Tamanho</th>
+                        <th class="text-center col-sm-1">Prioridade</th>
+                        <th class="text-center col-sm-1">Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.BackLogItem)
+                    {
+                        <tr>
+                            <td>@item.UserStory</td>
+                            <td class="text-center">@item.StoryPoint</td>
+                            <td class="text-center">@item.Prioridade</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id, sprintId = Model.sprintId })">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            @Html.PagedListPager(Model.BackLogItem, pagina => Url.Action("Index", new { pagina, filtro = Model.Descricao, tamanhos = Model.tamanhos, sprintId = Model.sprintId }))
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-}
-<br />
-
-
-<table class="table table-condensed table-hover">
-    <thead>
-        <tr>
-            <th>Descrição</th>
-            <th class="text-center">Tamanho</th>
-            <th class="text-center">Prioridade</th>
-            <th class="text-center">Detalhes</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.BackLogItem)
-        {
-            <tr>
-                <td width="70%">@item.UserStory</td>
-                <td class="text-center" width="10%">@item.StoryPoint</td>
-                <td class="text-center" width="10%">@item.Prioridade</td>
-                <td class="text-center" width="10%">
-                    <a href="@Url.Action("Detalhes", "ProductBacklog", new { item.Id, sprintId = Model.sprintId })">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-@Html.PagedListPager(Model.BackLogItem, pagina => Url.Action("Index",
-        new { pagina, filtro = Model.Descricao, tamanhos = Model.tamanhos, sprintId = Model.sprintId }))
+</div>
