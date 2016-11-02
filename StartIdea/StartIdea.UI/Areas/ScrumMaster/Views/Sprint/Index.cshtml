@@ -4,77 +4,263 @@
     ViewBag.Title = "Index";
 }
 
-<div class="container-fluid">
-    @using (Html.BeginForm(Model.ActionForm, "Sprint", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="page-header">
-                    <h3>Próxima Sprint</h3>
-                </div>
-            </div>
-        </div>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="row">
-            <div class="col-xs-12 form-group">
-                @Html.LabelFor(model => model.Objetivo)
-                @Html.EditorFor(model => model.Objetivo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Objetivo ou Meta da Sprint" } })
-                @Html.ValidationMessageFor(model => model.Objetivo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.DataInicial)
-                <div class="input-group date datetimepicker">
-                    @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                
-                @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.DataFinal)
-                <div class="input-group date datetimepicker">
-                    @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(model => model.DataFinal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @Html.ActionLink("Cancelar", "Index", "ScrumMaster", new { @class = "btn btn-default" })
-        <button type="submit" class="btn btn-primary">@Model.SubmitValue</button>
-    }
-</div>
-
-@if (Model.SprintAtual != null)
-{
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="page-header">
-                    <h3>Sprint Atual</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert alert-info" role="alert">
-                    <p>Objetivo: @Model.SprintAtual.Objetivo</p>
-                    <p>Duração: @Model.SprintAtual.DataInicial à @Model.SprintAtual.DataFinal</p>
-                    <p><a href="#" class="alert-link">Clique aqui para verificar o andamento!</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+@section CustomScript{
+    <script type="text/javascript">
+        $('#tabs-container, #tabs-container-2').tabs();
+    </script>
 }
+
+<div class="row">
+    <div class="container-fluid">
+        @using (Html.BeginForm(Model.ActionForm, "Sprint", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-header">
+                        <h3>Próxima Sprint</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.IdRP)
+                    @Html.HiddenFor(model => model.IdRV)
+                    @Html.HiddenFor(model => model.IdRT)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <div id="tabs-container">
+                        <ul>
+                            <li><a href="#tab-sprint">Sprint</a></li>
+                            <li><a href="#tab-reuniao">Reunião</a></li>
+                        </ul>
+                        <div id="tab-sprint" class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    @Html.LabelFor(model => model.Objetivo)
+                                    @Html.EditorFor(model => model.Objetivo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Objetivo (Meta) da Sprint" } })
+                                </div>
+
+                                <div class="col-xs-12 col-sm-3">
+                                    @Html.LabelFor(model => model.DataInicial)
+                                    <div class="input-group date datetimepicker">
+                                        @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-3">
+                                    @Html.LabelFor(model => model.DataFinal)
+                                    <div class="input-group date datetimepicker">
+                                        @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control" } })
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-reuniao" class="container-fluid">
+                            <div id="tabs-container-2" class="row">
+                                <ul>
+                                    <li><a href="#tab-planejamento">Planejamento</a></li>
+                                    <li><a href="#tab-diaria">Diária</a></li>
+                                    <li><a href="#tab-revisao">Revisão</a></li>
+                                    <li><a href="#tab-retrospectiva">Retrospectiva</a></li>
+                                </ul>
+
+                                <div id="tab-planejamento" class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6">
+                                            @Html.LabelFor(model => model.LocalRP)
+                                            @Html.EditorFor(model => model.LocalRP, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3">
+                                            @Html.LabelFor(model => model.DataInicialRP)
+                                            <div class="input-group date datetimepicker">
+                                                @Html.EditorFor(model => model.DataInicialRP, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3">
+                                            @Html.LabelFor(model => model.DataFinalRP)
+                                            <div class="input-group date datetimepicker">
+                                                @Html.EditorFor(model => model.DataFinalRP, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tab-diaria" class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6 form-group">
+                                            @Html.LabelFor(model => model.LocalRD)
+                                            @Html.EditorFor(model => model.LocalRD, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3 form-group">
+                                            @Html.LabelFor(model => model.DataInicialRD)
+                                            <div class="input-group date">
+                                                @Html.EditorFor(model => model.DataInicialRD, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3 form-group">
+                                            @Html.LabelFor(model => model.DataFinalRD)
+                                            <div class="input-group date">
+                                                @Html.EditorFor(model => model.DataFinalRD, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-3 col-md-2">
+                                            @Html.LabelFor(model => model.HorarioInicialRD)
+                                            @Html.EditorFor(model => model.HorarioInicialRD, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-9">
+                                            <label>Dias de Trabalho</label>
+                                            <div class="btn-group btn-block" data-toggle="buttons">
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkSun, new { @autocomplete = "off" }) Dom
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkMon, new { @autocomplete = "off" }) Seg
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkTue, new { @autocomplete = "off" }) Ter
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkWed, new { @autocomplete = "off" }) Qua
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkThu, new { @autocomplete = "off" }) Qui
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkFri, new { @autocomplete = "off" }) Sex
+                                                </label>
+                                                <label class="btn btn-default">
+                                                    @Html.CheckBoxFor(model => model.WorkSat, new { @autocomplete = "off" }) Sáb
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tab-revisao" class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6">
+                                            @Html.LabelFor(model => model.LocalRV)
+                                            @Html.EditorFor(model => model.LocalRV, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3">
+                                            @Html.LabelFor(model => model.DataInicialRV)
+                                            <div class="input-group date datetimepicker">
+                                                @Html.EditorFor(model => model.DataInicialRV, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3">
+                                            @Html.LabelFor(model => model.DataFinalRV)
+                                            <div class="input-group date datetimepicker">
+                                                @Html.EditorFor(model => model.DataFinalRV, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tab-retrospectiva" class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6">
+                                            @Html.LabelFor(model => model.LocalRT)
+                                            @Html.EditorFor(model => model.LocalRT, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3">
+                                            @Html.LabelFor(model => model.DataInicialRT)
+                                            <div class="input-group date datetimepicker">
+                                                @Html.EditorFor(model => model.DataInicialRT, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-3">
+                                            @Html.LabelFor(model => model.DataFinalRT)
+                                            <div class="input-group date datetimepicker">
+                                                @Html.EditorFor(model => model.DataFinalRT, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    @Html.ActionLink("Cancelar", "Index", "ScrumMaster", new { @class = "btn btn-default" })
+                    <button type="submit" class="btn btn-primary">@Model.SubmitValue</button>
+                </div>
+            </div>
+        }
+
+        @if (Model.SprintAtual != null)
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-header">
+                        <h3>Sprint Atual</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-info" role="alert">
+                        <p>Objetivo: @Model.SprintAtual.Objetivo</p>
+                        <p>Duração: @Model.SprintAtual.DataInicial à @Model.SprintAtual.DataFinal</p>
+                        <p><a href="#" class="alert-link">Clique aqui para verificar o andamento!</a></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

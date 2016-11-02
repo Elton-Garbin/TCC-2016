@@ -13,6 +13,12 @@ namespace StartIdea.Model.ScrumEventos
 
     public class Reuniao
     {
+        public Reuniao()
+        {
+            DataInicial = DateTime.Now;
+            DataFinal = DateTime.Now;
+        }
+
         #region Fields
         public int Id { get; set; }
         public TipoReuniao TipoReuniao { get; set; }

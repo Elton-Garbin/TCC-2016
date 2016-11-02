@@ -45,6 +45,7 @@ namespace StartIdea.UI
                 "~/Scripts/masterScript.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/jquery-ui.min.css",
                 "~/Content/bootstrap.min.css",
                 "~/Content/site.css",
                 "~/Content/bootstrap-datetimepicker.min.css",
