@@ -48,7 +48,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 var token = Guid.NewGuid();
                 var usuario = new Usuario()
                 {
-                    CPF = usuarioVM.CPF,
+                    CPF = usuarioVM.CPF.Replace(".", "").Replace("-", ""),
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
                     IsActive = usuarioVM.IsActive,
@@ -108,7 +108,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
             {
                 var token = Guid.NewGuid();
                 var usuario = _dbContext.Usuarios.Find(usuarioVM.Id);
-                usuario.CPF = usuarioVM.CPF;
+                usuario.CPF = usuarioVM.CPF.Replace(".", "").Replace("-", "");
                 usuario.Email = usuarioVM.Email;
                 usuario.UserName = usuarioVM.UserName;
                 usuario.DataAlteracao = DateTime.Now;

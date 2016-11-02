@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Areas.Admin.Models
@@ -12,6 +13,7 @@ namespace StartIdea.UI.Areas.Admin.Models
         {
             if (value == null || string.IsNullOrEmpty(value.ToString()))
                 return true;
+
             bool valido = ValidaCPF(value.ToString());
             return valido;
         }
@@ -20,14 +22,15 @@ namespace StartIdea.UI.Areas.Admin.Models
         {
             yield return new ModelClientValidationRule
             {
-                ErrorMessage = this.FormatErrorMessage(null),
+                ErrorMessage = FormatErrorMessage(null),
                 ValidationType = "customvalidationcpf"
             };
         }
 
         public static string RemoveNaoNumericos(string text)
         {
-            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"[^0-9]");
+            Regex reg = new Regex(@"[^0-9]");
+
             string ret = reg.Replace(text, string.Empty);
             return ret;
         }
@@ -78,8 +81,7 @@ namespace StartIdea.UI.Areas.Admin.Models
                 if (numeros[10] != 0)
                     return false;
             }
-            else
-            if (numeros[10] != 11 - resultado)
+            else if (numeros[10] != 11 - resultado)
                 return false;
 
             return true;

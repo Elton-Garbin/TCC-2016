@@ -34,4 +34,5 @@
         connectWith: "ul"
     });
 
+    $(".cpf").inputmask("999.999.999-99", { "clearIncomplete": true });
 })

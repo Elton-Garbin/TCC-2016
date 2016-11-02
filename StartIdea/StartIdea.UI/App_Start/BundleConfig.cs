@@ -35,6 +35,12 @@ namespace StartIdea.UI
             bootstrap.Orderer = new AsIsBundleOrderer();
             bundles.Add(bootstrap);
 
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+                "~/Scripts/jquery.inputmask/inputmask.js",
+                "~/Scripts/jquery.inputmask/jquery.inputmask.js",
+                "~/Scripts/jquery.inputmask/inputmask.extensions.js",
+                "~/Scripts/jquery.inputmask/inputmask.numeric.extensions.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/customizados").Include(
                 "~/Scripts/masterScript.js"));
 

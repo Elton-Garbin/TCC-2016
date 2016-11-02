@@ -6,7 +6,7 @@
 }
 
 <div class="page-header">
-    <h1>Usuário <small>Cadastro</small></h1>
+    <h1>Usuários</h1>
 </div>
 
 <div class="row">
@@ -38,13 +38,13 @@
                                 @Html.DisplayFor(modelItem => item.Email)
                             </td>
                             <td class="text-center">
-                                @Html.DisplayFor(modelItem => item.CPF)
+                                @Convert.ToUInt64(item.CPF).ToString(@"000\.000\.000\-00")
                             </td>
                             <td class="text-center">
-                                @Html.DisplayFor(modelItem => item.IsActive)
+                                @(item.IsActive ? "Sim" : "Não")
                             </td>
                             <td class="text-center">
-                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                                @string.Format("{0:d}", item.DataInclusao)
                             </td>
                             <td>
                                 <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">

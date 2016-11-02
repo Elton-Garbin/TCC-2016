@@ -30,7 +30,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         [DisplayName("Usuário")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Campo CPF obrigatório."), StringLength(11, MinimumLength = 11)]
+        [Required(ErrorMessage = "Campo CPF obrigatório.")]
         [CustomCPF(ErrorMessage = "Campo CPF inválido.")]
         public string CPF { get; set; }
 
