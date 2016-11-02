@@ -51,8 +51,32 @@ namespace StartIdea.UI.Controllers
                 data = GetPlanData(sprint, TotalPoints),
                 borderDash = new short[] { 5, 5 }
             });
+            dataSets.Add(new ChartDataset("rgba(0, 255, 0, 0.3)")
+            {
+                label = "Velocidade",
+                data = GetVelocityData(sprint),
+                borderDash = new short[] { 5, 5 }
+            });
 
             return dataSets;
+        }
+
+        private double[] GetVelocityData(Sprint sprint)
+        {
+            var velocityData = new List<double>();
+
+            int qtDias = (sprint.DataFinal - sprint.DataInicial).Days;
+            for (int i = 0; i < qtDias; i++)
+            {
+                var dataBase = sprint.DataInicial.Date.AddDays(i);
+                if (dataBase == DateTime.Now.Date)
+                    break;
+
+                double points = GetPointsPerDate(sprint.Id, dataBase);
+                velocityData.Add(points);
+            }
+
+            return velocityData.ToArray();
         }
 
         private double[] GetPlanData(Sprint sprint, int TotalPoints)
@@ -83,7 +107,7 @@ namespace StartIdea.UI.Controllers
                 if (dataBase == DateTime.Now.Date)
                     break;
 
-                var points = TotalPoints - GetPoints(sprint.Id, dataBase);
+                double points = TotalPoints - GetPoints(sprint.Id, dataBase);
                 actualData.Add(points);
             }
 
@@ -133,7 +157,7 @@ namespace StartIdea.UI.Controllers
                         where !t.DataCancelamento.HasValue
                            && !sb.DataCancelamento.HasValue
                            && sb.SprintId == SprintId
-                           && DbFunctions.TruncateTime(st.DataInclusao) < DataBase
+                           && DbFunctions.TruncateTime(st.DataInclusao) <= DataBase
                         select new
                         {
                             TarefaId = t.Id,
@@ -148,7 +172,56 @@ namespace StartIdea.UI.Controllers
                 if (row.ClassificacaoStatus == Classificacao.Done)
                 {
                     int totalSprintBacklog = query.Count(x => x.SprintBacklogId == row.SprintBacklogId);
-                    double media = (int)row.ClassificacaoStatus / totalSprintBacklog;
+                    double media = ((double)row.StoryPointBacklog / totalSprintBacklog);
+
+                    points += media;
+                }
+            }
+
+            return points;
+        }
+
+        private double GetPointsPerDate(int SprintId, DateTime DataBase)
+        {
+            var subQuery = from st in _dbContext.StatusTarefas
+                           group st by st.TarefaId into grouping
+                           select new
+                           {
+                               TarefaId = grouping.Key,
+                               MaxStatusTarefaId = grouping.Max(x => x.Id)
+                           };
+
+            var query = from t in _dbContext.Tarefas
+                        join st in _dbContext.StatusTarefas
+                        on t.Id equals st.TarefaId
+                        join s in _dbContext.AllStatus
+                        on st.StatusId equals s.Id
+                        join sb in _dbContext.SprintBacklogs
+                        on t.SprintBacklogId equals sb.Id
+                        join pb in _dbContext.ProductBacklogs
+                        on sb.ProductBacklogId equals pb.Id
+                        join sq in subQuery
+                        on st.Id equals sq.MaxStatusTarefaId
+                        where !t.DataCancelamento.HasValue
+                           && !sb.DataCancelamento.HasValue
+                           && sb.SprintId == SprintId
+                           && DbFunctions.TruncateTime(st.DataInclusao) <= DataBase
+                        select new
+                        {
+                            TarefaId = t.Id,
+                            ClassificacaoStatus = s.Classificacao,
+                            SprintBacklogId = sb.Id,
+                            StoryPointBacklog = pb.StoryPoint,
+                            DataStatusTarefa = st.DataInclusao
+                        };
+
+            double points = 0;
+            foreach (var row in query)
+            {
+                if (row.ClassificacaoStatus == Classificacao.Done && row.DataStatusTarefa.Date == DataBase)
+                {
+                    double totalSprintBacklog = query.Count(x => x.SprintBacklogId == row.SprintBacklogId);
+                    double media = ((double)row.StoryPointBacklog / totalSprintBacklog);
 
                     points += media;
                 }
