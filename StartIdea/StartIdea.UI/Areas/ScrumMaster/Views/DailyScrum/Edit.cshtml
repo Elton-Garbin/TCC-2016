@@ -4,59 +4,67 @@
     ViewBag.Title = "Editar";
 }
 
-<div class="page-header">
-    <h1>Cadastro da Reunião Diária</h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Cadastro da Reunião Diária</h1>
+        </div>
+    </div>
 </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+<div class="row">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
-    <div class="row">
-        <div class="col-xs-12 form-group">
-            @Html.LabelFor(model => model.Local)
-            @Html.EditorFor(model => model.Local, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Local, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-6 form-group">
-            @Html.LabelFor(model => model.DataInicial)
-            <div class="input-group date datetimepicker">
-                @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @Html.LabelFor(model => model.Local)
+                    @Html.EditorFor(model => model.Local, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Local, "", new { @class = "text-danger" })
+                </div>
             </div>
 
-            @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
-        </div>
-        <div class="col-xs-6 form-group">
-            @Html.LabelFor(model => model.DataFinal)
-            @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.DataInicial)
+                    <div class="input-group date datetimepicker">
+                        @Html.EditorFor(model => model.DataInicial, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
 
-    <div class="row">
-        <div class="col-xs-12 form-group">
-            @Html.LabelFor(model => model.Ata)
-            @Html.EditorFor(model => model.Ata, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Ata, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.DataFinal)
+                    @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-2 form-group">
-            @Html.ActionLink("Voltar", "Index", "DailyScrum", new { @class = "btn btn-default btn-block" })
-        </div>
-        <div class="col-xs-12 col-sm-offset-6 col-sm-2 form-group">
-            <button type="reset" class="btn btn-default btn-block">Cancelar</button>
-        </div>
-        <div class="col-xs-12 col-sm-2 form-group">
-            <button type="submit" class="btn btn-primary btn-block">Editar</button>
-        </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @Html.LabelFor(model => model.Ata)
+                    @Html.EditorFor(model => model.Ata, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ata, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 form-group">
+                    @Html.ActionLink("Voltar", "Index", "DailyScrum", new { @class = "btn btn-default btn-block" })
+                </div>
+                <div class="col-xs-12 col-sm-offset-6 col-sm-2 form-group">
+                    <button type="reset" class="btn btn-default btn-block">Cancelar</button>
+                </div>
+                <div class="col-xs-12 col-sm-2 form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Editar</button>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>

@@ -5,79 +5,85 @@
     ViewBag.Title = "Index";
 }
 
-<div class="page-header">
-    <h1>Reunião Diária <small>Cadastro</small></h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Reuniões Diárias da Sprint</h1>
+        </div>
+    </div>
 </div>
 
-<div class="container-fluid">
-    @if (Model.SprintId == 0)
-    {
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="alert alert-info" role="alert">
-                    <p>Não há sprint em andamento.</p>
+<div class="row">
+    <div class="container-fluid">
+        @if (Model.SprintId == 0)
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-info" role="alert">
+                        <p>Não há sprint em andamento.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="table-responsive">
-                    <table class="table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th class="col-sm-2 col-md-1 text-center">Id</th>
-                                <th>Local</th>
-                                <th class="col-sm-2 text-center">Data Inicial</th>
-                                <th class="col-sm-2 text-center">Data Final</th>
-                                <th class="col-sm-1" colspan="2">
-                                    <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.ReuniaoList)
-                            {
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed">
+                            <thead>
                                 <tr>
-                                    <td class="text-center">
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Local)
-                                    </td>
-                                    <td class="text-center">
-                                        @Html.DisplayFor(modelItem => item.DataInicial)
-                                    </td>
-                                    <td class="text-center">
-                                        @Html.DisplayFor(modelItem => item.DataFinal)
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">
-                                            <i class="glyphicon glyphicon-edit"></i>
+                                    <th class="col-sm-2 col-md-1 text-center">Id</th>
+                                    <th>Local</th>
+                                    <th class="col-sm-2 text-center">Data Inicial</th>
+                                    <th class="col-sm-2 text-center">Data Final</th>
+                                    <th class="col-sm-1" colspan="2">
+                                        <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
+                                            <i class="glyphicon glyphicon-plus"></i>
                                         </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-danger btn-xs btn-block" href="@Url.Action("Delete", new { id = item.Id })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ReuniaoList)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Local)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.DataInicial)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.DataFinal)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger btn-xs btn-block" href="@Url.Action("Delete", new { id = item.Id })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        @Html.PagedListPager(Model.ReuniaoList, PaginaGrid => Url.Action("Index", new { PaginaGrid }))
                                     </td>
                                 </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="6">
-                                    @Html.PagedListPager(Model.ReuniaoList, PaginaGrid => Url.Action("Index", new { PaginaGrid }))
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>

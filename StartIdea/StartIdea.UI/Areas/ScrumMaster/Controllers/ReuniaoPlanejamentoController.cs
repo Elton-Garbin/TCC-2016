@@ -21,8 +21,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         public ActionResult Index()
         {
             int SprintAtualId = GetSprintId();
-            Reuniao reuniao = _dbContext.Reunioes.FirstOrDefault(r => r.TipoReuniao == TipoReuniao.Planejamento
-                                                                   && r.SprintId == SprintAtualId) ?? new Reuniao();
+            var reuniao = _dbContext.Reunioes.FirstOrDefault(r => r.TipoReuniao == TipoReuniao.Planejamento
+                                                               && r.SprintId == SprintAtualId) ?? new Reuniao();
 
             return View(new ReuniaoVM()
             {
