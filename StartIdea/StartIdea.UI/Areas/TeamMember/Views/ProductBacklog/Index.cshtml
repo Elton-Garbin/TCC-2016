@@ -27,13 +27,17 @@
 
 @Html.Partial("_Edit", Model)
 
-<div class="page-header">
-    <h1>Backlog do Produto <small>Avaliação</small></h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Backlogs do Produto <small>Avaliação</small></h1>
+        </div>
+    </div>
 </div>
 
-@using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
-{
-    <div class="row">
+<div class="row">
+    @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
+    {
         <div class="col-xs-12">
             <label>Descrição</label>
             <div class="input-group">
@@ -43,8 +47,8 @@
                 </span>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 <br>
 <div class="row">
     <div class="col-xs-12">
@@ -55,7 +59,7 @@
                         <th class="col-sm-2 col-md-1 text-center">
                             @Html.DisplayNameFor(model => model.Id)
                         </th>
-                        <th class="col-sm-4 col-md-5">
+                        <th>
                             @Html.DisplayNameFor(model => model.UserStory)
                         </th>
                         <th class="col-sm-2 text-center">
