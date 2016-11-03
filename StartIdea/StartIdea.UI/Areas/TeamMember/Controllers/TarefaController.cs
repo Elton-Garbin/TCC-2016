@@ -1,9 +1,11 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
+using StartIdea.Model.ScrumEventos;
 using StartIdea.UI.Areas.TeamMember.Models;
 using StartIdea.UI.Areas.TeamMember.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -21,63 +23,12 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         }
 
         public ActionResult Index(string FiltroDescricao,
-                                  string DisplayEdit,
-                                  string DisplayCreate,
                                   int? PaginaGrid,
-                                  int? IdEdit,
                                   int? IdCancelamento)
         {
             var tarefaVM = new TarefaVM();
             tarefaVM.FiltroDescricao = FiltroDescricao;
             tarefaVM.PaginaGrid = (PaginaGrid ?? 1);
-            tarefaVM.DisplayCreate = DisplayCreate;
-            tarefaVM.DisplayEdit = DisplayEdit;
-
-            var sprintsBacklogs = from sb in _dbContext.SprintBacklogs.Include("ProductBacklog")
-                                  where !sb.DataCancelamento.HasValue
-                                  && (from sprint in _dbContext.Sprints
-                                      where !sprint.DataCancelamento.HasValue
-                                      && sprint.DataInicial <= DateTime.Now
-                                      && sprint.DataFinal >= DateTime.Now
-                                      select sprint.Id).Contains(sb.SprintId)
-                                  orderby sb.ProductBacklog.Prioridade
-                                  select sb;
-
-            var tarefas = from t in _dbContext.Tarefas
-                          join sb in _dbContext.SprintBacklogs
-                          on t.SprintBacklogId equals sb.Id
-                          join pb in _dbContext.ProductBacklogs
-                          on sb.ProductBacklogId equals pb.Id
-                          where (from sprint in _dbContext.Sprints
-                                 where !sprint.DataCancelamento.HasValue
-                                 && sprint.DataInicial <= DateTime.Now
-                                 && sprint.DataFinal >= DateTime.Now
-                                 select sprint.Id).Contains(sb.SprintId)
-                          && (from st in _dbContext.StatusTarefas
-                              join status in _dbContext.AllStatus
-                              on st.StatusId equals status.Id
-                              where st.TarefaId == t.Id
-                              orderby st.DataInclusao descending
-                              select status.Classificacao).Take(1).Contains(Classificacao.Available)
-                          && !sb.DataCancelamento.HasValue
-                          && !t.DataCancelamento.HasValue
-                          orderby pb.Prioridade
-                          select t;
-
-            if (!string.IsNullOrEmpty(FiltroDescricao))
-                tarefas = tarefas.Where(t => t.Descricao.Contains(FiltroDescricao));
-
-            if ((IdEdit ?? 0) > 0)
-            {
-                Tarefa tarefa = _dbContext.Tarefas.Find(IdEdit);
-                if (tarefa == null)
-                    return HttpNotFound();
-
-                tarefaVM.TarefaIdEdit = tarefa.Id;
-                tarefaVM.Descricao = tarefa.Descricao;
-                tarefaVM.SprintBacklogId = tarefa.SprintBacklogId;
-                tarefaVM.DisplayEdit = "Show";
-            }
 
             if ((IdCancelamento ?? 0) > 0)
             {
@@ -89,15 +40,23 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 tarefaVM.DisplayMotivoCancelamento = "Show";
             }
 
-            tarefaVM.TarefaList = tarefas.ToPagedList(tarefaVM.PaginaGrid, 5);
-            tarefaVM.sprintBacklogs = sprintsBacklogs.ToList();
+            tarefaVM.TarefaList = GetGridDataSource(tarefaVM);
+            tarefaVM.SprintBacklogs = GetSprintsBacklog();
 
             return View(tarefaVM);
         }
 
+        public ActionResult Create()
+        {
+            return View(new TarefaVM()
+            {
+                SprintBacklogs = GetSprintsBacklog()
+            });
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TarefaVM tarefaVM)
+        public ActionResult Create([Bind(Exclude = "TarefaList,PaginaGrid,SprintBacklogs,Id")] TarefaVM tarefaVM)
         {
             if (ModelState.IsValid)
             {
@@ -121,30 +80,48 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Index", tarefaVM);
+            tarefaVM.SprintBacklogs = GetSprintsBacklog();
+            return View(tarefaVM);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Tarefa tarefa = _dbContext.Tarefas.Find(id);
+            if (tarefa == null)
+                return HttpNotFound();
+
+            var tarefaVM = new TarefaVM()
+            {
+                Id = tarefa.Id,
+                Descricao = tarefa.Descricao,
+                SprintBacklogId = tarefa.SprintBacklogId,
+                SprintBacklogs = GetSprintsBacklog()
+            };
+
+            return View(tarefaVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(TarefaVM tarefaVM)
+        public ActionResult Edit([Bind(Exclude = "TarefaList,PaginaGrid,SprintBacklogs")] TarefaVM tarefaVM)
         {
             if (ModelState.IsValid)
             {
-                Tarefa tarefa = _dbContext.Tarefas.Find(tarefaVM.TarefaIdEdit);
+                Tarefa tarefa = _dbContext.Tarefas.Find(tarefaVM.Id);
                 tarefa.Descricao = tarefaVM.Descricao;
                 tarefa.SprintBacklogId = tarefaVM.SprintBacklogId;
 
                 _dbContext.Entry(tarefa).State = EntityState.Modified;
                 _dbContext.SaveChanges();
 
-                return RedirectToAction("Index", new
-                {
-                    FiltroDescricao = tarefaVM.FiltroDescricao,
-                    PaginaGrid = tarefaVM.PaginaGrid
-                });
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", tarefaVM);
+            tarefaVM.SprintBacklogs = GetSprintsBacklog();
+            return View(tarefaVM);
         }
 
         public ActionResult Cancel(TarefaVM tarefaVM)
@@ -163,6 +140,56 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        private IPagedList<Tarefa> GetGridDataSource(TarefaVM tarefaVM)
+        {
+            int SprintAtualId = GetSprintId();
+
+            IEnumerable<Tarefa> listTarefas = from t in _dbContext.Tarefas
+                                              join sb in _dbContext.SprintBacklogs
+                                              on t.SprintBacklogId equals sb.Id
+                                              join pb in _dbContext.ProductBacklogs
+                                              on sb.ProductBacklogId equals pb.Id
+                                              where sb.SprintId == SprintAtualId
+                                                 && (from st in _dbContext.StatusTarefas
+                                                     join status in _dbContext.AllStatus
+                                                     on st.StatusId equals status.Id
+                                                     where st.TarefaId == t.Id
+                                                     orderby st.DataInclusao descending
+                                                     select status.Classificacao).Take(1).Contains(Classificacao.Available)
+                                                 && !sb.DataCancelamento.HasValue
+                                                 && !t.DataCancelamento.HasValue
+                                              orderby pb.Prioridade
+                                              select t;
+
+            if (!string.IsNullOrEmpty(tarefaVM.FiltroDescricao))
+                listTarefas = listTarefas.Where(t => t.Descricao.ToUpper().Contains(tarefaVM.FiltroDescricao.ToUpper()));
+
+            return listTarefas.ToList().ToPagedList(tarefaVM.PaginaGrid, 7);
+        }
+
+        private IEnumerable<SprintBacklog> GetSprintsBacklog()
+        {
+            int SprintAtualId = GetSprintId();
+
+            var query = from sb in _dbContext.SprintBacklogs.Include("ProductBacklog")
+                        where !sb.DataCancelamento.HasValue
+                           && sb.SprintId == SprintAtualId
+                        orderby sb.ProductBacklog.Prioridade
+                        select sb;
+
+            return query;
+        }
+
+        private int GetSprintId()
+        {
+            var sprint = _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                              && s.TimeId == CurrentUser.TimeId
+                                                              && s.DataInicial <= DateTime.Now
+                                                              && s.DataFinal >= DateTime.Now) ?? new Sprint();
+
+            return sprint.Id;
         }
     }
 }

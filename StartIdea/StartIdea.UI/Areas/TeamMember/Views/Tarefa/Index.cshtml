@@ -1,35 +1,17 @@
 ﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.TarefaVM
 @using PagedList.Mvc;
 
+@{
+    ViewBag.Title = "Index";
+}
+
 @section CustomScript{
     <script type="text/javascript">
-        
-        var displayEdit = "@Model.DisplayEdit";
-        var displayCreate = "@Model.DisplayCreate";
         var displayMotivoCancelamento = "@Model.DisplayMotivoCancelamento";
 
-        if (displayEdit) {
-            $("#popup-edit").modal('show');
-        }
-        if (displayCreate) {
-            $("#popup-create").modal('show');
-        }
         if (displayMotivoCancelamento) {
             $("#popup-cancel").modal('show');
         }
-
-        $(".create").click(function () {
-            var url = "@Html.Raw(Url.Action("Index", new { FiltroDescricao = Model.FiltroDescricao, PaginaGrid = Model.PaginaGrid, DisplayCreate = "show" }))";
-
-            window.location.href = url;
-        });
-
-        $(".edit").click(function () {
-            var Id = $(this).attr("data-id");
-            var url = "@Html.Raw(Url.Action("Index", new { FiltroDescricao = Model.FiltroDescricao, PaginaGrid = Model.PaginaGrid, IdEdit = 0 }))";
-
-            window.location.href = url.replace("IdEdit=0", "IdEdit=" + Id);
-        });
 
         $(".cancel").click(function () {
             var Id = $(this).attr("data-id");
@@ -38,24 +20,26 @@
             window.location.href = url.replace("IdCancelamento=0", "IdCancelamento=" + Id);
         });
 
-        $("#popup-create, #popup-edit, #popup-cancel").on("hide.bs.modal", function () {
+        $("#popup-cancel").on("hide.bs.modal", function () {
             window.location.href = "@Html.Raw(Url.Action("Index", new { FiltroDescricao = Model.FiltroDescricao, PaginaGrid = Model.PaginaGrid }))"
         });
 
     </script>
 }
 
-@Html.Partial("_Create", Model)
-@Html.Partial("_Edit", Model)
-@Html.Partial("_Cancel", Model);
+@Html.Partial("_Cancel", Model)
 
-<div class="page-header">
-    <h1>Tarefas <small>Cadastro</small></h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Tarefas</h1>
+        </div>
+    </div>
 </div>
 
-@using (Html.BeginForm("Index", "Tarefa", FormMethod.Get))
-{
-    <div class="row">
+<div class="row">
+    @using (Html.BeginForm("Index", "Tarefa", FormMethod.Get))
+    {
         <div class="col-md-10">
             <label>Descrição</label>
             @Html.EditorFor(model => model.FiltroDescricao, new { htmlAttributes = new { @class = "form-control" } })
@@ -64,8 +48,8 @@
             <label>&nbsp;</label>
             <button class="btn btn-default btn-block" type="submit">Buscar</button>
         </div>
-    </div>
-}
+    }
+</div>
 <br>
 <div class="row">
     <div class="col-xs-12">
@@ -74,12 +58,12 @@
                 <thead>
                     <tr>
                         <th class="col-sm-2 col-md-1 text-center">Id</th>
-                        <th class="col-sm-4 col-md-5">Descrição</th>
+                        <th>Descrição</th>
                         <th class="col-sm-2 text-center">Data Inclusão</th>
                         <th class="col-sm-1" colspan="2">
-                            <button class="btn btn-success btn-xs btn-block create">
+                            <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
                                 <i class="glyphicon glyphicon-plus"></i>
-                            </button>
+                            </a>
                         </th>
                     </tr>
                 </thead>
@@ -105,9 +89,9 @@
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-xs btn-block edit" data-id="@item.Id">
+                                <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">
                                     <i class="glyphicon glyphicon-edit"></i>
-                                </button>
+                                </a>
                             </td>
                             <td>
                                 <button class="btn btn-danger btn-xs btn-block cancel" data-id="@item.Id">

@@ -1,0 +1,51 @@
+﻿@model StartIdea.UI.Areas.TeamMember.ViewModels.TarefaVM
+
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Cadastro da Tarefa</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @Html.LabelFor(model => model.Descricao)
+                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @Html.LabelFor(model => model.SprintBacklogs)
+                    @Html.DropDownListFor(model => model.SprintBacklogId, new SelectList(Model.SprintBacklogs, "Id", "ProductBacklog.UserStory"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SprintBacklogId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 form-group">
+                    @Html.ActionLink("Voltar", "Index", "Tarefa", new { @class = "btn btn-default btn-block" })
+                </div>
+                <div class="col-xs-12 col-sm-offset-6 col-sm-2 form-group">
+                    <button type="reset" class="btn btn-default btn-block">Cancelar</button>
+                </div>
+                <div class="col-xs-12 col-sm-2 form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

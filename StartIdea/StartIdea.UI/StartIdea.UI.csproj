@@ -402,7 +402,7 @@
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\Index.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\_MotivoCancelamento.cshtml" />
     <Content Include="Areas\TeamMember\Views\Tarefa\Index.cshtml" />
-    <Content Include="Areas\TeamMember\Views\Tarefa\_Create.cshtml" />
+    <Content Include="Areas\TeamMember\Views\Tarefa\Create.cshtml" />
     <Content Include="Scripts\ai.1.0.4-build00190.js" />
     <Content Include="Scripts\ai.1.0.4-build00190.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -420,7 +420,7 @@
     <Content Include="Scripts\globalize\plural.js" />
     <Content Include="Scripts\globalize\relative-time.js" />
     <Content Include="Scripts\globalize\unit.js" />
-    <Content Include="Areas\TeamMember\Views\Tarefa\_Edit.cshtml" />
+    <Content Include="Areas\TeamMember\Views\Tarefa\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
