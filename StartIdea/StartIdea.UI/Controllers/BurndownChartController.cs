@@ -5,9 +5,9 @@ using StartIdea.UI.Models.Facade;
 using StartIdea.UI.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace StartIdea.UI.Controllers
 {
@@ -28,7 +28,7 @@ namespace StartIdea.UI.Controllers
 
             if (vm.SprintAtual != null)
             {
-                vm.Labels = GetLabels(vm.SprintAtual.DataInicial, vm.SprintAtual.DataFinal);
+                vm.Labels = GetLabels(vm.SprintAtual);
                 vm.Datasets = GetDatasets(vm.SprintAtual);
             }
 
@@ -65,14 +65,13 @@ namespace StartIdea.UI.Controllers
         {
             var velocityData = new List<double>();
 
-            int qtDias = (sprint.DataFinal - sprint.DataInicial).Days;
-            for (int i = 0; i < qtDias; i++)
+            foreach (var dailyScrum in sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria))
             {
-                var dataBase = sprint.DataInicial.Date.AddDays(i);
+                var dataBase = dailyScrum.DataInicial.Date;
                 if (dataBase == DateTime.Now.Date)
                     break;
 
-                double points = GetPointsPerDate(sprint.Id, dataBase);
+                double points = GetPoints(sprint.Id, dataBase, GetPointsMode.SomenteDateBase);
                 velocityData.Add(points);
             }
 
@@ -83,7 +82,7 @@ namespace StartIdea.UI.Controllers
         {
             var planData = new List<double>();
 
-            int qtDias = (sprint.DataFinal - sprint.DataInicial).Days;
+            int qtDias = sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria).Count();
             double points = TotalPoints;
             double media = points / qtDias;
 
@@ -100,14 +99,13 @@ namespace StartIdea.UI.Controllers
         {
             var actualData = new List<double>();
 
-            int qtDias = (sprint.DataFinal - sprint.DataInicial).Days;
-            for (int i = 0; i < qtDias; i++)
+            foreach (var dailyScrum in sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria))
             {
-                var dataBase = sprint.DataInicial.Date.AddDays(i);
+                var dataBase = dailyScrum.DataInicial.Date;
                 if (dataBase == DateTime.Now.Date)
                     break;
 
-                double points = TotalPoints - GetPoints(sprint.Id, dataBase);
+                double points = TotalPoints - GetPoints(sprint.Id, dataBase, GetPointsMode.AteDataBase);
                 actualData.Add(points);
             }
 
@@ -133,55 +131,12 @@ namespace StartIdea.UI.Controllers
             return Convert.ToInt32(points);
         }
 
-        private double GetPoints(int SprintId, DateTime DataBase)
+        private enum GetPointsMode
         {
-            var subQuery = from st in _dbContext.StatusTarefas
-                           group st by st.TarefaId into grouping
-                           select new
-                           {
-                               TarefaId = grouping.Key,
-                               MaxStatusTarefaId = grouping.Max(x => x.Id)
-                           };
-
-            var query = from t in _dbContext.Tarefas
-                        join st in _dbContext.StatusTarefas
-                        on t.Id equals st.TarefaId
-                        join s in _dbContext.AllStatus
-                        on st.StatusId equals s.Id
-                        join sb in _dbContext.SprintBacklogs
-                        on t.SprintBacklogId equals sb.Id
-                        join pb in _dbContext.ProductBacklogs
-                        on sb.ProductBacklogId equals pb.Id
-                        join sq in subQuery
-                        on st.Id equals sq.MaxStatusTarefaId
-                        where !t.DataCancelamento.HasValue
-                           && !sb.DataCancelamento.HasValue
-                           && sb.SprintId == SprintId
-                           && DbFunctions.TruncateTime(st.DataInclusao) <= DataBase
-                        select new
-                        {
-                            TarefaId = t.Id,
-                            ClassificacaoStatus = s.Classificacao,
-                            SprintBacklogId = sb.Id,
-                            StoryPointBacklog = pb.StoryPoint
-                        };
-
-            double points = 0;
-            foreach (var row in query)
-            {
-                if (row.ClassificacaoStatus == Classificacao.Done)
-                {
-                    int totalSprintBacklog = query.Count(x => x.SprintBacklogId == row.SprintBacklogId);
-                    double media = ((double)row.StoryPointBacklog / totalSprintBacklog);
-
-                    points += media;
-                }
-            }
-
-            return points;
+            AteDataBase,
+            SomenteDateBase
         }
-
-        private double GetPointsPerDate(int SprintId, DateTime DataBase)
+        private double GetPoints(int SprintId, DateTime DataBase, GetPointsMode Mode)
         {
             var subQuery = from st in _dbContext.StatusTarefas
                            group st by st.TarefaId into grouping
@@ -205,7 +160,6 @@ namespace StartIdea.UI.Controllers
                         where !t.DataCancelamento.HasValue
                            && !sb.DataCancelamento.HasValue
                            && sb.SprintId == SprintId
-                           && DbFunctions.TruncateTime(st.DataInclusao) <= DataBase
                         select new
                         {
                             TarefaId = t.Id,
@@ -218,9 +172,11 @@ namespace StartIdea.UI.Controllers
             double points = 0;
             foreach (var row in query)
             {
-                if (row.ClassificacaoStatus == Classificacao.Done && row.DataStatusTarefa.Date == DataBase)
+                if ((row.ClassificacaoStatus == Classificacao.Done) &&
+                    ((Mode == GetPointsMode.AteDataBase && row.DataStatusTarefa.Date <= DataBase) ||
+                     (Mode == GetPointsMode.SomenteDateBase && row.DataStatusTarefa.Date == DataBase)))
                 {
-                    double totalSprintBacklog = query.Count(x => x.SprintBacklogId == row.SprintBacklogId);
+                    int totalSprintBacklog = query.Count(x => x.SprintBacklogId == row.SprintBacklogId);
                     double media = ((double)row.StoryPointBacklog / totalSprintBacklog);
 
                     points += media;
@@ -230,11 +186,11 @@ namespace StartIdea.UI.Controllers
             return points;
         }
 
-        private string[] GetLabels(DateTime DataInicial, DateTime DataFinal)
+        private string[] GetLabels(Sprint sprint)
         {
             var dias = new List<string>();
 
-            int total = (DataFinal - DataInicial).Days;
+            int total = sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria).Count();
             for (int i = 1; i <= total; i++)
                 dias.Add(i.ToString());
 
@@ -243,7 +199,8 @@ namespace StartIdea.UI.Controllers
 
         private Sprint GetSprintAtual()
         {
-            return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+            return _dbContext.Sprints.Include(s => s.Reunioes)
+                                     .FirstOrDefault(s => !s.DataCancelamento.HasValue
                                                         && s.TimeId == 1
                                                         && s.DataInicial <= DateTime.Now
                                                         && s.DataFinal >= DateTime.Now) ?? new Sprint();
