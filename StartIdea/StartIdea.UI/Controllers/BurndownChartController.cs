@@ -26,7 +26,7 @@ namespace StartIdea.UI.Controllers
             var vm = new BurndownChartVM();
             vm.SprintAtual = GetSprintAtual();
 
-            if (vm.SprintAtual != null)
+            if (vm.SprintAtual.Id > 0)
             {
                 vm.Labels = GetLabels(vm.SprintAtual);
                 vm.Datasets = GetDatasets(vm.SprintAtual);

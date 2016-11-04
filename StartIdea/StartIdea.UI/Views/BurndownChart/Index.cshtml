@@ -5,6 +5,10 @@
     ViewBag.Title = "Index";
 }
 
+@section scripts {
+    <script src="~/scripts/Chart.min.js"></script>
+}
+
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
@@ -13,83 +17,91 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-12 col-sm-9 col-md-10">
-        <canvas id="burndownChart"></canvas>
-    </div>
-    <div class="col-xs-12 col-sm-3 col-md-2">
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th class="text-center">Dias</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.SprintAtual.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria).Select((model, index) => new { index, model }))
-                    {
-                        <tr>
-                            <td class="text-center">Dia @(item.index + 1) - @string.Format("{0:d}", item.model.DataInicial)</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+@if (Model.SprintAtual.Id == 0)
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p>Não há sprint em andamento.</p>
+            </div>
         </div>
     </div>
-</div>
-
-
-@section scripts {
-    <script src="~/scripts/Chart.min.js"></script>
 }
-
-@section CustomScript {
-    <script>
-        var Labels = [];
-        var Datasets = @Html.Raw(Json.Encode(@Model.Datasets));
-
-        @foreach (var dia in Model.Labels)
-        {
-            @:Labels.push("@dia");
+else
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-10">
+            <canvas id="burndownChart"></canvas>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Dias</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SprintAtual.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria).Select((model, index) => new { index, model }))
+                        {
+                            <tr>
+                                <td class="text-center">Dia @(item.index + 1) - @string.Format("{0:d}", item.model.DataInicial)</td>
+                            </tr>
                         }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-        var config = {
-            type: 'line',
-            data: {
-                labels: Labels,
-                datasets: Datasets
-            },
-            options: {
-                responsive: true,
-                hover: {
-                    mode: 'label'
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Dias da Sprint'
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Story Points'
-                        }
-                    }]
-                },
-                title: {
-                    display: false,
-                    text: 'Gráfico de Burndown'
-                }
+    @section CustomScript {
+        <script type="text/javascript">
+            var Labels = [];
+            var Datasets = @Html.Raw(Json.Encode(@Model.Datasets));
+
+            @foreach (var dia in Model.Labels)
+            {
+                @:Labels.push("@dia");
             }
-        };
 
-        window.onload = function () {
-            var ctx = document.getElementById("burndownChart").getContext("2d");
-            window.myLine = new Chart(ctx, config);
-        };
-    </script>
+            var config = {
+                type: 'line',
+                data: {
+                    labels: Labels,
+                    datasets: Datasets
+                },
+                options: {
+                    responsive: true,
+                    hover: {
+                        mode: 'label'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dias da Sprint'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Story Points'
+                            }
+                        }]
+                    },
+                    title: {
+                        display: false,
+                        text: 'Gráfico de Burndown'
+                    }
+                }
+            };
+
+            window.onload = function () {
+                var ctx = document.getElementById("burndownChart").getContext("2d");
+                window.myLine = new Chart(ctx, config);
+            };
+        </script>
+    }
 }
