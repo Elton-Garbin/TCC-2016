@@ -145,14 +145,11 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
         #region Methods
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (SprintAtual != null)
+            if (SprintAtual.Id > 0 && DataInicial <= SprintAtual.DataFinal)
             {
-                if (DataInicial <= SprintAtual.DataFinal)
-                {
-                    yield return
-                        new ValidationResult(errorMessage: "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.",
-                                             memberNames: new[] { "DataInicial" });
-                }
+                yield return
+                    new ValidationResult(errorMessage: "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.",
+                                         memberNames: new[] { "DataInicial" });
             }
 
             if (DataFinal <= DataInicial)
@@ -169,6 +166,13 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
                                          memberNames: new[] { "DataFinalRP" });
             }
 
+            if (DataInicialRP < DataInicial)
+            {
+                yield return
+                    new ValidationResult(errorMessage: "[Reunião Planejamento] Data Inicial deve ser maior ou igual a data inicial da sprint.",
+                                         memberNames: new[] { "DataInicialRP" });
+            }
+
             if (DataFinalRD <= DataInicialRD)
             {
                 yield return
@@ -182,6 +186,13 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
                     new ValidationResult(errorMessage: "[Reunião Diária] Campo Dias de Trabalho obrigatório.");
             }
 
+            if (DataInicialRD <= DataFinalRP)
+            {
+                yield return
+                    new ValidationResult(errorMessage: "[Reunião Diária] Data Inicial deve ser maior do que a data final da reunião de planejamento.",
+                                         memberNames: new[] { "DataInicialRD" });
+            }
+
             if (DataFinalRV <= DataInicialRV)
             {
                 yield return
@@ -189,11 +200,28 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
                                          memberNames: new[] { "DataFinalRV" });
             }
 
+            var time = HorarioInicialRD.Split(':');
+            var DataFinalRD_Aux = DataFinalRD.Date.AddHours(Convert.ToInt16(time[0]))
+                                                  .AddMinutes(Convert.ToInt16(time[1]) + 15);
+            if (DataInicialRV <= DataFinalRD_Aux)
+            {
+                yield return
+                    new ValidationResult(errorMessage: "[Reunião Revisão] Data Inicial deve ser maior do que a data final da reunião diária.",
+                                         memberNames: new[] { "DataInicialRV" });
+            }
+
             if (DataFinalRT <= DataInicialRT)
             {
                 yield return
                     new ValidationResult(errorMessage: "[Reunião Retrospectiva] Data Final deve ser maior do que a Data Inicial.",
                                          memberNames: new[] { "DataFinalRT" });
+            }
+
+            if (DataInicialRT <= DataFinalRV)
+            {
+                yield return
+                    new ValidationResult(errorMessage: "[Reunião Retrospectiva] Data Inicial deve ser maior do que a data final da reunião de revisão.",
+                                         memberNames: new[] { "DataInicialRT" });
             }
         }
         #endregion
