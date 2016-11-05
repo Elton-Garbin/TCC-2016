@@ -23,6 +23,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         public ActionResult Index()
         {
             var statusTarefaVM = new StatusTarefaVM();
+            statusTarefaVM.HasDailyScrum = CheckDailyScrum();
             statusTarefaVM.SprintId = GetSprintId();
             statusTarefaVM.StatusProcesso = _dbContext.AllStatus;
             statusTarefaVM.Tarefas = GetKanbanDataSource();
@@ -56,6 +57,15 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             _dbContext.SaveChanges();
 
             return Json(new { sucesso = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool CheckDailyScrum()
+        {
+            int SprintAtualId = GetSprintId();
+
+            return _dbContext.Reunioes.Any(r => r.SprintId == SprintAtualId
+                                             && r.TipoReuniao == TipoReuniao.Diaria
+                                             && DbFunctions.TruncateTime(r.DataInicial) == DateTime.Today);
         }
 
         private IEnumerable<Tarefa> GetKanbanDataSource()
