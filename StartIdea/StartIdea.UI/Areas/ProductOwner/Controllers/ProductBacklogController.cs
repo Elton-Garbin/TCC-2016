@@ -140,25 +140,25 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
 
         private IEnumerable<ProductBacklog> GetGridDataSource(ProductBacklogVM productBacklogVM)
         {
-            IEnumerable<ProductBacklog> listBacklogs = from pb in _dbContext.ProductBacklogs
-                                                       where !(from sb in _dbContext.SprintBacklogs
-                                                               select sb.ProductBacklogId)
-                                                               .Contains(pb.Id)
-                                                       orderby pb.Prioridade
-                                                       select pb;
+            IEnumerable<ProductBacklog> listBacklog = from pb in _dbContext.ProductBacklogs
+                                                      where !(from sb in _dbContext.SprintBacklogs
+                                                              select sb.ProductBacklogId)
+                                                              .Contains(pb.Id)
+                                                      orderby pb.Prioridade
+                                                      select pb;
 
             if (!string.IsNullOrEmpty(productBacklogVM.FiltroUserStory))
             {
-                listBacklogs = listBacklogs.Where(productBacklog => productBacklog.UserStory
+                listBacklog = listBacklog.Where(productBacklog => productBacklog.UserStory
                                                                                   .ToUpper()
                                                                                   .Contains(productBacklogVM.FiltroUserStory.ToUpper()));
             }
             if (!string.IsNullOrEmpty(productBacklogVM.FiltroDataInicial))
-                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date >= Convert.ToDateTime(productBacklogVM.FiltroDataInicial).Date);
+                listBacklog = listBacklog.Where(x => x.DataInclusao.Date >= Convert.ToDateTime(productBacklogVM.FiltroDataInicial).Date);
             if (!string.IsNullOrEmpty(productBacklogVM.FiltroDataFinal))
-                listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= Convert.ToDateTime(productBacklogVM.FiltroDataFinal).Date);
+                listBacklog = listBacklog.Where(x => x.DataInclusao.Date <= Convert.ToDateTime(productBacklogVM.FiltroDataFinal).Date);
 
-            return listBacklogs;
+            return listBacklog;
         }
 
         private void ReordenarPrioridades(int ProductBacklogId, short Prioridade)

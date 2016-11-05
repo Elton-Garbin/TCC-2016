@@ -6,8 +6,8 @@
             @using (Html.BeginForm("Remover", "SprintBacklog"))
             {
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(model => model.paginaProductBacklog)
-                @Html.HiddenFor(model => model.paginaSprintBacklog)
+                @Html.HiddenFor(model => model.PaginaGridProductBacklog)
+                @Html.HiddenFor(model => model.PaginaGridSprintBacklog)
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

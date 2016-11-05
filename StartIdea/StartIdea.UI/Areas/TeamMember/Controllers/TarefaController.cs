@@ -29,6 +29,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             var tarefaVM = new TarefaVM();
             tarefaVM.FiltroDescricao = FiltroDescricao;
             tarefaVM.PaginaGrid = (PaginaGrid ?? 1);
+            tarefaVM.SprintId = GetSprintId();
 
             if ((IdCancelamento ?? 0) > 0)
             {
@@ -144,14 +145,12 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
 
         private IPagedList<Tarefa> GetGridDataSource(TarefaVM tarefaVM)
         {
-            int SprintAtualId = GetSprintId();
-
             IEnumerable<Tarefa> listTarefas = from t in _dbContext.Tarefas
                                               join sb in _dbContext.SprintBacklogs
                                               on t.SprintBacklogId equals sb.Id
                                               join pb in _dbContext.ProductBacklogs
                                               on sb.ProductBacklogId equals pb.Id
-                                              where sb.SprintId == SprintAtualId
+                                              where sb.SprintId == tarefaVM.SprintId
                                                  && (from st in _dbContext.StatusTarefas
                                                      join status in _dbContext.AllStatus
                                                      on st.StatusId equals status.Id
@@ -173,13 +172,11 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         {
             int SprintAtualId = GetSprintId();
 
-            var query = from sb in _dbContext.SprintBacklogs.Include("ProductBacklog")
+            return from sb in _dbContext.SprintBacklogs.Include("ProductBacklog")
                         where !sb.DataCancelamento.HasValue
                            && sb.SprintId == SprintAtualId
                         orderby sb.ProductBacklog.Prioridade
                         select sb;
-
-            return query;
         }
 
         private int GetSprintId()

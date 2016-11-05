@@ -35,28 +35,41 @@
     </div>
 </div>
 
-<div class="row">
-    @foreach (var status in Model.StatusProcesso)
-    {
-        <div class="col-md-3 col-sm-4 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">@status.Descricao</div>
-                <div class="panel-body panel-body-status-tarefa">
-                    <ul class="droptrue list-unstyled ul-tarefas" data-id="@status.Id">
-                        @foreach (var tarefa in Model.Tarefas)
-                        {
-                            if (tarefa.StatusTarefas.Count > 0 &&
-                                status.Classificacao == tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().Status.Classificacao)
-                            {
-                                <li class="ui-state-default bs-callout bs-callout-info" data-id="@tarefa.Id">
-                                    <p><a href="#">#@tarefa.Id</a></p>
-                                    @(tarefa.Descricao.Length > 150 ? tarefa.Descricao.Substring(0, 150) + "..." : tarefa.Descricao)
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
+@if (Model.SprintId == 0)
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-info" role="alert">
+                <p>Não há sprint em andamento.</p>
             </div>
         </div>
-    }
-</div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var status in Model.StatusProcesso)
+        {
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">@status.Descricao</div>
+                    <div class="panel-body panel-body-status-tarefa">
+                        <ul class="droptrue list-unstyled ul-tarefas" data-id="@status.Id">
+                            @foreach (var tarefa in Model.Tarefas)
+                            {
+                                if (tarefa.StatusTarefas.Count > 0 &&
+                                    status.Classificacao == tarefa.StatusTarefas.Where(st => st.TarefaId == tarefa.Id).OrderByDescending(st => st.DataInclusao).FirstOrDefault().Status.Classificacao)
+                                {
+                                    <li class="ui-state-default bs-callout bs-callout-info" data-id="@tarefa.Id">
+                                        <p><a href="#">#@tarefa.Id</a></p>
+                                        @(tarefa.Descricao.Length > 150 ? tarefa.Descricao.Substring(0, 150) + "..." : tarefa.Descricao)
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
