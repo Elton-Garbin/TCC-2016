@@ -1,8 +1,10 @@
 ﻿using StartIdea.DataAccess;
+using StartIdea.Model.ScrumArtefatos;
 using StartIdea.Model.ScrumEventos;
 using StartIdea.UI.Areas.ProductOwner.Models;
 using StartIdea.UI.Areas.ProductOwner.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -44,10 +46,58 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 _dbContext.Entry(sprint).State = EntityState.Modified;
                 _dbContext.SaveChanges();
 
+                CadastrarProductBacklog(sprint.Id);
+                CancelarSprintBacklog(sprint.Id);
+                CancelarTarefa(sprint.Id);
+
                 return RedirectToAction("Index");
             }
 
             return View("Index", sprintVM);
+        }
+
+        private void CancelarTarefa(int SprintId)
+        {
+            _dbContext.Tarefas.Include(t => t.SprintBacklog)
+                              .Where(t => !t.DataCancelamento.HasValue
+                                       && t.SprintBacklog.SprintId == SprintId).ToList().ForEach(t =>
+            {
+                t.DataCancelamento = DateTime.Now;
+                t.MotivoCancelamento = "Sprint cancelada.";
+            });
+            _dbContext.SaveChanges();
+        }
+
+        private void CancelarSprintBacklog(int SprintId)
+        {
+            _dbContext.SprintBacklogs.Where(s => s.SprintId == SprintId
+                                              && !s.DataCancelamento.HasValue).ToList().ForEach(s =>
+            {
+                s.DataCancelamento = DateTime.Now;
+                s.MotivoCancelamento = "Sprint cancelada.";
+            });
+            _dbContext.SaveChanges();
+        }
+
+        private void CadastrarProductBacklog(int SprintId)
+        {
+            IEnumerable<ProductBacklog> ProductBacklogList = (from pb in _dbContext.ProductBacklogs
+                                                              where (from sb in _dbContext.SprintBacklogs
+                                                                     where !sb.DataCancelamento.HasValue
+                                                                        && sb.SprintId == SprintId
+                                                                     select sb.ProductBacklogId).Contains(pb.Id)
+                                                              select new
+                                                              {
+                                                                  UserStory = pb.UserStory,
+                                                              }).AsEnumerable().Select(x => new ProductBacklog()
+                                                              {
+                                                                  UserStory = x.UserStory,
+                                                                  ProductOwnerId = CurrentUser.PerfilId,
+                                                                  Prioridade = 0
+                                                              });
+
+            _dbContext.ProductBacklogs.AddRange(ProductBacklogList);
+            _dbContext.SaveChanges();
         }
 
         public Sprint GetSprintAtual()
