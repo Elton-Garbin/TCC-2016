@@ -47,7 +47,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 productBacklogVM.DisplayEdit = "show";
             }
 
-            productBacklogVM.ProductBacklogList = GetGridDataSource(productBacklogVM);
+            productBacklogVM.ProductBacklogList = GetGridPagedDataSource(productBacklogVM);
 
             return View(productBacklogVM);
         }
@@ -96,7 +96,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 productBacklogVM.DisplayEdit = string.Empty;
             }
 
-            productBacklogVM.ProductBacklogList = GetGridDataSource(productBacklogVM);
+            productBacklogVM.ProductBacklogList = GetGridPagedDataSource(productBacklogVM);
 
             return View("Index", productBacklogVM);
         }
@@ -119,7 +119,26 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             return RedirectToAction("Index");
         }
 
-        private IPagedList<ProductBacklog> GetGridDataSource(ProductBacklogVM productBacklogVM)
+        public ActionResult Report(string FiltroUserStory,
+                                   DateTime? FiltroDataInicial,
+                                   DateTime? FiltroDataFinal)
+        {
+            var productBacklogVM = new ProductBacklogVM();
+            productBacklogVM.FiltroUserStory = FiltroUserStory;
+            productBacklogVM.FiltroDataInicial = Convert.ToString(FiltroDataInicial);
+            productBacklogVM.FiltroDataFinal = Convert.ToString(FiltroDataFinal);
+
+            productBacklogVM.ProductBacklogReport = GetGridDataSource(productBacklogVM);
+
+            return View(productBacklogVM);
+        }
+
+        private IPagedList<ProductBacklog> GetGridPagedDataSource(ProductBacklogVM productBacklogVM)
+        {
+            return GetGridDataSource(productBacklogVM).ToList().ToPagedList(Convert.ToInt32(productBacklogVM.PaginaGrid), 7);
+        }
+
+        private IEnumerable<ProductBacklog> GetGridDataSource(ProductBacklogVM productBacklogVM)
         {
             IEnumerable<ProductBacklog> listBacklogs = from pb in _dbContext.ProductBacklogs
                                                        where !(from sb in _dbContext.SprintBacklogs
@@ -139,7 +158,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             if (!string.IsNullOrEmpty(productBacklogVM.FiltroDataFinal))
                 listBacklogs = listBacklogs.Where(x => x.DataInclusao.Date <= Convert.ToDateTime(productBacklogVM.FiltroDataFinal).Date);
 
-            return listBacklogs.ToList().ToPagedList(Convert.ToInt32(productBacklogVM.PaginaGrid), 7);
+            return listBacklogs;
         }
 
         private void ReordenarPrioridades(int ProductBacklogId, short Prioridade)

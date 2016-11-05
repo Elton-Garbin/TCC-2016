@@ -1,6 +1,6 @@
 ﻿using PagedList;
 using StartIdea.Model.ScrumArtefatos;
-using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +16,7 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
         #region Properties
         #region Filter
         public IPagedList<ProductBacklog> ProductBacklogList { get; set; }
+        public IEnumerable<ProductBacklog> ProductBacklogReport { get; set; }
         public string FiltroUserStory { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string FiltroDataInicial { get; set; }

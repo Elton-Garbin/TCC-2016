@@ -47,9 +47,10 @@ namespace StartIdea.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/jquery-ui.min.css",
                 "~/Content/bootstrap.min.css",
-                "~/Content/site.css",
                 "~/Content/bootstrap-datetimepicker.min.css",
-                "~/Content/PagedList.css"));
+                "~/Content/Site.css",
+                "~/Content/PagedList.css",
+                "~/Content/Print.css"));
         }
     }
 
