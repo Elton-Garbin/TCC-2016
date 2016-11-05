@@ -63,7 +63,7 @@ namespace StartIdea.UI.Controllers
             return View(productBacklogVM);
         }
 
-        public ActionResult Detalhes(int id, int? sprintId)
+        public ActionResult Details(int id, int? sprintId)
         {
             var detalheProductBacklogVM = new DetalheProductBacklogVM();
 

@@ -503,7 +503,7 @@
     <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\ProductBacklog\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\ProductBacklog\Detalhes.cshtml" />
+    <Content Include="Views\ProductBacklog\Details.cshtml" />
     <Content Include="Views\Authentication\ForgotPassword.cshtml" />
     <Content Include="Views\Authentication\ResetPassword.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
