@@ -11,6 +11,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
         public SprintVM()
         {
             Id = 0;
+            DataInicialRD = DateTime.Today;
+            DataFinalRD = DateTime.Today;
             HorarioInicialRD = "08:00";
             WorkMon = true;
             WorkTue = true;
@@ -194,8 +196,8 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
             }
 
             var time = HorarioInicialRD.Split(':');
-            var DataFinalRD_Aux = DataFinalRD.Date.AddHours(Convert.ToInt16(time[0]))
-                                                  .AddMinutes(Convert.ToInt16(time[1]) + 15);
+            var DataFinalRD_Aux = DataFinalRD.AddHours(Convert.ToInt16(time[0]))
+                                             .AddMinutes(Convert.ToInt16(time[1]) + 15);
             if (DataInicialRV <= DataFinalRD_Aux)
             {
                 yield return

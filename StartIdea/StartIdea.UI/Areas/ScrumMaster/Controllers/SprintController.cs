@@ -48,11 +48,24 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             #endregion
 
             #region Reunião Diária
-            var reuniaoDiaria = _dbContext.Reunioes.Where(r => r.SprintId == sprintVM.Id
+            var reunioesDiarias = _dbContext.Reunioes.Where(r => r.SprintId == sprintVM.Id
                                                             && r.TipoReuniao == TipoReuniao.Diaria)
-                                                   .FirstOrDefault() ?? new Reuniao();
+                                                     .OrderBy(r => r.DataInicial);
 
-            sprintVM.LocalRD = reuniaoDiaria.Local;
+            if (reunioesDiarias.Count() > 0)
+            {
+                sprintVM.LocalRD = reunioesDiarias.First().Local;
+                sprintVM.HorarioInicialRD = reunioesDiarias.First().DataInicial.ToString("HH:mm");
+                sprintVM.DataInicialRD = reunioesDiarias.First().DataInicial.Date;
+                sprintVM.DataFinalRD = reunioesDiarias.AsEnumerable().Last().DataInicial.Date;
+                sprintVM.WorkSun = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Sunday);
+                sprintVM.WorkMon = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Monday);
+                sprintVM.WorkTue = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Tuesday);
+                sprintVM.WorkWed = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Wednesday);
+                sprintVM.WorkThu = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Thursday);
+                sprintVM.WorkFri = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Friday);
+                sprintVM.WorkSat = reunioesDiarias.AsEnumerable().Any(r => r.DataInicial.DayOfWeek == DayOfWeek.Saturday);
+            }
             #endregion
 
             #region Reunião Revisão
@@ -93,6 +106,11 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                     ModelState.AddModelError("DataInicial", "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.");
                     return View("Index", sprintVM);
                 }
+                else if (GetTotalDailyScrum(sprintVM) > 14)
+                {
+                    ModelState.AddModelError("DataInicial", "[Reunião Diária] Quantidade de reunião diária a ser gerada deve ser menor ou igual a 14.");
+                    return View("Index", sprintVM);
+                }
 
                 var sprint = new Sprint()
                 {
@@ -105,7 +123,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 _dbContext.Sprints.Add(sprint);
                 _dbContext.SaveChanges();
 
-                var SprintId = sprint.Id;
+                sprintVM.Id = sprint.Id;
 
                 #region Reunião Planejamento
                 var reuniaoPlanejamento = new Reuniao()
@@ -115,7 +133,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                     Ata = "...",
                     DataInicial = sprintVM.DataInicialRP,
                     DataFinal = sprintVM.DataFinalRP,
-                    SprintId = SprintId
+                    SprintId = sprintVM.Id
                 };
 
                 _dbContext.Reunioes.Add(reuniaoPlanejamento);
@@ -134,7 +152,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                     Ata = "...",
                     DataInicial = sprintVM.DataInicialRV,
                     DataFinal = sprintVM.DataFinalRV,
-                    SprintId = SprintId
+                    SprintId = sprintVM.Id
                 };
 
                 _dbContext.Reunioes.Add(reuniaoRevisao);
@@ -149,7 +167,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                     Ata = "...",
                     DataInicial = sprintVM.DataInicialRT,
                     DataFinal = sprintVM.DataFinalRT,
-                    SprintId = SprintId
+                    SprintId = sprintVM.Id
                 };
 
                 _dbContext.Reunioes.Add(reuniaoRetrospectiva);
@@ -173,6 +191,11 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 if (sprintVM.SprintAtual.Id > 0 && sprintVM.DataInicial <= sprintVM.SprintAtual.DataFinal)
                 {
                     ModelState.AddModelError("DataInicial", "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.");
+                    return View("Index", sprintVM);
+                }
+                else if (GetTotalDailyScrum(sprintVM) > 14)
+                {
+                    ModelState.AddModelError("DataInicial", "[Reunião Diária] Quantidade de reunião diária a ser gerada deve ser menor ou igual a 14.");
                     return View("Index", sprintVM);
                 }
 
@@ -224,21 +247,52 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
                 return RedirectToAction("Index");
             }
-            
+
             return View("Index", sprintVM);
+        }
+
+        private int GetTotalDailyScrum(SprintVM sprintVM)
+        {
+            int totalDias = (sprintVM.DataFinalRD - sprintVM.DataInicialRD).Days + 1;
+            int qtDias = 0;
+
+            for (int i = 0; i < totalDias; i++)
+            {
+                var time = sprintVM.HorarioInicialRD.Split(':');
+                var dataBase = sprintVM.DataInicialRD.AddDays(i);
+
+                if (dataBase.DayOfWeek == DayOfWeek.Sunday && !sprintVM.WorkSun)
+                    continue;
+                if (dataBase.DayOfWeek == DayOfWeek.Monday && !sprintVM.WorkMon)
+                    continue;
+                if (dataBase.DayOfWeek == DayOfWeek.Tuesday && !sprintVM.WorkTue)
+                    continue;
+                if (dataBase.DayOfWeek == DayOfWeek.Wednesday && !sprintVM.WorkWed)
+                    continue;
+                if (dataBase.DayOfWeek == DayOfWeek.Thursday && !sprintVM.WorkThu)
+                    continue;
+                if (dataBase.DayOfWeek == DayOfWeek.Friday && !sprintVM.WorkFri)
+                    continue;
+                if (dataBase.DayOfWeek == DayOfWeek.Saturday && !sprintVM.WorkSat)
+                    continue;
+
+                qtDias++;
+            }
+
+            return qtDias;
         }
 
         private void GerarDailyScrum(SprintVM sprintVM)
         {
             List<Reuniao> dailyScrum = new List<Reuniao>();
-            int qtDias = (sprintVM.DataFinalRD - sprintVM.DataInicialRD).Days;
+            int totalDias = (sprintVM.DataFinalRD - sprintVM.DataInicialRD).Days + 1;
 
-            for (int i = 0; i < qtDias; i++)
+            for (int i = 0; i < totalDias; i++)
             {
                 var time = sprintVM.HorarioInicialRD.Split(':');
-                var dataBase = sprintVM.DataInicialRD.Date.AddDays(i)
-                                                          .AddHours(Convert.ToInt16(time[0]))
-                                                          .AddMinutes(Convert.ToInt16(time[1]));
+                var dataBase = sprintVM.DataInicialRD.AddDays(i)
+                                                     .AddHours(Convert.ToInt16(time[0]))
+                                                     .AddMinutes(Convert.ToInt16(time[1]));
 
                 if (dataBase.DayOfWeek == DayOfWeek.Sunday && !sprintVM.WorkSun)
                     continue;

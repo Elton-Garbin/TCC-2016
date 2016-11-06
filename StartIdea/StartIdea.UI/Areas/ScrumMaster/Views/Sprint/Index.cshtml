@@ -7,6 +7,13 @@
 @section CustomScript{
     <script type="text/javascript">
         $('#tabs-container, #tabs-container-2').tabs();
+        $('.days-week').each(function () {
+            var self = $(this);
+
+            if (self.is(':checked')) {
+                self.before().parent().addClass('active');
+            }
+        });
     </script>
 }
 
@@ -45,7 +52,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6">
                                     @Html.LabelFor(model => model.Objetivo)
-                                    @Html.EditorFor(model => model.Objetivo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Objetivo (Meta) da Sprint" } })
+                                    @Html.EditorFor(model => model.Objetivo, new { htmlAttributes = new { @class = "form-control" } })
                                 </div>
 
                                 <div class="col-xs-12 col-sm-3">
@@ -151,25 +158,25 @@
                                             <label>Dias de Trabalho</label>
                                             <div class="btn-group btn-block" data-toggle="buttons">
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkSun, new { @autocomplete = "off" }) Dom
+                                                    @Html.CheckBoxFor(model => model.WorkSun, new { @autocomplete = "off", @class = "days-week" }) Dom
                                                 </label>
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkMon, new { @autocomplete = "off" }) Seg
+                                                    @Html.CheckBoxFor(model => model.WorkMon, new { @autocomplete = "off", @class = "days-week" }) Seg
                                                 </label>
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkTue, new { @autocomplete = "off" }) Ter
+                                                    @Html.CheckBoxFor(model => model.WorkTue, new { @autocomplete = "off", @class = "days-week" }) Ter
                                                 </label>
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkWed, new { @autocomplete = "off" }) Qua
+                                                    @Html.CheckBoxFor(model => model.WorkWed, new { @autocomplete = "off", @class = "days-week" }) Qua
                                                 </label>
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkThu, new { @autocomplete = "off" }) Qui
+                                                    @Html.CheckBoxFor(model => model.WorkThu, new { @autocomplete = "off", @class = "days-week" }) Qui
                                                 </label>
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkFri, new { @autocomplete = "off" }) Sex
+                                                    @Html.CheckBoxFor(model => model.WorkFri, new { @autocomplete = "off", @class = "days-week" }) Sex
                                                 </label>
                                                 <label class="btn btn-default">
-                                                    @Html.CheckBoxFor(model => model.WorkSat, new { @autocomplete = "off" }) Sáb
+                                                    @Html.CheckBoxFor(model => model.WorkSat, new { @autocomplete = "off", @class = "days-week" }) Sáb
                                                 </label>
                                             </div>
                                         </div>
