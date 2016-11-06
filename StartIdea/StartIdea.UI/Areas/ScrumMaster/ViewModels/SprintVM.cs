@@ -79,17 +79,17 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 
         [DisplayName("Data Inicial")]
         [Required(ErrorMessage = "[Reunião Diária] Campo Data Inicial obrigatório.")]
-        [DataType(DataType.Date, ErrorMessage = "[Reunião Diária] Campo Data Inicial inválido.")]
+        [DataType(DataType.Text, ErrorMessage = "[Reunião Diária] Campo Data Inicial inválido.")]
         public DateTime DataInicialRD { get; set; }
 
         [DisplayName("Data Final")]
         [Required(ErrorMessage = "[Reunião Diária] Campo Data Final obrigatório.")]
-        [DataType(DataType.Date, ErrorMessage = "[Reunião Diária] Campo Data Final inválido.")]
+        [DataType(DataType.Text, ErrorMessage = "[Reunião Diária] Campo Data Final inválido.")]
         public DateTime DataFinalRD { get; set; }
 
         [DisplayName("Horário Inicial")]
         [Required(ErrorMessage = "[Reunião Diária] Campo Horário Inicial obrigatório.")]
-        [DataType(DataType.Time, ErrorMessage = "[Reunião Diária] Campo Horário Inicial inválido.")]
+        [DataType(DataType.Text, ErrorMessage = "[Reunião Diária] Campo Horário Inicial inválido.")]
         public string HorarioInicialRD { get; set; }
 
         public bool WorkSun { get; set; }

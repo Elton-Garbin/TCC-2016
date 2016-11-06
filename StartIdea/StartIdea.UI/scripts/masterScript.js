@@ -26,6 +26,18 @@
     });
 
     $(".datepicker").datetimepicker({
+        locale: 'pt-br',
+        format: 'DD/MM/YYYY'
+    });
+
+    $(".timepicker").datetimepicker({
+        locale: 'pt-br',
+        format: 'LT'
+    });
+
+    
+
+    $(".datepicker").datetimepicker({
         format: 'DD/MM/YYYY',
         locale: 'pt-br'
     });
