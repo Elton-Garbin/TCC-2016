@@ -145,13 +145,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
         #region Methods
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (SprintAtual.Id > 0 && DataInicial <= SprintAtual.DataFinal)
-            {
-                yield return
-                    new ValidationResult(errorMessage: "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.",
-                                         memberNames: new[] { "DataInicial" });
-            }
-
             if (DataFinal <= DataInicial)
             {
                 yield return

@@ -84,8 +84,16 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(SprintVM sprintVM)
         {
+            sprintVM.SprintAtual = GetSprintAtual();
+
             if (ModelState.IsValid)
             {
+                if (sprintVM.SprintAtual.Id > 0 && sprintVM.DataInicial <= sprintVM.SprintAtual.DataFinal)
+                {
+                    ModelState.AddModelError("DataInicial", "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.");
+                    return View("Index", sprintVM);
+                }
+
                 var sprint = new Sprint()
                 {
                     Objetivo = sprintVM.Objetivo,
@@ -151,7 +159,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 return RedirectToAction("Index");
             }
 
-            sprintVM.SprintAtual = GetSprintAtual();
             return View("Index", sprintVM);
         }
 
@@ -159,8 +166,16 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SprintVM sprintVM)
         {
+            sprintVM.SprintAtual = GetSprintAtual();
+
             if (ModelState.IsValid)
             {
+                if (sprintVM.SprintAtual.Id > 0 && sprintVM.DataInicial <= sprintVM.SprintAtual.DataFinal)
+                {
+                    ModelState.AddModelError("DataInicial", "[Sprint] Data Inicial deve ser maior do que a data final da sprint atual.");
+                    return View("Index", sprintVM);
+                }
+
                 var sprint = _dbContext.Sprints.Find(sprintVM.Id);
                 sprint.Objetivo = sprintVM.Objetivo;
                 sprint.DataInicial = sprintVM.DataInicial;
@@ -206,9 +221,10 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 _dbContext.Entry(reuniaoRetrospectiva).State = EntityState.Modified;
                 _dbContext.SaveChanges();
                 #endregion
-            }
 
-            sprintVM.SprintAtual = GetSprintAtual();
+                return RedirectToAction("Index");
+            }
+            
             return View("Index", sprintVM);
         }
 
