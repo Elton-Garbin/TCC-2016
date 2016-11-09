@@ -1,13 +1,4 @@
-﻿@media (max-width: 991px) {
-    .profile-sidebar {
-        display: block !important;
-    }
-}
-
-﻿body {
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -29,15 +20,6 @@
         padding: 0px;
     }
 
-@media (min-width: 992px) {
-    .profile-sidebar {
-        padding: 20px 0 10px 0;
-        background: #1486c2;
-        position: fixed;
-        height: 100%;
-    }
-}
-
 .filename {
     visibility: hidden;
     height: 0;
@@ -47,18 +29,12 @@
 
 .profile-picture {
     display: inline-block;
-    max-width: 150px; 
+    max-width: 150px;
 }
 
-/* Profile sidebar */
 /*Costumização navbar*/
 .navbar-custom {
     margin-bottom: 0px;
-}
-
-.menu-lateral {
-    width: 250px;
-    border-radius: 0px;
 }
 
 .navbar {
@@ -84,10 +60,6 @@
         border-bottom-color: white !important;
     }
 
-.menu-lateral > ul > li {
-    border-radius: 0px;
-}
-
 .btn-menu {
     background-color: #1486c2;
     color: white;
@@ -98,95 +70,6 @@
         background-color: #1486c2;
         color: white;
     }
-
-
-.profile-sidebar {
-    padding: 0px 0 10px 0;
-    background: #1486c2;
-    display: none;
-    z-index: 9999;
-}
-
-.profile-usertitle {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.profile-usertitle-name {
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 7px;
-}
-
-    .profile-usertitle-name:hover {
-        color: black;
-    }
-
-.profile-usertitle-job {
-    text-transform: uppercase;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.profile-userbuttons {
-    text-align: center;
-    margin-top: 10px;
-    color: white;
-}
-
-    .profile-userbuttons .btn {
-        text-transform: uppercase;
-        font-size: 11px;
-        font-weight: 600;
-        padding: 6px 15px;
-        margin-right: 5px;
-    }
-
-        .profile-userbuttons .btn:last-child {
-            margin-right: 0px;
-        }
-
-.profile-usermenu {
-    margin-top: 30px;
-}
-
-    .profile-usermenu ul li {
-        border-bottom: 1px solid #f0f4f7;
-    }
-
-        .profile-usermenu ul li:last-child {
-            border-bottom: none;
-        }
-
-        .profile-usermenu ul li a {
-            color: white;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-            .profile-usermenu ul li a i {
-                margin-right: 8px;
-                font-size: 14px;
-            }
-
-            .profile-usermenu ul li a:hover {
-                background-color: #fafcfd;
-                color: #5b9bd1;
-            }
-
-        .profile-usermenu ul li.active {
-            border-bottom: none;
-        }
-
-            .profile-usermenu ul li.active a {
-                color: black;
-                background-color: #f6f9fb;
-                border-left: 2px solid #5b9bd1;
-                margin-left: -2px;
-            }
 /*FIm da Costumização do Navbar*/
 
 /*Tela de Login*/

@@ -373,14 +373,9 @@
     <Content Include="Areas\TeamMember\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\ProductOwner\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\ProductOwner\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Edit.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\Index.cshtml" />
-    <Content Include="Areas\ProductOwner\Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Create.cshtml" />
-    <Content Include="Areas\TeamMember\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\TeamMember\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\TeamMember\Views\ProductBacklog\_Edit.cshtml" />
     <Content Include="Areas\TeamMember\Views\ProductBacklog\Index.cshtml" />
     <Content Include="packages.config">
@@ -394,12 +389,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\TeamMember\Views\Shared\_MenuLateral.cshtml" />
-    <Content Include="Areas\ScrumMaster\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\ScrumMaster\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\Sprint\Index.cshtml" />
     <Content Include="Areas\ProductOwner\Views\Sprint\Index.cshtml" />
-    <Content Include="Areas\ScrumMaster\Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\Index.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\_MotivoCancelamento.cshtml" />
     <Content Include="Areas\TeamMember\Views\Tarefa\Index.cshtml" />
@@ -423,8 +414,6 @@
     <Content Include="Scripts\globalize\unit.js" />
     <Content Include="Areas\TeamMember\Views\Tarefa\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\Edit.cshtml" />
@@ -497,7 +486,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\BurndownChart\Index.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
