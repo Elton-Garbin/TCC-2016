@@ -10,17 +10,15 @@
             receive: function (event, ui) {
                 var idTarefa = ui.item[0].attributes["data-id"].value;
                 var idStatus = ui.item[0].parentNode.attributes["data-id"].value;
+
                 $.ajax({
                     url: '@Html.Raw(Url.Action("AlteraStatus", "StatusTarefa"))',
                     type: 'POST',
                     data: JSON.stringify({ IdStatus: idStatus, IdTarefa: idTarefa }),
-                    contentType: 'application/json',
-                    success: function (result) {
-                        if (!result.sucesso) {
-                            alert(result.mensagem)
-                            $(".droptrue").sortable("cancel");
-                        }
-                    }
+                    contentType: 'application/json'
+                }).fail(function () {
+                    alert("Ocorreu um erro inesperado!\nPor favor, contate o administrador do sistema.")
+                    $(".droptrue").sortable("cancel");
                 });
             }
         });

@@ -35,17 +35,6 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
         [AllowAnonymous]
         public ActionResult AlteraStatus(int IdStatus, int IdTarefa)
         {
-            Status novoStatus = _dbContext.AllStatus.Find(IdStatus);
-            Tarefa tarefa = _dbContext.Tarefas.Include("StatusTarefas.Status").Where(t => t.Id == IdTarefa).FirstOrDefault();
-
-            Status statusAnterior = tarefa.StatusTarefas.OrderByDescending(st => st.DataInclusao).FirstOrDefault().Status;
-
-            if (novoStatus.Classificacao > statusAnterior.Classificacao + 1 ||
-                novoStatus.Classificacao < statusAnterior.Classificacao - 1)
-            {
-                return Json(new { sucesso = false, mensagem = string.Format("Não é permitido alterar a tarefa do status {0} para o status {1}", statusAnterior.Descricao, novoStatus.Descricao) }, JsonRequestBehavior.AllowGet);
-            }
-
             var statusTarefa = new StatusTarefa()
             {
                 StatusId = IdStatus,
@@ -56,7 +45,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             _dbContext.StatusTarefas.Add(statusTarefa);
             _dbContext.SaveChanges();
 
-            return Json(new { sucesso = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, message = "Status da tarefa alterado com sucesso" }, JsonRequestBehavior.AllowGet);
         }
 
         private bool CheckDailyScrum()
