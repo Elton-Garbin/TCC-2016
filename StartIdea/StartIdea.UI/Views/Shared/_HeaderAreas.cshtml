@@ -7,19 +7,55 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">StartIdea</a>
+            @if (CurrentUser.IsInRole("ProductOwner"))
+            {
+                <a class="navbar-brand" href="@Url.Action("Index", "ProductBacklog", new { area = "ProductOwner" })">StartIdea</a>
+            }
+            else if (CurrentUser.IsInRole("ScrumMaster"))
+            {
+                <a class="navbar-brand" href="@Url.Action("Index", "Sprint", new { area = "ScrumMaster" })">StartIdea</a>
+            }
+            else if (CurrentUser.IsInRole("TeamMember"))
+            {
+                <a class="navbar-brand" href="@Url.Action("Index", "ProductBacklog", new { area = "TeamMember" })">StartIdea</a>
+            }
+            else if (CurrentUser.IsInRole("Admin"))
+            {
+                <a class="navbar-brand" href="@Url.Action("Index", "Usuario", new { area = "Admin" })">StartIdea</a>
+            }
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <li class="dropdown dropdown-large">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-book"></span> Consulta <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Histórico</a></li>
-                        <li><a href="#">Acompanhamento</a></li>
+
+                    <ul class="dropdown-menu dropdown-menu-large row">
+                        <li class="col-sm-7">
+                            <ul>
+                                <li class="dropdown-header">Acompanhamento</li>
+                                <li>@Html.ActionLink("Kanban do Time", "Index", "TeamKanbanBoard", new { area = "" }, new { })</li>
+                                <li>@Html.ActionLink("Gráfico de Burndown", "Index", "BurndownChart", new { area = "" }, new { })</li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Produto</li>
+                                <li>@Html.ActionLink("Backlog", "Index", "ProductBacklog", new { area = "" }, new { })</li>
+                            </ul>
+                        </li>
+                        <li class="col-sm-5">
+                            <ul>
+                                <li class="dropdown-header">Sprints</li>
+                                <li>@Html.ActionLink("Definição", "Index", "Sprint", new { area = "" }, new { })</li>
+                                <li>@Html.ActionLink("Backlog", "Index", "SprintBacklog", new { area = "" }, new { })</li>
+                                <li>@Html.ActionLink("Tarefa", "Index", "Tarefa", new { area = "" }, new { })</li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Reuniões</li>
+                                <li>@Html.ActionLink("Ata", "Index", "Reuniao", new { area = "" }, new { })</li>
+                            </ul>
+                        </li>
                     </ul>
+
                 </li>
             </ul>
 
