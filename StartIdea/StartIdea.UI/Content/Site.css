@@ -47,6 +47,7 @@
     background-color: #1486c2;
 }
 
+    .navbar-inverse .navbar-brand,
     .navbar-inverse .navbar-nav > li > a {
         color: white !important;
     }
@@ -59,6 +60,16 @@
         border-top-color: white !important;
         border-bottom-color: white !important;
     }
+
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #4e4e4e !important;
+    }
+
+        .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+            color: white !important;
+        }
+}
 
 .btn-menu {
     background-color: #1486c2;

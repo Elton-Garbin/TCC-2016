@@ -498,6 +498,11 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\TeamKanbanBoard\Index.cshtml" />
     <Content Include="Views\Sprint\Index.cshtml" />
+    <Content Include="Views\Shared\_HeaderAreas.cshtml" />
+    <Content Include="Views\Shared\_MenuAdmin.cshtml" />
+    <Content Include="Views\Shared\_MenuProductOwner.cshtml" />
+    <Content Include="Views\Shared\_MenuScrumMaster.cshtml" />
+    <Content Include="Views\Shared\_MenuTeamMember.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

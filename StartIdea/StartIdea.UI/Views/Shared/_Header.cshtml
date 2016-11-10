@@ -1,6 +1,5 @@
 ﻿<nav class="navbar navbar-inverse">
     <div class="container-fluid">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -8,49 +7,63 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#">StartIdea</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Produto
-                        <span class="caret"></span>
+                        <span class="glyphicon glyphicon-star"></span> Produto <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Backlog", "Index", "ProductBacklog")</li>
-                        <li role="separator" class="divider"></li>
-                        <li>@Html.ActionLink("Gráfico de BurnDown", "Index", "BurndownChart")</li>
-                        <li>@Html.ActionLink("Gráfico de BurnUp", "Index", "BurnupChart")</li>
+                        <li>@Html.ActionLink("Backlog", "Index", "ProductBacklog", new { area = "" }, new { })</li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Sprint
-                        <span class="caret"></span>
+                        <span class="glyphicon glyphicon-heart"></span> Sprints <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Backlog", "Index", "SprintBacklog")</li>
+                        <li>@Html.ActionLink("Definição", "Index", "Sprint", new { area = "" }, new { })</li>
+                        <li>@Html.ActionLink("Backlog", "Index", "SprintBacklog", new { area = "" }, new { })</li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Planejamento da Sprint</a></li>
-                        <li><a href="#">Daily Scrum</a></li>
-                        <li><a href="#">Revisão da Sprint</a></li>
-                        <li><a href="#">Retrospectiva da Sprint</a></li>
+                        <li>@Html.ActionLink("Tarefa", "Index", "Tarefa", new { area = "" }, new { })</li>
                     </ul>
                 </li>
-                <li><a href="#">Time Scrum</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-calendar"></span> Reuniões <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Ata", "Index", "Reuniao", new { area = "" }, new { })</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-eye-open"></span> Acompanhamento <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Kanban do Time", "Index", "TeamKanbanBoard", new { area = "" }, new { })</li>
+                        <li>@Html.ActionLink("Gráfico de Burndown", "Index", "BurndownChart", new { area = "" }, new { })</li>
+                    </ul>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li class="visible-xs">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        @Html.ActionLink("Sair", "Logout", "Authentication", new { area = "" }, new { })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Entrar", "Login", "Authentication")
-                    }
+                    <a href="@Url.Action("Login", "Authentication", new { area = "" })">
+                        <span class="glyphicon glyphicon-log-in"></span> Entrar
+                    </a>
                 </li>
             </ul>
         </div>

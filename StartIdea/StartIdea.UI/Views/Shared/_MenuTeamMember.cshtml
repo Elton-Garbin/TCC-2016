@@ -1,0 +1,16 @@
+﻿<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-star"></span> Produto <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li>@Html.ActionLink("Backlog", "Index", "ProductBacklog", new { area = "TeamMember" }, new { })</li>
+    </ul>
+</li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-pushpin"></span> Kanban <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li>@Html.ActionLink("Pessoal", "Index", "StatusTarefa", new { area = "TeamMember" }, new { })</li>
+    </ul>
+</li>

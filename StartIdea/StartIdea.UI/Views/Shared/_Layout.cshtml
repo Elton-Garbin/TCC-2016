@@ -9,7 +9,14 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @Html.Partial("_Header")
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Partial("_HeaderAreas")
+    }
+    else
+    {
+        @Html.Partial("_Header")
+    }
 
     <div class="container">
         @RenderBody()
@@ -21,9 +28,9 @@
     @Scripts.Render("~/bundles/inputmask")
     @Scripts.Render("~/bundles/customizados")
     @RenderSection("scripts", required: false)
-    @if (IsSectionDefined("CustomScript")) {
+    @if (IsSectionDefined("CustomScript"))
+    {
         @RenderSection("CustomScript")
     }
-
 </body>
 </html>

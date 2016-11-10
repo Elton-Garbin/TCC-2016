@@ -1,0 +1,109 @@
+﻿<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">StartIdea</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-book"></span> Consulta <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Histórico</a></li>
+                        <li><a href="#">Acompanhamento</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="visible-xs">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                @if (CurrentUser.IsInRole("ProductOwner"))
+                {
+                    @Html.Partial("_MenuProductOwner")
+                }
+                else if (CurrentUser.IsInRole("ScrumMaster"))
+                {
+                    @Html.Partial("_MenuScrumMaster")
+                }
+                else if (CurrentUser.IsInRole("TeamMember"))
+                {
+                    @Html.Partial("_MenuTeamMember")
+                }
+
+                @if (CurrentUser.IsInRole("Admin"))
+                {
+                    @Html.Partial("_MenuAdmin")
+                }
+
+                <li>
+                    <a href="#" class="hidden-xs">|</a>
+                    <div class="container-fluid visible-xs">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-bell"></span> Avisos <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Descrição</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Reunião diária das 08h30 até 08h45.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Usuario", new { area = "" })">
+                        <span class="glyphicon glyphicon-user"></span> Perfil
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Logout", "Authentication", new { area = "" })">
+                        <span class="glyphicon glyphicon-log-out"></span> Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

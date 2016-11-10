@@ -1,0 +1,20 @@
+﻿<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-heart"></span> Sprint <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li>@Html.ActionLink("Definição", "Index", "Sprint", new { area = "ScrumMaster" }, new { })</li>
+        <li>@Html.ActionLink("Backlog", "Index", "SprintBacklog", new { area = "ScrumMaster" }, new { })</li>
+    </ul>
+</li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-calendar"></span> Reuniões <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li>@Html.ActionLink("Reunião de Planejamento", "Index", "ReuniaoPlanejamento", new { area = "ScrumMaster" }, new { })</li>
+        <li>@Html.ActionLink("Reunião Diária", "Index", "DailyScrum", new { area = "ScrumMaster" }, new { })</li>
+        <li>@Html.ActionLink("Reunião de Revisão", "Index", "ReuniaoRevisao", new { area = "ScrumMaster" }, new { })</li>
+        <li>@Html.ActionLink("Reunião de Retrospecitva", "Index", "ReuniaoRetrospecitva", new { area = "ScrumMaster" }, new { })</li>
+    </ul>
+</li>
