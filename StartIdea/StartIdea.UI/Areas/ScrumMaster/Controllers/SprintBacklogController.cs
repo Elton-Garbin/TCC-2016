@@ -33,7 +33,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             sprintBacklogVM.PaginaGridProductBacklog = paginaProductBacklogNumber;
             sprintBacklogVM.ProductBacklogList = GetGridDataSourceProductBacklog(paginaProductBacklogNumber);
             sprintBacklogVM.PaginaGridSprintBacklog = paginaSprintBacklogNumber;
-            sprintBacklogVM.SprintBacklogList = GetGridDataSourceSprintBacklog(paginaSprintBacklogNumber);
+            sprintBacklogVM.SprintBacklogList = GetGridPagedDataSourceSprintBacklog(paginaSprintBacklogNumber);
 
             if (id != null)
             {
@@ -41,6 +41,14 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                 sprintBacklogVM.DisplayMotivoCancelamento = "Show";
             }
 
+            return View(sprintBacklogVM);
+        }
+
+        public ActionResult Report()
+        {
+            var sprintBacklogVM = new SprintBacklogVM();
+            sprintBacklogVM.SprintBacklogReport = GetGridDataSourceSprintBacklog();
+        
             return View(sprintBacklogVM);
         }
 
@@ -67,11 +75,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             int SprintAtualId = GetSprintId();
 
             #region Cancelar SprintBacklog
-            SprintBacklog sprintBacklog = _dbContext.SprintBacklogs.Where(sb => sb.ProductBacklogId == sprintBacklogVM.Id
-                                                                             && sb.SprintId == SprintAtualId
-                                                                             && !sb.DataCancelamento.HasValue)
-                                                                   .SingleOrDefault();
-
+            SprintBacklog sprintBacklog = _dbContext.SprintBacklogs.Find(sprintBacklogVM.Id);
             sprintBacklog.MotivoCancelamento = sprintBacklogVM.MotivoCancelamento;
             sprintBacklog.DataCancelamento = DateTime.Now;
 
@@ -84,7 +88,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             #endregion
 
             #region Copiando ProductBacklog
-            ProductBacklog productBacklogAntigo = _dbContext.ProductBacklogs.Find(sprintBacklogVM.Id);
+            ProductBacklog productBacklogAntigo = _dbContext.ProductBacklogs.Find(sprintBacklog.ProductBacklogId);
             var productBacklogNovo = new ProductBacklog()
             {
                 UserStory = productBacklogAntigo.UserStory,
@@ -126,19 +130,22 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             return listBacklog.ToList().ToPagedList(PaginaGrid, 5);
         }
 
-        private IPagedList<ProductBacklog> GetGridDataSourceSprintBacklog(int PaginaGrid)
+        private IPagedList<SprintBacklog> GetGridPagedDataSourceSprintBacklog(int PaginaGrid)
+        {
+            return GetGridDataSourceSprintBacklog().ToList().ToPagedList(PaginaGrid, 5);
+        }
+
+        private IEnumerable<SprintBacklog> GetGridDataSourceSprintBacklog()
         {
             int SprintAtualId = GetSprintId();
 
-            IEnumerable<ProductBacklog> listBacklog = from pb in _dbContext.ProductBacklogs
-                                                      where (from sb in _dbContext.SprintBacklogs
-                                                             where !sb.DataCancelamento.HasValue
-                                                                && sb.SprintId == SprintAtualId
-                                                             select sb.ProductBacklogId).Contains(pb.Id)
-                                                      orderby pb.Prioridade
-                                                      select pb;
+            IEnumerable<SprintBacklog> listBacklog = _dbContext.SprintBacklogs.Include(s => s.ProductBacklog)
+                                                                              .Where(s => s.SprintId == SprintAtualId
+                                                                                       && !s.DataCancelamento.HasValue)
+                                                                              .OrderBy(s => s.ProductBacklog.Prioridade)
+                                                                              .AsEnumerable();
 
-            return listBacklog.ToList().ToPagedList(PaginaGrid, 5);
+            return listBacklog;
         }
 
         private int GetSprintId()

@@ -45,23 +45,12 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th class="col-sm-2 col-md-1 text-center">
-                            @Html.DisplayNameFor(model => model.ProductBacklogList.FirstOrDefault().Id)
-                        </th>
-                        <th class="col-sm-4 col-md-5">
-                            @Html.DisplayNameFor(model => model.ProductBacklogList.FirstOrDefault().UserStory)
-                        </th>
-                        <th class="col-sm-2 text-center">
-                            @Html.DisplayNameFor(model => model.ProductBacklogList.FirstOrDefault().StoryPoint)
-                        </th>
-                        <th class="col-sm-1 text-center">
-                            @Html.DisplayNameFor(model => model.ProductBacklogList.FirstOrDefault().Prioridade)
-                        </th>
-                        <th class="col-sm-2 text-center">
-                            @Html.DisplayNameFor(model => model.ProductBacklogList.FirstOrDefault().DataInclusao)
-                        </th>
-                        <th class="col-sm-1">
-                        </th>
+                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                        <th>User Story</th>
+                        <th class="col-sm-2 text-center">Story Point</th>
+                        <th class="col-sm-1 text-center">Prioridade</th>
+                        <th class="col-sm-2 text-center">Data Inclusão</th>
+                        <th class="col-sm-1"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,7 +73,7 @@
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
                             </td>
                             <td>
-                                <button class="btn btn-default btn-xs btn-block add" data-id="@item.Id">
+                                <button class="btn btn-success btn-xs btn-block add" title="Adicionar" data-id="@item.Id">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>
                             </td>
@@ -129,22 +118,15 @@ else
                 <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
-                            <th class="col-sm-2 col-md-1 text-center">
-                                @Html.DisplayNameFor(model => model.SprintBacklogList.FirstOrDefault().Id)
-                            </th>
-                            <th class="col-sm-4 col-md-5">
-                                @Html.DisplayNameFor(model => model.SprintBacklogList.FirstOrDefault().UserStory)
-                            </th>
-                            <th class="col-sm-2 text-center">
-                                @Html.DisplayNameFor(model => model.SprintBacklogList.FirstOrDefault().StoryPoint)
-                            </th>
-                            <th class="col-sm-1 text-center">
-                                @Html.DisplayNameFor(model => model.SprintBacklogList.FirstOrDefault().Prioridade)
-                            </th>
-                            <th class="col-sm-2 text-center">
-                                @Html.DisplayNameFor(model => model.SprintBacklogList.FirstOrDefault().DataInclusao)
-                            </th>
+                            <th class="col-sm-2 col-md-1 text-center">Id</th>
+                            <th>User Story</th>
+                            <th class="col-sm-2 text-center">Story Point</th>
+                            <th class="col-sm-1 text-center">Prioridade</th>
+                            <th class="col-sm-2 text-center">Data Inclusão</th>
                             <th class="col-sm-1">
+                                <a class="btn btn-primary btn-xs btn-block" title="Imprimir" href="@Url.Action("Report", "SprintBacklog")" target="_blank">
+                                    <i class="glyphicon glyphicon-print"></i>
+                                </a>
                             </th>
                         </tr>
                     </thead>
@@ -153,22 +135,22 @@ else
                         {
                             <tr>
                                 <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.Id)
+                                    @Html.DisplayFor(modelItem => item.ProductBacklog.Id)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.UserStory)
+                                    @Html.DisplayFor(modelItem => item.ProductBacklog.UserStory)
                                 </td>
                                 <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.StoryPoint)
+                                    @Html.DisplayFor(modelItem => item.ProductBacklog.StoryPoint)
                                 </td>
                                 <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.Prioridade)
+                                    @Html.DisplayFor(modelItem => item.ProductBacklog.Prioridade)
                                 </td>
                                 <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.DataInclusao)
+                                    @Html.DisplayFor(modelItem => item.ProductBacklog.DataInclusao)
                                 </td>
                                 <td>
-                                    <button class="btn btn-default btn-xs btn-block remove" data-id="@item.Id">
+                                    <button class="btn btn-danger btn-xs btn-block remove" title="Remover" data-id="@item.Id">
                                         <i class="glyphicon glyphicon-minus"></i>
                                     </button>
                                 </td>
