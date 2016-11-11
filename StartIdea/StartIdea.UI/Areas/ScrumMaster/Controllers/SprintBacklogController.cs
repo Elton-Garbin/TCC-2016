@@ -66,6 +66,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             int SprintAtualId = GetSprintId();
 
+            #region Cancelar SprintBacklog
             SprintBacklog sprintBacklog = _dbContext.SprintBacklogs.Where(sb => sb.ProductBacklogId == sprintBacklogVM.Id
                                                                              && sb.SprintId == SprintAtualId
                                                                              && !sb.DataCancelamento.HasValue)
@@ -74,23 +75,43 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             sprintBacklog.MotivoCancelamento = sprintBacklogVM.MotivoCancelamento;
             sprintBacklog.DataCancelamento = DateTime.Now;
 
-            ProductBacklog productBacklogExcluir = _dbContext.ProductBacklogs.Find(sprintBacklogVM.Id);
-            ProductBacklog productBacklogIncluir = new ProductBacklog()
-            {
-                UserStory = productBacklogExcluir.UserStory,
-                Prioridade = 0,
-                ProductOwnerId = productBacklogExcluir.ProductOwnerId
-            };
-
-            _dbContext.ProductBacklogs.Add(productBacklogIncluir);
             _dbContext.Entry(sprintBacklog).State = EntityState.Modified;
             _dbContext.SaveChanges();
+            #endregion
+
+            #region Cancelar Tarefa
+            CancelarTarefa(sprintBacklog.Id);
+            #endregion
+
+            #region Copiando ProductBacklog
+            ProductBacklog productBacklogAntigo = _dbContext.ProductBacklogs.Find(sprintBacklogVM.Id);
+            var productBacklogNovo = new ProductBacklog()
+            {
+                UserStory = productBacklogAntigo.UserStory,
+                Prioridade = 0,
+                ProductOwnerId = productBacklogAntigo.ProductOwnerId
+            };
+
+            _dbContext.ProductBacklogs.Add(productBacklogNovo);
+            _dbContext.SaveChanges();
+            #endregion
 
             return RedirectToAction("Index", new
             {
                 paginaProductBacklog = paginaProductBacklog,
                 paginaSprintBacklog = paginaSprintBacklog
             });
+        }
+
+        private void CancelarTarefa(int SprintBacklogId)
+        {
+            _dbContext.Tarefas.Where(t => !t.DataCancelamento.HasValue
+                                       && t.SprintBacklog.Id == SprintBacklogId).ToList().ForEach(t =>
+                                       {
+                                           t.DataCancelamento = DateTime.Now;
+                                           t.MotivoCancelamento = "Backlog da Sprint cancelada.";
+                                       });
+            _dbContext.SaveChanges();
         }
 
         private IPagedList<ProductBacklog> GetGridDataSourceProductBacklog(int PaginaGrid)
