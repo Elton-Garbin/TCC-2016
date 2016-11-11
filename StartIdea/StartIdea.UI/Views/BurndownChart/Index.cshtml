@@ -30,7 +30,7 @@
 else
 {
     <div class="row">
-        <div class="col-xs-12 col-sm-9 col-md-10">
+        <div class="col-xs-12 col-sm-7 col-md-8">
             <canvas id="burndownChart"></canvas>
         </div>
         <div class="col-xs-12 col-sm-3 col-md-2">
@@ -48,6 +48,34 @@ else
                                 <td class="text-center">Dia @(item.index + 1) - @string.Format("{0:d}", item.model.DataInicial)</td>
                             </tr>
                         }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Story Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">PP = 1</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">P = 3</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">M = 5</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">G = 8</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">GG = 13</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -74,6 +102,9 @@ else
                     responsive: true,
                     hover: {
                         mode: 'label'
+                    },
+                    tooltips: {
+                        mode: 'label',
                     },
                     scales: {
                         xAxes: [{
