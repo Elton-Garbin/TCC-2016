@@ -11,10 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartIdea.DataAccess", "Sta
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StartIdea.Docs", "StartIdea.Docs", "{E0DE64D0-77B6-494E-8B55-4CA98D68F900}"
 	ProjectSection(SolutionItems) = preProject
-		StartIdea.Docs\Diagrama de Casos de Uso.vsdx = StartIdea.Docs\Diagrama de Casos de Uso.vsdx
-		StartIdea.Docs\Diagrama de Classes.ncp = StartIdea.Docs\Diagrama de Classes.ncp
-		StartIdea.Docs\Diagrama de Sequência.pdf = StartIdea.Docs\Diagrama de Sequência.pdf
-		StartIdea.Docs\Dicionário de Dados.xlsx = StartIdea.Docs\Dicionário de Dados.xlsx
+		StartIdea.Docs\Diagrama-Classe.ncp = StartIdea.Docs\Diagrama-Classe.ncp
+		StartIdea.Docs\Diagrama-UseCase.vsdx = StartIdea.Docs\Diagrama-UseCase.vsdx
+		StartIdea.Docs\DicionarioDados.xlsx = StartIdea.Docs\DicionarioDados.xlsx
 		StartIdea.Docs\MER.vsdx = StartIdea.Docs\MER.vsdx
 		StartIdea.Docs\TCC - Apresentação.pptx = StartIdea.Docs\TCC - Apresentação.pptx
 		StartIdea.Docs\TCC - Documental.docx = StartIdea.Docs\TCC - Documental.docx
