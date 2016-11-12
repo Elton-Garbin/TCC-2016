@@ -20,6 +20,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StartIdea.Docs", "StartIdea
 		StartIdea.Docs\TCC - Documental.docx = StartIdea.Docs\TCC - Documental.docx
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagramas-Sequencia", "Diagramas-Sequencia", "{66D7FB4B-29C0-4788-B116-6D58BCDD1F8E}"
+	ProjectSection(SolutionItems) = preProject
+		StartIdea.Docs\Diagramas-Sequencia\Administrador.vsdx = StartIdea.Docs\Diagramas-Sequencia\Administrador.vsdx
+		StartIdea.Docs\Diagramas-Sequencia\MembroTime.vsdx = StartIdea.Docs\Diagramas-Sequencia\MembroTime.vsdx
+		StartIdea.Docs\Diagramas-Sequencia\ProductOwner.vsdx = StartIdea.Docs\Diagramas-Sequencia\ProductOwner.vsdx
+		StartIdea.Docs\Diagramas-Sequencia\ScrumMaster.vsdx = StartIdea.Docs\Diagramas-Sequencia\ScrumMaster.vsdx
+		StartIdea.Docs\Diagramas-Sequencia\Usuario.vsdx = StartIdea.Docs\Diagramas-Sequencia\Usuario.vsdx
+		StartIdea.Docs\Diagramas-Sequencia\Visitante.vsdx = StartIdea.Docs\Diagramas-Sequencia\Visitante.vsdx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,5 +51,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66D7FB4B-29C0-4788-B116-6D58BCDD1F8E} = {E0DE64D0-77B6-494E-8B55-4CA98D68F900}
 	EndGlobalSection
 EndGlobal
