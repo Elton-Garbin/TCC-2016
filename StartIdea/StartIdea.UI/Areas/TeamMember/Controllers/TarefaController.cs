@@ -125,6 +125,22 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             return View(tarefaVM);
         }
 
+        public ActionResult Report(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var tarefa = _dbContext.Tarefas.Include(t => t.SprintBacklog.Sprint)
+                                           .Include(t => t.SprintBacklog.ProductBacklog)
+                                           .Include(t => t.MembroTime.Usuario)
+                                           .Where(t => t.Id == id)
+                                           .FirstOrDefault();
+            if (tarefa == null)
+                return HttpNotFound();
+
+            return View(tarefa);
+        }
+
         public ActionResult Cancel(TarefaVM tarefaVM)
         {
             if (tarefaVM.TarefaIdCancelamento == null)
@@ -173,10 +189,10 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             int SprintAtualId = GetSprintId();
 
             return from sb in _dbContext.SprintBacklogs.Include("ProductBacklog")
-                        where !sb.DataCancelamento.HasValue
-                           && sb.SprintId == SprintAtualId
-                        orderby sb.ProductBacklog.Prioridade
-                        select sb;
+                   where !sb.DataCancelamento.HasValue
+                      && sb.SprintId == SprintAtualId
+                   orderby sb.ProductBacklog.Prioridade
+                   select sb;
         }
 
         private int GetSprintId()

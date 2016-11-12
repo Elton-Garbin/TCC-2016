@@ -32,7 +32,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
-            <h1>Tarefas</h1>
+            <h1>Tarefas <small>Disponíveis</small></h1>
         </div>
     </div>
 </div>
@@ -71,8 +71,8 @@ else
                         <tr>
                             <th class="col-sm-2 col-md-1 text-center">Id</th>
                             <th>Descrição</th>
-                            <th class="col-sm-2 text-center">Data Inclusão</th>
-                            <th class="col-sm-1" colspan="2">
+                            <th class="col-sm-3 col-md-2 text-center">Data Inclusão</th>
+                            <th class="col-sm-2 col-md-1">
                                 <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </a>
@@ -101,14 +101,23 @@ else
                                     @Html.DisplayFor(modelItem => item.DataInclusao)
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger btn-xs btn-block cancel" data-id="@item.Id">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
+                                    <div class="btn-group btn-group-justified" role="group" aria-label="operacoes">
+                                        <div class="btn-group" role="group">
+                                            <a class="btn btn-primary btn-xs edit" title="Editar" href="@Url.Action("Edit", new { id = item.Id })">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <a class="btn btn-primary btn-xs" title="Imprimir" href="@Url.Action("Report", new { id = item.Id })" target="_blank">
+                                                <i class="glyphicon glyphicon-print"></i>
+                                            </a>
+                                        </div>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-danger btn-xs cancel" title="Cancelar" data-id="@item.Id">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         }

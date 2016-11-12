@@ -430,6 +430,7 @@
     <Content Include="Areas\TeamMember\Views\Tarefa\_Cancel.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\Report.cshtml" />
     <Content Include="Areas\ScrumMaster\Views\SprintBacklog\Report.cshtml" />
+    <Content Include="Areas\TeamMember\Views\Tarefa\Report.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />

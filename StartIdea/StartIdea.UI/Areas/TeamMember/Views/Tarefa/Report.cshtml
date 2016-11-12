@@ -1,0 +1,72 @@
+﻿@model StartIdea.Model.ScrumArtefatos.Tarefa
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body onload="window.print()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-header">
+                    <h1>Tarefa</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-1 form-group">
+                        <label>Id</label>
+                        <p>@Html.DisplayFor(model => model.Id)</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-2 form-group">
+                        <label>Data Inclusão</label>
+                        <p>@Html.DisplayFor(model => model.DataInclusao)</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 form-group">
+                        <label>Usuário Inclusão</label>
+                        <p>@Html.DisplayFor(model => model.MembroTime.Usuario.UserName)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        <label>Sprint</label>
+                        <p>@Html.DisplayFor(model => model.SprintBacklog.Sprint.Id) - @Html.DisplayFor(model => model.SprintBacklog.Sprint.Objetivo)</p>
+                    </div>
+                    <div class="col-xs-12 form-group">
+                        <label>Backlog da Sprint</label>
+                        <p>@Html.DisplayFor(model => model.SprintBacklog.ProductBacklog.UserStory)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        <label>Descrição</label>
+                        <p>@Html.DisplayFor(model => model.Descricao)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 form-group">
+                        <em>Data de Impressão: @DateTime.Now</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-default hidden-print" onclick="window.print()">
+            <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir
+        </button>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
