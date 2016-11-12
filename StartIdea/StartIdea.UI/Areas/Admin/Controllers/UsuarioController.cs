@@ -45,8 +45,9 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var validation = _dbContext.Usuarios.Where(u => u.Email.ToLower().Equals(usuarioVM.Email.ToLower()) ||
-                                                        u.UserName.ToLower().Equals(usuarioVM.UserName.ToLower())).FirstOrDefault();
+                var validation = _dbContext.Usuarios.Where(u => u.Email.ToLower().Equals(usuarioVM.Email.ToLower()) 
+                                                             || u.UserName.ToLower().Equals(usuarioVM.UserName.ToLower()))
+                                                    .FirstOrDefault();
 
                 if (validation != null)
                 {

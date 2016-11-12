@@ -26,7 +26,7 @@ namespace StartIdea.Model
         [Required]
         public string Senha { get; set; }
 
-        [Required, MaxLength(256)]
+        [Required, MaxLength(20)]
         public string UserName { get; set; }
 
         [Required, StringLength(11, MinimumLength = 11)]

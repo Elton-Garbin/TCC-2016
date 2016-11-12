@@ -23,12 +23,14 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
 
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Campo E-mail obrigatório."), MaxLength(256)]
+        [Required(ErrorMessage = "Campo E-mail obrigatório.")]
+        [StringLength(256, ErrorMessage = "Campo E-mail deve ter no máximo 256 caracteres.")]
         [RegularExpression(@"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", ErrorMessage = "Campo E-mail inválido.")]
         [DisplayName("E-mail")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Campo Usuário obrigatório."), MaxLength(256)]
+        [Required(ErrorMessage = "Campo Usuário obrigatório.")]
+        [StringLength(20, ErrorMessage = "Campo Usuário deve ter no máximo 20 caracteres.")]
         [DisplayName("Usuário")]
         public string UserName { get; set; }
 
