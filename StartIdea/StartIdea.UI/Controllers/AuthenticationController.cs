@@ -33,7 +33,9 @@ namespace StartIdea.UI.Controllers
             {
                 var identity = (ClaimsIdentity)AuthenticationManager.User.Identity;
                 string Role = identity.Claims.Where(c => c.Type == ClaimTypes.Role)
-                                             .Select(c => c.Value).SingleOrDefault();
+                                             .OrderByDescending(c => c.Value)
+                                             .Select(c => c.Value)
+                                             .FirstOrDefault();
 
                 return RedirectToAction("RedirectLoggedUser", new { role = Role });
             }
@@ -62,7 +64,7 @@ namespace StartIdea.UI.Controllers
                     AppAuth app = new AppAuth(AuthenticationManager, usuario);
                     app.SignIn(vm.PermanecerConectado);
 
-                    return RedirectToAction("RedirectLoggedUser", new { role = app.Role });
+                    return RedirectToAction("RedirectLoggedUser", new { role = app.PerfilRole });
                 }
             }
 
@@ -158,7 +160,7 @@ namespace StartIdea.UI.Controllers
             AppAuth app = new AppAuth(AuthenticationManager, usuario);
             app.SignIn();
 
-            return RedirectToAction("RedirectLoggedUser", new { role = app.Role });
+            return RedirectToAction("RedirectLoggedUser", new { role = app.PerfilRole });
         }
 
         public ActionResult Logout()
@@ -174,14 +176,14 @@ namespace StartIdea.UI.Controllers
 
         public ActionResult RedirectLoggedUser(string role)
         {
-            if (role.Equals("Admin"))
-                return RedirectToAction("Index", "Usuario", new { area = "Admin" });
-            else if (role.Equals("ProductOwner"))
+            if (role.Equals("ProductOwner"))
                 return RedirectToAction("Index", "ProductBacklog", new { area = "ProductOwner" });
             else if (role.Equals("ScrumMaster"))
                 return RedirectToAction("Index", "Sprint", new { area = "ScrumMaster" });
             else if (role.Equals("TeamMember"))
                 return RedirectToAction("Index", "ProductBacklog", new { area = "TeamMember" });
+            else if (role.Equals("Admin"))
+                return RedirectToAction("Index", "Usuario", new { area = "Admin" });
 
             return RedirectToAction("Logout");
         }

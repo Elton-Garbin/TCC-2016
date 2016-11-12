@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using StartIdea.Model;
-using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -11,14 +10,14 @@ namespace StartIdea.UI.Models
     {
         private IAuthenticationManager _AuthenticationManager;
         private readonly Usuario _Usuario;
-        public string Role { get; private set; }
+        public string PerfilRole { get; private set; }
 
         public AppAuth(IAuthenticationManager AuthenticationManager,
                        Usuario user)
         {
             _AuthenticationManager = AuthenticationManager;
             _Usuario = user;
-            Role = GetRole();
+            PerfilRole = GetPerfilRole();
         }
 
         public void SignIn(bool RememberBrowser = false)
@@ -29,8 +28,11 @@ namespace StartIdea.UI.Models
                 new Claim(ClaimTypes.Email, _Usuario.Email),
                 new Claim("PerfilId", GetPerfilId()),
                 new Claim("TimeId", "1"),
-                new Claim(ClaimTypes.Role, Role)
+                new Claim(ClaimTypes.Role, PerfilRole)
             }, DefaultAuthenticationTypes.ApplicationCookie);
+
+            if (!PerfilRole.Equals("Admin") && _Usuario.IsAdmin)
+                identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
 
             _AuthenticationManager.SignIn(new AuthenticationProperties
             {
@@ -46,28 +48,28 @@ namespace StartIdea.UI.Models
 
         private string GetPerfilId()
         {
-            if (!Utils.IsEmpty(_Usuario.ProductOwners))
+            if (!Utils.IsEmpty(_Usuario.ProductOwners) && _Usuario.ProductOwners.First().IsActive)
                 return _Usuario.ProductOwners.Single().Id.ToString();
-            if (!Utils.IsEmpty(_Usuario.ScrumMasters))
+            if (!Utils.IsEmpty(_Usuario.ScrumMasters) && _Usuario.ScrumMasters.First().IsActive)
                 return _Usuario.ScrumMasters.Single().Id.ToString();
-            if (!Utils.IsEmpty(_Usuario.MembrosTime))
+            if (!Utils.IsEmpty(_Usuario.MembrosTime) && _Usuario.MembrosTime.First().IsActive)
                 return _Usuario.MembrosTime.Single().Id.ToString();
 
             return "0";
         }
 
-        private string GetRole()
+        private string GetPerfilRole()
         {
-            if (_Usuario.IsAdmin)
-                return "Admin";
-            else if (!Utils.IsEmpty(_Usuario.ProductOwners))
+            if (!Utils.IsEmpty(_Usuario.ProductOwners) && _Usuario.ProductOwners.First().IsActive)
                 return "ProductOwner";
-            else if (!Utils.IsEmpty(_Usuario.ScrumMasters))
+            else if (!Utils.IsEmpty(_Usuario.ScrumMasters) && _Usuario.ScrumMasters.First().IsActive)
                 return "ScrumMaster";
-            else if (!Utils.IsEmpty(_Usuario.MembrosTime))
+            else if (!Utils.IsEmpty(_Usuario.MembrosTime) && _Usuario.MembrosTime.First().IsActive)
                 return "TeamMember";
+            else if (_Usuario.IsAdmin)
+                return "Admin";
 
-            return "0";
+            return "None";
         }
     }
 }
