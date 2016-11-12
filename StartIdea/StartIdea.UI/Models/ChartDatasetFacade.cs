@@ -1,8 +1,8 @@
-﻿namespace StartIdea.UI.Models.Facade
+﻿namespace StartIdea.UI.Models
 {
-    public class ChartDataset
+    public class ChartDatasetFacade
     {
-        public ChartDataset(string color)
+        public ChartDatasetFacade(string color)
         {
             lineTension = 0;
             fill = false;

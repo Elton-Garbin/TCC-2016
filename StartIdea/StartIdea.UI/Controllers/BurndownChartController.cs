@@ -1,13 +1,13 @@
 ﻿using StartIdea.DataAccess;
 using StartIdea.Model.ScrumArtefatos;
 using StartIdea.Model.ScrumEventos;
-using StartIdea.UI.Models.Facade;
+using StartIdea.UI.Models;
 using StartIdea.UI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using System.Data.Entity;
 
 namespace StartIdea.UI.Controllers
 {
@@ -35,23 +35,23 @@ namespace StartIdea.UI.Controllers
             return View(vm);
         }
 
-        private List<ChartDataset> GetDatasets(Sprint sprint)
+        private List<ChartDatasetFacade> GetDatasets(Sprint sprint)
         {
-            var dataSets = new List<ChartDataset>();
+            var dataSets = new List<ChartDatasetFacade>();
             int TotalPoints = GetPoints(sprint.Id);
 
-            dataSets.Add(new ChartDataset("rgba(255, 0, 0, 0.3)")
+            dataSets.Add(new ChartDatasetFacade("rgba(255, 0, 0, 0.3)")
             {
                 label = "Atual",
                 data = GetActualData(sprint, TotalPoints)
             });
-            dataSets.Add(new ChartDataset("rgba(0, 0, 255, 0.3)")
+            dataSets.Add(new ChartDatasetFacade("rgba(0, 0, 255, 0.3)")
             {
                 label = "Planejado",
                 data = GetPlanData(sprint, TotalPoints),
                 borderDash = new short[] { 5, 5 }
             });
-            dataSets.Add(new ChartDataset("rgba(0, 255, 0, 0.3)")
+            dataSets.Add(new ChartDatasetFacade("rgba(0, 255, 0, 0.3)")
             {
                 label = "Velocidade",
                 data = GetVelocityData(sprint),

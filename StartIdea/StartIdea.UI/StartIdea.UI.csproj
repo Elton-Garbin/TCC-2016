@@ -282,7 +282,7 @@
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Models\CustomCPFAttribute.cs" />
     <Compile Include="Models\EmailService.cs" />
-    <Compile Include="Models\Facade\ChartDataset.cs" />
+    <Compile Include="Models\ChartDatasetFacade.cs" />
     <Compile Include="ViewModels\BurndownChartVM.cs" />
     <Compile Include="ViewModels\DetalheProductBacklogVM.cs" />
     <Compile Include="ViewModels\SprintVM.cs" />
