@@ -17,7 +17,8 @@ namespace StartIdea.UI.Areas.ProductOwner
             context.MapRoute(
                 "ProductOwner_default",
                 "ProductOwner/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new string[] { "StartIdea.UI.Areas.ProductOwner.Controllers" }
             );
         }
     }

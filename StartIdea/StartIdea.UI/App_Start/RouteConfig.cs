@@ -12,7 +12,8 @@ namespace StartIdea.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Authentication", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Authentication", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "StartIdea.UI.Controllers" }
             );
         }
     }

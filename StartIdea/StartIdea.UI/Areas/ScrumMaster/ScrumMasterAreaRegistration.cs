@@ -17,7 +17,8 @@ namespace StartIdea.UI.Areas.ScrumMaster
             context.MapRoute(
                 "ScrumMaster_default",
                 "ScrumMaster/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new string[] { "StartIdea.UI.Areas.ScrumMaster.Controllers" }
             );
         }
     }

@@ -17,7 +17,8 @@ namespace StartIdea.UI.Areas.TeamMember
             context.MapRoute(
                 "TeamMember_default",
                 "TeamMember/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new string[] { "StartIdea.UI.Areas.TeamMember.Controllers" }
             );
         }
     }
