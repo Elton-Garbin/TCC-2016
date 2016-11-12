@@ -20,9 +20,7 @@ namespace StartIdea.Model.ScrumArtefatos
         [Required]
         public string Descricao { get; set; }
 
-        [DisplayName("Data Inclusão"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataInclusao { get; set; }
-
         public int SprintBacklogId { get; set; }
         public int MembroTimeId { get; set; }
         #endregion

@@ -2,7 +2,6 @@
 using StartIdea.Model.TimeScrum;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.Model.ScrumEventos
@@ -20,29 +19,16 @@ namespace StartIdea.Model.ScrumEventos
 
         #region Fields
         public int Id { get; set; }
-
-        [DisplayName("Data Inicial")]
-        [Required(ErrorMessage = "Campo Data Inicial obrigatório.")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Inicial inválido."), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-
         public DateTime DataInicial { get; set; }
-
-        [DisplayName("Data Final")]
-        [Required(ErrorMessage = "Campo Data Final obrigatório.")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo Data Final inválido."), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataFinal { get; set; }
 
-        [Required(ErrorMessage = "Campo Objetivo obrigatório.")]
-        [StringLength(75, ErrorMessage = "Campo User Story deve ter no máximo 75 caracteres.")]
+        [Required]
+        [MaxLength(75)]
         public string Objetivo { get; set; }
 
         public DateTime DataCadastro { get; set; }
-
         public DateTime? DataCancelamento { get; set; }
-
-        [DataType(DataType.MultilineText)]
         public string MotivoCancelamento { get; set; }
-
         public int TimeId { get; set; }
         #endregion
 

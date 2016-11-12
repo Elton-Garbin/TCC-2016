@@ -16,7 +16,6 @@ namespace StartIdea.Model.TimeScrum
         public DateTime DataManutencao { get; set; }
         public int UsuarioId { get; set; }
         public int TimeId { get; set; }
-
         #endregion
 
         #region References

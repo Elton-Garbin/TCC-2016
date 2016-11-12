@@ -1,7 +1,6 @@
 ﻿using StartIdea.Model.TimeScrum;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.Model.ScrumArtefatos
@@ -30,23 +29,17 @@ namespace StartIdea.Model.ScrumArtefatos
         #region Fields
         public int Id { get; set; }
 
-        [DisplayName("User Story")]
-        [Required(ErrorMessage = "Campo User Story obrigatório.")]
-        [StringLength(150, ErrorMessage = "Campo User Story deve ter no máximo 150 caracteres.")]
-        [DataType(DataType.MultilineText)]
+        [Required]
+        [MaxLength(150)]
         public string UserStory { get; set; }
 
-        [DisplayName("Story Point")]
         public StoryPoint StoryPoint { get; set; }
 
-        [Required(ErrorMessage = "Campo Prioridade obrigatório.")]
-        [Range(0, 9999, ErrorMessage = "Campo Prioridade deve ser maior do que zero.")]
+        [Required]
+        [Range(0, 9999)]
         public short Prioridade { get; set; }
 
-        [DisplayName("Data Inclusão")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataInclusao { get; set; }
-
         public int ProductOwnerId { get; set; }
         #endregion
 
