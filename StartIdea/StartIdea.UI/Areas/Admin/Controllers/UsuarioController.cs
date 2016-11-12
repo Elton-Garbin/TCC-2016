@@ -128,21 +128,24 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var validation = _dbContext.Usuarios.Where(u => u.Email.ToLower().Equals(usuarioVM.Email.ToLower()) ||
-                                                        u.UserName.ToLower().Equals(usuarioVM.UserName.ToLower())).FirstOrDefault();
+                var UsuariosValidation = _dbContext.Usuarios.Where(u => u.Email.ToLower().Equals(usuarioVM.Email.ToLower()) ||
+                                                        u.UserName.ToLower().Equals(usuarioVM.UserName.ToLower()));
 
-                if (validation != null)
+                if (UsuariosValidation != null && UsuariosValidation.AsEnumerable().Count() > 0)
                 {
-                    if (validation.Email.ToLower() == usuarioVM.Email.ToLower())
+                    foreach (var usuarioItem in UsuariosValidation)
                     {
-                        ModelState.AddModelError("Email", "Email já cadastrado para um usuário");
-                        return View(usuarioVM);
-                    }
+                        if (usuarioItem.Email.ToLower() == usuarioVM.Email.ToLower() && usuarioItem.Id != usuarioVM.Id)
+                        {
+                            ModelState.AddModelError("Email", "Email já cadastrado para um usuário");
+                            return View(usuarioVM);
+                        }
 
-                    if (validation.UserName.ToLower() == usuarioVM.UserName.ToLower())
-                    {
-                        ModelState.AddModelError("UserName", "Nome de usuário já cadastrado");
-                        return View(usuarioVM);
+                        if (usuarioItem.UserName.ToLower() == usuarioVM.UserName.ToLower() && usuarioItem.Id != usuarioVM.Id)
+                        {
+                            ModelState.AddModelError("UserName", "Nome de usuário já cadastrado");
+                            return View(usuarioVM);
+                        }
                     }
                 }
 
