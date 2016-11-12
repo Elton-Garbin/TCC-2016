@@ -100,7 +100,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             _dbContext.SaveChanges();
         }
 
-        public Sprint GetSprintAtual()
+        private Sprint GetSprintAtual()
         {
             return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
                                                        && s.TimeId == CurrentUser.TimeId

@@ -23,42 +23,40 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-xs-12 col-sm-1">
+                <label>Id</label>
+                <p>@Html.DisplayFor(model => model.Id)</p>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-2">
+                <label>Data Inclusão</label>
+                <p>@Html.DisplayFor(model => model.DataInclusao)</p>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <label>Usuário Inclusão</label>
+                <p>@Html.DisplayFor(model => model.MembroTime.Usuario.UserName)</p>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-1 form-group">
-                        <label>Id</label>
-                        <p>@Html.DisplayFor(model => model.Id)</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-3 col-md-2 form-group">
-                        <label>Data Inclusão</label>
-                        <p>@Html.DisplayFor(model => model.DataInclusao)</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9 form-group">
-                        <label>Usuário Inclusão</label>
-                        <p>@Html.DisplayFor(model => model.MembroTime.Usuario.UserName)</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 form-group">
-                        <label>Sprint</label>
-                        <p>@Html.DisplayFor(model => model.SprintBacklog.Sprint.Id) - @Html.DisplayFor(model => model.SprintBacklog.Sprint.Objetivo)</p>
-                    </div>
-                    <div class="col-xs-12 form-group">
-                        <label>Backlog da Sprint</label>
-                        <p>@Html.DisplayFor(model => model.SprintBacklog.ProductBacklog.UserStory)</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 form-group">
-                        <label>Descrição</label>
-                        <p>@Html.DisplayFor(model => model.Descricao)</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 form-group">
-                        <em>Data de Impressão: @DateTime.Now</em>
-                    </div>
-                </div>
+                <label>Sprint</label>
+                <p>@Html.DisplayFor(model => model.SprintBacklog.Sprint.Id) - @Html.DisplayFor(model => model.SprintBacklog.Sprint.Objetivo)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label>Backlog da Sprint</label>
+                <p>@Html.DisplayFor(model => model.SprintBacklog.ProductBacklog.UserStory)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label>Descrição</label>
+                <p>@Html.DisplayFor(model => model.Descricao)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <em>Data de Impressão: @DateTime.Now</em>
             </div>
         </div>
         <button type="button" class="btn btn-default hidden-print" onclick="window.print()">

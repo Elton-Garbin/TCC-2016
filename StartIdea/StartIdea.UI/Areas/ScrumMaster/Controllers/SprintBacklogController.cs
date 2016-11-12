@@ -29,7 +29,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             int paginaSprintBacklogNumber = (paginaSprintBacklog ?? 1);
 
             var sprintBacklogVM = new SprintBacklogVM();
-            sprintBacklogVM.SprintId = GetSprintId();
+            sprintBacklogVM.SprintId = GetSprintAtual().Id;
             sprintBacklogVM.PaginaGridProductBacklog = paginaProductBacklogNumber;
             sprintBacklogVM.ProductBacklogList = GetGridDataSourceProductBacklog(paginaProductBacklogNumber);
             sprintBacklogVM.PaginaGridSprintBacklog = paginaSprintBacklogNumber;
@@ -46,9 +46,13 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         public ActionResult Report()
         {
+            Sprint sprint = GetSprintAtual();
+
             var sprintBacklogVM = new SprintBacklogVM();
+            sprintBacklogVM.SprintId = sprint.Id;
             sprintBacklogVM.SprintBacklogReport = GetGridDataSourceSprintBacklog();
-        
+            ViewBag.ObjetivoSprint = sprint.Objetivo;
+
             return View(sprintBacklogVM);
         }
 
@@ -57,7 +61,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             var sprintBacklog = new SprintBacklog()
             {
                 ProductBacklogId = id,
-                SprintId = GetSprintId()
+                SprintId = GetSprintAtual().Id
             };
 
             _dbContext.SprintBacklogs.Add(sprintBacklog);
@@ -72,7 +76,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         public ActionResult Remover(SprintBacklogVM sprintBacklogVM, int? paginaProductBacklog, int? paginaSprintBacklog)
         {
-            int SprintAtualId = GetSprintId();
+            int SprintAtualId = GetSprintAtual().Id;
 
             #region Cancelar SprintBacklog
             SprintBacklog sprintBacklog = _dbContext.SprintBacklogs.Find(sprintBacklogVM.Id);
@@ -137,7 +141,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         private IEnumerable<SprintBacklog> GetGridDataSourceSprintBacklog()
         {
-            int SprintAtualId = GetSprintId();
+            int SprintAtualId = GetSprintAtual().Id;
 
             IEnumerable<SprintBacklog> listBacklog = _dbContext.SprintBacklogs.Include(s => s.ProductBacklog)
                                                                               .Where(s => s.SprintId == SprintAtualId
@@ -148,14 +152,12 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             return listBacklog;
         }
 
-        private int GetSprintId()
+        private Sprint GetSprintAtual()
         {
-            var sprint = _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
-                                                              && s.TimeId == CurrentUser.TimeId
-                                                              && s.DataInicial <= DateTime.Now
-                                                              && s.DataFinal >= DateTime.Now) ?? new Sprint();
-
-            return sprint.Id;
+            return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                       && s.TimeId == CurrentUser.TimeId
+                                                       && s.DataInicial <= DateTime.Now
+                                                       && s.DataFinal >= DateTime.Now) ?? new Sprint();
         }
     }
 }

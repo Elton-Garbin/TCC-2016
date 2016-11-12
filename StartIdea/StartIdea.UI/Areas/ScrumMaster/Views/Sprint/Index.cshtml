@@ -270,7 +270,7 @@
                         <p>Id: @Model.SprintAtual.Id</p>
                         <p>Objetivo: @Model.SprintAtual.Objetivo</p>
                         <p>Duração: @Model.SprintAtual.DataInicial à @Model.SprintAtual.DataFinal</p>
-                        <p><a href="#" class="alert-link">Clique aqui para verificar o andamento!</a></p>
+                        <p><a href="@Url.Action("Index", "TeamKanbanBoard", new { area = "" })" class="alert-link">Clique aqui para verificar o andamento!</a></p>
                     </div>
                 </div>
             </div>
