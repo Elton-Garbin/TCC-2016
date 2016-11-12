@@ -125,6 +125,7 @@ namespace StartIdea.UI.Areas.TeamMember.Controllers
             return View(tarefaVM);
         }
 
+        [AllowAnonymous]
         public ActionResult Report(int? id)
         {
             if (id == null)

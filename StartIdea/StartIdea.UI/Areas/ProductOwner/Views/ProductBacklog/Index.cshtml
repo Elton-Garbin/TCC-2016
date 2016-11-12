@@ -100,7 +100,7 @@
                                     </button>
                                 </div>
                                 <div class="btn-group" role="group">
-                                    <a class="btn btn-success btn-xs" title="Imprimir" href="@Url.Action("Report", "ProductBacklog", new { FiltroUserStory = Model.UserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = ViewBag.FiltroDataFinal })" target="_blank">
+                                    <a href="@Html.Raw(Url.Action("Report", "ProductBacklog", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal }))" target="_blank" class="btn btn-success btn-xs" title="Imprimir">
                                         <i class="glyphicon glyphicon-print"></i>
                                     </a>
                                 </div>
