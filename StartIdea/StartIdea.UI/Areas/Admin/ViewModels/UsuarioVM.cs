@@ -31,6 +31,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
 
         [Required(ErrorMessage = "Campo Usuário obrigatório.")]
         [StringLength(20, ErrorMessage = "Campo Usuário deve ter no máximo 20 caracteres.")]
+        [RegularExpression(@"^(?=.{2,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Campo Usuário inválido.")]
         [DisplayName("Usuário")]
         public string UserName { get; set; }
 
