@@ -85,7 +85,7 @@ namespace StartIdea.UI.Controllers
                 return View(vm);
 
             var usuario = _dbContext.Usuarios.SingleOrDefault(u => u.Email == vm.Email
-                                                               && u.IsActive);
+                                                                && u.IsActive);
 
             if (usuario != null)
             {
@@ -97,11 +97,20 @@ namespace StartIdea.UI.Controllers
                                               <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
                                               usuario.UserName, DateTime.Now.ToShortDateString(), link);
 
-                EmailService.EnviarEmail("Recuperação de Senha (StartIdea)", body, usuario.Email);
+                bool enviouEmail = EmailService.EnviarEmail("Recuperação de Senha (StartIdea)", body, usuario.Email);
 
-                usuario.TokenActivation = token;
-                _dbContext.Entry(usuario).State = EntityState.Modified;
-                _dbContext.SaveChanges();
+                if (enviouEmail)
+                {
+                    usuario.TokenActivation = token;
+                    _dbContext.Entry(usuario).State = EntityState.Modified;
+                    _dbContext.SaveChanges();
+                }
+                else
+                {
+                    vm.CssClassMessage = "text-warning";
+                    ModelState.AddModelError("", "Ocorreu um erro ao enviar o link para o e-mail informado. Por favor, contate o administrador do sistema ou tente novamente mais tarde.");
+                    return View(vm);
+                }
             }
 
             vm.CssClassMessage = "text-success";

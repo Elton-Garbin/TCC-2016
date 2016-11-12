@@ -12,18 +12,27 @@ namespace StartIdea.UI.Models
         private static int PortaSMTP = Convert.ToInt32(ConfigurationManager.AppSettings.Get("PortaSMTP"));
         private static string Senha = ConfigurationManager.AppSettings.Get("Senha");
 
-        public static void EnviarEmail(string Assunto, string Conteudo, string Destinatario)
+        public static bool EnviarEmail(string Assunto, string Conteudo, string Destinatario)
         {
-            MailMessage mail = new MailMessage(Remetente, Destinatario, Assunto, Conteudo);
-            mail.IsBodyHtml = true;
+            try
+            {
+                MailMessage mail = new MailMessage(Remetente, Destinatario, Assunto, Conteudo);
+                mail.IsBodyHtml = true;
 
-            SmtpClient smtp = new SmtpClient(Host, PortaSMTP);
-            smtp.UseDefaultCredentials = true;
-            smtp.EnableSsl = true;
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.Credentials = new NetworkCredential(Remetente, Senha);
-            smtp.Timeout = 20000;
-            smtp.Send(mail);
+                SmtpClient smtp = new SmtpClient(Host, PortaSMTP);
+                smtp.UseDefaultCredentials = true;
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential(Remetente, Senha);
+                smtp.Timeout = 20000;
+                smtp.Send(mail);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

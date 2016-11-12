@@ -59,27 +59,30 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 _dbContext.Usuarios.Add(usuario);
                 _dbContext.SaveChanges();
 
+                bool enviouEmail = true;
                 if (usuarioVM.IsActive)
                 {
                     string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { area = "", token = token }, "http") + "'>Trocar Senha</a>";
                     string body = string.Format(@"<p>Olá <b>{0}</b>,</p><br>
-                                              <p>Você foi cadastrado no dia <b>{1}</b>.</p>
-                                              <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
-                                                  usuario.UserName, DateTime.Now.ToShortDateString(), link);
+                                                  <p>Você foi cadastrado no dia <b>{1}</b>.</p>
+                                                  <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
+                                                     usuario.UserName, DateTime.Now.ToShortDateString(), link);
 
-                    EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
+                    enviouEmail = EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
                 }
 
                 return RedirectToAction("Edit", new
                 {
-                    id = usuario.Id
+                    id = usuario.Id,
+                    naoEnviouEmail = !enviouEmail
                 });
             }
 
             return View(usuarioVM);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id,
+                                 bool naoEnviouEmail = false)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -90,6 +93,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
 
             var usuarioVM = new UsuarioVM()
             {
+                NaoEnviouEmail = naoEnviouEmail,
                 Id = usuario.Id,
                 Email = usuario.Email,
                 UserName = usuario.UserName,
@@ -129,6 +133,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 _dbContext.Entry(usuario).State = EntityState.Modified;
                 _dbContext.SaveChanges();
 
+                bool enviouEmail = true;
                 if (enviaEmail)
                 {
                     string link = "<a href='" + Url.Action("ResetPassword", "Authentication", new { area = "", token = token }, "http") + "'>Trocar Senha</a>";
@@ -137,10 +142,13 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                                                   <p>Por favor, clique no link para concluir o processo: {2}</p><br><p>Obrigado!</p>",
                                                   usuario.UserName, DateTime.Now.ToShortDateString(), link);
 
-                    EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
+                    enviouEmail = EmailService.EnviarEmail("Redefinição de Senha (StartIdea)", body, usuario.Email);
                 }
 
-                return RedirectToAction("Index");
+                if (enviouEmail)
+                    return RedirectToAction("Index");
+                else
+                    usuarioVM.NaoEnviouEmail = !enviouEmail;
             }
 
             return View(usuarioVM);

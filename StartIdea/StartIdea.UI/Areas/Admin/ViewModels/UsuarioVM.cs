@@ -11,6 +11,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         public UsuarioVM()
         {
             IsActive = true;
+            NaoEnviouEmail = false;
         }
 
         #region Properties
@@ -18,6 +19,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         public IPagedList<Usuario> UsuarioList { get; set; }
         public int? PaginaGrid { get; set; }
         #endregion
+        public bool NaoEnviouEmail { get; set; }
 
         public int Id { get; set; }
 
