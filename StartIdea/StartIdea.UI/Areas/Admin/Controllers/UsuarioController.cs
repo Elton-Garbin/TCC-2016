@@ -45,6 +45,24 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var validation = _dbContext.Usuarios.Where(u => u.Email.ToLower().Equals(usuarioVM.Email.ToLower()) ||
+                                                        u.UserName.ToLower().Equals(usuarioVM.UserName.ToLower())).FirstOrDefault();
+
+                if (validation != null)
+                {
+                    if (validation.Email.ToLower() == usuarioVM.Email.ToLower())
+                    {
+                        ModelState.AddModelError("Email", "Email já cadastrado para um usuário");
+                        return View(usuarioVM);
+                    }
+
+                    if(validation.UserName.ToLower() == usuarioVM.UserName.ToLower())
+                    {
+                        ModelState.AddModelError("UserName", "Nome de usuário já cadastrado");
+                        return View(usuarioVM);
+                    }
+                }
+
                 var token = Guid.NewGuid();
                 var usuario = new Usuario()
                 {
@@ -110,6 +128,24 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var validation = _dbContext.Usuarios.Where(u => u.Email.ToLower().Equals(usuarioVM.Email.ToLower()) ||
+                                                        u.UserName.ToLower().Equals(usuarioVM.UserName.ToLower())).FirstOrDefault();
+
+                if (validation != null)
+                {
+                    if (validation.Email.ToLower() == usuarioVM.Email.ToLower())
+                    {
+                        ModelState.AddModelError("Email", "Email já cadastrado para um usuário");
+                        return View(usuarioVM);
+                    }
+
+                    if (validation.UserName.ToLower() == usuarioVM.UserName.ToLower())
+                    {
+                        ModelState.AddModelError("UserName", "Nome de usuário já cadastrado");
+                        return View(usuarioVM);
+                    }
+                }
+
                 var token = Guid.NewGuid();
                 var usuario = _dbContext.Usuarios.Find(usuarioVM.Id);
                 usuario.CPF = usuarioVM.CPF.Replace(".", "").Replace("-", "");
