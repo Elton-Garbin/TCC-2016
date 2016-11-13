@@ -18,7 +18,7 @@ namespace StartIdea.UI.Controllers
             dbContext = _dbContext;
         }
 
-        public ViewResult Index(string contextoBusca, string filtro, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
+        public ActionResult Index(string contextoBusca, string filtro, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
         {
             var sprintBacklogVM = new SprintVM();
 
@@ -47,6 +47,18 @@ namespace StartIdea.UI.Controllers
             int pageNumber = (pagina ?? 1);
 
             return View(sprintBacklogVM.Sprints.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Details(int Id)
+        {
+            var detalheSprintVM = new DetalheSprintVM();
+
+            detalheSprintVM.sprint = dbContext.Sprints.Include("SprintBacklogs.ProductBacklog")
+                                                      .Include("SprintBacklogs.Tarefas")
+                                                      .Include("Reunioes")
+                                                      .Where(s => s.Id == Id).FirstOrDefault();
+
+            return View(detalheSprintVM);
         }
     }
 }

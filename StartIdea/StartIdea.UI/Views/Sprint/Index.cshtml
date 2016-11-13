@@ -67,7 +67,7 @@
                             <td class="text-center">@item.DataInicial.ToString("dd/MM/yyyy")</td>
                             <td class="text-center">@item.DataFinal.ToString("dd/MM/yyyy")</td>
                             <td class="text-center">
-                                <a href="@Url.Action("Index", "ProductBacklog", new { sprintId = item.Id })">
+                                <a href="@Url.Action("Details", "Sprint", new { Id = item.Id })">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </a>
                             </td>

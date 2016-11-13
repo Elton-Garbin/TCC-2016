@@ -272,6 +272,7 @@
     <Compile Include="Controllers\BurndownChartController.cs" />
     <Compile Include="Controllers\ProductBacklogController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
+    <Compile Include="Controllers\TarefasController.cs" />
     <Compile Include="Controllers\TeamKanbanBoardController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -286,7 +287,10 @@
     <Compile Include="Models\ChartDatasetFacade.cs" />
     <Compile Include="ViewModels\BurndownChartVM.cs" />
     <Compile Include="ViewModels\DetalheProductBacklogVM.cs" />
+    <Compile Include="ViewModels\DetalheSprintVM.cs" />
     <Compile Include="ViewModels\SprintVM.cs" />
+    <Compile Include="ViewModels\TarefaDetalhesVM.cs" />
+    <Compile Include="ViewModels\TarefaVM.cs" />
     <Compile Include="ViewModels\TeamKanbanBoardVM.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -506,6 +510,9 @@
     <Content Include="Views\Shared\_MenuProductOwner.cshtml" />
     <Content Include="Views\Shared\_MenuScrumMaster.cshtml" />
     <Content Include="Views\Shared\_MenuTeamMember.cshtml" />
+    <Content Include="Views\Sprint\Details.cshtml" />
+    <Content Include="Views\Tarefas\Index.cshtml" />
+    <Content Include="Views\Tarefas\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
