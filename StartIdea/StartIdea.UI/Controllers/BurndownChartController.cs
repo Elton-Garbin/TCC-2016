@@ -64,11 +64,13 @@ namespace StartIdea.UI.Controllers
         private double[] GetVelocityData(Sprint sprint)
         {
             var velocityData = new List<double>();
+            var lstDailyScrum = sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria)
+                                               .OrderBy(r => r.DataInicial);
 
-            foreach (var dailyScrum in sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria))
+            foreach (var dailyScrum in lstDailyScrum)
             {
                 var dataBase = dailyScrum.DataInicial.Date;
-                if (dataBase == DateTime.Now.Date)
+                if (dataBase == DateTime.Today)
                     break;
 
                 double points = GetPoints(sprint.Id, dataBase, GetPointsMode.SomenteDateBase);
@@ -98,11 +100,13 @@ namespace StartIdea.UI.Controllers
         private double[] GetActualData(Sprint sprint, int TotalPoints)
         {
             var actualData = new List<double>();
+            var lstDailyScrum = sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria)
+                                               .OrderBy(r => r.DataInicial);
 
-            foreach (var dailyScrum in sprint.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria))
+            foreach (var dailyScrum in lstDailyScrum)
             {
                 var dataBase = dailyScrum.DataInicial.Date;
-                if (dataBase == DateTime.Now.Date)
+                if (dataBase == DateTime.Today)
                     break;
 
                 double points = TotalPoints - GetPoints(sprint.Id, dataBase, GetPointsMode.AteDataBase);
