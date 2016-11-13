@@ -18,10 +18,10 @@ namespace StartIdea.DataAccess.Migrations
                 new Usuario()
                 {
                     Id = 1,
-                    Email = "eltongarbin@gmail.com",
+                    Email = "startideatcc@gmail.com",
                     Senha = "oQ/OOuYzfK7mvK55NZJClHVCQj41dr6t/ZUai3EAq7M=",
-                    UserName = "EltonGarbin",
-                    CPF = "89599549422",
+                    UserName = "SytemSuport",
+                    CPF = "11111111111",
                     IsAdmin = true
                 }
             );

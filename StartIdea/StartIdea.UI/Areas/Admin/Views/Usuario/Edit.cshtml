@@ -26,10 +26,14 @@
                     @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control cpf" } })
                     @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-xs-6 col-sm-2 form-group">
-                    <p>&nbsp;</p>
-                    @Html.LabelFor(model => model.IsActive)
-                    @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="col-xs-12 col-sm-3 col-md-2 form-group">
+                    <p class="hidden-xs">&nbsp;</p>
+                    <label class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.IsActive) Ativo
+                    </label>
+                    <label class="checkbox-inline">
+                        @Html.CheckBoxFor(model => model.IsAdmin) Admin
+                    </label>
                 </div>
             </div>
 

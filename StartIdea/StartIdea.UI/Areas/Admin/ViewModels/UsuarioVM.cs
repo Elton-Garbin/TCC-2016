@@ -11,6 +11,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         public UsuarioVM()
         {
             IsActive = true;
+            IsAdmin = false;
             NaoEnviouEmail = false;
         }
 
@@ -41,6 +42,9 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
 
         [DisplayName("Ativo")]
         public bool IsActive { get; set; }
+
+        [DisplayName("Admin")]
+        public bool IsAdmin { get; set; }
         #endregion
     }
 }

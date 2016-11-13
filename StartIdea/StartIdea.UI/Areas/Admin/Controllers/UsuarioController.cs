@@ -71,6 +71,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                     Email = usuarioVM.Email,
                     UserName = usuarioVM.UserName,
                     IsActive = usuarioVM.IsActive,
+                    IsAdmin = usuarioVM.IsAdmin,
                     Senha = Utils.Encrypt("@bc123ASD"),
                     TokenActivation = token
                 };
@@ -117,7 +118,8 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 Email = usuario.Email,
                 UserName = usuario.UserName,
                 CPF = usuario.CPF,
-                IsActive = usuario.IsActive
+                IsActive = usuario.IsActive,
+                IsAdmin = usuario.IsAdmin
             };
 
             return View(usuarioVM);
@@ -169,6 +171,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
                 }
 
                 usuario.IsActive = usuarioVM.IsActive;
+                usuario.IsAdmin = usuarioVM.IsAdmin;
 
                 _dbContext.Entry(usuario).State = EntityState.Modified;
                 _dbContext.SaveChanges();
@@ -350,7 +353,9 @@ namespace StartIdea.UI.Areas.Admin.Controllers
 
         private IPagedList<Usuario> GetGridDataSource(UsuarioVM usuarioVM)
         {
-            return _dbContext.Usuarios.OrderBy(u => u.IsActive).ToPagedList(Convert.ToInt32(usuarioVM.PaginaGrid), 7);
+            return _dbContext.Usuarios.Where(u => u.Id != 1)
+                                      .OrderBy(u => u.IsActive)
+                                      .ToPagedList(Convert.ToInt32(usuarioVM.PaginaGrid), 7);
         }
 
         private string GetProductOwner()
