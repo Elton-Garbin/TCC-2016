@@ -28,9 +28,21 @@
     @Scripts.Render("~/bundles/inputmask")
     @Scripts.Render("~/bundles/customizados")
     @RenderSection("scripts", required: false)
-    @if (IsSectionDefined("CustomScript"))
+    @RenderSection("CustomScript", required: false)
+
+    @if (Request.IsAuthenticated)
     {
-        @RenderSection("CustomScript")
+        <script type="text/javascript">
+            $(function () {
+                $.get('@Html.Raw(Url.Action("Index", "Agenda", new { area = "" }))', function (data) {
+                    $.map(data, function (item) {
+                        $('#tbAvisos > tbody:last-child').append('<tr><td>' + item + '</td></tr>');
+                    });
+                }).fail(function () {
+                    $('#tbAvisos > tbody:last-child').append('<tr><td>Erro ao consultar os avisos do dia.</td></tr>');
+                });
+            });
+        </script>
     }
 </body>
 </html>

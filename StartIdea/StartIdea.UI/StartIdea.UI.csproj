@@ -267,6 +267,7 @@
     <Compile Include="Areas\TeamMember\ViewModels\ProductBacklogVM.cs" />
     <Compile Include="Areas\TeamMember\ViewModels\StatusTarefaVM.cs" />
     <Compile Include="Areas\TeamMember\ViewModels\TarefaVM.cs" />
+    <Compile Include="Controllers\AgendaController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BurndownChartController.cs" />
     <Compile Include="Controllers\ProductBacklogController.cs" />
@@ -508,6 +509,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Agenda\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StartIdea.DataAccess\StartIdea.DataAccess.csproj">
