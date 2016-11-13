@@ -1,0 +1,109 @@
+﻿@model StartIdea.UI.ViewModels.TarefaVM
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-header">
+            <h1>Backlog da Sprint - Detalhes</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <span><b>Data da Inclusão:</b> @Model.productBacklog.DataInclusao.ToString("dd/MM/yyyy")</span>
+    </div>
+    <div class="col-md-2">
+        <span><b>Prioridade:</b> @Model.productBacklog.Prioridade</span>
+    </div>
+    <div class="col-md-2">
+        <span><b>Tamanho:</b> @Model.productBacklog.StoryPoint</span>
+    </div>
+    @if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
+    {
+        <div class="col-md-4">
+            <span><b>Data Cancelamento:</b> @Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento</span>
+        </div>
+    }
+</div>
+<br />
+@if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
+{
+    
+    <div class="row">
+        <div class="col-md-12">
+            <label>Motivo do Cancelamento</label>
+            <p>@Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().MotivoCancelamento</p>
+        </div>
+    </div>
+    <br />
+}
+<div class="row">
+    <div class="col-md-12">
+        <label>Descrição</label>
+        <p>@Model.productBacklog.UserStory</p>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-12">
+        <h4>Tarefas</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                        <th>Descrição</th>
+                        <th class="col-sm-3 col-md-2 text-center">Data Inclusão</th>
+                        <th class="col-sm-2 col-md-1 text-center">
+                            Detalhes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.tarefasBacklog)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @if (item.Descricao.Length > 150)
+                                {
+                                    var descricao = item.Descricao.Substring(0, 150) + "...";
+                                    @Html.DisplayFor(modelItem => descricao)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                }
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-link btn-xs edit" title="Visualizar" href="@Url.Action("Details", "Tarefas", new { tarefaId = item.Id, productBacklogId = Model.productBacklogId, sprintId = Model.sprintId })">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("< Voltar", "Details", "Sprint", new { Id = Model.sprintId } , new { @class = "btn btn-default btn-block" })
+    </div>
+</div>
+<br />
+<br />
