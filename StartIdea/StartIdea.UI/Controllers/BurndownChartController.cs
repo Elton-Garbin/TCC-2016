@@ -21,15 +21,16 @@ namespace StartIdea.UI.Controllers
             _dbContext = dbContext;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             var vm = new BurndownChartVM();
-            vm.SprintAtual = GetSprintAtual();
+            vm.SprintDesejada = (id == null) ? GetSprintAtual() : GetSprint(Convert.ToInt32(id));
+            vm.IsActualSprint = (id == null);
 
-            if (vm.SprintAtual.Id > 0)
+            if (vm.SprintDesejada.Id > 0)
             {
-                vm.Labels = GetLabels(vm.SprintAtual);
-                vm.Datasets = GetDatasets(vm.SprintAtual);
+                vm.Labels = GetLabels(vm.SprintDesejada);
+                vm.Datasets = GetDatasets(vm.SprintDesejada);
             }
 
             return View(vm);
@@ -208,6 +209,14 @@ namespace StartIdea.UI.Controllers
                                                         && s.TimeId == 1
                                                         && s.DataInicial <= DateTime.Now
                                                         && s.DataFinal >= DateTime.Now) ?? new Sprint();
+        }
+
+        private Sprint GetSprint(int SprintId)
+        {
+            return _dbContext.Sprints.Include(s => s.Reunioes)
+                                     .FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                        && s.TimeId == 1
+                                                        && s.Id == SprintId) ?? new Sprint();
         }
     }
 }

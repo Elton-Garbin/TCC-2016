@@ -6,8 +6,8 @@ namespace StartIdea.UI.ViewModels
 {
     public class BurndownChartVM
     {
-
-        public Sprint SprintAtual { get; set; }
+        public bool IsActualSprint { get; set; }
+        public Sprint SprintDesejada { get; set; }
         public string[] Labels { get; set; }
         public List<ChartDatasetFacade> Datasets { get; set; }
     }

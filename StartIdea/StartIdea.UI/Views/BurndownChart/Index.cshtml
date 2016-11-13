@@ -17,12 +17,12 @@
     </div>
 </div>
 
-@if (Model.SprintAtual.Id == 0)
+@if (Model.SprintDesejada.Id == 0)
 {
     <div class="row">
         <div class="col-xs-12">
             <div class="alert alert-info" role="alert">
-                <p>Não há sprint em andamento.</p>
+                <p>@(Model.IsActualSprint ? "Não há sprint em andamento." : "Sprint informada não encontra!")</p>
             </div>
         </div>
     </div>
@@ -31,7 +31,17 @@ else
 {
     <div class="row">
         <div class="col-xs-12 col-sm-7 col-md-8">
-            <canvas id="burndownChart"></canvas>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <canvas id="burndownChart"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <label>Sprint</label>
+                    <p>@Html.DisplayFor(model => model.SprintDesejada.Id) - @Html.DisplayFor(model => model.SprintDesejada.Objetivo)</p>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-3 col-md-2">
             <div class="table-responsive">
@@ -42,9 +52,9 @@ else
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.SprintAtual.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria)
-                                                                        .OrderBy(r => r.DataInicial)
-                                                                        .Select((model, index) => new { index, model }))
+                        @foreach (var item in Model.SprintDesejada.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria)
+                                                                .OrderBy(r => r.DataInicial)
+                                                                .Select((model, index) => new { index, model }))
                         {
                             <tr>
                                 <td class="text-center">Dia @(item.index + 1) - @string.Format("{0:d}", item.model.DataInicial)</td>
@@ -92,7 +102,7 @@ else
             @foreach (var dia in Model.Labels)
             {
                 @:Labels.push("@dia");
-            }
+                        }
 
             var config = {
                 type: 'line',
