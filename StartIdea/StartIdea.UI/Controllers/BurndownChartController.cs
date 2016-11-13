@@ -70,7 +70,7 @@ namespace StartIdea.UI.Controllers
             foreach (var dailyScrum in lstDailyScrum)
             {
                 var dataBase = dailyScrum.DataInicial.Date;
-                if (dataBase == DateTime.Today)
+                if (dataBase >= DateTime.Today)
                     break;
 
                 double points = GetPoints(sprint.Id, dataBase, GetPointsMode.SomenteDateBase);
@@ -106,7 +106,7 @@ namespace StartIdea.UI.Controllers
             foreach (var dailyScrum in lstDailyScrum)
             {
                 var dataBase = dailyScrum.DataInicial.Date;
-                if (dataBase == DateTime.Today)
+                if (dataBase >= DateTime.Today)
                     break;
 
                 double points = TotalPoints - GetPoints(sprint.Id, dataBase, GetPointsMode.AteDataBase);

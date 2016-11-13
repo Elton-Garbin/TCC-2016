@@ -43,8 +43,8 @@ else
                     </thead>
                     <tbody>
                         @foreach (var item in Model.SprintAtual.Reunioes.Where(r => r.TipoReuniao == TipoReuniao.Diaria)
-                                                                .OrderBy(r => r.DataInicial)
-                                                                .Select((model, index) => new { index, model }))
+                                                                        .OrderBy(r => r.DataInicial)
+                                                                        .Select((model, index) => new { index, model }))
                         {
                             <tr>
                                 <td class="text-center">Dia @(item.index + 1) - @string.Format("{0:d}", item.model.DataInicial)</td>
