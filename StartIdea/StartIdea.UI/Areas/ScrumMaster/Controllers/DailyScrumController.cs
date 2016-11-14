@@ -129,9 +129,10 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             var query = from r in _dbContext.Reunioes
                         where r.TipoReuniao == TipoReuniao.Diaria
                            && r.SprintId == SprintAtualId
+                        orderby r.DataInicial
                         select r;
 
-            return query.ToList().ToPagedList(PaginaGrid, 7);
+            return query.ToList().ToPagedList(PaginaGrid, 10);
         }
 
         private int GetSprintId()

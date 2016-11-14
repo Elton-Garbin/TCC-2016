@@ -33,12 +33,12 @@
                         <table class="table table-hover table-condensed">
                             <thead>
                                 <tr>
-                                    <th class="col-sm-2 col-md-1 text-center">Id</th>
+                                    <th class="col-sm-1 text-center">Id</th>
                                     <th>Local</th>
-                                    <th class="col-sm-2 text-center">Data Inicial</th>
-                                    <th class="col-sm-2 text-center">Data Final</th>
+                                    <th class="col-sm-3 col-md-2 text-center">Data Inicial</th>
+                                    <th class="col-sm-3 col-md-2 text-center">Data Final</th>
                                     <th class="col-sm-1" colspan="2">
-                                        <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
+                                        <a class="btn btn-success btn-xs btn-block" title="Incluir" href="@Url.Action("Create")">
                                             <i class="glyphicon glyphicon-plus"></i>
                                         </a>
                                     </th>
@@ -61,14 +61,18 @@
                                             @Html.DisplayFor(modelItem => item.DataFinal)
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary btn-xs btn-block" href="@Url.Action("Edit", new { id = item.Id })">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-danger btn-xs btn-block" href="@Url.Action("Delete", new { id = item.Id })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </a>
+                                            <div class="btn-group btn-group-justified" role="group" aria-label="operacoes">
+                                                <div class="btn-group" role="group">
+                                                    <a class="btn btn-primary btn-xs" title="Editar" href="@Url.Action("Edit", new { id = item.Id })">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="btn-group" role="group">
+                                                    <a class="btn btn-danger btn-xs" title="Excluir" href="@Url.Action("Delete", new { Id = (item.Id) })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">
+                                                        <i class="glyphicon glyphicon-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 }

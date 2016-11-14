@@ -51,11 +51,11 @@
 <div class="row">
     @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
     {
-        <div class="col-md-6">
+        <div class="col-sm-4 col-md-6">
             <label>User Story</label>
             @Html.EditorFor(model => model.FiltroUserStory, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-3 col-md-2">
             <label>Data Inclusão (Inicial)</label>
             <div class="input-group date datepicker">
                 @Html.EditorFor(model => model.FiltroDataInicial, new { htmlAttributes = new { @class = "form-control" } })
@@ -64,7 +64,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-3 col-md-2">
             <label>Data Inclusão (Final)</label>
             <div class="input-group date datepicker">
                 @Html.EditorFor(model => model.FiltroDataFinal, new { htmlAttributes = new { @class = "form-control" } })
@@ -72,9 +72,8 @@
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
-
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
             <label>&nbsp;</label>
             <button class="btn btn-default btn-block" type="submit">Buscar</button>
         </div>
@@ -87,11 +86,11 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                        <th class="col-sm-1 text-center">Id</th>
                         <th>User Story</th>
                         <th class="col-sm-2 text-center">Story Point</th>
                         <th class="col-sm-1 text-center">Prioridade</th>
-                        <th class="col-sm-2 text-center">Data Inclusão</th>
+                        <th class="col-sm-3 col-md-2 text-center">Data Inclusão</th>
                         <th class="col-sm-1">
                             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group" role="group">
