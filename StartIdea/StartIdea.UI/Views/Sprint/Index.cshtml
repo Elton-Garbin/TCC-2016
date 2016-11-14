@@ -23,7 +23,7 @@
             @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
         </div>
         <div class="col-md-2">
-            <label>Data Inicio</label>
+            <label>Data Inicial</label>
             <div class="input-group date datepicker">
                 @Html.TextBox("dataInicial", ViewBag.DataInicialAtual as string, new { @class = "form-control" })
                 <span class="input-group-addon">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            <label>Data Fim</label>
+            <label>Data Final</label>
             <div class="input-group date datepicker">
                 @Html.TextBox("dataFinal", ViewBag.DataFinalAtual as string, new { @class = "form-control" })
                 <span class="input-group-addon">
@@ -49,25 +49,25 @@
 <br>
 <div class="row">
     <div class="col-xs-12">
-        <div class="table-responsive">
+        <div id="no-more-tables">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th class="col-sm-9">Objetivo</th>
-                        <th class="text-center col-sm-1">Data Inicio</th>
-                        <th class="text-center col-sm-1">Data Fim</th>
-                        <th class="text-center col-sm-1">Detalhes</th>
+                        <th>Objetivo</th>
+                        <th class="col-sm-1 text-center">Data Inicial</th>
+                        <th class="col-sm-1 text-center">Data Final</th>
+                        <th class="col-sm-1"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@(item.Objetivo.Length > 130 ? item.Objetivo.Substring(0, 130) : item.Objetivo)</td>
-                            <td class="text-center">@item.DataInicial.ToString("dd/MM/yyyy")</td>
-                            <td class="text-center">@item.DataFinal.ToString("dd/MM/yyyy")</td>
-                            <td class="text-center">
-                                <a href="@Url.Action("Details", "Sprint", new { Id = item.Id })">
+                            <td data-title="Objetivo">@(item.Objetivo.Length > 130 ? item.Objetivo.Substring(0, 130) : item.Objetivo)</td>
+                            <td data-title="Data Inicial" class="text-center">@item.DataInicial.ToString("dd/MM/yyyy")</td>
+                            <td data-title="Data Final" class="text-center">@item.DataFinal.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "Sprint", new { Id = item.Id })">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </a>
                             </td>

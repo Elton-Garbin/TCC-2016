@@ -73,25 +73,25 @@
             <div id="tab-sprint" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
-                        <div class="table-responsive">
+                        <div id="no-more-tables">
                             <table class="table table-condensed table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Descrição</th>
-                                        <th class="text-center col-sm-1">Tamanho</th>
-                                        <th class="text-center col-sm-1">Prioridade</th>
-                                        <th class="text-center col-sm-1">Detalhes</th>
+                                        <th>User Story</th>
+                                        <th class="col-sm-1 text-center">Story Point</th>
+                                        <th class="col-sm-1 text-center">Prioridade</th>
+                                        <th class="col-sm-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.sprint.SprintBacklogs.OrderBy(sb => sb.ProductBacklog.Prioridade))
                                     {
                                         <tr>
-                                            <td>@(item.ProductBacklog.UserStory.Length > 150 ? item.ProductBacklog.UserStory.Substring(0, 150) + "..." : item.ProductBacklog.UserStory)</td>
-                                            <td class="text-center">@item.ProductBacklog.StoryPoint</td>
-                                            <td class="text-center">@item.ProductBacklog.Prioridade</td>
+                                            <td data-title="User Story">@(item.ProductBacklog.UserStory.Length > 150 ? item.ProductBacklog.UserStory.Substring(0, 150) + "..." : item.ProductBacklog.UserStory)</td>
+                                            <td data-title="Story Point" class="text-center">@item.ProductBacklog.StoryPoint</td>
+                                            <td data-title="Prioridade" class="text-center">@item.ProductBacklog.Prioridade</td>
                                             <td class="text-center">
-                                                <a class="btn btn-link btn-xs btn-block btn-detalhe-backlog" href="@Url.Action("Index", "Tarefa", new { productBacklogId = item.ProductBacklog.Id, sprintId = Model.sprint.Id })">
+                                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Index", "Tarefa", new { productBacklogId = item.ProductBacklog.Id, sprintId = Model.sprint.Id })">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </a>
                                             </td>
@@ -106,41 +106,39 @@
             <div id="tab-reuniao" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
-                        <div class="table-responsive">
+                        <div id="no-more-tables">
                             <table class="table table-hover table-condensed">
                                 <thead>
                                     <tr>
-                                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                                        <th class="col-sm-1 text-center">Id</th>
                                         <th>Local</th>
                                         <th class="col-sm-2 text-center">Tipo de Reunião</th>
-                                        <th class="col-sm-2 text-center">Data Inicial</th>
-                                        <th class="col-sm-2 text-center">Data Final</th>
-                                        <th class="col-sm-1 text-center">
-                                            Detalhes
-                                        </th>
+                                        <th class="col-sm-3 col-md-2 text-center">Data Inicial</th>
+                                        <th class="col-sm-3 col-md-2 text-center">Data Final</th>
+                                        <th class="col-sm-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.sprint.Reunioes.OrderBy(r => r.DataInicial))
                                     {
                                         <tr>
-                                            <td class="text-center">
+                                            <td data-title="Id" class="text-center">
                                                 @Html.DisplayFor(modelItem => item.Id)
                                             </td>
-                                            <td>
+                                            <td data-title="Local">
                                                 @Html.DisplayFor(modelItem => item.Local)
                                             </td>
-                                            <td class="text-center">
+                                            <td data-title="Tipo de Reunião" class="text-center">
                                                 @Html.DisplayFor(modelItem => item.TipoReuniao)
                                             </td>
-                                            <td class="text-center">
+                                            <td data-title="Data Inicial" class="text-center">
                                                 @Html.DisplayFor(modelItem => item.DataInicial)
                                             </td>
-                                            <td class="text-center">
+                                            <td data-title="Data Final" class="text-center">
                                                 @Html.DisplayFor(modelItem => item.DataFinal)
                                             </td>
                                             <td>
-                                                <button class="btn btn-link btn-xs btn-block detalhes-reuniao" data-ata="@item.Ata">
+                                                <button class="btn btn-default btn-xs btn-block detalhes-reuniao" data-ata="@item.Ata">
                                                     <i class="glyphicon glyphicon-search"></i>
                                                 </button>
                                             </td>
@@ -149,13 +147,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div id="tab-reuniao" class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12">
-                        teste
                     </div>
                 </div>
             </div>

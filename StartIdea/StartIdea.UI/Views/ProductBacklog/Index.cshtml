@@ -16,11 +16,11 @@
     {
         @Html.HiddenFor(model => model.sprintId)
         <div class="col-md-8">
-            <label>Descrição</label>
+            <label>User Story</label>
             @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         <div class="col-md-2">
-            <label>Tamanho</label>
+            <label>Story Point</label>
             @Html.EnumDropDownListFor(model => model.tamanhos, new { @class = "form-control" })
         </div>
         <div class="col-md-2">
@@ -32,25 +32,25 @@
 <br>
 <div class="row">
     <div class="col-xs-12">
-        <div class="table-responsive">
+        <div id="no-more-tables">
             <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
-                        <th>Descrição</th>
-                        <th class="text-center col-sm-1">Tamanho</th>
-                        <th class="text-center col-sm-1">Prioridade</th>
-                        <th class="text-center col-sm-1">Detalhes</th>
+                        <th>User Story</th>
+                        <th class="col-sm-1 text-center">Story Point</th>
+                        <th class="col-sm-1 text-center">Prioridade</th>
+                        <th class="col-sm-1"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.BackLogItem)
                     {
                         <tr>
-                            <td>@item.UserStory</td>
-                            <td class="text-center">@item.StoryPoint</td>
-                            <td class="text-center">@item.Prioridade</td>
-                            <td class="text-center">
-                                <a href="@Url.Action("Details", "ProductBacklog", new { item.Id, sprintId = Model.sprintId })">
+                            <td data-title="User Story">@item.UserStory</td>
+                            <td data-title="Story Point" class="text-center">@item.StoryPoint</td>
+                            <td data-title="Prioridade" class="text-center">@item.Prioridade</td>
+                            <td>
+                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "ProductBacklog", new { item.Id, sprintId = Model.sprintId })">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </a>
                             </td>

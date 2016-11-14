@@ -41,15 +41,15 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="table-responsive">
+        <div id="no-more-tables">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th class="col-sm-2 col-md-1 text-center">Id</th>
+                        <th class="col-sm-1 text-center">Id</th>
                         <th>User Story</th>
                         <th class="col-sm-2 text-center">Story Point</th>
                         <th class="col-sm-1 text-center">Prioridade</th>
-                        <th class="col-sm-2 text-center">Data Inclusão</th>
+                        <th class="col-sm-3 col-md-2 text-center">Data Inclusão</th>
                         <th class="col-sm-1"></th>
                     </tr>
                 </thead>
@@ -57,19 +57,19 @@
                     @foreach (var item in Model.ProductBacklogList)
                     {
                         <tr>
-                            <td class="text-center">
+                            <td data-title="Id" class="text-center">
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
-                            <td>
+                            <td data-title="User Story">
                                 @Html.DisplayFor(modelItem => item.UserStory)
                             </td>
-                            <td class="text-center">
+                            <td data-title="Story Point" class="text-center">
                                 @Html.DisplayFor(modelItem => item.StoryPoint)
                             </td>
-                            <td class="text-center">
+                            <td data-title="Prioridade" class="text-center">
                                 @Html.DisplayFor(modelItem => item.Prioridade)
                             </td>
-                            <td class="text-center">
+                            <td data-title="Data Inclusão" class="text-center">
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
                             </td>
                             <td>
@@ -114,15 +114,15 @@ else
 {
     <div class="row">
         <div class="col-xs-12">
-            <div class="table-responsive">
+            <div id="no-more-tables">
                 <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
-                            <th class="col-sm-2 col-md-1 text-center">Id</th>
+                            <th class="col-sm-1 text-center">Id</th>
                             <th>User Story</th>
                             <th class="col-sm-2 text-center">Story Point</th>
                             <th class="col-sm-1 text-center">Prioridade</th>
-                            <th class="col-sm-2 text-center">Data Inclusão</th>
+                            <th class="col-sm-3 col-md-2 text-center">Data Inclusão</th>
                             <th class="col-sm-1">
                                 <a class="btn btn-primary btn-xs btn-block" title="Imprimir" href="@Url.Action("Report", "SprintBacklog")" target="_blank">
                                     <i class="glyphicon glyphicon-print"></i>
@@ -134,19 +134,19 @@ else
                         @foreach (var item in Model.SprintBacklogList)
                         {
                             <tr>
-                                <td class="text-center">
+                                <td data-title="Id" class="text-center">
                                     @Html.DisplayFor(modelItem => item.ProductBacklog.Id)
                                 </td>
-                                <td>
+                                <td data-title="User Story">
                                     @Html.DisplayFor(modelItem => item.ProductBacklog.UserStory)
                                 </td>
-                                <td class="text-center">
+                                <td data-title="Story Point" class="text-center">
                                     @Html.DisplayFor(modelItem => item.ProductBacklog.StoryPoint)
                                 </td>
-                                <td class="text-center">
+                                <td data-title="Prioridade" class="text-center">
                                     @Html.DisplayFor(modelItem => item.ProductBacklog.Prioridade)
                                 </td>
-                                <td class="text-center">
+                                <td data-title="Data Inclusão" class="text-center">
                                     @Html.DisplayFor(modelItem => item.ProductBacklog.DataInclusao)
                                 </td>
                                 <td>

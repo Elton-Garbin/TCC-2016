@@ -82,7 +82,7 @@
 <br>
 <div class="row">
     <div class="col-xs-12">
-        <div class="table-responsive">
+        <div id="no-more-tables">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
@@ -111,19 +111,19 @@
                     @foreach (var item in Model.ProductBacklogList)
                     {
                         <tr>
-                            <td class="text-center">
+                            <td data-title="Id" class="text-center">
                                 @Html.DisplayFor(modelItem => item.Id)
                             </td>
-                            <td>
+                            <td data-title="User Story">
                                 @Html.DisplayFor(modelItem => item.UserStory)
                             </td>
-                            <td class="text-center">
+                            <td data-title="Story Point" class="text-center">
                                 @Html.DisplayFor(modelItem => item.StoryPoint)
                             </td>
-                            <td class="text-center">
+                            <td data-title="Prioridade" class="text-center">
                                 @Html.DisplayFor(modelItem => item.Prioridade)
                             </td>
-                            <td class="text-center">
+                            <td data-title="Data Inclusão" class="text-center">
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
                             </td>
                             <td>
