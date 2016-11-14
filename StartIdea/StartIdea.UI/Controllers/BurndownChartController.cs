@@ -129,7 +129,7 @@ namespace StartIdea.UI.Controllers
                                select sb.ProductBacklogId).Contains(pb.Id)
                         select pb.StoryPoint;
 
-            if (query == null)
+            if (Utils.IsEmpty(query.AsEnumerable()))
                 return 0;
 
             var points = query.Sum(p => (int)p);
