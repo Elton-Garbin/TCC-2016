@@ -1,6 +1,5 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
-using StartIdea.Model.ScrumEventos;
 using StartIdea.UI.ViewModels;
 using System;
 using System.Linq;
@@ -27,9 +26,9 @@ namespace StartIdea.UI.Controllers
             else
                 contextoBusca = filtro;
 
-            ViewBag.Filtro           = contextoBusca;
+            ViewBag.Filtro = contextoBusca;
             ViewBag.DataInicialAtual = dataInicial;
-            ViewBag.DataFinalAtual   = dataFinal;
+            ViewBag.DataFinalAtual = dataFinal;
 
             if (!string.IsNullOrEmpty(contextoBusca))
                 sprintBacklogVM.Sprints = dbContext.Sprints.Where(sprint => sprint.Objetivo.ToUpper().Contains(contextoBusca.ToUpper())).ToList();

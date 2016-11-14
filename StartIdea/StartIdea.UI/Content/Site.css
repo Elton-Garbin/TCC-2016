@@ -4,6 +4,12 @@
     padding-right: 15px;
 }
 
+@media(max-width: 767px) {
+    h1 {
+        font-size: 18pt;
+    }
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -176,7 +182,7 @@
     margin-bottom: 0px !important;
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
     #tbAvisos {
         max-width: 400px !important;
         margin-bottom: 0px !important;

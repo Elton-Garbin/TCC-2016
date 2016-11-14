@@ -1,5 +1,4 @@
 ﻿@model StartIdea.UI.ViewModels.TarefaVM
-@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
@@ -32,7 +31,7 @@
 <br />
 @if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
 {
-    
+
     <div class="row">
         <div class="col-md-12">
             <label>Motivo do Cancelamento</label>
@@ -89,7 +88,7 @@
                                 @Html.DisplayFor(modelItem => item.DataInclusao)
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-link btn-xs edit" title="Visualizar" href="@Url.Action("Details", "Tarefas", new { tarefaId = item.Id, productBacklogId = Model.productBacklogId, sprintId = Model.sprintId })">
+                                <a class="btn btn-link btn-xs edit" title="Visualizar" href="@Url.Action("Details", "Tarefa", new { tarefaId = item.Id, productBacklogId = Model.productBacklogId, sprintId = Model.sprintId })">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </a>
                             </td>
@@ -102,7 +101,7 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.ActionLink("< Voltar", "Details", "Sprint", new { Id = Model.sprintId } , new { @class = "btn btn-default btn-block" })
+        @Html.ActionLink("< Voltar", "Details", "Sprint", new { Id = Model.sprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>
 <br />

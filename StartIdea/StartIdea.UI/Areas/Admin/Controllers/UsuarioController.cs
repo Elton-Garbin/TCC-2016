@@ -355,7 +355,7 @@ namespace StartIdea.UI.Areas.Admin.Controllers
         {
             return _dbContext.Usuarios.Where(u => u.Id != 1)
                                       .OrderBy(u => u.IsActive)
-                                      .ToPagedList(Convert.ToInt32(usuarioVM.PaginaGrid), 7);
+                                      .ToPagedList(Convert.ToInt32(usuarioVM.PaginaGrid), 10);
         }
 
         private string GetProductOwner()

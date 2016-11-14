@@ -91,7 +91,7 @@
                                             <td class="text-center">@item.ProductBacklog.StoryPoint</td>
                                             <td class="text-center">@item.ProductBacklog.Prioridade</td>
                                             <td class="text-center">
-                                                <a class="btn btn-link btn-xs btn-block btn-detalhe-backlog" href="@Url.Action("Index", "Tarefas", new { productBacklogId = item.ProductBacklog.Id, sprintId = Model.sprint.Id })">
+                                                <a class="btn btn-link btn-xs btn-block btn-detalhe-backlog" href="@Url.Action("Index", "Tarefa", new { productBacklogId = item.ProductBacklog.Id, sprintId = Model.sprint.Id })">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </a>
                                             </td>

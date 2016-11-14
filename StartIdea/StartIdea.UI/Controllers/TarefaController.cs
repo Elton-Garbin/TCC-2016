@@ -1,26 +1,21 @@
-﻿using PagedList;
-using StartIdea.DataAccess;
-using StartIdea.Model.ScrumArtefatos;
+﻿using StartIdea.DataAccess;
 using StartIdea.UI.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StartIdea.UI.Controllers
 {
     [AllowAnonymous]
-    public class TarefasController : Controller
+    public class TarefaController : Controller
     {
         private StartIdeaDBContext _dbContext;
 
-        public TarefasController(StartIdeaDBContext dbContext)
+        public TarefaController(StartIdeaDBContext dbContext)
         {
             _dbContext = dbContext;
         }
-        // GET: Tarefas
+
         public ActionResult Index(int? productBacklogId,
                                   int sprintId)
         {
@@ -28,7 +23,6 @@ namespace StartIdea.UI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var tarefaVM = new TarefaVM();
-
             tarefaVM.productBacklog = _dbContext.ProductBacklogs.Include("ProductOwner.Usuario")
                                                                 .Include("SprintBacklogs")
                                                                 .Where(pb => pb.Id == productBacklogId).FirstOrDefault();
@@ -60,7 +54,7 @@ namespace StartIdea.UI.Controllers
                 return HttpNotFound();
 
             tarefaDetalhesVM.productBacklogId = productBacklogId;
-            tarefaDetalhesVM.sprintId         = sprintId;
+            tarefaDetalhesVM.sprintId = sprintId;
 
             return View(tarefaDetalhesVM);
         }
