@@ -11,7 +11,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="container-fluid">
         @using (Html.BeginForm())
@@ -40,8 +39,8 @@
                     @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.DataFinal)
-                    @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <label>Data Final</label>
+                    <input type="text" class="form-control" value="A reunião diária tem um limite de tempo de 15 min" readonly="readonly" />
                 </div>
             </div>
 

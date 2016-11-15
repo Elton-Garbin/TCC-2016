@@ -98,7 +98,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             {
                 Id = reuniao.Id,
                 Ata = reuniao.Ata,
-                DataFinal = reuniao.DataFinal,
                 DataInicial = reuniao.DataInicial,
                 Local = reuniao.Local
             };
