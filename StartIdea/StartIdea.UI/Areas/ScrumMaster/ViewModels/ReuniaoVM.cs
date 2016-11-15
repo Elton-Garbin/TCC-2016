@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 {
-    public class ReuniaoVM
+    public class ReuniaoVM : IValidatableObject
     {
         public ReuniaoVM()
         {
@@ -49,5 +50,15 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
 
         public int SprintId { get; set; }
         #endregion
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (DataFinal <= DataInicial)
+            {
+                yield return
+                    new ValidationResult(errorMessage: "Data Final deve ser maior do que a Data Inicial.",
+                                         memberNames: new[] { "DataFinal" });
+            }
+        }
     }
 }

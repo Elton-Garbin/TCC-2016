@@ -62,7 +62,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Exclude = "ReuniaoList,PaginaGrid,SprintId")] ReuniaoVM reuniaoVM)
+        public ActionResult Edit([Bind(Exclude = "ReuniaoList,PaginaGrid")] ReuniaoVM reuniaoVM)
         {
             if (ModelState.IsValid)
             {
