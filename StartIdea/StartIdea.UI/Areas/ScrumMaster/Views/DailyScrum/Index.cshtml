@@ -37,10 +37,13 @@
                                     <th>Local</th>
                                     <th class="col-sm-3 col-md-2 text-center">Data Inicial</th>
                                     <th class="col-sm-3 col-md-2 text-center">Data Final</th>
-                                    <th class="col-sm-1" colspan="2">
-                                        <a class="btn btn-success btn-xs btn-block" title="Incluir" href="@Url.Action("Create")">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                        </a>
+                                    <th class="col-sm-1">
+                                        @if (Model.ReuniaoList.Count >= 14)
+                                        {
+                                            <a class="btn btn-success btn-xs btn-block" title="Incluir" href="@Url.Action("Create")">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                            </a>
+                                        }
                                     </th>
                                 </tr>
                             </thead>
@@ -79,7 +82,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="5">
                                         @Html.PagedListPager(Model.ReuniaoList, PaginaGrid => Url.Action("Index", new { PaginaGrid }))
                                     </td>
                                 </tr>

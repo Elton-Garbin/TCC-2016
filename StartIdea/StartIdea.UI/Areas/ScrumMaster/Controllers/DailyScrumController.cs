@@ -25,7 +25,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             var dailyScrumVM = new DailyScrumVM()
             {
                 PaginaGrid = (PaginaGrid ?? 1),
-                SprintId = GetSprintId()
+                SprintId = GetSprintAtual().Id
             };
 
             dailyScrumVM.ReuniaoList = GetGridDataSource(dailyScrumVM.PaginaGrid);
@@ -44,7 +44,27 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             if (ModelState.IsValid)
             {
-                int SprintAtualId = GetSprintId();
+                Sprint SprintAtual = GetSprintAtual();
+
+                if (_dbContext.Reunioes.Any(r => r.SprintId == SprintAtual.Id
+                                              && r.TipoReuniao == TipoReuniao.Diaria
+                                              && DbFunctions.TruncateTime(r.DataInicial) == dailyScrumVM.DataInicial.Date))
+                {
+                    ModelState.AddModelError("", "Deve haver apenas uma reunião diária por dia.");
+                    return View(dailyScrumVM);
+                }
+                else if (_dbContext.Reunioes.Count(r => r.SprintId == SprintAtual.Id
+                                                     && r.TipoReuniao == TipoReuniao.Diaria) >= 14)
+                {
+                    ModelState.AddModelError("", "Quantidade de reunião diária não deve ser superior a 14.");
+                    return View(dailyScrumVM);
+                }
+                else if (!(dailyScrumVM.DataInicial >= SprintAtual.DataInicial &&
+                           dailyScrumVM.DataInicial <= SprintAtual.DataFinal))
+                {
+                    ModelState.AddModelError("", "Data da reunião deve estar dentro do intervalo da sprint atual.");
+                    return View(dailyScrumVM);
+                }
 
                 var reuniao = new Reuniao()
                 {
@@ -53,7 +73,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
                     Ata = dailyScrumVM.Ata,
                     DataInicial = dailyScrumVM.DataInicial,
                     DataFinal = dailyScrumVM.DataInicial.AddMinutes(15),
-                    SprintId = SprintAtualId
+                    SprintId = SprintAtual.Id
                 };
 
                 _dbContext.Reunioes.Add(reuniao);
@@ -92,7 +112,25 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             if (ModelState.IsValid)
             {
-                Reuniao reuniao = _dbContext.Reunioes.Find(dailyScrumVM.Id);
+                Reuniao reuniao = _dbContext.Reunioes.Include(r => r.Sprint)
+                                                     .Where(r => r.Id == dailyScrumVM.Id)
+                                                     .FirstOrDefault();
+
+                if (_dbContext.Reunioes.Any(r => r.SprintId == reuniao.SprintId
+                                              && r.Id != reuniao.Id
+                                              && r.TipoReuniao == TipoReuniao.Diaria
+                                              && DbFunctions.TruncateTime(r.DataInicial) == dailyScrumVM.DataInicial.Date))
+                {
+                    ModelState.AddModelError("", "Deve haver apenas uma reunião diária por dia.");
+                    return View(dailyScrumVM);
+                }
+                else if (!(dailyScrumVM.DataInicial >= reuniao.Sprint.DataInicial &&
+                           dailyScrumVM.DataInicial <= reuniao.Sprint.DataFinal))
+                {
+                    ModelState.AddModelError("", "Data da reunião deve estar dentro do intervalo da sprint atual.");
+                    return View(dailyScrumVM);
+                }
+
                 reuniao.Local = dailyScrumVM.Local;
                 reuniao.Ata = dailyScrumVM.Ata;
                 reuniao.DataInicial = dailyScrumVM.DataInicial;
@@ -124,7 +162,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         private IPagedList<Reuniao> GetGridDataSource(int PaginaGrid)
         {
-            int SprintAtualId = GetSprintId();
+            int SprintAtualId = GetSprintAtual().Id;
 
             var query = from r in _dbContext.Reunioes
                         where r.TipoReuniao == TipoReuniao.Diaria
@@ -135,14 +173,12 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             return query.ToList().ToPagedList(PaginaGrid, 10);
         }
 
-        private int GetSprintId()
+        private Sprint GetSprintAtual()
         {
-            var sprint = _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
-                                                              && s.TimeId == CurrentUser.TimeId
-                                                              && s.DataInicial <= DateTime.Now
-                                                              && s.DataFinal >= DateTime.Now) ?? new Sprint();
-
-            return sprint.Id;
+            return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                        && s.TimeId == CurrentUser.TimeId
+                                                        && s.DataInicial <= DateTime.Now
+                                                        && s.DataFinal >= DateTime.Now) ?? new Sprint();
         }
     }
 }
