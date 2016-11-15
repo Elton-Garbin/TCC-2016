@@ -188,20 +188,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
                                          memberNames: new[] { "DataInicialRD" });
             }
 
-            if(DataInicialRD < DataInicialRP)
-            {
-                yield return
-                    new ValidationResult(errorMessage: "[Reunião Diária] Data Inicial das reuniões diárias não pode ser menor que a data inicial da reunião de planejamento",
-                                         memberNames: new[] { "DataInicialRD" });
-            }
-
-            if (DataFinalRD > DataFinal)
-            {
-                yield return
-                    new ValidationResult(errorMessage: "[Reunião Diária] Data Final das reuniões diárias não pode ser maior que a data final da sprint",
-                                         memberNames: new[] { "DataFinalRD" });
-            }
-
             if (DataFinalRV <= DataInicialRV)
             {
                 yield return

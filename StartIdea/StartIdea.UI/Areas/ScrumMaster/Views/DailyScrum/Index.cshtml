@@ -38,7 +38,7 @@
                                     <th class="col-sm-3 col-md-2 text-center">Data Inicial</th>
                                     <th class="col-sm-3 col-md-2 text-center">Data Final</th>
                                     <th class="col-sm-1">
-                                        @if (Model.ReuniaoList.Count < 14)
+                                        @if (Model.ReuniaoList.TotalItemCount < 14)
                                         {
                                             <a class="btn btn-success btn-xs btn-block" title="Incluir" href="@Url.Action("Create")">
                                                 <i class="glyphicon glyphicon-plus"></i>
@@ -51,18 +51,10 @@
                                 @foreach (var item in Model.ReuniaoList)
                                 {
                                     <tr>
-                                        <td data-title="Id" class="text-center">
-                                            @Html.DisplayFor(modelItem => item.Id)
-                                        </td>
-                                        <td data-title="Local">
-                                            @Html.DisplayFor(modelItem => item.Local)
-                                        </td>
-                                        <td data-title="Data Inicial" class="text-center">
-                                            @Html.DisplayFor(modelItem => item.DataInicial)
-                                        </td>
-                                        <td data-title="Data Final" class="text-center">
-                                            @Html.DisplayFor(modelItem => item.DataFinal)
-                                        </td>
+                                        <td data-title="Id" class="text-center">@item.Id</td>
+                                        <td data-title="Local">@item.Local</td>
+                                        <td data-title="Data Inicial" class="text-center">@item.DataInicial</td>
+                                        <td data-title="Data Final" class="text-center">@item.DataFinal</td>
                                         <td>
                                             <div class="btn-group btn-group-justified" role="group" aria-label="operacoes">
                                                 <div class="btn-group" role="group">
