@@ -123,9 +123,6 @@ namespace StartIdea.UI.Controllers
                         where (from sb in _dbContext.SprintBacklogs
                                where sb.SprintId.Equals(SprintId)
                                   && !sb.DataCancelamento.HasValue
-                                  && (from t in _dbContext.Tarefas
-                                      where !sb.DataCancelamento.HasValue
-                                      select t.SprintBacklogId).Contains(sb.Id)
                                select sb.ProductBacklogId).Contains(pb.Id)
                         select pb.StoryPoint;
 
