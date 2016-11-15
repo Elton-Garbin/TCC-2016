@@ -49,18 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201610260315013_AdicionandoCampoFoto.cs" />
-    <Compile Include="Migrations\201610260315013_AdicionandoCampoFoto.Designer.cs">
-      <DependentUpon>201610260315013_AdicionandoCampoFoto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611102242336_CpfNotUnique.cs" />
-    <Compile Include="Migrations\201611102242336_CpfNotUnique.Designer.cs">
-      <DependentUpon>201611102242336_CpfNotUnique.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611121938160_TamanhoCampoUserName.cs" />
-    <Compile Include="Migrations\201611121938160_TamanhoCampoUserName.Designer.cs">
-      <DependentUpon>201611121938160_TamanhoCampoUserName.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartIdeaDBContext.cs" />
@@ -76,17 +64,6 @@
       <Project>{f64bb58c-e200-43ff-8bf9-450cfdace761}</Project>
       <Name>StartIdea.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610260315013_AdicionandoCampoFoto.resx">
-      <DependentUpon>201610260315013_AdicionandoCampoFoto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611102242336_CpfNotUnique.resx">
-      <DependentUpon>201611102242336_CpfNotUnique.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611121938160_TamanhoCampoUserName.resx">
-      <DependentUpon>201611121938160_TamanhoCampoUserName.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
