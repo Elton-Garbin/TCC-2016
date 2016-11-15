@@ -1,4 +1,5 @@
 ﻿@model StartIdea.UI.ViewModels.TarefaVM
+
 @{
     ViewBag.Title = "Index";
 }
@@ -6,55 +7,51 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
-            <h1>Backlog da Sprint - Detalhes</h1>
+            <h1>Backlog da Sprint <small>Detalhes</small></h1>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-3">
-        <span><b>Data da Inclusão:</b> @Model.productBacklog.DataInclusao.ToString("dd/MM/yyyy")</span>
+    <div class="col-sm-5 col-md-4">
+        <label>Data Inclusão: </label>
+        @Model.productBacklog.DataInclusao
     </div>
-    <div class="col-md-2">
-        <span><b>Prioridade:</b> @Model.productBacklog.Prioridade</span>
+    <div class="col-sm-2">
+        <label>Prioridade: </label>
+        @Model.productBacklog.Prioridade
     </div>
-    <div class="col-md-2">
-        <span><b>Story Point:</b> @Model.productBacklog.StoryPoint</span>
+    <div class="col-sm-3 col-md-2">
+        <label>Story Point: </label>
+        @Model.productBacklog.StoryPoint
     </div>
-    @if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
-    {
-        <div class="col-md-4">
-            <span><b>Data Cancelamento:</b> @Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento</span>
-        </div>
-    }
 </div>
-<br />
-@if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
-{
 
-    <div class="row">
-        <div class="col-md-12">
-            <label>Motivo do Cancelamento</label>
-            <p>@Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().MotivoCancelamento</p>
-        </div>
-    </div>
-    <br />
-}
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-xs-12">
         <label>User Story</label>
         <p>@Model.productBacklog.UserStory</p>
     </div>
 </div>
-<br>
-<div class="row">
-    <div class="col-xs-12">
-        <h4>Tarefas</h4>
+
+@if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
+{
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Data Cancelamento</label>
+            <p>@Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento</p>
+        </div>
+        <div class="col-sm-9">
+            <label>Motivo do Cancelamento</label>
+            <p>@Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().MotivoCancelamento</p>
+        </div>
     </div>
-</div>
+}
+
 <div class="row">
-    <div class="col-xs-12">
-        <div id="no-more-tables">
+    <div class="col-xs-12 form-group">
+        <label>Tarefas</label>
+        <div id="no-more-tables" class="center-block">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
@@ -97,10 +94,9 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-2">
         @Html.ActionLink("< Voltar", "Details", "Sprint", new { Id = Model.sprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>
-<br />
-<br />

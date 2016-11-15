@@ -33,13 +33,6 @@
         <label>Data Cadastro: </label>
         @Model.sprint.DataCadastro
     </div>
-    @if (Model.sprint.DataCancelamento != null)
-    {
-        <div class="col-sm-5 col-md-4">
-            <label>Data Cancelamento: </label>
-            @Model.sprint.DataCancelamento
-        </div>
-    }
 </div>
 
 <div class="row">
@@ -63,7 +56,11 @@
 @if (Model.sprint.DataCancelamento != null)
 {
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-3 col-md-3">
+            <label>Data Cancelamento</label>
+            <p>@Model.sprint.DataCancelamento</p>
+        </div>
+        <div class="col-sm-9">
             <label>Motivo do Cancelamento</label>
             <p>@Model.sprint.MotivoCancelamento</p>
         </div>
