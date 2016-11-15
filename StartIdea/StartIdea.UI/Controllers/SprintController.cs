@@ -37,15 +37,12 @@ namespace StartIdea.UI.Controllers
 
             if (dataInicial != null)
                 sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataInicial.Date >= ((DateTime)dataInicial).Date).ToList();
-
             if (dataFinal != null)
                 sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataFinal.Date <= ((DateTime)dataFinal).Date).ToList();
 
-
-            int pageSize = 5;
             int pageNumber = (pagina ?? 1);
 
-            return View(sprintBacklogVM.Sprints.ToPagedList(pageNumber, pageSize));
+            return View(sprintBacklogVM.Sprints.ToPagedList(pageNumber, 10));
         }
 
         public ActionResult Details(int Id)

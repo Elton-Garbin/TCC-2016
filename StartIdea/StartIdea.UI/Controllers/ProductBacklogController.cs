@@ -31,49 +31,41 @@ namespace StartIdea.UI.Controllers
             productBacklogVM.tamanhos = tamanhos;
             productBacklogVM.sprintId = sprintId;
 
-            int pageSize = 5;
             int pageNumber = (pagina ?? 1);
             IEnumerable<ProductBacklog> backlogItem = null;
 
             if (!string.IsNullOrEmpty(Descricao))
             {
                 backlogItem = _dbContext.ProductBacklogs.Include("SprintBacklogs")
-                                       .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(Descricao.ToUpper()))
-                                       .ToList()
-                                       .OrderBy(backlog => backlog.Prioridade);
+                                                        .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(Descricao.ToUpper()))
+                                                        .ToList()
+                                                        .OrderBy(backlog => backlog.Prioridade);
             }
             else
             {
                 backlogItem = _dbContext.ProductBacklogs.Include("SprintBacklogs")
-                                       .ToList()
-                                       .OrderBy(backlog => backlog.Prioridade);
+                                                        .ToList()
+                                                        .OrderBy(backlog => backlog.Prioridade);
             }
 
             if (tamanhos != null)
-            {
                 backlogItem = backlogItem.Where(bi => bi.StoryPoint == tamanhos);
-            }
-
             if (sprintId != null)
-            {
                 backlogItem = backlogItem.Where(bl => bl.SprintBacklogs.Count > 0 && bl.SprintBacklogs.FirstOrDefault().SprintId == sprintId);
-            }
 
-            productBacklogVM.BackLogItem = backlogItem.ToPagedList(pageNumber, pageSize);
+            productBacklogVM.BackLogItem = backlogItem.ToPagedList(pageNumber, 7);
             return View(productBacklogVM);
         }
 
         public ActionResult Details(int id, int? sprintId)
         {
             var detalheProductBacklogVM = new DetalheProductBacklogVM();
-
-            detalheProductBacklogVM.productBacklog = _dbContext.ProductBacklogs
-                                                              .Include("ProductOwner.Usuario")
-                                                              .Include("HistoricoEstimativas.MembroTime.Usuario")
-                                                              .Where(x => x.Id == id)
-                                                              .FirstOrDefault();
-
             detalheProductBacklogVM.sprintId = sprintId;
+            detalheProductBacklogVM.productBacklog = _dbContext.ProductBacklogs
+                                                               .Include("ProductOwner.Usuario")
+                                                               .Include("HistoricoEstimativas.MembroTime.Usuario")
+                                                               .Where(x => x.Id == id)
+                                                               .FirstOrDefault();
 
             return View(detalheProductBacklogVM);
         }

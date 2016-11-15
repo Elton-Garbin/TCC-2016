@@ -13,38 +13,53 @@
             $("#ata").text(Ata);
             $("#popup-ata").modal('show');
         });
-
-
     </script>
 }
 
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
-            <h1>Sprint - Detalhes</h1>
+            <h1>Sprint <small>Detalhes</small></h1>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-3">
-        <span><b>Data de Cadastro:</b> @Model.sprint.DataCadastro.ToString("dd/MM/yyyy")</span>
+    <div class="col-sm-2 col-md-1">
+        <label>Id: </label>
+        @Model.sprint.Id
     </div>
-    <div class="col-md-3">
-        <span><b>Data Inicial:</b> @Model.sprint.DataInicial</span>
-    </div>
-    <div class="col-md-3">
-        <span><b>Data Final:</b> @Model.sprint.DataFinal</span>
+    <div class="col-sm-5 col-md-4">
+        <label>Data Cadastro: </label>
+        @Model.sprint.DataCadastro
     </div>
     @if (Model.sprint.DataCancelamento != null)
     {
-        <div class="col-md-3">
-            <span><b>Data Cancelamento:</b> @Model.sprint.DataCancelamento</span>
+        <div class="col-sm-5 col-md-4">
+            <label>Data Cancelamento: </label>
+            @Model.sprint.DataCancelamento
         </div>
     }
-
 </div>
-<br />
+
+<div class="row">
+    <div class="col-sm-5 col-md-4">
+        <label>Data Inicial: </label>
+        @Model.sprint.DataInicial
+    </div>
+    <div class="col-sm-5 col-md-4">
+        <label>Data Final: </label>
+        @Model.sprint.DataFinal
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <label>Objetivo</label>
+        <p>@Model.sprint.Objetivo</p>
+    </div>
+</div>
+
 @if (Model.sprint.DataCancelamento != null)
 {
     <div class="row">
@@ -54,31 +69,25 @@
         </div>
     </div>
 }
-<div class="row">
-    <div class="col-md-12">
-        <label>Objetivo da Sprint</label>
-        <p>@Model.sprint.Objetivo</p>
-    </div>
-</div>
-<br>
 
 <div class="row">
     <div class="col-xs-12 form-group">
         <div id="tabs-container">
             <ul>
-                <li><a href="#tab-sprint">Backlogs do Produto</a></li>
+                <li><a href="#tab-sprint">Backlog do Produto</a></li>
                 <li><a href="#tab-reuniao">Reuniões</a></li>
                 <li><a href="#tab-burndown">Gráfico de Burndown</a></li>
             </ul>
             <div id="tab-sprint" class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12">
+                    <div class="col-xs-12">
                         <div id="no-more-tables">
                             <table class="table table-condensed table-hover">
                                 <thead>
                                     <tr>
+                                        <th class="col-sm-1 text-center">Id</th>
                                         <th>User Story</th>
-                                        <th class="col-sm-1 text-center">Story Point</th>
+                                        <th class="col-sm-2 text-center">Story Point</th>
                                         <th class="col-sm-1 text-center">Prioridade</th>
                                         <th class="col-sm-1"></th>
                                     </tr>
@@ -87,6 +96,7 @@
                                     @foreach (var item in Model.sprint.SprintBacklogs.OrderBy(sb => sb.ProductBacklog.Prioridade))
                                     {
                                         <tr>
+                                            <td data-title="Id" class="text-center">@item.ProductBacklog.Id</td>
                                             <td data-title="User Story">@(item.ProductBacklog.UserStory.Length > 150 ? item.ProductBacklog.UserStory.Substring(0, 150) + "..." : item.ProductBacklog.UserStory)</td>
                                             <td data-title="Story Point" class="text-center">@item.ProductBacklog.StoryPoint</td>
                                             <td data-title="Prioridade" class="text-center">@item.ProductBacklog.Prioridade</td>
@@ -103,9 +113,10 @@
                     </div>
                 </div>
             </div>
+
             <div id="tab-reuniao" class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12">
+                    <div class="col-xs-12">
                         <div id="no-more-tables">
                             <table class="table table-hover table-condensed">
                                 <thead>
@@ -150,17 +161,35 @@
                     </div>
                 </div>
             </div>
+
+            <div id="tab-burndown" class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @if (Model.sprint.DataCancelamento != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <p>Não é possivel verificar o gráfico, pois a sprint foi cancelada!</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info" role="alert">
+                                <p><a href="@Url.Action("Index", "BurndownChart", new { area = "", id = Model.sprint.Id })" class="alert-link">Clique aqui para verificar o gráfico!</a></p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<br />
+
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 form-group">
         @Html.ActionLink("< Voltar", "Index", "Sprint", new { @class = "btn btn-default btn-block" })
     </div>
 </div>
-<br />
-<br />
+
 <div class="modal fade" tabindex="-1" role="dialog" id="popup-ata">
     <div class="modal-dialog">
         <div class="modal-content">

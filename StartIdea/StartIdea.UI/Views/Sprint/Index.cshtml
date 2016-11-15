@@ -5,8 +5,6 @@
     ViewBag.Title = "Index";
 }
 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
@@ -18,11 +16,11 @@
 <div class="row">
     @using (Html.BeginForm("Index", "Sprint", FormMethod.Get))
     {
-        <div class="col-md-6">
+        <div class="col-sm-4 col-md-6">
             <label>Objetivo</label>
             @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-3 col-md-2">
             <label>Data Inicial</label>
             <div class="input-group date datepicker">
                 @Html.TextBox("dataInicial", ViewBag.DataInicialAtual as string, new { @class = "form-control" })
@@ -31,7 +29,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-3 col-md-2">
             <label>Data Final</label>
             <div class="input-group date datepicker">
                 @Html.TextBox("dataFinal", ViewBag.DataFinalAtual as string, new { @class = "form-control" })
@@ -40,7 +38,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
             <label>&nbsp;</label>
             <input type="submit" value="Buscar" class="btn btn-block" />
         </div>
@@ -53,9 +51,10 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
+                        <th class="col-sm-1 text-center">Id</th>
                         <th>Objetivo</th>
-                        <th class="col-sm-1 text-center">Data Inicial</th>
-                        <th class="col-sm-1 text-center">Data Final</th>
+                        <th class="col-sm-2 text-center">Data Inicial</th>
+                        <th class="col-sm-2 text-center">Data Final</th>
                         <th class="col-sm-1"></th>
                     </tr>
                 </thead>
@@ -63,6 +62,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td data-title="Id" class="text-center">@item.Id</td>
                             <td data-title="Objetivo">@(item.Objetivo.Length > 130 ? item.Objetivo.Substring(0, 130) : item.Objetivo)</td>
                             <td data-title="Data Inicial" class="text-center">@item.DataInicial.ToString("dd/MM/yyyy")</td>
                             <td data-title="Data Final" class="text-center">@item.DataFinal.ToString("dd/MM/yyyy")</td>
@@ -76,7 +76,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="5">
                             @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, filtro = ViewBag.Filtro, dataInicial = ViewBag.DataInicialAtual, dataFinal = ViewBag.DataFinalAtual }))
                         </td>
                     </tr>

@@ -1,29 +1,43 @@
 ﻿@model StartIdea.UI.ViewModels.DetalheProductBacklogVM
 
 @{
-    ViewBag.Title = "Detalhes - Backlog do Produto";
+    ViewBag.Title = "Detalhes";
 }
 
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
-            <h1>Backlog Item - Detalhes<small> - Responsável: @Model.productBacklog.ProductOwner.Usuario.UserName</small></h1>
+            <h1>Backlog do Produto <small>Detalhes</small></h1>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <span><b>Data da Inclusão:</b> @Model.productBacklog.DataInclusao.ToString("dd/MM/yyyy")</span>
+    <div class="col-sm-2 col-md-1">
+        <label>Id: </label>
+        @Model.productBacklog.Id
     </div>
-    <div class="col-md-4">
-        <span><b>Prioridade:</b> @Model.productBacklog.Prioridade</span>
+    <div class="col-sm-5 col-md-4">
+        <label>Data Inclusão: </label>
+        @Model.productBacklog.DataInclusao
     </div>
-    <div class="col-md-4">
-        <span><b>Story Point:</b> @Model.productBacklog.StoryPoint</span>
-        <button class="btn-link" data-toggle="modal" data-target=".bs-example-modal-md">
+    <div class="col-sm-2">
+        <label>Prioridade: </label>
+        @Model.productBacklog.Prioridade
+    </div>
+    <div class="col-sm-3 col-md-2">
+        <label>Story Point: </label>
+        @Model.productBacklog.StoryPoint
+        <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".bs-example-modal-md">
             <span class="glyphicon glyphicon-search"></span>
         </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <label>Product Owner: </label>
+        @Model.productBacklog.ProductOwner.Usuario.UserName
     </div>
 </div>
 
@@ -33,9 +47,9 @@
         <p>@Model.productBacklog.UserStory</p>
     </div>
 </div>
-<br>
+
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-sm-2 form-group">
         @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { sprintId = Model.sprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>

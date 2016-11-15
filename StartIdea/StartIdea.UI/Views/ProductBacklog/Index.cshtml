@@ -15,15 +15,15 @@
     @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
     {
         @Html.HiddenFor(model => model.sprintId)
-        <div class="col-md-8">
+        <div class="col-sm-8">
             <label>User Story</label>
             @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
             <label>Story Point</label>
             @Html.EnumDropDownListFor(model => model.tamanhos, new { @class = "form-control" })
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
             <label>&nbsp;</label>
             <input type="submit" value="Buscar" class="btn btn-block" />
         </div>
@@ -36,8 +36,9 @@
             <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
+                        <th class="col-sm-1 text-center">Id</th>
                         <th>User Story</th>
-                        <th class="col-sm-1 text-center">Story Point</th>
+                        <th class="col-sm-2 text-center">Story Point</th>
                         <th class="col-sm-1 text-center">Prioridade</th>
                         <th class="col-sm-1"></th>
                     </tr>
@@ -46,6 +47,7 @@
                     @foreach (var item in Model.BackLogItem)
                     {
                         <tr>
+                            <td data-title="Id" class="text-center">@item.Id</td>
                             <td data-title="User Story">@item.UserStory</td>
                             <td data-title="Story Point" class="text-center">@item.StoryPoint</td>
                             <td data-title="Prioridade" class="text-center">@item.Prioridade</td>
@@ -59,7 +61,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="5">
                             @Html.PagedListPager(Model.BackLogItem, pagina => Url.Action("Index", new { pagina, filtro = Model.Descricao, tamanhos = Model.tamanhos, sprintId = Model.sprintId }))
                         </td>
                     </tr>
