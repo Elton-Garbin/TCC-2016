@@ -1,7 +1,9 @@
 ﻿using PagedList;
 using StartIdea.DataAccess;
+using StartIdea.Model.ScrumEventos;
 using StartIdea.UI.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,16 +12,16 @@ namespace StartIdea.UI.Controllers
     [AllowAnonymous]
     public class SprintController : Controller
     {
-        private StartIdeaDBContext dbContext;
+        private StartIdeaDBContext _dbContext;
 
-        public SprintController(StartIdeaDBContext _dbContext)
+        public SprintController(StartIdeaDBContext dbContext)
         {
-            dbContext = _dbContext;
+            _dbContext = dbContext;
         }
 
         public ActionResult Index(string contextoBusca, string filtro, DateTime? dataInicial, DateTime? dataFinal, int? pagina)
         {
-            var sprintBacklogVM = new SprintVM();
+            var sprintVM = new SprintVM();
 
             if (contextoBusca != null)
                 pagina = 1;
@@ -30,31 +32,33 @@ namespace StartIdea.UI.Controllers
             ViewBag.DataInicialAtual = dataInicial;
             ViewBag.DataFinalAtual = dataFinal;
 
+            int pageNumber = (pagina ?? 1);
+            IEnumerable<Sprint> sprints = null;
+
             if (!string.IsNullOrEmpty(contextoBusca))
-                sprintBacklogVM.Sprints = dbContext.Sprints.Where(sprint => sprint.Objetivo.ToUpper().Contains(contextoBusca.ToUpper())).ToList();
+                sprints = _dbContext.Sprints.Where(sprint => sprint.Objetivo.ToUpper().Contains(contextoBusca.ToUpper())).ToList();
             else
-                sprintBacklogVM.Sprints = dbContext.Sprints.ToList();
+                sprints = _dbContext.Sprints.ToList();
 
             if (dataInicial != null)
-                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataInicial.Date >= ((DateTime)dataInicial).Date).ToList();
+                sprints = sprints.Where(sprint => sprint.DataInicial.Date >= ((DateTime)dataInicial).Date).ToList();
             if (dataFinal != null)
-                sprintBacklogVM.Sprints = sprintBacklogVM.Sprints.Where(sprint => sprint.DataFinal.Date <= ((DateTime)dataFinal).Date).ToList();
+                sprints = sprints.Where(sprint => sprint.DataFinal.Date <= ((DateTime)dataFinal).Date).ToList();
 
-            int pageNumber = (pagina ?? 1);
-
-            return View(sprintBacklogVM.Sprints.ToPagedList(pageNumber, 10));
+            sprintVM.SprintList = sprints.ToPagedList(pageNumber, 10);
+            return View(sprintVM);
         }
 
         public ActionResult Details(int Id)
         {
-            var detalheSprintVM = new DetalheSprintVM();
+            var sprintVM = new SprintVM();
+            sprintVM.SprintView = _dbContext.Sprints.Include("SprintBacklogs.ProductBacklog")
+                                                    .Include("SprintBacklogs.Tarefas")
+                                                    .Include("Reunioes")
+                                                    .Where(s => s.Id == Id)
+                                                    .FirstOrDefault();
 
-            detalheSprintVM.sprint = dbContext.Sprints.Include("SprintBacklogs.ProductBacklog")
-                                                      .Include("SprintBacklogs.Tarefas")
-                                                      .Include("Reunioes")
-                                                      .Where(s => s.Id == Id).FirstOrDefault();
-
-            return View(detalheSprintVM);
+            return View(sprintVM);
         }
     }
 }

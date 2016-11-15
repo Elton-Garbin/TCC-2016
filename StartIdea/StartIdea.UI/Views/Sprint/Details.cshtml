@@ -1,7 +1,7 @@
-﻿@model StartIdea.UI.ViewModels.DetalheSprintVM
+﻿@model StartIdea.UI.ViewModels.SprintVM
 
 @{
-    ViewBag.Title = "Detalhes - Sprint";
+    ViewBag.Title = "Detalhes";
 }
 
 @section CustomScript{
@@ -27,42 +27,42 @@
 <div class="row">
     <div class="col-sm-2 col-md-1">
         <label>Id: </label>
-        @Model.sprint.Id
+        @Model.SprintView.Id
     </div>
     <div class="col-sm-5 col-md-4">
         <label>Data Cadastro: </label>
-        @Model.sprint.DataCadastro
+        @Model.SprintView.DataCadastro
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-5 col-md-4">
         <label>Data Inicial: </label>
-        @Model.sprint.DataInicial
+        @Model.SprintView.DataInicial
     </div>
     <div class="col-sm-5 col-md-4">
         <label>Data Final: </label>
-        @Model.sprint.DataFinal
+        @Model.SprintView.DataFinal
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
         <label>Objetivo</label>
-        <p>@Model.sprint.Objetivo</p>
+        <p>@Model.SprintView.Objetivo</p>
     </div>
 </div>
 
-@if (Model.sprint.DataCancelamento != null)
+@if (Model.SprintView.DataCancelamento != null)
 {
     <div class="row">
         <div class="col-sm-3 col-md-3">
             <label>Data Cancelamento</label>
-            <p>@Model.sprint.DataCancelamento</p>
+            <p>@Model.SprintView.DataCancelamento</p>
         </div>
         <div class="col-sm-9">
             <label>Motivo do Cancelamento</label>
-            <p>@Model.sprint.MotivoCancelamento</p>
+            <p>@Model.SprintView.MotivoCancelamento</p>
         </div>
     </div>
 }
@@ -90,7 +90,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.sprint.SprintBacklogs.OrderBy(sb => sb.ProductBacklog.Prioridade))
+                                    @foreach (var item in Model.SprintView.SprintBacklogs.OrderBy(sb => sb.ProductBacklog.Prioridade))
                                     {
                                         <tr>
                                             <td data-title="Id" class="text-center">@item.ProductBacklog.Id</td>
@@ -98,7 +98,7 @@
                                             <td data-title="Story Point" class="text-center">@item.ProductBacklog.StoryPoint</td>
                                             <td data-title="Prioridade" class="text-center">@item.ProductBacklog.Prioridade</td>
                                             <td class="text-center">
-                                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Index", "Tarefa", new { productBacklogId = item.ProductBacklog.Id, sprintId = Model.sprint.Id })">
+                                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Index", "Tarefa", new { productBacklogId = item.ProductBacklog.Id, sprintId = Model.SprintView.Id })">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </a>
                                             </td>
@@ -120,31 +120,21 @@
                                     <tr>
                                         <th class="col-sm-1 text-center">Id</th>
                                         <th>Local</th>
-                                        <th class="col-sm-2 text-center">Tipo de Reunião</th>
+                                        <th class="col-sm-2 text-center">Tipo Reunião</th>
                                         <th class="col-sm-3 col-md-2 text-center">Data Inicial</th>
                                         <th class="col-sm-3 col-md-2 text-center">Data Final</th>
                                         <th class="col-sm-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.sprint.Reunioes.OrderBy(r => r.DataInicial))
+                                    @foreach (var item in Model.SprintView.Reunioes.OrderBy(r => r.DataInicial))
                                     {
                                         <tr>
-                                            <td data-title="Id" class="text-center">
-                                                @Html.DisplayFor(modelItem => item.Id)
-                                            </td>
-                                            <td data-title="Local">
-                                                @Html.DisplayFor(modelItem => item.Local)
-                                            </td>
-                                            <td data-title="Tipo de Reunião" class="text-center">
-                                                @Html.DisplayFor(modelItem => item.TipoReuniao)
-                                            </td>
-                                            <td data-title="Data Inicial" class="text-center">
-                                                @Html.DisplayFor(modelItem => item.DataInicial)
-                                            </td>
-                                            <td data-title="Data Final" class="text-center">
-                                                @Html.DisplayFor(modelItem => item.DataFinal)
-                                            </td>
+                                            <td data-title="Id" class="text-center">@item.Id</td>
+                                            <td data-title="Local">@item.Local</td>
+                                            <td data-title="Tipo Reunião" class="text-center">@item.TipoReuniao</td>
+                                            <td data-title="Data Inicial" class="text-center">@item.DataInicial</td>
+                                            <td data-title="Data Final" class="text-center">@item.DataFinal</td>
                                             <td>
                                                 <button class="btn btn-default btn-xs btn-block detalhes-reuniao" data-ata="@item.Ata">
                                                     <i class="glyphicon glyphicon-search"></i>
@@ -162,7 +152,7 @@
             <div id="tab-burndown" class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
-                        @if (Model.sprint.DataCancelamento != null)
+                        @if (Model.SprintView.DataCancelamento != null)
                         {
                             <div class="alert alert-danger" role="alert">
                                 <p>Não é possivel verificar o gráfico, pois a sprint foi cancelada!</p>
@@ -171,7 +161,7 @@
                         else
                         {
                             <div class="alert alert-info" role="alert">
-                                <p><a href="@Url.Action("Index", "BurndownChart", new { area = "", id = Model.sprint.Id })" class="alert-link">Clique aqui para verificar o gráfico!</a></p>
+                                <p><a href="@Url.Action("Index", "BurndownChart", new { area = "", id = Model.SprintView.Id })" class="alert-link">Clique aqui para verificar o gráfico!</a></p>
                             </div>
                         }
                     </div>

@@ -286,10 +286,7 @@
     <Compile Include="Models\EmailService.cs" />
     <Compile Include="Models\ChartDatasetFacade.cs" />
     <Compile Include="ViewModels\BurndownChartVM.cs" />
-    <Compile Include="ViewModels\DetalheProductBacklogVM.cs" />
-    <Compile Include="ViewModels\DetalheSprintVM.cs" />
     <Compile Include="ViewModels\SprintVM.cs" />
-    <Compile Include="ViewModels\TarefaDetalhesVM.cs" />
     <Compile Include="ViewModels\TarefaVM.cs" />
     <Compile Include="ViewModels\TeamKanbanBoardVM.cs" />
     <Compile Include="Models\Utils.cs" />

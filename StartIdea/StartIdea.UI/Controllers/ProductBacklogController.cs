@@ -27,47 +27,46 @@ namespace StartIdea.UI.Controllers
             else
                 Descricao = filtro;
 
-            productBacklogVM.Descricao = Descricao;
-            productBacklogVM.tamanhos = tamanhos;
-            productBacklogVM.sprintId = sprintId;
+            productBacklogVM.UserStory = Descricao;
+            productBacklogVM.StoryPoint = tamanhos;
+            productBacklogVM.SprintId = sprintId;
 
             int pageNumber = (pagina ?? 1);
-            IEnumerable<ProductBacklog> backlogItem = null;
+            IEnumerable<ProductBacklog> backlogs = null;
 
             if (!string.IsNullOrEmpty(Descricao))
             {
-                backlogItem = _dbContext.ProductBacklogs.Include("SprintBacklogs")
+                backlogs = _dbContext.ProductBacklogs.Include("SprintBacklogs")
                                                         .Where(productBacklog => productBacklog.UserStory.ToUpper().Contains(Descricao.ToUpper()))
                                                         .ToList()
                                                         .OrderBy(backlog => backlog.Prioridade);
             }
             else
             {
-                backlogItem = _dbContext.ProductBacklogs.Include("SprintBacklogs")
+                backlogs = _dbContext.ProductBacklogs.Include("SprintBacklogs")
                                                         .ToList()
                                                         .OrderBy(backlog => backlog.Prioridade);
             }
 
             if (tamanhos != null)
-                backlogItem = backlogItem.Where(bi => bi.StoryPoint == tamanhos);
+                backlogs = backlogs.Where(bi => bi.StoryPoint == tamanhos);
             if (sprintId != null)
-                backlogItem = backlogItem.Where(bl => bl.SprintBacklogs.Count > 0 && bl.SprintBacklogs.FirstOrDefault().SprintId == sprintId);
+                backlogs = backlogs.Where(bl => bl.SprintBacklogs.Count > 0 && bl.SprintBacklogs.FirstOrDefault().SprintId == sprintId);
 
-            productBacklogVM.BackLogItem = backlogItem.ToPagedList(pageNumber, 7);
+            productBacklogVM.ProductBacklogList = backlogs.ToPagedList(pageNumber, 7);
             return View(productBacklogVM);
         }
 
         public ActionResult Details(int id, int? sprintId)
         {
-            var detalheProductBacklogVM = new DetalheProductBacklogVM();
-            detalheProductBacklogVM.sprintId = sprintId;
-            detalheProductBacklogVM.productBacklog = _dbContext.ProductBacklogs
-                                                               .Include("ProductOwner.Usuario")
-                                                               .Include("HistoricoEstimativas.MembroTime.Usuario")
-                                                               .Where(x => x.Id == id)
-                                                               .FirstOrDefault();
+            var productBacklogVM = new ProductBacklogVM();
+            productBacklogVM.SprintId = sprintId;
+            productBacklogVM.ProductBacklogView = _dbContext.ProductBacklogs.Include("ProductOwner.Usuario")
+                                                                            .Include("HistoricoEstimativas.MembroTime.Usuario")
+                                                                            .Where(x => x.Id == id)
+                                                                            .FirstOrDefault();
 
-            return View(detalheProductBacklogVM);
+            return View(productBacklogVM);
         }
     }
 }

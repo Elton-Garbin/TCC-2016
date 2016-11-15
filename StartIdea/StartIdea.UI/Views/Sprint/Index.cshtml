@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<StartIdea.Model.ScrumEventos.Sprint>
+﻿@model StartIdea.UI.ViewModels.SprintVM
 @using PagedList.Mvc;
 
 @{
@@ -53,19 +53,19 @@
                     <tr>
                         <th class="col-sm-1 text-center">Id</th>
                         <th>Objetivo</th>
-                        <th class="col-sm-2 text-center">Data Inicial</th>
-                        <th class="col-sm-2 text-center">Data Final</th>
+                        <th class="col-sm-3 col-md-2 text-center">Data Inicial</th>
+                        <th class="col-sm-3 col-md-2 text-center">Data Final</th>
                         <th class="col-sm-1"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.SprintList)
                     {
                         <tr>
                             <td data-title="Id" class="text-center">@item.Id</td>
-                            <td data-title="Objetivo">@(item.Objetivo.Length > 130 ? item.Objetivo.Substring(0, 130) : item.Objetivo)</td>
-                            <td data-title="Data Inicial" class="text-center">@item.DataInicial.ToString("dd/MM/yyyy")</td>
-                            <td data-title="Data Final" class="text-center">@item.DataFinal.ToString("dd/MM/yyyy")</td>
+                            <td data-title="Objetivo">@item.Objetivo</td>
+                            <td data-title="Data Inicial" class="text-center">@item.DataInicial</td>
+                            <td data-title="Data Final" class="text-center">@item.DataFinal</td>
                             <td>
                                 <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "Sprint", new { Id = item.Id })">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -77,7 +77,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="5">
-                            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina, filtro = ViewBag.Filtro, dataInicial = ViewBag.DataInicialAtual, dataFinal = ViewBag.DataFinalAtual }))
+                            @Html.PagedListPager(Model.SprintList, pagina => Url.Action("Index", new { pagina, filtro = ViewBag.Filtro, dataInicial = ViewBag.DataInicialAtual, dataFinal = ViewBag.DataFinalAtual }))
                         </td>
                     </tr>
                 </tfoot>

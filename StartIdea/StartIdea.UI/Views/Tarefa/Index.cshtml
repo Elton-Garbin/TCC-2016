@@ -15,35 +15,35 @@
 <div class="row">
     <div class="col-sm-5 col-md-4">
         <label>Data Inclusão: </label>
-        @Model.productBacklog.DataInclusao
+        @Model.ProductBacklogView.DataInclusao
     </div>
     <div class="col-sm-2">
         <label>Prioridade: </label>
-        @Model.productBacklog.Prioridade
+        @Model.ProductBacklogView.Prioridade
     </div>
     <div class="col-sm-3 col-md-2">
         <label>Story Point: </label>
-        @Model.productBacklog.StoryPoint
+        @Model.ProductBacklogView.StoryPoint
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
         <label>User Story</label>
-        <p>@Model.productBacklog.UserStory</p>
+        <p>@Model.ProductBacklogView.UserStory</p>
     </div>
 </div>
 
-@if (Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento != null)
+@if (Model.ProductBacklogView.SprintBacklogs.Where(sb => sb.SprintId == Model.SprintId).FirstOrDefault().DataCancelamento != null)
 {
     <div class="row">
         <div class="col-sm-3">
             <label>Data Cancelamento</label>
-            <p>@Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().DataCancelamento</p>
+            <p>@Model.ProductBacklogView.SprintBacklogs.Where(sb => sb.SprintId == Model.SprintId).FirstOrDefault().DataCancelamento</p>
         </div>
         <div class="col-sm-9">
             <label>Motivo do Cancelamento</label>
-            <p>@Model.productBacklog.SprintBacklogs.Where(sb => sb.SprintId == Model.sprintId).FirstOrDefault().MotivoCancelamento</p>
+            <p>@Model.ProductBacklogView.SprintBacklogs.Where(sb => sb.SprintId == Model.SprintId).FirstOrDefault().MotivoCancelamento</p>
         </div>
     </div>
 }
@@ -62,11 +62,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.tarefasBacklog)
+                    @foreach (var item in Model.TarefaList)
                     {
                         <tr>
-                            <td data-title="Id" class="text-center">
-                                @Html.DisplayFor(modelItem => item.Id)
+                            <td data-title="Id" class="text-center">@item.Id
                             </td>
                             <td data-title="Descrição">
                                 @if (item.Descricao.Length > 150)
@@ -76,14 +75,12 @@
                                 }
                                 else
                                 {
-                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                    @item.Descricao
                                 }
                             </td>
-                            <td data-title="Data Inclusão" class="text-center">
-                                @Html.DisplayFor(modelItem => item.DataInclusao)
-                            </td>
+                            <td data-title="Data Inclusão" class="text-center">@item.DataInclusao</td>
                             <td>
-                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "Tarefa", new { tarefaId = item.Id, productBacklogId = Model.productBacklogId, sprintId = Model.sprintId })">
+                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "Tarefa", new { tarefaId = item.Id, productBacklogId = Model.ProductBacklogId, sprintId = Model.SprintId })">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </a>
                             </td>
@@ -97,6 +94,6 @@
 
 <div class="row">
     <div class="col-md-2">
-        @Html.ActionLink("< Voltar", "Details", "Sprint", new { Id = Model.sprintId }, new { @class = "btn btn-default btn-block" })
+        @Html.ActionLink("< Voltar", "Details", "Sprint", new { Id = Model.SprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>

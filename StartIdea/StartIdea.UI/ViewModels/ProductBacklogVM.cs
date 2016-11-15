@@ -5,10 +5,11 @@ namespace StartIdea.UI.ViewModels
 {
     public class ProductBacklogVM
     {
-        public IPagedList<ProductBacklog> BackLogItem { get; set; }
-        public StoryPoint? tamanhos { get; set; }
+        public StoryPoint? StoryPoint { get; set; }
+        public string UserStory { get; set; }
+        public int? SprintId { get; set; }
+        public IPagedList<ProductBacklog> ProductBacklogList { get; set; }
 
-        public string Descricao { get; set; }
-        public int? sprintId { get; set; }
+        public ProductBacklog ProductBacklogView { get; set; }
     }
 }

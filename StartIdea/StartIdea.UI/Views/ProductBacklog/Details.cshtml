@@ -1,4 +1,4 @@
-﻿@model StartIdea.UI.ViewModels.DetalheProductBacklogVM
+﻿@model StartIdea.UI.ViewModels.ProductBacklogVM
 
 @{
     ViewBag.Title = "Detalhes";
@@ -15,19 +15,19 @@
 <div class="row">
     <div class="col-sm-2 col-md-1">
         <label>Id: </label>
-        @Model.productBacklog.Id
+        @Model.ProductBacklogView.Id
     </div>
     <div class="col-sm-5 col-md-4">
         <label>Data Inclusão: </label>
-        @Model.productBacklog.DataInclusao
+        @Model.ProductBacklogView.DataInclusao
     </div>
     <div class="col-sm-2">
         <label>Prioridade: </label>
-        @Model.productBacklog.Prioridade
+        @Model.ProductBacklogView.Prioridade
     </div>
     <div class="col-sm-3 col-md-2">
         <label>Story Point: </label>
-        @Model.productBacklog.StoryPoint
+        @Model.ProductBacklogView.StoryPoint
         <button class="btn btn-default btn-xs" data-toggle="modal" data-target=".bs-example-modal-md">
             <span class="glyphicon glyphicon-search"></span>
         </button>
@@ -37,20 +37,20 @@
 <div class="row">
     <div class="col-xs-12">
         <label>Product Owner: </label>
-        @Model.productBacklog.ProductOwner.Usuario.UserName
+        @Model.ProductBacklogView.ProductOwner.Usuario.UserName
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <label>User Story</label>
-        <p>@Model.productBacklog.UserStory</p>
+        <p>@Model.ProductBacklogView.UserStory</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-2 form-group">
-        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { sprintId = Model.sprintId }, new { @class = "btn btn-default btn-block" })
+        @Html.ActionLink("< Voltar", "Index", "ProductBacklog", new { sprintId = Model.SprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>
 
@@ -72,7 +72,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.productBacklog.HistoricoEstimativas)
+                        @foreach (var item in Model.ProductBacklogView.HistoricoEstimativas)
                         {
                             <tr>
                                 <td>@item.MembroTime.Usuario.UserName</td>

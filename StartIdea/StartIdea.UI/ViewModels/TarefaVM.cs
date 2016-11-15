@@ -5,9 +5,11 @@ namespace StartIdea.UI.ViewModels
 {
     public class TarefaVM
     {
-        public int sprintId { get; set; }
-        public int? productBacklogId { get; set; }
-        public ProductBacklog productBacklog { get; set; }
-        public List<Tarefa> tarefasBacklog { get; set; }
+        public List<Tarefa> TarefaList { get; set; }
+        public ProductBacklog ProductBacklogView { get; set; }
+        public Tarefa TarefaView { get; set; }
+
+        public int SprintId { get; set; }
+        public int? ProductBacklogId { get; set; }
     }
 }

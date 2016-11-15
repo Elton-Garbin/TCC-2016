@@ -1,4 +1,4 @@
-﻿@model StartIdea.UI.ViewModels.TarefaDetalhesVM
+﻿@model StartIdea.UI.ViewModels.TarefaVM
 
 @{
     ViewBag.Title = "Detalhes";
@@ -15,55 +15,55 @@
 <div class="row">
     <div class="col-xs-12">
         <label>Sprint</label>
-        <p>@Model.tarefa.SprintBacklog.Sprint.Id - @Model.tarefa.SprintBacklog.Sprint.Objetivo</p>
+        <p>@Model.TarefaView.SprintBacklog.Sprint.Id - @Model.TarefaView.SprintBacklog.Sprint.Objetivo</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
         <label>Backlog</label>
-        <p>@Model.tarefa.SprintBacklog.ProductBacklog.UserStory</p>
+        <p>@Model.TarefaView.SprintBacklog.ProductBacklog.UserStory</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-1">
         <label>Id: </label>
-        @Model.tarefa.Id
+        @Model.TarefaView.Id
     </div>
     <div class="col-sm-3">
         <label>Data Inclusão: </label>
-        @Model.tarefa.DataInclusao
+        @Model.TarefaView.DataInclusao
     </div>
     <div class="col-sm-3">
         <label>Usuário Inclusão: </label>
-        @Model.tarefa.MembroTime.Usuario.UserName
+        @Model.TarefaView.MembroTime.Usuario.UserName
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
         <label>Descrição</label>
-        <p>@Model.tarefa.Descricao</p>
+        <p>@Model.TarefaView.Descricao</p>
     </div>
 </div>
 
-@if (Model.tarefa.DataCancelamento != null)
+@if (Model.TarefaView.DataCancelamento != null)
 {
     <div class="row">
         <div class="col-sm-3">
             <label>Data Cancelamento</label>
-            <p>@Model.tarefa.DataCancelamento</p>
+            <p>@Model.TarefaView.DataCancelamento</p>
         </div>
         <div class="col-sm-9">
             <label>Motivo do Cancelamento</label>
-            <p>@Model.tarefa.MotivoCancelamento</p>
+            <p>@Model.TarefaView.MotivoCancelamento</p>
         </div>
     </div>
 }
 
 <div class="row">
     <div class="col-xs-2 form-group">
-        @Html.ActionLink("< Voltar", "Index", "Tarefa", new { productBacklogId = Model.productBacklogId, sprintId = Model.sprintId }, new { @class = "btn btn-default btn-block" })
+        @Html.ActionLink("< Voltar", "Index", "Tarefa", new { productBacklogId = Model.ProductBacklogId, sprintId = Model.SprintId }, new { @class = "btn btn-default btn-block" })
     </div>
 </div>

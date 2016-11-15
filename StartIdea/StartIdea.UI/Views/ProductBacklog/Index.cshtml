@@ -1,8 +1,6 @@
 ﻿@model StartIdea.UI.ViewModels.ProductBacklogVM
 @using PagedList.Mvc;
 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
@@ -14,14 +12,14 @@
 <div class="row">
     @using (Html.BeginForm("Index", "ProductBacklog", FormMethod.Get))
     {
-        @Html.HiddenFor(model => model.sprintId)
+        @Html.HiddenFor(model => model.SprintId)
         <div class="col-sm-8">
             <label>User Story</label>
-            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.UserStory, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         <div class="col-sm-2">
             <label>Story Point</label>
-            @Html.EnumDropDownListFor(model => model.tamanhos, new { @class = "form-control" })
+            @Html.EnumDropDownListFor(model => model.StoryPoint, new { @class = "form-control" })
         </div>
         <div class="col-sm-2">
             <label>&nbsp;</label>
@@ -44,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.BackLogItem)
+                    @foreach (var item in Model.ProductBacklogList)
                     {
                         <tr>
                             <td data-title="Id" class="text-center">@item.Id</td>
@@ -52,7 +50,7 @@
                             <td data-title="Story Point" class="text-center">@item.StoryPoint</td>
                             <td data-title="Prioridade" class="text-center">@item.Prioridade</td>
                             <td>
-                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "ProductBacklog", new { item.Id, sprintId = Model.sprintId })">
+                                <a class="btn btn-default btn-xs btn-block" title="Detalhes" href="@Url.Action("Details", "ProductBacklog", new { item.Id, sprintId = Model.SprintId })">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </a>
                             </td>
@@ -62,7 +60,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="5">
-                            @Html.PagedListPager(Model.BackLogItem, pagina => Url.Action("Index", new { pagina, filtro = Model.Descricao, tamanhos = Model.tamanhos, sprintId = Model.sprintId }))
+                            @Html.PagedListPager(Model.ProductBacklogList, pagina => Url.Action("Index", new { pagina, filtro = Model.UserStory, tamanhos = Model.StoryPoint, sprintId = Model.SprintId }))
                         </td>
                     </tr>
                 </tfoot>

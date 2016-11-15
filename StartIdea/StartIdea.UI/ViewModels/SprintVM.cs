@@ -1,10 +1,11 @@
-﻿using StartIdea.Model.ScrumEventos;
-using System.Collections.Generic;
+﻿using PagedList;
+using StartIdea.Model.ScrumEventos;
 
 namespace StartIdea.UI.ViewModels
 {
     public class SprintVM
     {
-        public IEnumerable<Sprint> Sprints { get; set; }
+        public IPagedList<Sprint> SprintList { get; set; }
+        public Sprint SprintView { get; set; }
     }
 }
