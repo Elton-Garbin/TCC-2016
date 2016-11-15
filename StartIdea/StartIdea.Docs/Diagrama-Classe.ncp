@@ -310,31 +310,1054 @@
   <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
     <Name>StartIdea.UI</Name>
     <Language>CSharp</Language>
-    <Entities />
-    <Relationships />
+    <Entities>
+      <Entity type="Class">
+        <Name>MvcApplication</Name>
+        <Access>Public</Access>
+        <Location left="10" top="10" />
+        <Size width="162" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public MvcApplication()</Member>
+        <Member type="Method">protected Void Application_Start()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Startup</Name>
+        <Access>Public</Access>
+        <Location left="1285" top="10" />
+        <Size width="222" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Startup()</Member>
+        <Member type="Method">public Void ConfigureAuth(IAppBuilder app)</Member>
+        <Member type="Method">public Void Configuration(IAppBuilder app)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>RouteConfig</Name>
+        <Access>Public</Access>
+        <Location left="1006" top="10" />
+        <Size width="259" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public RouteConfig()</Member>
+        <Member type="Method">public static Void RegisterRoutes(RouteCollection routes)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>InjectionDependency</Name>
+        <Access>Public</Access>
+        <Location left="332" top="139" />
+        <Size width="162" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public InjectionDependency()</Member>
+        <Member type="Method">public static Void Configurar()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FilterConfig</Name>
+        <Access>Public</Access>
+        <Location left="10" top="139" />
+        <Size width="303" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public FilterConfig()</Member>
+        <Member type="Method">public static Void RegisterGlobalFilters(GlobalFilterCollection filters)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AsIsBundleOrderer</Name>
+        <Access>Public</Access>
+        <Location left="193" top="10" />
+        <Size width="498" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public AsIsBundleOrderer()</Member>
+        <Member type="Method">public IEnumerable&lt;BundleFile&gt; OrderFiles(BundleContext context, IEnumerable&lt;BundleFile&gt; files)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BundleConfig</Name>
+        <Access>Public</Access>
+        <Location left="713" top="10" />
+        <Size width="271" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public BundleConfig()</Member>
+        <Member type="Method">public static Void RegisterBundles(BundleCollection bundles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppViewPage</Name>
+        <Access>Public</Access>
+        <Location left="511" top="139" />
+        <Size width="163" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">protected AppViewPage()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppViewPage&lt;TModel&gt;</Name>
+        <Access>Public</Access>
+        <Location left="689" top="139" />
+        <Size width="178" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">protected AppUser CurrentUser { get; }</Member>
+        <Member type="Constructor">protected AppViewPage()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppUser</Name>
+        <Access>Public</Access>
+        <Location left="10" top="278" />
+        <Size width="198" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; }</Member>
+        <Member type="Property">public String UserName { get; }</Member>
+        <Member type="Property">public String Email { get; }</Member>
+        <Member type="Property">public Int32 PerfilId { get; }</Member>
+        <Member type="Property">public Int32 TimeId { get; }</Member>
+        <Member type="Constructor">public AppUser(ClaimsPrincipal principal)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppAuth</Name>
+        <Access>Public</Access>
+        <Location left="230" top="278" />
+        <Size width="385" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IAuthenticationManager _AuthenticationManager</Member>
+        <Member type="Field">private readonly Usuario _Usuario</Member>
+        <Member type="Property">public String PerfilRole { get; private set; }</Member>
+        <Member type="Constructor">public AppAuth(IAuthenticationManager AuthenticationManager, Usuario user)</Member>
+        <Member type="Method">public Void SignIn(Boolean RememberBrowser = False)</Member>
+        <Member type="Method">public Void SignOut()</Member>
+        <Member type="Method">private String GetPerfilId()</Member>
+        <Member type="Method">private String GetPerfilRole()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UsuarioVM</Name>
+        <Access>Public</Access>
+        <Location left="885" top="162" />
+        <Size width="417" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String CssClassMessage { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String ImageBase64 { get; set; }</Member>
+        <Member type="Property">public HttpPostedFileBase ImageUpload { get; set; }</Member>
+        <Member type="Property">public Boolean TrocarSenha { get; set; }</Member>
+        <Member type="Property">public String Senha { get; set; }</Member>
+        <Member type="Property">public String NovaSenha { get; set; }</Member>
+        <Member type="Property">public String ConfirmaNovaSenha { get; set; }</Member>
+        <Member type="Constructor">public UsuarioVM()</Member>
+        <Member type="Method">public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ResetPasswordVM</Name>
+        <Access>Public</Access>
+        <Location left="648" top="278" />
+        <Size width="207" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String Senha { get; set; }</Member>
+        <Member type="Property">public String ConfirmaSenha { get; set; }</Member>
+        <Member type="Property">public String TokenActivation { get; set; }</Member>
+        <Member type="Constructor">public ResetPasswordVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogVM</Name>
+        <Access>Public</Access>
+        <Location left="313" top="518" />
+        <Size width="333" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public StoryPoint? StoryPoint { get; set; }</Member>
+        <Member type="Property">public String UserStory { get; set; }</Member>
+        <Member type="Property">public Int32? SprintId { get; set; }</Member>
+        <Member type="Property">public IPagedList&lt;ProductBacklog&gt; ProductBacklogList { get; set; }</Member>
+        <Member type="Property">public ProductBacklog ProductBacklogView { get; set; }</Member>
+        <Member type="Constructor">public ProductBacklogVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LoginVM</Name>
+        <Access>Public</Access>
+        <Location left="670" top="468" />
+        <Size width="249" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String Senha { get; set; }</Member>
+        <Member type="Property">public Boolean PermanecerConectado { get; set; }</Member>
+        <Member type="Constructor">public LoginVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ForgotPasswordVM</Name>
+        <Access>Public</Access>
+        <Location left="1322" top="162" />
+        <Size width="213" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String CssClassMessage { get; set; }</Member>
+        <Member type="Constructor">public ForgotPasswordVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TeamKanbanBoardVM</Name>
+        <Access>Public</Access>
+        <Location left="946" top="427" />
+        <Size width="282" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;Status&gt; StatusProcesso { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;Tarefa&gt; Tarefas { get; set; }</Member>
+        <Member type="Constructor">public TeamKanbanBoardVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TarefaVM</Name>
+        <Access>Public</Access>
+        <Location left="1322" top="317" />
+        <Size width="273" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public List&lt;Tarefa&gt; TarefaList { get; set; }</Member>
+        <Member type="Property">public ProductBacklog ProductBacklogView { get; set; }</Member>
+        <Member type="Property">public Tarefa TarefaView { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public Int32? ProductBacklogId { get; set; }</Member>
+        <Member type="Constructor">public TarefaVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintVM</Name>
+        <Access>Public</Access>
+        <Location left="1254" top="518" />
+        <Size width="241" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IPagedList&lt;Sprint&gt; SprintList { get; set; }</Member>
+        <Member type="Property">public Sprint SprintView { get; set; }</Member>
+        <Member type="Constructor">public SprintVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BurndownChartVM</Name>
+        <Access>Public</Access>
+        <Location left="10" top="518" />
+        <Size width="273" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Boolean IsActualSprint { get; set; }</Member>
+        <Member type="Property">public Sprint SprintDesejada { get; set; }</Member>
+        <Member type="Property">public String[] Labels { get; set; }</Member>
+        <Member type="Property">public List&lt;ChartDatasetFacade&gt; Datasets { get; set; }</Member>
+        <Member type="Constructor">public BurndownChartVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Utils</Name>
+        <Access>Public</Access>
+        <Location left="10" top="721" />
+        <Size width="321" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static String _Pwd</Member>
+        <Member type="Field">private static Byte[] _Salt</Member>
+        <Member type="Constructor">static Utils()</Member>
+        <Member type="Method">public static Boolean IsEmpty(IEnumerable&lt;T&gt; list)</Member>
+        <Member type="Method">internal static String Decrypt(String cipherText)</Member>
+        <Member type="Method">private static Byte[] Decrypt(Byte[] cipherData, Byte[] Key, Byte[] IV)</Member>
+        <Member type="Method">public static String Encrypt(String clearText)</Member>
+        <Member type="Method">private static Byte[] Encrypt(Byte[] clearData, Byte[] Key, Byte[] IV)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ChartDatasetFacade</Name>
+        <Access>Public</Access>
+        <Location left="753" top="636" />
+        <Size width="236" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String label { get; set; }</Member>
+        <Member type="Property">public Double[] data { get; set; }</Member>
+        <Member type="Property">public Int16 lineTension { get; set; }</Member>
+        <Member type="Property">public Boolean fill { get; set; }</Member>
+        <Member type="Property">public String backgroundColor { get; set; }</Member>
+        <Member type="Property">public String borderColor { get; set; }</Member>
+        <Member type="Property">public String pointBorderColor { get; set; }</Member>
+        <Member type="Property">public String pointBackgroundColor { get; set; }</Member>
+        <Member type="Property">public Int16 pointBorderWidth { get; set; }</Member>
+        <Member type="Property">public Int16[] borderDash { get; set; }</Member>
+        <Member type="Constructor">public ChartDatasetFacade(String color)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>EmailService</Name>
+        <Access>Public</Access>
+        <Location left="1020" top="668" />
+        <Size width="406" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static String Host</Member>
+        <Member type="Field">private static String Remetente</Member>
+        <Member type="Field">private static Int32 PortaSMTP</Member>
+        <Member type="Field">private static String Senha</Member>
+        <Member type="Constructor">static EmailService()</Member>
+        <Member type="Method">public static Boolean EnviarEmail(String Assunto, String Conteudo, String Destinatario)</Member>
+        <Modifier>Static</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CustomAuthorizeAttribute</Name>
+        <Access>Public</Access>
+        <Location left="357" top="721" />
+        <Size width="374" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public CustomAuthorizeAttribute()</Member>
+        <Member type="Method">protected virtual Void HandleUnauthorizedRequest(AuthorizationContext filterContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AuthenticationController</Name>
+        <Access>Public</Access>
+        <Location left="10" top="962" />
+        <Size width="307" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Property">private IAuthenticationManager AuthenticationManager { get; }</Member>
+        <Member type="Constructor">public AuthenticationController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Login()</Member>
+        <Member type="Method">public ActionResult Login(LoginVM vm)</Member>
+        <Member type="Method">public ActionResult ForgotPassword()</Member>
+        <Member type="Method">public ActionResult ForgotPassword(ForgotPasswordVM vm)</Member>
+        <Member type="Method">public ActionResult ResetPassword(String token)</Member>
+        <Member type="Method">public ActionResult ResetPassword(ResetPasswordVM vm)</Member>
+        <Member type="Method">public ActionResult Logout()</Member>
+        <Member type="Method">public ActionResult RedirectLoggedUser(String role)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AgendaController</Name>
+        <Access>Public</Access>
+        <Location left="357" top="856" />
+        <Size width="274" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public AgendaController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UsuarioController</Name>
+        <Access>Public</Access>
+        <Location left="694" top="1087" />
+        <Size width="307" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Property">private IAuthenticationManager AuthenticationManager { get; }</Member>
+        <Member type="Constructor">public UsuarioController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Edit(UsuarioVM usuarioVM)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TeamKanbanBoardController</Name>
+        <Access>Public</Access>
+        <Location left="341" top="1022" />
+        <Size width="329" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public TeamKanbanBoardController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">private IEnumerable&lt;Tarefa&gt; GetKanbanDataSource()</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TarefaController</Name>
+        <Access>Public</Access>
+        <Location left="694" top="922" />
+        <Size width="419" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public TarefaController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(Int32? productBacklogId, Int32 sprintId)</Member>
+        <Member type="Method">public ActionResult Details(Int32? tarefaId, Int32 productBacklogId, Int32 sprintId)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintController</Name>
+        <Access>Public</Access>
+        <Location left="1020" top="1173" />
+        <Size width="609" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public SprintController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(String contextoBusca, String filtro, DateTime? dataInicial, DateTime? dataFinal, Int32? pagina)</Member>
+        <Member type="Method">public ActionResult Details(Int32 Id)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogController</Name>
+        <Access>Public</Access>
+        <Location left="10" top="1263" />
+        <Size width="559" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public ProductBacklogController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(Int32? sprintId, String Descricao, StoryPoint? tamanhos, String filtro, Int32? pagina)</Member>
+        <Member type="Method">public ActionResult Details(Int32 id, Int32? sprintId)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>GetPointsMode</Name>
+        <Access>Public</Access>
+        <Location left="1452" top="668" />
+        <Size width="163" height="95" />
+        <Collapsed>False</Collapsed>
+        <Value>AteDataBase = 0</Value>
+        <Value>SomenteDateBase = 1</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>BurndownChartController</Name>
+        <Access>Public</Access>
+        <Location left="1202" top="873" />
+        <Size width="419" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public BurndownChartController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(Int32? id)</Member>
+        <Member type="Method">private List&lt;ChartDatasetFacade&gt; GetDatasets(Sprint sprint)</Member>
+        <Member type="Method">private Double[] GetVelocityData(Sprint sprint)</Member>
+        <Member type="Method">private Double[] GetPlanData(Sprint sprint, Int32 TotalPoints)</Member>
+        <Member type="Method">private Double[] GetActualData(Sprint sprint, Int32 TotalPoints)</Member>
+        <Member type="Method">private Int32 GetPoints(Int32 SprintId)</Member>
+        <Member type="Method">private Double GetPoints(Int32 SprintId, DateTime DataBase, GetPointsMode Mode)</Member>
+        <Member type="Method">private String[] GetLabels(Sprint sprint)</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
+        <Member type="Method">private Sprint GetSprint(Int32 SprintId)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NullDateTimeBinder</Name>
+        <Access>Public</Access>
+        <Location left="1098" top="1332" />
+        <Size width="493" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NullDateTimeBinder()</Member>
+        <Member type="Method">public Object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DateTimeBinder</Name>
+        <Access>Public</Access>
+        <Location left="586" top="1332" />
+        <Size width="493" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public DateTimeBinder()</Member>
+        <Member type="Method">public Object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Nesting" first="32" second="31">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
   </ProjectItem>
   <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
     <Name>StartIdea.UI.Admin</Name>
     <Language>CSharp</Language>
-    <Entities />
-    <Relationships />
+    <Entities>
+      <Entity type="Class">
+        <Name>UsuarioVM</Name>
+        <Access>Public</Access>
+        <Location left="598" top="187" />
+        <Size width="257" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IPagedList&lt;Usuario&gt; UsuarioList { get; set; }</Member>
+        <Member type="Property">public Int32? PaginaGrid { get; set; }</Member>
+        <Member type="Property">public Boolean NaoEnviouEmail { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Email { get; set; }</Member>
+        <Member type="Property">public String UserName { get; set; }</Member>
+        <Member type="Property">public String CPF { get; set; }</Member>
+        <Member type="Property">public Boolean IsActive { get; set; }</Member>
+        <Member type="Property">public Boolean IsAdmin { get; set; }</Member>
+        <Member type="Constructor">public UsuarioVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>PerfilVM</Name>
+        <Access>Public</Access>
+        <Location left="872" top="187" />
+        <Size width="199" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 _Id</Member>
+        <Member type="Property">public String ProductOwner { get; set; }</Member>
+        <Member type="Property">public String ScrumMaster { get; set; }</Member>
+        <Member type="Property">public String SubmitValue { get; private set; }</Member>
+        <Member type="Property">public Int32 UsuarioId { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public TimeScrum Papel { get; set; }</Member>
+        <Member type="Property">public String Descricao { get; set; }</Member>
+        <Member type="Constructor">public PerfilVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AdminAreaRegistration</Name>
+        <Access>Public</Access>
+        <Location left="185" top="10" />
+        <Size width="291" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public override String AreaName { get; }</Member>
+        <Member type="Constructor">public AdminAreaRegistration()</Member>
+        <Member type="Method">public override Void RegisterArea(AreaRegistrationContext context)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UsuarioController</Name>
+        <Access>Public</Access>
+        <Location left="10" top="152" />
+        <Size width="352" height="332" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public UsuarioController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(Int32? PaginaGrid)</Member>
+        <Member type="Method">public ActionResult Create()</Member>
+        <Member type="Method">public ActionResult Create(UsuarioVM usuarioVM)</Member>
+        <Member type="Method">public ActionResult Edit(Int32? id, Boolean naoEnviouEmail = False)</Member>
+        <Member type="Method">public ActionResult Edit(UsuarioVM usuarioVM)</Member>
+        <Member type="Method">public ActionResult Perfil(Int32? id)</Member>
+        <Member type="Method">public ActionResult Perfil(PerfilVM perfilVM)</Member>
+        <Member type="Method">private IPagedList&lt;Usuario&gt; GetGridDataSource(UsuarioVM usuarioVM)</Member>
+        <Member type="Method">private String GetProductOwner()</Member>
+        <Member type="Method">private String GetScrumMaster()</Member>
+        <Member type="Method">private Void InativarScrumMaster()</Member>
+        <Member type="Method">private Void InativarProductOwner()</Member>
+        <Member type="Method">private Void InativarTodosPerfis(Int32 UsuarioId)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CustomCPFAttribute</Name>
+        <Access>Public</Access>
+        <Location left="490" top="10" />
+        <Size width="629" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public CustomCPFAttribute()</Member>
+        <Member type="Method">public override Boolean IsValid(Object value)</Member>
+        <Member type="Method">public IEnumerable&lt;ModelClientValidationRule&gt; GetClientValidationRules(ModelMetadata metadata, ControllerContext context)</Member>
+        <Member type="Method">public static String RemoveNaoNumericos(String text)</Member>
+        <Member type="Method">public static Boolean ValidaCPF(String cpf)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppController</Name>
+        <Access>Public</Access>
+        <Location left="420" top="187" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public AppUser CurrentUser { get; }</Member>
+        <Member type="Constructor">protected AppController()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>TimeScrum</Name>
+        <Access>Public</Access>
+        <Location left="10" top="10" />
+        <Size width="163" height="112" />
+        <Collapsed>False</Collapsed>
+        <Value>TimeDesenvolvimento = 1</Value>
+        <Value>ProductOwner = 2</Value>
+        <Value>ScrumMaster = 3</Value>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="3" second="5">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+    </Relationships>
   </ProjectItem>
   <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
     <Name>StartIdea.UI.ProductOwner</Name>
     <Language>CSharp</Language>
-    <Entities />
-    <Relationships />
+    <Entities>
+      <Entity type="Class">
+        <Name>ProductBacklogVM</Name>
+        <Access>Public</Access>
+        <Location left="292" top="296" />
+        <Size width="360" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IPagedList&lt;ProductBacklog&gt; ProductBacklogList { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;ProductBacklog&gt; ProductBacklogReport { get; set; }</Member>
+        <Member type="Property">public String FiltroUserStory { get; set; }</Member>
+        <Member type="Property">public String FiltroDataInicial { get; set; }</Member>
+        <Member type="Property">public String FiltroDataFinal { get; set; }</Member>
+        <Member type="Property">public Int32? PaginaGrid { get; set; }</Member>
+        <Member type="Property">public String DisplayCreate { get; set; }</Member>
+        <Member type="Property">public String DisplayEdit { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String UserStory { get; set; }</Member>
+        <Member type="Property">public Int16 Prioridade { get; set; }</Member>
+        <Member type="Constructor">public ProductBacklogVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductOwnerAreaRegistration</Name>
+        <Access>Public</Access>
+        <Location left="10" top="10" />
+        <Size width="291" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public override String AreaName { get; }</Member>
+        <Member type="Constructor">public ProductOwnerAreaRegistration()</Member>
+        <Member type="Method">public override Void RegisterArea(AreaRegistrationContext context)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintVM</Name>
+        <Access>Public</Access>
+        <Location left="666" top="296" />
+        <Size width="230" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicial { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinal { get; set; }</Member>
+        <Member type="Property">public String Objetivo { get; set; }</Member>
+        <Member type="Property">public DateTime DataCadastro { get; set; }</Member>
+        <Member type="Property">public String MotivoCancelamento { get; set; }</Member>
+        <Member type="Constructor">public SprintVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppController</Name>
+        <Access>Public</Access>
+        <Location left="318" top="35" />
+        <Size width="178" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public AppUser CurrentUser { get; }</Member>
+        <Member type="Constructor">protected AppController()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintController</Name>
+        <Access>Public</Access>
+        <Location left="10" top="214" />
+        <Size width="266" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public SprintController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Edit(SprintVM sprintVM)</Member>
+        <Member type="Method">private Void CancelarTarefa(Int32 SprintId)</Member>
+        <Member type="Method">private Void CancelarSprintBacklog(Int32 SprintId)</Member>
+        <Member type="Method">private Void CadastrarProductBacklog(Int32 SprintId)</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogController</Name>
+        <Access>Public</Access>
+        <Location left="510" top="35" />
+        <Size width="800" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public ProductBacklogController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(String FiltroUserStory, DateTime? FiltroDataInicial, DateTime? FiltroDataFinal, Int32? PaginaGrid, Int32? IdEdit, String DisplayCreate)</Member>
+        <Member type="Method">public ActionResult Create(ProductBacklogVM productBacklogVM)</Member>
+        <Member type="Method">public ActionResult Edit(ProductBacklogVM productBacklogVM, Int16 prioridadeAtual)</Member>
+        <Member type="Method">public ActionResult Delete(Int32? id)</Member>
+        <Member type="Method">public ActionResult Report(String FiltroUserStory, DateTime? FiltroDataInicial, DateTime? FiltroDataFinal)</Member>
+        <Member type="Method">private IPagedList&lt;ProductBacklog&gt; GetGridPagedDataSource(ProductBacklogVM productBacklogVM)</Member>
+        <Member type="Method">private IEnumerable&lt;ProductBacklog&gt; GetGridDataSource(ProductBacklogVM productBacklogVM)</Member>
+        <Member type="Method">private Void ReordenarPrioridades(Int32 ProductBacklogId, Int16 Prioridade)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="4" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="5" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
   </ProjectItem>
   <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
     <Name>StartIdea.UI.ScrumMaster</Name>
     <Language>CSharp</Language>
-    <Entities />
-    <Relationships />
+    <Entities>
+      <Entity type="Class">
+        <Name>SprintBacklogVM</Name>
+        <Access>Public</Access>
+        <Location left="316" top="10" />
+        <Size width="343" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 PaginaGridProductBacklog { get; set; }</Member>
+        <Member type="Property">public IPagedList&lt;ProductBacklog&gt; ProductBacklogList { get; set; }</Member>
+        <Member type="Property">public Int32 PaginaGridSprintBacklog { get; set; }</Member>
+        <Member type="Property">public IPagedList&lt;SprintBacklog&gt; SprintBacklogList { get; set; }</Member>
+        <Member type="Property">public String DisplayMotivoCancelamento { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;SprintBacklog&gt; SprintBacklogReport { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public String MotivoCancelamento { get; set; }</Member>
+        <Member type="Constructor">public SprintBacklogVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ReuniaoVM</Name>
+        <Access>Public</Access>
+        <Location left="676" top="10" />
+        <Size width="417" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 _Id</Member>
+        <Member type="Property">public String ActionForm { get; private set; }</Member>
+        <Member type="Property">public String SubmitValue { get; private set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Local { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicial { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinal { get; set; }</Member>
+        <Member type="Property">public String Ata { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Constructor">public ReuniaoVM()</Member>
+        <Member type="Method">public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DailyScrumVM</Name>
+        <Access>Public</Access>
+        <Location left="10" top="157" />
+        <Size width="263" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IPagedList&lt;Reuniao&gt; ReuniaoList { get; set; }</Member>
+        <Member type="Property">public Int32 PaginaGrid { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Local { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicial { get; set; }</Member>
+        <Member type="Property">public String Ata { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Constructor">public DailyScrumVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ScrumMasterAreaRegistration</Name>
+        <Access>Public</Access>
+        <Location left="10" top="10" />
+        <Size width="291" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public override String AreaName { get; }</Member>
+        <Member type="Constructor">public ScrumMasterAreaRegistration()</Member>
+        <Member type="Method">public override Void RegisterArea(AreaRegistrationContext context)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintVM</Name>
+        <Access>Public</Access>
+        <Location left="10" top="392" />
+        <Size width="417" height="638" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 _Id</Member>
+        <Member type="Property">public Sprint SprintAtual { get; set; }</Member>
+        <Member type="Property">public String ActionForm { get; private set; }</Member>
+        <Member type="Property">public String SubmitValue { get; private set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicial { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinal { get; set; }</Member>
+        <Member type="Property">public String Objetivo { get; set; }</Member>
+        <Member type="Property">public Int32 IdRP { get; set; }</Member>
+        <Member type="Property">public String LocalRP { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicialRP { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinalRP { get; set; }</Member>
+        <Member type="Property">public String LocalRD { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicialRD { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinalRD { get; set; }</Member>
+        <Member type="Property">public String HorarioInicialRD { get; set; }</Member>
+        <Member type="Property">public Boolean WorkSun { get; set; }</Member>
+        <Member type="Property">public Boolean WorkMon { get; set; }</Member>
+        <Member type="Property">public Boolean WorkTue { get; set; }</Member>
+        <Member type="Property">public Boolean WorkWed { get; set; }</Member>
+        <Member type="Property">public Boolean WorkThu { get; set; }</Member>
+        <Member type="Property">public Boolean WorkFri { get; set; }</Member>
+        <Member type="Property">public Boolean WorkSat { get; set; }</Member>
+        <Member type="Property">public Int32 IdRV { get; set; }</Member>
+        <Member type="Property">public String LocalRV { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicialRV { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinalRV { get; set; }</Member>
+        <Member type="Property">public Int32 IdRT { get; set; }</Member>
+        <Member type="Property">public String LocalRT { get; set; }</Member>
+        <Member type="Property">public DateTime DataInicialRT { get; set; }</Member>
+        <Member type="Property">public DateTime DataFinalRT { get; set; }</Member>
+        <Member type="Constructor">public SprintVM()</Member>
+        <Member type="Method">public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintController</Name>
+        <Access>Public</Access>
+        <Location left="455" top="300" />
+        <Size width="266" height="213" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public SprintController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Create(SprintVM sprintVM)</Member>
+        <Member type="Method">public ActionResult Edit(SprintVM sprintVM)</Member>
+        <Member type="Method">private Int32 GetTotalDailyScrum(SprintVM sprintVM)</Member>
+        <Member type="Method">private Void GerarDailyScrum(SprintVM sprintVM)</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppController</Name>
+        <Access>Public</Access>
+        <Location left="915" top="300" />
+        <Size width="178" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public AppUser CurrentUser { get; }</Member>
+        <Member type="Constructor">protected AppController()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SprintBacklogController</Name>
+        <Access>Public</Access>
+        <Location left="1175" top="10" />
+        <Size width="614" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public SprintBacklogController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(Int32? paginaProductBacklog, Int32? paginaSprintBacklog, Int32? id)</Member>
+        <Member type="Method">public ActionResult Report()</Member>
+        <Member type="Method">public ActionResult Adicionar(Int32 id, Int32? paginaProductBacklog, Int32? paginaSprintBacklog)</Member>
+        <Member type="Method">public ActionResult Remover(SprintBacklogVM sprintBacklogVM, Int32? paginaProductBacklog, Int32? paginaSprintBacklog)</Member>
+        <Member type="Method">private Void CancelarTarefa(Int32 SprintBacklogId)</Member>
+        <Member type="Method">private IPagedList&lt;ProductBacklog&gt; GetGridDataSourceProductBacklog(Int32 PaginaGrid)</Member>
+        <Member type="Method">private IPagedList&lt;SprintBacklog&gt; GetGridPagedDataSourceSprintBacklog(Int32 PaginaGrid)</Member>
+        <Member type="Method">private IEnumerable&lt;SprintBacklog&gt; GetGridDataSourceSprintBacklog()</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ReuniaoRevisaoController</Name>
+        <Access>Public</Access>
+        <Location left="898" top="699" />
+        <Size width="313" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public ReuniaoRevisaoController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Create(ReuniaoVM reuniaoVM)</Member>
+        <Member type="Method">public ActionResult Edit(ReuniaoVM reuniaoVM)</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ReuniaoRetrospectivaController</Name>
+        <Access>Public</Access>
+        <Location left="455" top="531" />
+        <Size width="342" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public ReuniaoRetrospectivaController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Create(ReuniaoVM reuniaoVM)</Member>
+        <Member type="Method">public ActionResult Edit(ReuniaoVM reuniaoVM)</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ReuniaoPlanejamentoController</Name>
+        <Access>Public</Access>
+        <Location left="1273" top="575" />
+        <Size width="342" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public ReuniaoPlanejamentoController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult Create(ReuniaoVM reuniaoVM)</Member>
+        <Member type="Method">public ActionResult Edit(ReuniaoVM reuniaoVM)</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DailyScrumController</Name>
+        <Access>Public</Access>
+        <Location left="1457" top="300" />
+        <Size width="331" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public DailyScrumController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(Int32? PaginaGrid)</Member>
+        <Member type="Method">public ActionResult Create()</Member>
+        <Member type="Method">public ActionResult Create(DailyScrumVM dailyScrumVM)</Member>
+        <Member type="Method">public ActionResult Edit(Int32? id)</Member>
+        <Member type="Method">public ActionResult Edit(DailyScrumVM dailyScrumVM)</Member>
+        <Member type="Method">public ActionResult Delete(Int32? id)</Member>
+        <Member type="Method">private IPagedList&lt;Reuniao&gt; GetGridDataSource(Int32 PaginaGrid)</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="5" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="7" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="8" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="9" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="10" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="11" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+    </Relationships>
   </ProjectItem>
   <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
     <Name>StartIdea.UI.TeamMember</Name>
     <Language>CSharp</Language>
-    <Entities />
-    <Relationships />
+    <Entities>
+      <Entity type="Class">
+        <Name>TarefaVM</Name>
+        <Access>Public</Access>
+        <Location left="10" top="380" />
+        <Size width="316" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IPagedList&lt;Tarefa&gt; TarefaList { get; set; }</Member>
+        <Member type="Property">public String FiltroDescricao { get; set; }</Member>
+        <Member type="Property">public Int32 PaginaGrid { get; set; }</Member>
+        <Member type="Property">public String DisplayMotivoCancelamento { get; set; }</Member>
+        <Member type="Property">public Int32? TarefaIdCancelamento { get; set; }</Member>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String Descricao { get; set; }</Member>
+        <Member type="Property">public Int32 SprintBacklogId { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;SprintBacklog&gt; SprintBacklogs { get; set; }</Member>
+        <Member type="Property">public String MotivoCancelamento { get; set; }</Member>
+        <Member type="Constructor">public TarefaVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>StatusTarefaVM</Name>
+        <Access>Public</Access>
+        <Location left="344" top="410" />
+        <Size width="282" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Int32 SprintId { get; set; }</Member>
+        <Member type="Property">public Boolean HasDailyScrum { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;Status&gt; StatusProcesso { get; set; }</Member>
+        <Member type="Property">public IEnumerable&lt;Tarefa&gt; Tarefas { get; set; }</Member>
+        <Member type="Constructor">public StatusTarefaVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogVM</Name>
+        <Access>Public</Access>
+        <Location left="644" top="410" />
+        <Size width="333" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IPagedList&lt;ProductBacklog&gt; ProductBacklogList { get; set; }</Member>
+        <Member type="Property">public String FiltroUserStory { get; set; }</Member>
+        <Member type="Property">public Int32 Id { get; set; }</Member>
+        <Member type="Property">public String UserStory { get; set; }</Member>
+        <Member type="Property">public ProductOwner ProductOwner { get; set; }</Member>
+        <Member type="Property">public Int32 Prioridade { get; set; }</Member>
+        <Member type="Property">public DateTime DataInclusao { get; set; }</Member>
+        <Member type="Property">public StoryPoint StoryPoint { get; set; }</Member>
+        <Member type="Property">public String DisplayEdit { get; set; }</Member>
+        <Member type="Constructor">public ProductBacklogVM()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TeamMemberAreaRegistration</Name>
+        <Access>Public</Access>
+        <Location left="10" top="10" />
+        <Size width="291" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public override String AreaName { get; }</Member>
+        <Member type="Constructor">public TeamMemberAreaRegistration()</Member>
+        <Member type="Method">public override Void RegisterArea(AreaRegistrationContext context)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>StatusTarefaController</Name>
+        <Access>Public</Access>
+        <Location left="358" top="10" />
+        <Size width="321" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public StatusTarefaController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index()</Member>
+        <Member type="Method">public ActionResult AlteraStatus(Int32 IdStatus, Int32 IdTarefa)</Member>
+        <Member type="Method">private Boolean CheckDailyScrum()</Member>
+        <Member type="Method">private IEnumerable&lt;Tarefa&gt; GetKanbanDataSource()</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>TarefaController</Name>
+        <Access>Public</Access>
+        <Location left="890" top="10" />
+        <Size width="463" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public TarefaController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(String FiltroDescricao, Int32? PaginaGrid, Int32? IdCancelamento)</Member>
+        <Member type="Method">public ActionResult Create()</Member>
+        <Member type="Method">public ActionResult Create(TarefaVM tarefaVM)</Member>
+        <Member type="Method">public ActionResult Edit(Int32? id)</Member>
+        <Member type="Method">public ActionResult Edit(TarefaVM tarefaVM)</Member>
+        <Member type="Method">public ActionResult Report(Int32? id)</Member>
+        <Member type="Method">public ActionResult Cancel(TarefaVM tarefaVM)</Member>
+        <Member type="Method">private IPagedList&lt;Tarefa&gt; GetGridDataSource(TarefaVM tarefaVM)</Member>
+        <Member type="Method">private IEnumerable&lt;SprintBacklog&gt; GetSprintsBacklog()</Member>
+        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AppController</Name>
+        <Access>Public</Access>
+        <Location left="612" top="278" />
+        <Size width="178" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public AppUser CurrentUser { get; }</Member>
+        <Member type="Constructor">protected AppController()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>ProductBacklogController</Name>
+        <Access>Public</Access>
+        <Location left="10" top="218" />
+        <Size width="439" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private StartIdeaDBContext _dbContext</Member>
+        <Member type="Constructor">public ProductBacklogController(StartIdeaDBContext dbContext)</Member>
+        <Member type="Method">public ActionResult Index(String contextoBusca, String filtro, Int32? pagina, Int32? id)</Member>
+        <Member type="Method">public ActionResult Edit(ProductBacklogVM productBacklog, String filtro, Int32? pagina)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="5" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="4" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="7" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+    </Relationships>
   </ProjectItem>
 </Project>
