@@ -41,8 +41,8 @@
                     @Html.ValidationMessageFor(model => model.DataInicial, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.DataFinal)
-                    @Html.EditorFor(model => model.DataFinal, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <label>Data Final</label>
+                    <input type="text" value="A reunião diária tem um limite de tempo de 15 min" class="form-control" readonly="readonly" />
                 </div>
             </div>
 

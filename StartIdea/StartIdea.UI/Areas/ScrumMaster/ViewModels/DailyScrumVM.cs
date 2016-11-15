@@ -11,7 +11,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
         public DailyScrumVM()
         {
             DataInicial = DateTime.Now;
-            DataFinal = DateTime.Now.AddMinutes(15);
         }
 
         #region Properties
@@ -29,9 +28,6 @@ namespace StartIdea.UI.Areas.ScrumMaster.ViewModels
         [DisplayName("Data Inicial")]
         [Required(ErrorMessage = "Campo Data Inicial obrigatório.")]
         public DateTime DataInicial { get; set; }
-
-        [DisplayName("Data Final")]
-        public DateTime DataFinal { get; set; }
 
         [Required(ErrorMessage = "Campo Ata obrigatório.")]
         [DataType(DataType.MultilineText)]
