@@ -5,41 +5,6 @@
     ViewBag.Title = "Index";
 }
 
-@section CustomScript{
-    <script type="text/javascript">
-        var displayCreate = "@Model.DisplayCreate";
-        var displayEdit = "@Model.DisplayEdit";
-
-        if (displayEdit) {
-            $("#popup-edit").modal('show');
-        }
-        if (displayCreate) {
-            $("#popup-create").modal('show');
-        }
-
-        $(".edit").click(function () {
-            var Id = $(this).attr("data-id");
-            var url = "@Html.Raw(Url.Action("Index", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal, PaginaGrid = Model.PaginaGrid, IdEdit = 0 }))";
-
-            window.location.href = url.replace("IdEdit=0", "IdEdit=" + Id);
-        });
-
-        $(".create").click(function () {
-            var url = "@Html.Raw(Url.Action("Index", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal, PaginaGrid = Model.PaginaGrid, DisplayCreate = "show" }))";
-
-            window.location.href = url;
-        });
-
-        $("#popup-edit, #popup-create").on("hide.bs.modal", function () {
-            window.location.href = "@Html.Raw(Url.Action("Index", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal, PaginaGrid = Model.PaginaGrid, IdEdit = "" }))"
-        });
-
-    </script>
-}
-
-@Html.Partial("_Create", Model)
-@Html.Partial("_Edit", Model)
-
 <div class="row">
     <div class="col-xs-12">
         <div class="page-header">
@@ -94,9 +59,9 @@
                         <th class="col-sm-1">
                             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <div class="btn-group" role="group">
-                                    <button class="btn btn-success btn-xs create" title="Incluir">
+                                    <a class="btn btn-success btn-xs" title="Incluir" href="@Url.Action("Create")">
                                         <i class="glyphicon glyphicon-plus"></i>
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="btn-group" role="group">
                                     <a href="@Html.Raw(Url.Action("Report", "ProductBacklog", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal }))" target="_blank" class="btn btn-success btn-xs" title="Imprimir">
@@ -129,9 +94,9 @@
                             <td>
                                 <div class="btn-group btn-group-justified" role="group" aria-label="operacoes">
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-primary btn-xs edit" title="Editar" data-id="@item.Id">
+                                        <a class="btn btn-primary btn-xs" title="Editar" href="@Url.Action("Edit", new { id = item.Id })">
                                             <i class="glyphicon glyphicon-edit"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <div class="btn-group" role="group">
                                         <a class="btn btn-danger btn-xs" title="Excluir" href="@Url.Action("Delete", "ProductBacklog", new { Id = (item.Id) })" onclick="return confirm('Você tem certeza que deseja excluir esse registro?');">

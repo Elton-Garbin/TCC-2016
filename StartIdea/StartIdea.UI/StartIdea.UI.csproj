@@ -375,9 +375,9 @@
     <Content Include="Areas\TeamMember\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Edit.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Edit.cshtml" />
     <Content Include="Areas\ProductOwner\Views\ProductBacklog\Index.cshtml" />
-    <Content Include="Areas\ProductOwner\Views\ProductBacklog\_Create.cshtml" />
+    <Content Include="Areas\ProductOwner\Views\ProductBacklog\Create.cshtml" />
     <Content Include="Areas\TeamMember\Views\ProductBacklog\_Edit.cshtml" />
     <Content Include="Areas\TeamMember\Views\ProductBacklog\Index.cshtml" />
     <Content Include="packages.config">

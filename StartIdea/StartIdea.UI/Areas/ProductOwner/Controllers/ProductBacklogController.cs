@@ -24,32 +24,22 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
         public ActionResult Index(string FiltroUserStory,
                                   DateTime? FiltroDataInicial,
                                   DateTime? FiltroDataFinal,
-                                  int? PaginaGrid,
-                                  int? IdEdit,
-                                  string DisplayCreate)
+                                  int? PaginaGrid)
         {
             var productBacklogVM = new ProductBacklogVM();
             productBacklogVM.PaginaGrid = (PaginaGrid ?? 1);
             productBacklogVM.FiltroUserStory = FiltroUserStory;
             productBacklogVM.FiltroDataInicial = Convert.ToString(FiltroDataInicial);
             productBacklogVM.FiltroDataFinal = Convert.ToString(FiltroDataFinal);
-            productBacklogVM.DisplayCreate = DisplayCreate;
-
-            if ((IdEdit ?? 0) > 0)
-            {
-                ProductBacklog productBacklog = _dbContext.ProductBacklogs.Find(IdEdit);
-                if (productBacklog == null)
-                    return HttpNotFound();
-
-                productBacklogVM.Id = productBacklog.Id;
-                productBacklogVM.UserStory = productBacklog.UserStory;
-                productBacklogVM.Prioridade = productBacklog.Prioridade;
-                productBacklogVM.DisplayEdit = "show";
-            }
 
             productBacklogVM.ProductBacklogList = GetGridPagedDataSource(productBacklogVM);
 
             return View(productBacklogVM);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -60,7 +50,7 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
             {
                 ReordenarPrioridades(0, productBacklogVM.Prioridade);
 
-                ProductBacklog productBacklog = new ProductBacklog()
+                var productBacklog = new ProductBacklog()
                 {
                     UserStory = productBacklogVM.UserStory,
                     Prioridade = productBacklogVM.Prioridade,
@@ -73,7 +63,26 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("Index", productBacklogVM);
+            return View(productBacklogVM);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            ProductBacklog productBacklog = _dbContext.ProductBacklogs.Find(id);
+            if (productBacklog == null)
+                return HttpNotFound();
+
+            var productBacklogVM = new ProductBacklogVM()
+            {
+                Id = productBacklog.Id,
+                UserStory = productBacklog.UserStory,
+                Prioridade = productBacklog.Prioridade
+            };
+
+            return View(productBacklogVM);
         }
 
         [HttpPost]
@@ -93,12 +102,10 @@ namespace StartIdea.UI.Areas.ProductOwner.Controllers
                 _dbContext.Entry(productBacklog).State = EntityState.Modified;
                 _dbContext.SaveChanges();
 
-                productBacklogVM.DisplayEdit = string.Empty;
+                return RedirectToAction("Index");
             }
 
-            productBacklogVM.ProductBacklogList = GetGridPagedDataSource(productBacklogVM);
-
-            return View("Index", productBacklogVM);
+            return View(productBacklogVM);
         }
 
         public ActionResult Delete(int? id)

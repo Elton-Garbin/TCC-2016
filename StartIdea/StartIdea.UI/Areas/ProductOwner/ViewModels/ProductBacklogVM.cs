@@ -23,8 +23,6 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string FiltroDataFinal { get; set; }
         public int? PaginaGrid { get; set; }
-        public string DisplayCreate { get; set; }
-        public string DisplayEdit { get; set; }
         #endregion
 
         public int Id { get; set; }
