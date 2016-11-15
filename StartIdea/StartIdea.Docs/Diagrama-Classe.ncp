@@ -880,8 +880,8 @@
       <Entity type="Class">
         <Name>ProductBacklogVM</Name>
         <Access>Public</Access>
-        <Location left="292" top="296" />
-        <Size width="360" height="281" />
+        <Location left="289" top="330" />
+        <Size width="360" height="247" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public IPagedList&lt;ProductBacklog&gt; ProductBacklogList { get; set; }</Member>
         <Member type="Property">public IEnumerable&lt;ProductBacklog&gt; ProductBacklogReport { get; set; }</Member>
@@ -889,8 +889,6 @@
         <Member type="Property">public String FiltroDataInicial { get; set; }</Member>
         <Member type="Property">public String FiltroDataFinal { get; set; }</Member>
         <Member type="Property">public Int32? PaginaGrid { get; set; }</Member>
-        <Member type="Property">public String DisplayCreate { get; set; }</Member>
-        <Member type="Property">public String DisplayEdit { get; set; }</Member>
         <Member type="Property">public Int32 Id { get; set; }</Member>
         <Member type="Property">public String UserStory { get; set; }</Member>
         <Member type="Property">public Int16 Prioridade { get; set; }</Member>
@@ -911,7 +909,7 @@
       <Entity type="Class">
         <Name>SprintVM</Name>
         <Access>Public</Access>
-        <Location left="666" top="296" />
+        <Location left="663" top="330" />
         <Size width="230" height="196" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public Int32 Id { get; set; }</Member>
@@ -952,13 +950,15 @@
       <Entity type="Class">
         <Name>ProductBacklogController</Name>
         <Access>Public</Access>
-        <Location left="510" top="35" />
-        <Size width="800" height="247" />
+        <Location left="509" top="35" />
+        <Size width="617" height="281" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private StartIdeaDBContext _dbContext</Member>
         <Member type="Constructor">public ProductBacklogController(StartIdeaDBContext dbContext)</Member>
-        <Member type="Method">public ActionResult Index(String FiltroUserStory, DateTime? FiltroDataInicial, DateTime? FiltroDataFinal, Int32? PaginaGrid, Int32? IdEdit, String DisplayCreate)</Member>
+        <Member type="Method">public ActionResult Index(String FiltroUserStory, DateTime? FiltroDataInicial, DateTime? FiltroDataFinal, Int32? PaginaGrid)</Member>
+        <Member type="Method">public ActionResult Create()</Member>
         <Member type="Method">public ActionResult Create(ProductBacklogVM productBacklogVM)</Member>
+        <Member type="Method">public ActionResult Edit(Int32? id)</Member>
         <Member type="Method">public ActionResult Edit(ProductBacklogVM productBacklogVM, Int16 prioridadeAtual)</Member>
         <Member type="Method">public ActionResult Delete(Int32? id)</Member>
         <Member type="Method">public ActionResult Report(String FiltroUserStory, DateTime? FiltroDataInicial, DateTime? FiltroDataFinal)</Member>
