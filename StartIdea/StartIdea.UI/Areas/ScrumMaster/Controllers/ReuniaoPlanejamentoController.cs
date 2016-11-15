@@ -20,7 +20,7 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
 
         public ActionResult Index()
         {
-            int SprintAtualId = GetSprintId();
+            int SprintAtualId = GetSprintAtual().Id;
             var reuniao = _dbContext.Reunioes.FirstOrDefault(r => r.TipoReuniao == TipoReuniao.Planejamento
                                                                && r.SprintId == SprintAtualId) ?? new Reuniao();
 
@@ -79,14 +79,12 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             return View("Index", reuniaoVM);
         }
 
-        private int GetSprintId()
+        private Sprint GetSprintAtual()
         {
-            var sprint = _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
-                                                              && s.TimeId == CurrentUser.TimeId
-                                                              && s.DataInicial <= DateTime.Now
-                                                              && s.DataFinal >= DateTime.Now) ?? new Sprint();
-
-            return sprint.Id;
+            return _dbContext.Sprints.FirstOrDefault(s => !s.DataCancelamento.HasValue
+                                                        && s.TimeId == CurrentUser.TimeId
+                                                        && s.DataInicial <= DateTime.Now
+                                                        && s.DataFinal >= DateTime.Now) ?? new Sprint();
         }
     }
 }

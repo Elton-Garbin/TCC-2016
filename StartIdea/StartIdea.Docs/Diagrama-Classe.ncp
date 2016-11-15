@@ -1144,7 +1144,7 @@
         <Member type="Method">public ActionResult Index()</Member>
         <Member type="Method">public ActionResult Create(ReuniaoVM reuniaoVM)</Member>
         <Member type="Method">public ActionResult Edit(ReuniaoVM reuniaoVM)</Member>
-        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -1158,7 +1158,7 @@
         <Member type="Method">public ActionResult Index()</Member>
         <Member type="Method">public ActionResult Create(ReuniaoVM reuniaoVM)</Member>
         <Member type="Method">public ActionResult Edit(ReuniaoVM reuniaoVM)</Member>
-        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -1172,7 +1172,7 @@
         <Member type="Method">public ActionResult Index()</Member>
         <Member type="Method">public ActionResult Create(ReuniaoVM reuniaoVM)</Member>
         <Member type="Method">public ActionResult Edit(ReuniaoVM reuniaoVM)</Member>
-        <Member type="Method">private Int32 GetSprintId()</Member>
+        <Member type="Method">private Sprint GetSprintAtual()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
