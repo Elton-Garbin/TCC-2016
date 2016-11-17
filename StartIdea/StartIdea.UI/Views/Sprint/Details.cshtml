@@ -158,6 +158,12 @@
                                 <p>Não é possivel verificar o gráfico, pois a sprint foi cancelada!</p>
                             </div>
                         }
+                        else if (Model.SprintView.DataInicial > DateTime.Now)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <p>Não é possivel verificar o gráfico, pois a sprint não foi iniciada!</p>
+                            </div>
+                        }
                         else
                         {
                             <div class="alert alert-info" role="alert">
