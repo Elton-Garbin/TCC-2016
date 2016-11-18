@@ -27,6 +27,17 @@
         }
         else
         {
+            if (Model.ReuniaoList.TotalItemCount < 14)
+            {
+                <div class="row visible-xs">
+                    <div class="col-xs-12 form-group">
+                        <a class="btn btn-success btn-xs btn-block" title="Incluir" href="@Url.Action("Create")">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
             <div class="row">
                 <div class="col-xs-12">
                     <div id="no-more-tables">

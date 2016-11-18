@@ -45,6 +45,22 @@
     }
 </div>
 <br>
+<div class="row visible-xs">
+    <div class="col-xs-12 form-group">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <a class="btn btn-success btn-xs" title="Incluir" href="@Url.Action("Create")">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="@Html.Raw(Url.Action("Report", "ProductBacklog", new { FiltroUserStory = Model.FiltroUserStory, FiltroDataInicial = Model.FiltroDataInicial, FiltroDataFinal = Model.FiltroDataFinal }))" target="_blank" class="btn btn-success btn-xs" title="Imprimir">
+                    <i class="glyphicon glyphicon-print"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-xs-12">
         <div id="no-more-tables">

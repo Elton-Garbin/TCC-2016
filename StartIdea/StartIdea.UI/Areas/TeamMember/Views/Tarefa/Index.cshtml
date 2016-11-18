@@ -64,6 +64,13 @@ else
         }
     </div>
     <br>
+    <div class="row visible-xs">
+        <div class="col-xs-12 form-group">
+            <a class="btn btn-success btn-xs btn-block" href="@Url.Action("Create")">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div id="no-more-tables">
@@ -125,7 +132,7 @@ else
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7">
+                            <td colspan="4">
                                 @Html.PagedListPager(Model.TarefaList, PaginaGrid => Url.Action("Index", new { FiltroDescricao = Model.FiltroDescricao, PaginaGrid }))
                             </td>
                         </tr>
