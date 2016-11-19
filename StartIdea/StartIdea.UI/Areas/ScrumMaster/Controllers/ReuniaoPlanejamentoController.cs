@@ -41,6 +41,15 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
         {
             if (ModelState.IsValid)
             {
+                Sprint SprintAtual = GetSprintAtual();
+
+                if (!(reuniaoVM.DataInicial >= SprintAtual.DataInicial &&
+                      reuniaoVM.DataFinal <= SprintAtual.DataFinal))
+                {
+                    ModelState.AddModelError("", "Data da reunião deve estar dentro do intervalo da sprint atual.");
+                    return View("Index", reuniaoVM);
+                }
+
                 var reuniao = new Reuniao()
                 {
                     TipoReuniao = TipoReuniao.Planejamento,
@@ -67,6 +76,14 @@ namespace StartIdea.UI.Areas.ScrumMaster.Controllers
             if (ModelState.IsValid)
             {
                 Reuniao reuniao = _dbContext.Reunioes.Find(reuniaoVM.Id);
+
+                if (!(reuniaoVM.DataInicial >= reuniao.Sprint.DataInicial &&
+                      reuniaoVM.DataFinal <= reuniao.Sprint.DataFinal))
+                {
+                    ModelState.AddModelError("", "Data da reunião deve estar dentro do intervalo da sprint atual.");
+                    return View("Index", reuniaoVM);
+                }
+
                 reuniao.Local = reuniaoVM.Local;
                 reuniao.Ata = reuniaoVM.Ata;
                 reuniao.DataInicial = reuniaoVM.DataInicial;
