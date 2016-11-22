@@ -39,7 +39,7 @@ namespace StartIdea.UI.Areas.Admin.ViewModels
         public TimeScrum Papel { get; set; }
 
         [DisplayName("Função")]
-        [StringLength(20, ErrorMessage = "Campo Função deve ter no máximo 75 caracteres.")]
+        [StringLength(20, ErrorMessage = "Campo Função deve ter no máximo 20 caracteres.")]
         public string Descricao { get; set; }
     }
 }
