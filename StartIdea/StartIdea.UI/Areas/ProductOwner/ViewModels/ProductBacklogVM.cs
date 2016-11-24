@@ -35,6 +35,7 @@ namespace StartIdea.UI.Areas.ProductOwner.ViewModels
 
         [Required(ErrorMessage = "Campo Prioridade obrigatório.")]
         [Range(1, 9999, ErrorMessage = "Campo Prioridade deve ser maior do que zero.")]
+        [RegularExpression(@"[0-9]*\.?[0-9]+", ErrorMessage = "Informe um número válido")]
         public short Prioridade { get; set; }
         #endregion
     }
