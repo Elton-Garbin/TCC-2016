@@ -423,3 +423,11 @@
                 content: attr(data-title);
             }
 }
+
+.limpa-tag{
+    font-family: Arial, Helvetica, sans-serif;
+    background: none;
+    border: none;
+    font-size: 14px;
+    padding: 0;
+}
