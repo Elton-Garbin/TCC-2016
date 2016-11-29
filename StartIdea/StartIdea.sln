@@ -43,6 +43,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gabriel", "Gabriel", "{22D8
 		StartIdea.Docs\Estagio\Gabriel\5-Declaracao_Final_Estagio_Externo.doc = StartIdea.Docs\Estagio\Gabriel\5-Declaracao_Final_Estagio_Externo.doc
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elton", "Elton", "{DAF0EF94-AEED-4CE5-9802-770C313DBF74}"
+	ProjectSection(SolutionItems) = preProject
+		StartIdea.Docs\Estagio\Elton\1-Fase_Observacao.doc = StartIdea.Docs\Estagio\Elton\1-Fase_Observacao.doc
+		StartIdea.Docs\Estagio\Elton\2-Controle_Frequencia_Observacao.xls = StartIdea.Docs\Estagio\Elton\2-Controle_Frequencia_Observacao.xls
+		StartIdea.Docs\Estagio\Elton\3-Fase_Participacao.doc = StartIdea.Docs\Estagio\Elton\3-Fase_Participacao.doc
+		StartIdea.Docs\Estagio\Elton\4-Controle_Frequencia_Participacao.xls = StartIdea.Docs\Estagio\Elton\4-Controle_Frequencia_Participacao.xls
+		StartIdea.Docs\Estagio\Elton\5-Declaracao_Final_Estagio_Externo.doc = StartIdea.Docs\Estagio\Elton\5-Declaracao_Final_Estagio_Externo.doc
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,5 +78,6 @@ Global
 		{66D7FB4B-29C0-4788-B116-6D58BCDD1F8E} = {E0DE64D0-77B6-494E-8B55-4CA98D68F900}
 		{CAB1156B-FB54-45B2-A75F-07BE5CA73D2B} = {E0DE64D0-77B6-494E-8B55-4CA98D68F900}
 		{22D81E0D-BBA1-4FC8-B81F-888AA09DDFA6} = {CAB1156B-FB54-45B2-A75F-07BE5CA73D2B}
+		{DAF0EF94-AEED-4CE5-9802-770C313DBF74} = {CAB1156B-FB54-45B2-A75F-07BE5CA73D2B}
 	EndGlobalSection
 EndGlobal
