@@ -30,8 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagramas-Sequencia", "Diag
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Estagio", "Estagio", "{CAB1156B-FB54-45B2-A75F-07BE5CA73D2B}"
 	ProjectSection(SolutionItems) = preProject
-		StartIdea.Docs\Estagio\6-Relatorio_Estagio_Interno.doc = StartIdea.Docs\Estagio\6-Relatorio_Estagio_Interno.doc
-		StartIdea.Docs\Estagio\7-Declaracao_Final_Estagio_Interno.doc = StartIdea.Docs\Estagio\7-Declaracao_Final_Estagio_Interno.doc
+		StartIdea.Docs\Estagio\8-Relatorio_Estagio_Interno.doc = StartIdea.Docs\Estagio\8-Relatorio_Estagio_Interno.doc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gabriel", "Gabriel", "{22D81E0D-BBA1-4FC8-B81F-888AA09DDFA6}"
@@ -41,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gabriel", "Gabriel", "{22D8
 		StartIdea.Docs\Estagio\Gabriel\3-Fase_Participacao.doc = StartIdea.Docs\Estagio\Gabriel\3-Fase_Participacao.doc
 		StartIdea.Docs\Estagio\Gabriel\4-Controle_Frequencia_Participacao.xls = StartIdea.Docs\Estagio\Gabriel\4-Controle_Frequencia_Participacao.xls
 		StartIdea.Docs\Estagio\Gabriel\5-Declaracao_Final_Estagio_Externo.doc = StartIdea.Docs\Estagio\Gabriel\5-Declaracao_Final_Estagio_Externo.doc
+		StartIdea.Docs\Estagio\Gabriel\6-Controle_Frequencia_Interno.xlsx = StartIdea.Docs\Estagio\Gabriel\6-Controle_Frequencia_Interno.xlsx
+		StartIdea.Docs\Estagio\Gabriel\7-Declaracao_Final_Estagio_Interno.doc = StartIdea.Docs\Estagio\Gabriel\7-Declaracao_Final_Estagio_Interno.doc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elton", "Elton", "{DAF0EF94-AEED-4CE5-9802-770C313DBF74}"
@@ -50,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elton", "Elton", "{DAF0EF94
 		StartIdea.Docs\Estagio\Elton\3-Fase_Participacao.doc = StartIdea.Docs\Estagio\Elton\3-Fase_Participacao.doc
 		StartIdea.Docs\Estagio\Elton\4-Controle_Frequencia_Participacao.xls = StartIdea.Docs\Estagio\Elton\4-Controle_Frequencia_Participacao.xls
 		StartIdea.Docs\Estagio\Elton\5-Declaracao_Final_Estagio_Externo.doc = StartIdea.Docs\Estagio\Elton\5-Declaracao_Final_Estagio_Externo.doc
+		StartIdea.Docs\Estagio\Elton\6-Controle_Frequencia_Interno.xlsx = StartIdea.Docs\Estagio\Elton\6-Controle_Frequencia_Interno.xlsx
+		StartIdea.Docs\Estagio\Elton\7-Declaracao_Final_Estagio_Interno.doc = StartIdea.Docs\Estagio\Elton\7-Declaracao_Final_Estagio_Interno.doc
 	EndProjectSection
 EndProject
 Global
