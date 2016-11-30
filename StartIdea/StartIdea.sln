@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gabriel", "Gabriel", "{22D8
 		StartIdea.Docs\Estagio\Gabriel\3-Fase_Participacao.doc = StartIdea.Docs\Estagio\Gabriel\3-Fase_Participacao.doc
 		StartIdea.Docs\Estagio\Gabriel\4-Controle_Frequencia_Participacao.xls = StartIdea.Docs\Estagio\Gabriel\4-Controle_Frequencia_Participacao.xls
 		StartIdea.Docs\Estagio\Gabriel\5-Declaracao_Final_Estagio_Externo.doc = StartIdea.Docs\Estagio\Gabriel\5-Declaracao_Final_Estagio_Externo.doc
-		StartIdea.Docs\Estagio\Gabriel\6-Controle_Frequencia_Interno.xlsx = StartIdea.Docs\Estagio\Gabriel\6-Controle_Frequencia_Interno.xlsx
+		StartIdea.Docs\Estagio\Gabriel\6-Controle_Frequencia_Interno.xls = StartIdea.Docs\Estagio\Gabriel\6-Controle_Frequencia_Interno.xls
 		StartIdea.Docs\Estagio\Gabriel\7-Declaracao_Final_Estagio_Interno.doc = StartIdea.Docs\Estagio\Gabriel\7-Declaracao_Final_Estagio_Interno.doc
 	EndProjectSection
 EndProject
@@ -51,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elton", "Elton", "{DAF0EF94
 		StartIdea.Docs\Estagio\Elton\3-Fase_Participacao.doc = StartIdea.Docs\Estagio\Elton\3-Fase_Participacao.doc
 		StartIdea.Docs\Estagio\Elton\4-Controle_Frequencia_Participacao.xls = StartIdea.Docs\Estagio\Elton\4-Controle_Frequencia_Participacao.xls
 		StartIdea.Docs\Estagio\Elton\5-Declaracao_Final_Estagio_Externo.doc = StartIdea.Docs\Estagio\Elton\5-Declaracao_Final_Estagio_Externo.doc
-		StartIdea.Docs\Estagio\Elton\6-Controle_Frequencia_Interno.xlsx = StartIdea.Docs\Estagio\Elton\6-Controle_Frequencia_Interno.xlsx
+		StartIdea.Docs\Estagio\Elton\6-Controle_Frequencia_Interno.xls = StartIdea.Docs\Estagio\Elton\6-Controle_Frequencia_Interno.xls
 		StartIdea.Docs\Estagio\Elton\7-Declaracao_Final_Estagio_Interno.doc = StartIdea.Docs\Estagio\Elton\7-Declaracao_Final_Estagio_Interno.doc
 	EndProjectSection
 EndProject
