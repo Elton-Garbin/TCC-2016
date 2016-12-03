@@ -55,7 +55,7 @@ else
             <div class="col-xs-12">
                 <label>Descrição</label>
                 <div class="input-group">
-                    @Html.EditorFor(model => model.FiltroDescricao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.FiltroDescricao, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit">Buscar</button>
                     </span>

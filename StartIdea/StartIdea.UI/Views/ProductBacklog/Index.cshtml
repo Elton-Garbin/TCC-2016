@@ -15,7 +15,7 @@
         @Html.HiddenFor(model => model.SprintId)
         <div class="col-sm-8">
             <label>User Story</label>
-            @Html.EditorFor(model => model.UserStory, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.UserStory, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
         </div>
         <div class="col-sm-2">
             <label>Story Point</label>

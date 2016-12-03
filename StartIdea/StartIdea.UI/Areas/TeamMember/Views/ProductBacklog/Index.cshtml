@@ -41,7 +41,7 @@
         <div class="col-xs-12">
             <label>Descrição</label>
             <div class="input-group">
-                @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control" })
+                @Html.TextBox("contextoBusca", ViewBag.Filtro as string, new { @class = "form-control", @autofocus = "autofocus" })
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">Buscar</button>
                 </span>
