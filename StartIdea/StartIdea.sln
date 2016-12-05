@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StartIdea.Docs", "StartIdea
 		StartIdea.Docs\Diagrama-Classe.ncp = StartIdea.Docs\Diagrama-Classe.ncp
 		StartIdea.Docs\Diagrama-UseCase.vsdx = StartIdea.Docs\Diagrama-UseCase.vsdx
 		StartIdea.Docs\MER.vsdx = StartIdea.Docs\MER.vsdx
-		StartIdea.Docs\Monografia.docx = StartIdea.Docs\Monografia.docx
+		StartIdea.Docs\TCC.docx = StartIdea.Docs\TCC.docx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagramas-Sequencia", "Diagramas-Sequencia", "{66D7FB4B-29C0-4788-B116-6D58BCDD1F8E}"
